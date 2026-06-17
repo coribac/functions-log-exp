@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="blueGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0A1E4A"/>
+      <stop offset="100%" stop-color="#2F7FD3"/>
+    </linearGradient>
+    <linearGradient id="lightGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#2F7FD3"/>
+      <stop offset="100%" stop-color="#86BDF5"/>
+    </linearGradient>
+    <style>
+      .navy{fill:#071D49}.blue{fill:#2F7FD3}.light{fill:#6FADEA}.strokeN{stroke:#071D49}.strokeB{stroke:#2F7FD3}
+      .txt{font-family:'Arial','Tahoma',sans-serif;font-weight:800;direction:rtl;unicode-bidi:bidi-override;fill:#071D49}
+      .sub{font-family:'Arial','Tahoma',sans-serif;font-weight:500;direction:rtl;unicode-bidi:bidi-override;fill:#2F7FD3}
+      .math{font-family:'Times New Roman',serif;font-weight:700;fill:#2F7FD3}
+    </style>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#ffffff"/>
+
+  <!-- outer academic arc -->
+  <path d="M250 630 A350 350 0 0 1 950 630" fill="none" stroke="url(#blueGrad)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M290 650 A300 300 0 0 1 910 650" fill="none" stroke="#6FADEA" stroke-width="5" stroke-dasharray="18 18" opacity=".7"/>
+
+  <!-- math symbols -->
+  <text x="335" y="470" class="math" font-size="88">√x</text>
+  <text x="785" y="470" class="math" font-size="84">π</text>
+  <text x="750" y="590" class="math" font-size="44">a²+b²=c²</text>
+
+  <!-- small graph -->
+  <g fill="none" stroke="#071D49" stroke-width="8" stroke-linecap="round" opacity=".95">
+    <path d="M760 350 L760 520"/>
+    <path d="M710 500 L885 500"/>
+    <path d="M885 500 L862 482 M885 500 L862 518"/>
+    <path d="M760 350 L742 376 M760 350 L778 376"/>
+  </g>
+  <path d="M760 500 C810 490 825 430 850 370" fill="none" stroke="#2F7FD3" stroke-width="10" stroke-linecap="round"/>
+  <path d="M850 370 L850 500 L760 500" fill="none" stroke="#2F7FD3" stroke-width="4" stroke-dasharray="12 10" opacity=".7"/>
+
+  <!-- open book -->
+  <g transform="translate(0,20)">
+    <path d="M205 735 C335 675 480 715 600 805 C520 748 375 720 245 780 Z" fill="#071D49"/>
+    <path d="M995 735 C865 675 720 715 600 805 C680 748 825 720 955 780 Z" fill="#071D49"/>
+    <path d="M240 700 C365 650 495 690 600 765 C510 716 380 693 260 725 Z" fill="#2F7FD3" opacity=".9"/>
+    <path d="M960 700 C835 650 705 690 600 765 C690 716 820 693 940 725 Z" fill="#2F7FD3" opacity=".9"/>
+    <path d="M255 760 C390 725 505 755 600 820 C490 782 360 760 230 800 Z" fill="#0A1E4A"/>
+    <path d="M945 760 C810 725 695 755 600 820 C710 782 840 760 970 800 Z" fill="#0A1E4A"/>
+    <circle cx="600" cy="802" r="14" fill="#071D49"/>
+  </g>
+
+  <!-- compass integrated with letter idea -->
+  <g stroke="#071D49" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M500 675 L575 360 L650 675"/>
+    <path d="M535 545 L615 545"/>
+  </g>
+  <circle cx="575" cy="340" r="44" fill="#071D49"/>
+  <circle cx="575" cy="340" r="22" fill="#ffffff"/>
+  <rect x="562" y="270" width="26" height="48" rx="4" fill="#071D49"/>
+  <path d="M620 540 L645 540" stroke="#2F7FD3" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- central Arabic wordmark -->
+  <text x="600" y="670" text-anchor="middle" class="txt" font-size="205">أيلا</text>
+  <circle cx="545" cy="710" r="20" fill="#071D49"/>
+  <circle cx="600" cy="710" r="20" fill="#071D49"/>
+
+  <!-- graduation cap -->
+  <g transform="translate(600,235)">
+    <path d="M-115 45 L0 0 L115 45 L0 90 Z" fill="#071D49"/>
+    <path d="M-55 73 Q0 115 55 73 L55 115 Q0 150 -55 115 Z" fill="url(#lightGrad)"/>
+    <path d="M115 45 L155 75 L155 130" fill="none" stroke="#071D49" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="155" cy="132" r="10" fill="#071D49"/>
+  </g>
+
+  <!-- brand text -->
+  <text x="600" y="935" text-anchor="middle" class="txt" font-size="82">مدرسة أيلا للرياضيات</text>
+  <line x1="265" y1="990" x2="470" y2="990" stroke="#071D49" stroke-width="6" stroke-linecap="round"/>
+  <line x1="730" y1="990" x2="935" y2="990" stroke="#071D49" stroke-width="6" stroke-linecap="round"/>
+  <rect x="586" y="973" width="28" height="28" transform="rotate(45 600 987)" fill="#2F7FD3"/>
+  <text x="600" y="1065" text-anchor="middle" class="sub" font-size="48">تعلّم  ~  تفهّم  ~  تتفوّق</text>
+</svg>
