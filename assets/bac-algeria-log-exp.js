@@ -13,7 +13,7 @@ window.bacAlgeriaExams = [
   {
     id: "bac-2008-topic-2-exp-ln",
     title: "الموضوع الثاني - بكالوريا 2008",
-    branch: "all",
+    branch: "science",
     year: "2008",
     date: "2008",
     source: "user-image",
