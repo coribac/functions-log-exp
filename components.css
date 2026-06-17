@@ -907,6 +907,12 @@
   margin-bottom: 14px;
 }
 
+#bacView > .study-hero,
+#bacView > .dashboard-grid,
+#bacView > .bac-archive-panel {
+  display: none;
+}
+
 .bac-exam-grid {
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 }

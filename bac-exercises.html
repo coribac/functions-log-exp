@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بكالوريا الجزائر | الدوال الأسية واللوغارتمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0b0f0d;
+        --surface: #141a17;
+        --surface-2: #1c2320;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --text: #f0fdf4;
+        --muted: #94a3b8;
+        --primary: #00d68f;
+        --blue: #3b82f6;
+        --amber: #f59e0b;
+        --danger: #ef4444;
+        --shadow: rgba(0, 0, 0, 0.24);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Tajawal", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 24px));
+        margin: 0 auto;
+        padding: 20px 0 48px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        color: var(--primary);
+        font-weight: 900;
+        font-size: 13px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        margin-top: 4px;
+        font-size: clamp(28px, 5vw, 44px);
+        font-weight: 900;
+      }
+
+      .header p,
+      .muted {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .btn,
+      .filter-btn {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 8px 14px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 800;
+      }
+
+      .btn:hover,
+      .filter-btn:hover,
+      .filter-btn.active {
+        border-color: rgba(0, 214, 143, 0.4);
+        color: var(--primary);
+        background: rgba(0, 214, 143, 0.09);
+      }
+
+      .btn.primary {
+        border-color: transparent;
+        background: linear-gradient(135deg, var(--primary), #22c55e);
+        color: #04120c;
+      }
+
+      .btn.amber {
+        border-color: rgba(245, 158, 11, 0.32);
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--amber);
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: 0 16px 38px var(--shadow);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .stat {
+        padding: 14px;
+      }
+
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 6px;
+        color: var(--primary);
+        font-size: 26px;
+        font-weight: 900;
+      }
+
+      .weak-panel,
+      .filters {
+        padding: 14px;
+        margin-bottom: 14px;
+      }
+
+      .panel-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .panel-title h2 {
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .filter-stack {
+        display: grid;
+        gap: 13px;
+      }
+
+      .search-wrap {
+        position: relative;
+      }
+
+      .search-wrap input {
+        width: 100%;
+        min-height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 0 14px;
+        background: var(--surface-2);
+        color: var(--text);
+        outline: none;
+      }
+
+      .search-wrap input:focus {
+        border-color: rgba(0, 214, 143, 0.45);
+      }
+
+      .filter-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .filter-group > span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .filter-buttons,
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.6fr);
+        gap: 16px;
+      }
+
+      .list-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 0 2px;
+      }
+
+      .exercise-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .exercise-card {
+        width: 100%;
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+        text-align: start;
+      }
+
+      .exercise-card.active {
+        border-color: rgba(0, 214, 143, 0.5);
+        background: rgba(0, 214, 143, 0.08);
+      }
+
+      .exercise-card.tried {
+        border-color: rgba(245, 158, 11, 0.38);
+      }
+
+      .exercise-card.completed {
+        border-color: rgba(0, 214, 143, 0.42);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 25px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .badge.green {
+        background: rgba(0, 214, 143, 0.12);
+        color: var(--primary);
+      }
+
+      .badge.blue {
+        background: rgba(59, 130, 246, 0.12);
+        color: #60a5fa;
+      }
+
+      .badge.amber {
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--amber);
+      }
+
+      .reader {
+        min-height: 520px;
+        padding: 18px;
+      }
+
+      .reader-empty {
+        min-height: 420px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      .reader-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .reader-header h2 {
+        margin-top: 6px;
+        font-size: clamp(22px, 4vw, 32px);
+      }
+
+      .reader-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      .pdf-frame {
+        width: 100%;
+        min-height: 680px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface-2);
+      }
+
+      .method {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+        padding: 14px;
+        border: 1px solid rgba(59, 130, 246, 0.22);
+        border-radius: 14px;
+        background: rgba(59, 130, 246, 0.08);
+      }
+
+      .method h3 {
+        color: #93c5fd;
+      }
+
+      .method ol {
+        margin: 0;
+        padding-inline-start: 22px;
+        color: #dbeafe;
+        line-height: 1.9;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 820px) {
+        .header,
+        .reader-header {
+          flex-direction: column;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .main-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .reader-actions,
+        .reader-actions .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div>
+          <div class="eyebrow">Study OS - مدرسة إيلا للرياضيات</div>
+          <h1>باب تمارين البكالوريا</h1>
+          <p>تدرب على مواضيع الدوال الأسية واللوغارتمية حسب الشعبة والسنة والمحور.</p>
+        </div>
+        <a class="btn" href="index.html">العودة للتطبيق</a>
+      </header>
+
+      <section class="stats">
+        <article class="card stat">
+          <span>المواضيع المكتملة</span>
+          <strong><span id="statCompleted">0</span><small id="statTotal"> / 0</small></strong>
+        </article>
+        <article class="card stat">
+          <span>نسبة الإتقان</span>
+          <strong id="statRate">0%</strong>
+        </article>
+        <article class="card stat">
+          <span>حاولتها</span>
+          <strong id="statTried">0</strong>
+        </article>
+        <article class="card stat">
+          <span>آخر موضوع</span>
+          <strong id="statLast">-</strong>
+        </article>
+      </section>
+
+      <section class="card weak-panel">
+        <div class="panel-title">
+          <h2>المحاور الضعيفة</h2>
+        </div>
+        <div class="chip-row" id="weakAreasList">
+          <span class="muted">لم تحدد بعد. ابدأ بحل المواضيع لاكتشافها.</span>
+        </div>
+      </section>
+
+      <section class="card filters">
+        <div class="panel-title">
+          <h2>فلترة المواضيع</h2>
+          <button class="btn" type="button" id="globalResetFilters">إعادة ضبط الفلاتر</button>
+        </div>
+        <div class="filter-stack">
+          <div class="search-wrap">
+            <input id="searchInput" type="text" placeholder="ابحث في المواضيع..." />
+          </div>
+          <div class="filter-group">
+            <span>الشعبة</span>
+            <div class="filter-buttons" id="branchFilters"></div>
+          </div>
+          <div class="filter-group">
+            <span>السنة</span>
+            <div class="filter-buttons" id="yearFilters"></div>
+          </div>
+          <div class="filter-group">
+            <span>المحور</span>
+            <div class="filter-buttons" id="topicFilters"></div>
+          </div>
+          <div class="filter-group">
+            <span>الحالة</span>
+            <div class="filter-buttons" id="statusFilters"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="main-grid">
+        <aside>
+          <div class="list-head">
+            <h2>قائمة المواضيع</h2>
+            <span class="muted" id="resultsCount">0 موضوع</span>
+          </div>
+          <div class="exercise-list" id="exerciseList"></div>
+        </aside>
+
+        <main class="card reader" id="readerArea">
+          <div class="reader-empty">
+            <div>
+              <h2>اختر موضوعا للبدء</h2>
+              <p>اضغط على أي بطاقة من القائمة لعرض الملف وخيارات المتابعة.</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/bac-algeria-log-exp.js"></script>
+    <script>
+      const branchLabels = {
+        all: "كل الشعب",
+        science: "علوم تجريبية",
+        math: "رياضيات",
+        tech: "تقني رياضي",
+        management: "تسيير واقتصاد",
+      };
+
+      const topicLabels = {
+        exp: "الدالة الأسية",
+        ln: "الدالة اللوغارتمية",
+        equations: "معادلات ومتراجحات",
+        "study-functions": "دراسة الدوال",
+      };
+
+      const statusLabels = {
+        new: "جديد",
+        tried: "حاولته",
+        completed: "مكتمل",
+      };
+
+      const exercises = (window.bacAlgeriaExams || []).map((item, index) => ({
+        id: item.id || `bac-${index + 1}`,
+        title: item.title,
+        subtitle: `${branchLabels[item.branch] || "كل الشعب"} - ${item.year || item.date || ""}`,
+        branch: item.branch || "all",
+        year: item.year || item.date || "",
+        topics: item.tags || ["exp", "ln"],
+        text: item.summary || "",
+        file: item.file,
+        source: item.source || "assets",
+      }));
+
+      let selectedExercise = null;
+      let filters = {
+        branch: "all",
+        year: "all",
+        topic: "all",
+        status: "all",
+        search: "",
+      };
+
+      const progressKey = "ayla_log_exp_bac_archive_v1";
+      let progress = loadProgress();
+
+      const exerciseListEl = document.getElementById("exerciseList");
+      const readerAreaEl = document.getElementById("readerArea");
+      const branchFiltersEl = document.getElementById("branchFilters");
+      const yearFiltersEl = document.getElementById("yearFilters");
+      const topicFiltersEl = document.getElementById("topicFilters");
+      const statusFiltersEl = document.getElementById("statusFilters");
+      const searchInput = document.getElementById("searchInput");
+
+      function loadProgress() {
+        try {
+          return JSON.parse(localStorage.getItem(progressKey)) || {};
+        } catch {
+          return {};
+        }
+      }
+
+      function saveProgress() {
+        localStorage.setItem(progressKey, JSON.stringify(progress));
+      }
+
+      function getStatus(id) {
+        return progress[id]?.status || "new";
+      }
+
+      function setStatus(id, status) {
+        progress[id] = {
+          ...(progress[id] || {}),
+          status,
+          lastViewed: new Date().toISOString(),
+        };
+        saveProgress();
+        render();
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function branchMatches(exercise) {
+        return filters.branch === "all" || exercise.branch === "all" || exercise.branch === filters.branch;
+      }
+
+      function renderFilters() {
+        const years = [...new Set(exercises.filter(branchMatches).map((item) => item.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a));
+        const availableTopics = [...new Set(exercises.flatMap((item) => item.topics))];
+
+        branchFiltersEl.innerHTML = Object.entries(branchLabels)
+          .map(([key, label]) => `<button class="filter-btn ${filters.branch === key ? "active" : ""}" type="button" data-branch="${key}">${label}</button>`)
+          .join("");
+
+        yearFiltersEl.innerHTML = [
+          `<button class="filter-btn ${filters.year === "all" ? "active" : ""}" type="button" data-year="all">الكل</button>`,
+          ...years.map((year) => `<button class="filter-btn ${String(filters.year) === String(year) ? "active" : ""}" type="button" data-year="${year}">${year}</button>`),
+        ].join("");
+
+        topicFiltersEl.innerHTML = [
+          `<button class="filter-btn ${filters.topic === "all" ? "active" : ""}" type="button" data-topic="all">الكل</button>`,
+          ...availableTopics.map((topic) => `<button class="filter-btn ${filters.topic === topic ? "active" : ""}" type="button" data-topic="${topic}">${topicLabels[topic] || topic}</button>`),
+        ].join("");
+
+        statusFiltersEl.innerHTML = [
+          `<button class="filter-btn ${filters.status === "all" ? "active" : ""}" type="button" data-status="all">الكل</button>`,
+          ...Object.entries(statusLabels).map(([key, label]) => `<button class="filter-btn ${filters.status === key ? "active" : ""}" type="button" data-status="${key}">${label}</button>`),
+        ].join("");
+      }
+
+      function getFilteredExercises() {
+        return exercises.filter((exercise) => {
+          if (!branchMatches(exercise)) return false;
+          if (filters.year !== "all" && String(exercise.year) !== String(filters.year)) return false;
+          if (filters.topic !== "all" && !exercise.topics.includes(filters.topic)) return false;
+          if (filters.status !== "all" && getStatus(exercise.id) !== filters.status) return false;
+          if (filters.search) {
+            const query = filters.search.toLowerCase();
+            const text = `${exercise.title} ${exercise.subtitle} ${exercise.text}`.toLowerCase();
+            if (!text.includes(query)) return false;
+          }
+          return true;
+        });
+      }
+
+      function renderExerciseList() {
+        const filtered = getFilteredExercises();
+        document.getElementById("resultsCount").textContent = `${filtered.length} موضوع`;
+
+        if (!filtered.length) {
+          exerciseListEl.innerHTML = `
+            <article class="card exercise-card">
+              <h3>لا توجد مواضيع مطابقة</h3>
+              <p class="muted">غيّر الفلاتر أو أضف ملفات جديدة إلى assets/bac-algeria-log-exp.js.</p>
+            </article>
+          `;
+          return;
+        }
+
+        exerciseListEl.innerHTML = filtered
+          .map((exercise) => {
+            const status = getStatus(exercise.id);
+            return `
+              <button class="card exercise-card ${selectedExercise?.id === exercise.id ? "active" : ""} ${status}" type="button" data-exercise-id="${exercise.id}">
+                <div class="chip-row">
+                  <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || "كل الشعب")}</span>
+                  <span class="badge blue">${escapeHtml(exercise.year)}</span>
+                  ${status !== "new" ? `<span class="badge amber">${statusLabels[status]}</span>` : ""}
+                </div>
+                <h3>${escapeHtml(exercise.title)}</h3>
+                <p class="muted">${escapeHtml(exercise.text)}</p>
+                <div class="chip-row">
+                  ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
+                </div>
+              </button>
+            `;
+          })
+          .join("");
+      }
+
+      function renderReader() {
+        if (!selectedExercise) {
+          readerAreaEl.innerHTML = `
+            <div class="reader-empty">
+              <div>
+                <h2>اختر موضوعا للبدء</h2>
+                <p>اضغط على أي بطاقة من القائمة لعرض الملف وخيارات المتابعة.</p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        const exercise = selectedExercise;
+        readerAreaEl.innerHTML = `
+          <section class="reader-header">
+            <div>
+              <div class="chip-row">
+                <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || "كل الشعب")}</span>
+                <span class="badge blue">${escapeHtml(exercise.year)}</span>
+                ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
+              </div>
+              <h2>${escapeHtml(exercise.title)}</h2>
+              <p class="muted">${escapeHtml(exercise.text)}</p>
+            </div>
+          </section>
+          <div class="reader-actions">
+            <button class="btn amber" type="button" id="btnTried">حاولت الموضوع</button>
+            <button class="btn primary" type="button" id="btnCompleted">تمت المراجعة</button>
+            <a class="btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
+            <a class="btn" href="${escapeHtml(exercise.file)}" download>تحميل PDF</a>
+          </div>
+          <iframe class="pdf-frame" src="${escapeHtml(exercise.file)}" title="${escapeHtml(exercise.title)}"></iframe>
+          <article class="method">
+            <h3>طريقة العمل المقترحة</h3>
+            <ol>
+              <li>حدد مجال التعريف وشروط اللوغارتم قبل أي تحويل.</li>
+              <li>استخرج المشتقة أو التحويل المناسب للدالة الأسية/اللوغارتمية.</li>
+              <li>أنجز جدول التغيرات ثم اربط النتائج بالمطلوب في نص الموضوع.</li>
+              <li>بعد المحاولة، علّم الموضوع كمكتمل حتى تظهر إحصائياتك بدقة.</li>
+            </ol>
+          </article>
+        `;
+
+        document.getElementById("btnTried").addEventListener("click", () => setStatus(exercise.id, "tried"));
+        document.getElementById("btnCompleted").addEventListener("click", () => setStatus(exercise.id, "completed"));
+      }
+
+      function renderStats() {
+        const scoped = exercises.filter(branchMatches);
+        const completed = scoped.filter((item) => getStatus(item.id) === "completed").length;
+        const tried = scoped.filter((item) => getStatus(item.id) === "tried").length;
+        const rate = scoped.length ? Math.round((completed / scoped.length) * 100) : 0;
+
+        document.getElementById("statCompleted").textContent = completed;
+        document.getElementById("statTotal").textContent = ` / ${scoped.length}`;
+        document.getElementById("statRate").textContent = `${rate}%`;
+        document.getElementById("statTried").textContent = tried;
+
+        const last = Object.entries(progress)
+          .filter(([, data]) => data.lastViewed)
+          .sort((a, b) => new Date(b[1].lastViewed) - new Date(a[1].lastViewed))[0];
+        document.getElementById("statLast").textContent = last ? exercises.find((item) => item.id === last[0])?.title || "-" : "-";
+
+        const weakAreas = scoped
+          .flatMap((item) => item.topics.map((topic) => ({ topic, completed: getStatus(item.id) === "completed" })))
+          .reduce((acc, item) => {
+            acc[item.topic] ||= { total: 0, completed: 0 };
+            acc[item.topic].total += 1;
+            if (item.completed) acc[item.topic].completed += 1;
+            return acc;
+          }, {});
+
+        const chips = Object.entries(weakAreas)
+          .sort((a, b) => a[1].completed / a[1].total - b[1].completed / b[1].total)
+          .slice(0, 3);
+
+        document.getElementById("weakAreasList").innerHTML = completed
+          ? chips.map(([topic, stats]) => `<span class="badge amber">${topicLabels[topic] || topic}: ${stats.completed}/${stats.total}</span>`).join("")
+          : `<span class="muted">ابدأ بحل المواضيع لنكتشف محاور ضعفك.</span>`;
+      }
+
+      function render() {
+        renderFilters();
+        renderExerciseList();
+        renderReader();
+        renderStats();
+      }
+
+      branchFiltersEl.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-branch]");
+        if (!button) return;
+        filters.branch = button.dataset.branch;
+        filters.year = "all";
+        render();
+      });
+
+      yearFiltersEl.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-year]");
+        if (!button) return;
+        filters.year = button.dataset.year;
+        render();
+      });
+
+      topicFiltersEl.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-topic]");
+        if (!button) return;
+        filters.topic = button.dataset.topic;
+        render();
+      });
+
+      statusFiltersEl.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-status]");
+        if (!button) return;
+        filters.status = button.dataset.status;
+        render();
+      });
+
+      searchInput.addEventListener("input", (event) => {
+        filters.search = event.target.value;
+        render();
+      });
+
+      document.getElementById("globalResetFilters").addEventListener("click", () => {
+        filters = { branch: "all", year: "all", topic: "all", status: "all", search: "" };
+        searchInput.value = "";
+        render();
+      });
+
+      exerciseListEl.addEventListener("click", (event) => {
+        const card = event.target.closest("[data-exercise-id]");
+        if (!card) return;
+        selectedExercise = exercises.find((item) => item.id === card.dataset.exerciseId);
+        if (selectedExercise && getStatus(selectedExercise.id) === "new") {
+          progress[selectedExercise.id] = {
+            ...(progress[selectedExercise.id] || {}),
+            status: "tried",
+            lastViewed: new Date().toISOString(),
+          };
+          saveProgress();
+        }
+        render();
+        readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      render();
+    </script>
+  </body>
+</html>
