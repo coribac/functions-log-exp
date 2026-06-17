@@ -320,6 +320,51 @@
         background: var(--surface-2);
       }
 
+      .statement-reader {
+        display: grid;
+        gap: 16px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface-2);
+        color: #e7fff0;
+        line-height: 1.95;
+      }
+
+      .statement-block {
+        display: grid;
+        gap: 12px;
+      }
+
+      .statement-block + .statement-block {
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      .statement-block h3 {
+        color: var(--primary);
+        font-size: 18px;
+      }
+
+      .statement-block ol {
+        margin: 0;
+        padding-inline-start: 24px;
+      }
+
+      .formula {
+        width: fit-content;
+        max-width: 100%;
+        padding: 10px 14px;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.24);
+        color: #ffffff;
+        direction: ltr;
+        unicode-bidi: isolate;
+        font-family: Consolas, "Courier New", monospace;
+        font-weight: 800;
+      }
+
       .method {
         display: grid;
         gap: 10px;
@@ -491,6 +536,7 @@
         topics: item.tags || ["exp", "ln"],
         text: item.summary || "",
         file: item.file,
+        statement: item.statement || "",
         source: item.source || "assets",
       }));
 
@@ -641,6 +687,15 @@
         }
 
         const exercise = selectedExercise;
+        const resourceView = exercise.file
+          ? `<iframe class="pdf-frame" src="${escapeHtml(exercise.file)}" title="${escapeHtml(exercise.title)}"></iframe>`
+          : `<article class="statement-reader">${exercise.statement || "<p>نص التمرين غير متوفر بعد.</p>"}</article>`;
+        const resourceActions = exercise.file
+          ? `
+            <a class="btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
+            <a class="btn" href="${escapeHtml(exercise.file)}" download>تحميل PDF</a>
+          `
+          : "";
         readerAreaEl.innerHTML = `
           <section class="reader-header">
             <div>
@@ -656,10 +711,9 @@
           <div class="reader-actions">
             <button class="btn amber" type="button" id="btnTried">حاولت الموضوع</button>
             <button class="btn primary" type="button" id="btnCompleted">تمت المراجعة</button>
-            <a class="btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
-            <a class="btn" href="${escapeHtml(exercise.file)}" download>تحميل PDF</a>
+            ${resourceActions}
           </div>
-          <iframe class="pdf-frame" src="${escapeHtml(exercise.file)}" title="${escapeHtml(exercise.title)}"></iframe>
+          ${resourceView}
           <article class="method">
             <h3>طريقة العمل المقترحة</h3>
             <ol>
