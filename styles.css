@@ -14,6 +14,8 @@
   --danger: #ef4444;
   --shadow: rgba(0, 0, 0, 0.32);
   --font-arabic: "Tajawal", Tahoma, Arial, sans-serif;
+  --font-lesson: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", Georgia, serif;
+  --font-math: "Cambria Math", "STIX Two Math", "Latin Modern Math", "Times New Roman", serif;
   --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
 }
 
@@ -34,6 +36,10 @@ body {
     var(--bg);
   color: var(--ink);
   font-family: var(--font-arabic);
+  /* Improve Arabic text wrapping and avoid overflows */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 button,
@@ -85,6 +91,19 @@ textarea:focus {
   box-shadow: 0 0 0 4px rgba(0, 214, 143, 0.13);
 }
 
+/* Visible keyboard focus for buttons and tabs */
+button:focus-visible,
+a:focus-visible,
+.tab:focus-visible,
+.lesson-section-tab:focus-visible,
+.filter-btn:focus-visible,
+.branch-inline button:focus-visible,
+.bac-subtabs button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(0, 214, 143, 0.12);
+}
+
 h1,
 h2,
 h3,
@@ -96,6 +115,7 @@ h1,
 h2,
 h3 {
   line-height: 1.25;
+  overflow-wrap: break-word;
 }
 
 p {
@@ -382,6 +402,14 @@ body[data-role="teacher"] .main-nav {
   display: none;
 }
 
+.main-nav .tab.desktop-only {
+  display: inline-flex;
+}
+
+.main-nav .tab.mobile-only {
+  display: none;
+}
+
 @media (min-width: 821px) {
   .app-shell {
     display: grid;
@@ -561,6 +589,8 @@ body[data-role="teacher"] .main-nav {
 .section-title h2 {
   margin: 0;
   font-size: 22px;
+  padding-right: 12px;
+  border-right: 4px solid var(--primary);
 }
 
 .section-title span {
@@ -616,6 +646,105 @@ body[data-role="teacher"] .main-nav {
   }
 }
 
+/* Section color accents */
+#learnView .section-title h2,
+#moduleView .section-title h2 {
+  border-right-color: var(--amber);
+}
+
+#exercisesView .section-title h2,
+#solvedView .section-title h2 {
+  border-right-color: #60a5fa;
+}
+
+#bacView .section-title h2 {
+  border-right-color: #a855f7;
+}
+
+#progressView .section-title h2 {
+  border-right-color: var(--primary);
+}
+
+#learnView .kicker,
+#moduleView .kicker {
+  color: var(--amber);
+}
+
+#exercisesView .kicker,
+#solvedView .kicker {
+  color: #60a5fa;
+}
+
+#bacView .kicker {
+  color: #c084fc;
+}
+
+#progressView .kicker {
+  color: var(--primary);
+}
+
+/* BAC unified section */
+.bac-subtabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 9px;
+  margin: 0 0 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bac-subtabs::-webkit-scrollbar {
+  display: none;
+}
+
+.bac-subtabs button {
+  flex: 0 0 auto;
+  min-height: 40px;
+}
+
+.bac-panel {
+  display: none;
+}
+
+.bac-panel.active {
+  display: block;
+  animation: pageIn 220ms ease both;
+}
+
+.bac-intro {
+  margin-bottom: 14px;
+}
+
+.bac-iframe-wrapper {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 20px 50px var(--shadow);
+}
+
+.bac-iframe-wrapper iframe {
+  display: block;
+  width: 100%;
+  min-height: 760px;
+  border: 0;
+  background: transparent;
+}
+
+.progress-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.reset-progress-btn {
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
 @media (max-width: 820px) {
   .study-hero,
   .dashboard-grid,
@@ -624,20 +753,36 @@ body[data-role="teacher"] .main-nav {
     grid-template-columns: 1fr;
   }
 
+  .study-hero {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .study-hero p {
+    max-width: none;
+  }
+
+  .readiness-ring {
+    justify-self: center;
+  }
+
   .topbar {
     position: static;
   }
 
   .main-nav {
     position: fixed;
+    top: auto;
     bottom: 0;
     right: 0;
     left: 0;
     z-index: 30;
     width: 100%;
+    height: auto;
     margin: 0;
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
     border-radius: 18px 18px 0 0;
@@ -647,10 +792,23 @@ body[data-role="teacher"] .main-nav {
 
   .main-nav .tab {
     flex: 1 1 0;
+    width: auto;
+    min-width: 0;
     min-height: 48px;
-    padding: 0 8px;
+    padding: 0 6px;
     font-size: 12px;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .main-nav .tab.desktop-only {
+    display: none !important;
+  }
+
+  .main-nav .tab.mobile-only {
+    display: inline-flex;
   }
 
   .app-shell {
@@ -674,6 +832,14 @@ body[data-role="teacher"] .main-nav {
     width: 136px;
     height: 136px;
   }
+
+  .section-title h2 {
+    font-size: 20px;
+  }
+
+  .bac-iframe-wrapper iframe {
+    min-height: 820px;
+  }
 }
 
 @media (max-width: 520px) {
@@ -694,5 +860,38 @@ body[data-role="teacher"] .main-nav {
   .brand-logo {
     width: 50px;
     height: 50px;
+  }
+
+  .main-nav .tab {
+    min-height: 44px;
+    font-size: 11px;
+    padding: 0 4px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+    padding-right: 10px;
+    border-right-width: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .splash-screen {
+    transition: none;
+  }
+
+  .role-view.active,
+  .student-tab.active,
+  .bac-panel.active {
+    animation: none;
   }
 }

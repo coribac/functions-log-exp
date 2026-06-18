@@ -1,0 +1,1540 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمارين البكالوريا - الرياضيات</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/ayla_math_school_logo.svg" type="image/svg+xml">
+
+    <!-- MathJax for rendering math equations -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: {
+                scale: 1.25,
+                minScale: 1
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+        html.is-embed,
+        html.is-embed body {
+            background: #0b0f0d;
+        }
+        html.is-embed main {
+            max-width: none;
+            padding: 0;
+        }
+        html.is-embed .embed-shell {
+            width: 100%;
+            min-width: 0;
+            background: #0b0f0d;
+        }
+        html.is-embed .embed-panel {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+                #101713;
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+        html.is-embed .embed-shell {
+            gap: 16px;
+            align-items: flex-start;
+        }
+        html.is-embed .bg-white,
+        html.is-embed .bg-gray-50,
+        html.is-embed .hover\:bg-gray-100:hover {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+                #101713 !important;
+        }
+        html.is-embed .bg-brand-50 {
+            background: rgba(0, 214, 143, 0.08) !important;
+            border-color: rgba(0, 214, 143, 0.22) !important;
+        }
+        html.is-embed .border-gray-100,
+        html.is-embed .border-gray-200,
+        html.is-embed .border-gray-300 {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        html.is-embed .text-gray-500,
+        html.is-embed .text-gray-600,
+        html.is-embed .text-gray-700,
+        html.is-embed .text-gray-800 {
+            color: #f0fdf4 !important;
+        }
+        html.is-embed .text-brand-700,
+        html.is-embed .text-brand-900,
+        html.is-embed .text-brand-600 {
+            color: #00d68f !important;
+        }
+        html.is-embed label,
+        html.is-embed #exercise-title {
+            color: #f0fdf4 !important;
+        }
+        html.is-embed select {
+            background: #151d19 !important;
+            color: #f0fdf4 !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+        }
+        html.is-embed select:focus {
+            border-color: rgba(0, 214, 143, 0.55) !important;
+            box-shadow: 0 0 0 4px rgba(0, 214, 143, 0.13) !important;
+        }
+        html.is-embed #track-badge,
+        html.is-embed .rounded-full {
+            background: rgba(0, 214, 143, 0.1) !important;
+            color: #00d68f !important;
+            border: 1px solid rgba(0, 214, 143, 0.2);
+        }
+        html.is-embed .exercise-content {
+            color: #e8fff0;
+        }
+        html.is-embed .exercise-content .bg-gray-50,
+        html.is-embed .exercise-content .bg-brand-50 {
+            background: rgba(0, 214, 143, 0.07) !important;
+            border-color: rgba(0, 214, 143, 0.18) !important;
+        }
+        html.is-embed .mjx-container {
+            color: #f8fff9 !important;
+        }
+        html.is-embed ::-webkit-scrollbar-track {
+            background: #0b0f0d;
+        }
+        html.is-embed ::-webkit-scrollbar-thumb {
+            background: rgba(0, 214, 143, 0.35);
+        }
+        .exercise-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.15rem;
+            line-height: 2.2;
+            color: #1e293b;
+        }
+        .exercise-content p {
+            margin-bottom: 1rem;
+        }
+        .exercise-content li {
+            margin-bottom: 0.75rem;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        html.is-embed header,
+        html.is-embed footer {
+            display: none;
+        }
+    </style>
+    <script>
+        if (new URLSearchParams(location.search).get('embed') === '1') {
+            document.documentElement.classList.add('is-embed');
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-brand-700 text-white shadow-md py-6">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col items-center">
+            <h1 class="text-3xl font-extrabold mb-2 text-center">حوليات البكالوريا الجزائرية</h1>
+            <p id="app-subtitle" class="text-brand-100 text-lg">مادة الرياضيات - شعبة العلوم التجريبية</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="embed-shell flex-grow max-w-4xl mx-auto w-full px-4 py-8 flex flex-col md:flex-row gap-6">
+        
+        <!-- Sidebar Controls -->
+        <div class="w-full md:w-1/3 flex flex-col gap-4">
+            
+            <div class="embed-panel bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <label for="track-select" class="block text-lg font-bold text-gray-800 mb-3">
+                    اختر الشعبة:
+                </label>
+                <div class="relative mb-6">
+                    <select id="track-select" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 sm:text-sm rounded-xl bg-gray-50 border appearance-none font-semibold text-gray-700 cursor-pointer transition-all hover:bg-gray-100">
+                        <option value="science" selected>العلوم التجريبية</option>
+                        <option value="math">الرياضيات</option>
+                        <option value="tech_math">تقني رياضي</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-500">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+
+                <label for="year-select" class="block text-lg font-bold text-gray-800 mb-3">
+                    اختر دورة البكالوريا:
+                </label>
+                <div class="relative">
+                    <select id="year-select" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 sm:text-sm rounded-xl bg-gray-50 border appearance-none font-semibold text-gray-700 cursor-pointer transition-all hover:bg-gray-100">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-500">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Exercise Display Area -->
+        <div class="embed-panel w-full md:w-2/3 bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-gray-100 min-h-[500px]">
+            <div class="border-b border-gray-200 pb-4 mb-6 flex justify-between items-center">
+                <h2 id="exercise-title" class="text-2xl font-bold text-gray-800">
+                    <!-- Title injected here -->
+                </h2>
+                <span id="track-badge" class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-bold">علوم تجريبية</span>
+            </div>
+            
+            <div id="exercise-content" class="exercise-content tex2jax_process">
+                <!-- Content injected here -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm">
+        <p>منصة تفاعلية لعرض تمارين البكالوريا - مادة الرياضيات</p>
+    </footer>
+
+    <script>
+        const exercisesData = {
+            science: [
+                {
+                    id: "2024",
+                    title: "دورة 2024 - التمرين 16",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>يمثل الجدول المقابل تغيرات الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = xe^{-x+1} - 2 \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>احسب \(g(1)\) ثم استنتج إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ: \(f(x) = -2x + 3 - xe^{-x+1}\).</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\) (وحدة الطول \(2cm\)).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>ب) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -2x + 3\) مقارب مائل للمنحنى \((C_f)\).<br>ثم ادرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = g(x) - e^{-x+1}\).</li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) ، ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>بين أن \((C_f)\) يقبل مماساً \((T)\) موازياً للمستقيم \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>أ) أرسم \((T)\) و \((\Delta)\) و \((C_f)\).</li>
+                            <li>ب) عين قيم الوسيط الحقيقي \(m\) التي من اجلها يكون للمعادلة \(f(x) = -2x + m\) حلين مختلفين.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2023",
+                    title: "دورة 2023 - التمرين 17",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>التمثيل البياني للدالة \(x \mapsto 2x - 1\) و \((D)\) المستقيم ذو المعادلة \(y=1\).</p>
+                        <p>\(\alpha\) هي فاصلة نقطة تقاطع \((\Gamma)\) و \((D)\).</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8 mt-4">
+                            <li>بقراءة بيانية، حدد وضعية \((\Gamma)\) بالنسبة إلى \((D)\).</li>
+                            <li>الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ g(x) = (2x-1)e^{2x} - 1 \]
+                                </p>
+                                استنتج حسب قيم \(x\) إشارة \(g(x)\) ثم تحقق أن: \(0.6 < \alpha < 0.7\).
+                            </li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ: \(f(x) = (x-1)(e^{2x} - 1)\).</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي منسوب إلى معلم متعامد و متجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -x + 1\) مقارب مائل للمنحنى \((C_f)\).</li>
+                            <li>ب) ادرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = g(x)\).</li>
+                            <li>ب) استنتج أن \(f\) متناقصة تماما على \(]-\infty, \alpha]\) ومتزايدة تماما على \([\alpha, +\infty[\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>ج) بين أن \((C_f)\) يقبل مماساً \((T)\) موازياً للمستقيم \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>أ) عين نقط تقاطع \((C_f)\) مع محور الفواصل.</li>
+                            <li>ب) أرسم \((T)\) و \((\Delta)\) و \((C_f)\) (نأخذ \(f(1.4) \approx 6.2\) و \(f(\alpha) \approx -0.9\)).</li>
+                            <li>ج) ناقش بيانيا، وحسب قيم الوسيط الحقيقي \(m\) عدد حلول المعادلة \(f(x) = -x + m\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2022",
+                    title: "دورة 2022 - التمرين 18",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2022 - التمرين 18</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بتمثيلها البياني \((C_f)\) في المستوي منسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\) و \((T)\) مماس لـ \((C_f)\) في النقطة ذات الفاصلة \(0\) كما هو مبين في الشكل.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بقراءة بيانية: عين \(f(0)\) و \(\lim_{x \to -\infty} f(x)\) وأعط معادلة \((T)\).</li>
+                            <li>ناقش بيانيا، وحسب قيم الوسيط الحقيقي \(m\) عدد حلول المعادلة \(f(x) = x + m\).</li>
+                            <li>إذا علمت أن \(f(x) = (x^2 + a)e^x + b\): بين أن \(a=1\) و \(b=-1\).</li>
+                            <li>الدالة العددية \(g\) المعرفة على \(\mathbb{R}\) بـ: 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ g(x) = (x^2 + 1)e^{|x|} - 1 \]
+                                </p>
+                                و \((C_g)\) تمثيلها البياني في المعلم السابق.<br>بين أن الدالة \(g\) زوجية ثم اشرح كيفية إنشاء \((C_g)\) انطلاقا من \((C_f)\) ، ثم أنشئ \((C_g)\).
+                            </li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2021",
+                    title: "دورة 2021 - التمرين 20",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 + xe^{-x-1}\)</p>
+                        <p>و \((C_g)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>احسب \(g(-1)\).</li>
+                            <li>بقراءة بيانية، حدد حسب قيم \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) معرفة على \(\mathbb{R}\) بـ: \(f(x) = x - (x+1)e^{-x-1}\)</p>
+                        <p>و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>تحقق انه من اجل كل \(x\) من \(\mathbb{R}\): 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ f(x) = x \left[ 1 - \left(1 + \frac{1}{x}\right)e^{-x-1} \right] \]
+                                </p>
+                                احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).
+                            </li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = g(x)\).</li>
+                            <li>ب) استنتج أن الدالة \(f\) متزايدة تماما على \([-1, +\infty[\) ومتناقصة تماما على \(]-\infty, -1]\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) احسب \(\lim_{x \to +\infty} (f(x) - x)\) فسر النتيجة بيانيا.</li>
+                            <li>ب) ادرس وضعية \((C_f)\) بالنسبة للمستقيم \((\Delta)\) الذي معادلته \(y = x\).</li>
+                            <li>ج) بين أن \((C_f)\) يقبل مماساً \((T)\) موازياً للمستقيم \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>أ) بين أن \((C_f)\) يقطع محور الفواصل في نقطتين فاصلتاهما \(\alpha\) و \(\beta\) حيث \(-1.9 < \beta < -1.8\) و \(0.3 < \alpha < 0.4\).</li>
+                            <li>ب) ارسم المستقيمين \((\Delta)\) و \((T)\) ثم ارسم المنحنى \((C_f)\) على المجال \([-2, +\infty[\).</li>
+                            <li>\(h\) الدالة العددية معرفة على المجال \([-2, 2]\) بـ: 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ h(x) = -|x| + (|x| - 1)e^{|x|-1} \]
+                                </p>
+                                واليكن \((C_h)\) تمثيلها البياني في المعلم السابق.<br>
+                                أ) بين أن الدالة \(h\) زوجية.<br>
+                                ب) بين أنه من أجل كل \(x \in [-2, 0]\): \(h(x) = f(x)\).<br>
+                                ج) أشرح كيف يمكن رسم \((C_h)\) انطلاقا من \((C_f)\) ثم ارسمه.
+                            </li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2020",
+                    title: "دورة 2020 - التمرين 21",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>المنحنى \((\Gamma)\) الممثل للدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = 2x^2 + 2x - 2xe^x\).</p>
+                        <p>المستقيم \((\Delta)\) ذو المعادلة: \(y = x\) و \((\gamma)\) المنحنى الممثل للدالة: \(x \mapsto e^x\).</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>بقراءة بيانية، برر أنه من أجل عدد حقيقي \(x\): \(e^x - x > 0\).</li>
+                            <li>حدد تبعا لقيم العدد الحقيقي \(x\) إشارة \(g(x)\) علما ان : \(g(\alpha) = 0\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) معرفة على \(\mathbb{R}\) بـ: </p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = -1 + \frac{2e^x}{e^x - x} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن \(\lim_{x \to +\infty} f(x) = 1\) و احسب \(\lim_{x \to -\infty} f(x)\) فسر نتيجتي النهايتين هندسيا.</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ f'(x) = \frac{2e^x(1 - x)}{(e^x - x)^2} \]
+                                </p>
+                            </li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) اكتب معادلة لـ : \((T)\) المماس للمنحنى \((C_f)\) في النقطة \(A\) ذات الفاصلة \(0\).</li>
+                            <li>ب) بين أنه من أجل كل عدد حقيقي \(x\): \(f(x) - (2x + 1) = \frac{g(x)}{e^x - x}\).</li>
+                            <li>ج) استنتج الوضع النسبي للمنحنى \((C_f)\) و \((T)\) على \(\mathbb{R}\) ، ماذا تمثل النقطة \(A\) بالنسبة إلى \((C_f)\).</li>
+                            <li>بين أن المعادلة \(f(x) = 0\) تقبل حلا وحيدا \(\beta\) في المجال \(]-\infty, 0]\) ثم تحقق أن: \(-0.6 < \beta < -0.5\).</li>
+                            <li>أنشئ المماس \((T)\) والمستقيمين المقاربين ثم المنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2019",
+                    title: "دورة 2019 - التمرين 22",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2019 - التمرين 22</span></div>
+                        <p>المستوي منسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\) وحدة الطول هي \(2cm\).</p>
+                        <p>\((C_f)\) و \((C_g)\) التمثيلان البيانيان للدالتين \(f\) و \(g\) المعرفتين على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = e^x - \frac{1}{2}ex^2 \]
+                            \[ g(x) = e^x - ex \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أدرس اتجاه تغير الدالة \(g\).<br>ب) استنتج إشارة \(g(x)\) حسب قيم \(x\).</li>
+                            <li>أدرس اتجاه تغير الدالة \(f\).</li>
+                            <li>احسب كلا من \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\) ، ثم شكل جدول تغيرات \(f\).</li>
+                            <li>أدرس الوضع النسبي للمنحنيين \((C_f)\) و \((C_g)\) على \(\mathbb{R}\).</li>
+                            <li>أرسم على المجال \([0, 2]\) المنحنيين \((C_f)\) و \((C_g)\) في نفس المعلم (تعطى \(e^2 - 2e \approx 2\)).</li>
+                            <li>\(h\) دالة معرفة على المجال \([-2, 2]\) بـ: \(h(x) = \frac{1}{2}ex^2 - e^{|x|}\) و \((\Gamma)\) تمثيلها البياني في المعلم السابق.<br>أ) بين أن الدالة \(h\) زوجية.<br>ب) من اجل \(x \in [0, 2]\) احسب \(h(x) + f(x)\) واستنتج كيفية رسم \((\Gamma)\) إنطلاقا من \((C_f)\) ثم أرسمه.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2018",
+                    title: "دورة 2018 - التمرين 23",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على \(\mathbb{R}\) كما يلي: \(g(x) = 2 + (x - 1)e^{-x}\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} g(x)\) و \(\lim_{x \to +\infty} g(x)\).<br>ب) ادراس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>ج) بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(-0.38 < \alpha < -0.36\). استنتج اشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>لتكن \(f\) دالة عددية معرفة على \(\mathbb{R}\) بـ: \(f(x) = 2x + 1 - xe^{-x}\) واليكن \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).<br>ب) أحسب \(\lim_{x \to +\infty} [f(x) - (2x+1)]\) ثم فسر النتيجة بيانيا.<br>ج) ادرس الوضع النسبي للمنحنى \((C_f)\) والمستقيم \((\Delta)\) حيث: \(y = 2x + 1\).</li>
+                            <li>بين أنه من أجل كل \(x\) يكون \(f'(x) = g(x)\). استنتج اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>اكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة \(0\).</li>
+                            <li>ارسم \((T)\) ، \((\Delta)\) والمنحنى \((C_f)\) نأخذ \(f(\alpha) \approx 0.8\).</li>
+                            <li>عين عدد وإشارة حلول المعادلة \(x = (1 - m)e^x\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2017",
+                    title: "دورة 2017 - التمرين 24",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>نعتبر الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) كمايلي: \(f(x) = 2 - x^2 e^{1-x}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن \(\lim_{x \to +\infty} f(x) = 2\) و أعط تفسيرا هندسيا لهذه النتيجة ، ثم احسب \(\lim_{x \to -\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل \(x\) من \(\mathbb{R}\): \(f'(x) = x(x - 2)e^{1-x}\).</li>
+                            <li>ب) أدرس اتجاه تغير الدالة \(f\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة \(0\).</li>
+                        </ol>
+                        <div class="mb-6 mt-8"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>نعتبر الدالة العددية \(h\) المعرفة على \(\mathbb{R}\) كما يلي : \(h(x) = 1 - x e^{1-x}\)</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أنه من أجل كل \(x\) من \(\mathbb{R}\): \(h(x) \ge 0\). أدرس الوضع النسبي للمنحنى \((C_f)\) والمماس \((T)\).</li>
+                            <li>بين أن المعادلة \(f(x) = 0\) تقبل حلا وحيدا \(\alpha\) ، حيث \(-0.7 < \alpha < -0.6\).</li>
+                            <li>إنشئ المماس \((T)\) والمنحنى \((C_f)\) على المجال \([-1, +\infty[\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2016",
+                    title: "دورة 2016 - التمرين 26",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) معرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 + (x^2 + x - 1)e^{-x}\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أ) احسب \(\lim_{x \to +\infty} g(x)\) و \(\lim_{x \to -\infty} g(x)\).<br>ب) ادرس اتجاه تغير الدالة \(g\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلين أحدهما معدوم والآخر \(\alpha\) حيث: \(-1.52 < \alpha < -1.51\).<br>ب) استنتج إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) معرفة على \(\mathbb{R}\) بـ: \(f(x) = -x + (x^2 + 3x + 2)e^{-x}\)</p>
+                        <p class="mb-4">واليكن \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) احسب \(\lim_{x \to +\infty} f(x)\) و \(\lim_{x \to -\infty} f(x)\).<br>ب) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = -g(x)\).<br>ج) شكل جدول تغيرات الدالة \(f\) (نأخذ \(f(\alpha) \approx 0.38\)).<br>د) عين دون حساب \(\lim_{h \to 0} \frac{f(h) - f(0)}{h}\) وفسر هندسيا للنتيجة.</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -x\) مقارب مائل للمنحنى \((C_f)\) عند \(+\infty\).<br>ب) ادرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).<br>ج) بين أن \((C_f)\) يقبل نقطتي انعطاف يطلب تعيين احداثياهما.<br>د) ارسم \((\Delta)\) و \((C_f)\) على المجال \([-2, +\infty[\).<br>هـ) ناقش بيانيا وحسب قيم الوسيط الحقيقي \(m\) عدد وإشارة حلول المعادلة: \((m - x)e^x + (x^2 + 3x + 2) = 0\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2015",
+                    title: "دورة 2015 - التمرين 28",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 - 2x - e^{2x-2}\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس اتجاه تغير الدالة \(g\) على \(\mathbb{R}\).</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) في \(\mathbb{R}\) ، ثم تحقق أن : \(0.36 < \alpha < 0.37\).</li>
+                            <li>أستنتج إشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) كما يلي: \(f(x) = xe^{2x+2} - x + 1\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) بين أنه من أجل كل \(x\) من \(\mathbb{R}\) فإن: \(f'(x) = e^{2x+2} g(-x)\).<br>ب) أستنتج أن الدالة \(f\) متناقصة تماما على \([-\alpha, +\infty[\) ومتزايدة تماما على \(]-\infty, -\alpha]\).</li>
+                            <li>أحسب نهاية \(f\) عند \(-\infty\) وعند \(+\infty\) ، ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>احسب \(\lim_{x \to -\infty} [f(x) + x - 1]\) فسر النتيجة هندسيا.</li>
+                            <li>أدرس وضعية \((C_f)\) بالنسبة إلى المستقيم \((\Delta)\) الذي معادلته: \(y = -x + 1\).</li>
+                            <li>أنشئ \((\Delta)\) و \((C_f)\) على المجال \([-2, \frac{1}{2}]\) ، نأخذ \(f(-\alpha) \approx 0.1\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2014",
+                    title: "دورة 2014 - التمرين 29",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>نعتبر الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x+1)e^x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس تغيرات الدالة \(g\) ، ثم استنتج أنه من أجل كل عدد حقيقي \(x\): \(g(x) > 0\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>نعتبر الدالة \(f\) المعرفة على \(\mathbb{R}^*\) بـ: \(f(x) = x + \frac{x+1}{e^x - 1}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب نهايات الدالة \(f\) عند \(0^+\) ، \(0^-\) ، \(+\infty\) و \(-\infty\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x \ne 0\) : \(f'(x) = \frac{e^{2x} - 2e^x + 1 - xe^x}{(e^x - 1)^2}\).<br>ب) تحقق أن: \(e^{2x} - 2e^x + 1 - xe^x = (e^x - 1)(e^x - 1) - x(e^x - 1) - x\).<br>ج) استنتج إشارة \(f'(x)\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((d)\) ذو المعادلة \(y = x\) مقارب مائل لـ \((C_f)\) عند \(+\infty\) و أن المستقيم \((d')\) ذو المعادلة \(y = x - 1\) مقارب مائل لـ \((C_f)\) عند \(-\infty\).<br>ب) ادرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيمين \((d)\) و \((d')\).</li>
+                            <li>بين أن المعادلة \(f(x) = 0\) تقبل حلين في \(\mathbb{R}^*\) أحدهما \(\alpha\) حيث \(-1.8 < \alpha < -1.7\).</li>
+                            <li>ارسم المستقيمين \((d)\) و \((d')\) والمنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2013",
+                    title: "دورة 2013",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>نعتبر الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x-1)e^x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس اتجاه تغير الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) في \(\mathbb{R}\) ، ثم تحقق أن : \(1.27 < \alpha < 1.28\).<br>ب) استنتج إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>لتكن \(f\) الدالة المعرفة على \(\mathbb{R}^*\) كما يلي: \(f(x) = \frac{e^x - x}{x}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\) و \(\lim_{x \to 0} f(x)\) مفسرا النتيجة الأخيرة هندسيا.</li>
+                            <li>أ) بين أنه من أجل كل \(x\) من \(\mathbb{R}^*\) فإن: \(f'(x) = \frac{g(x)}{x^2}\).<br>ب) استنتج اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن \(f(\alpha) = e^\alpha\) ، استنتج حصرا للعدد \(f(\alpha)\).<br>ب) استنتج مما سبق وجود مستقيم مقارب مائل للمنحنى \((C_f)\) عند \(-\infty\) معادلة له: \(y = -1\).</li>
+                            <li>أدرس وضعية المنحنى \((C_f)\) بالنسبة إلى مستقيمه المقارب الأفقي.</li>
+                            <li>أنشئ \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2012",
+                    title: "دورة 2012 - التمرين 30",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>لتكن \(g\) الدالة المعرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 - xe^x\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>احسب \(\lim_{x \to -\infty} g(x)\) و \(\lim_{x \to +\infty} g(x)\).</li>
+                            <li>أدرس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(0.5 < \alpha < 0.6\).<br>ب) أستنتج إشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) الدالة المعرفة على المجال \(]-\infty, 2]\) كما يلي: \(f(x) = (x-1)e^x - x - 1\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\).</li>
+                            <li>لتكن \(f'\) مشتقة الدالة \(f\). بين أنه من أجل كل عدد حقيقي \(x\) من \(]-\infty, 2]\) فإن: \(f'(x) = g(x)\). أستنتج إشارة \(f'(x)\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن \(f(\alpha) = -\left(\frac{\alpha^2 + 1}{\alpha}\right)\) ثم استنتج حصراً للعدد \(f(\alpha)\).</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = -x - 1\) هو مستقيم مقارب مائل لـ \((C_f)\) بجوار \(-\infty\).<br>ب) أدرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>أ) بين أن المعادلة \(f(x) = 0\) تقبل حلين \(x_1\) و \(x_2\) حيث \(-1.6 < x_1 < -1.5\) و \(1.5 < x_2 < 1.6\).<br>ب) أنشئ \((\Delta)\) و \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2011",
+                    title: "دورة 2011 - التمرين 31",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>لتكن الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x+1)^2 - e^x\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>احسب نهايتي \(g\) عند \(+\infty\) و \(-\infty\).</li>
+                            <li>أدرس تغيرات الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلين في \(\mathbb{R}\) أحدهما معدوم والآخر \(\alpha\) حيث: \(-0.8 < \alpha < -0.7\).</li>
+                            <li>استنتج إشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>لتكن الدالة \(f\) المعرفة على \(\mathbb{R}^*\) بـ: \(f(x) = \frac{x e^x}{(e^x - 1)^2}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب نهايات الدالة \(f\) عند \(+\infty\) ، \(-\infty\) ، \(0^+\) ، \(0^-\) مفسراً النتائج هندسياً.</li>
+                            <li>بين أنه من أجل كل \(x \in \mathbb{R}^*\): \(f'(x) = \frac{e^x g(-x)}{(e^x - 1)^3}\).</li>
+                            <li>أدرس إتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن \(f(-\alpha) = \frac{\alpha}{(\alpha+1)^2 - 1}\).</li>
+                            <li>ارسم المنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2010",
+                    title: "دورة 2010 - التمرين 27",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2010 - التمرين 27</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ: \(f(x) = 3 - (x+1)e^{-x}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\) وفسر النتيجة هندسيا.</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = xe^{-x}\).<br>ب) ادرس اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>اكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة \(0\).</li>
+                            <li>بين أن المعادلة \(f(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(-0.9 < \alpha < -0.8\).</li>
+                            <li>ارسم المماس \((T)\) والمنحنى \((C_f)\) (نأخذ \(f(2) \approx 2.6\)).</li>
+                            <li>ناقش بيانيا وحسب قيم الوسيط الحقيقي \(m\) عدد وإشارة حلول المعادلة: \(f(x) = m\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2009",
+                    title: "دورة 2009 - التمرين 28",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) المعرفة على المجال \(]0, +\infty[\) بـ: \(g(x) = x^2 + 2 - 2\ln(x)\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس اتجاه تغير الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>استنتج أنه من أجل كل \(x \in ]0, +\infty[\) فإن: \(g(x) > 0\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(]0, +\infty[\) بـ: \(f(x) = x + \frac{2\ln(x)}{x}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to 0^+} f(x)\) وفسر النتيجة هندسيا، ثم احسب \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل \(x \in ]0, +\infty[\) فإن: \(f'(x) = \frac{g(x)}{x^2}\).<br>ب) استنتج اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = x\) مقارب مائل للمنحنى \((C_f)\) عند \(+\infty\).<br>ب) ادرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>ارسم \((\Delta)\) و \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2008",
+                    title: "دورة 2008 - التمرين 33",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>\(f\) الدالة العددية للمتغير الحقيقي \(x\) المعرفة على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = (ax+b)e^{-x} + 1 \]
+                        </p>
+                        <p>حيث \(a\) و \(b\) عددان حقيقيان و \((C_f)\) تمثيلها البياني في معلم متعامد و متجانس.</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8 mt-4">
+                            <li>عين \(a\) و \(b\) بحيث تكون النقطة \(A(-1; 1)\) تنتمي إلى \((C_f)\) ومعامل توجيه المماس عند \(A\) يساوي \(-e\).</li>
+                        </ol>
+
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>نعتبر الدالة العددية \(g\) للمتغير الحقيقي \(x\) المعرفة على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = (-x-1)e^{-x} + 1 \]
+                        </p>
+                        <p class="mb-4">و \((C_g)\) تمثيلها البياني في المعلم السابق.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) بين أن \(\lim_{x \to +\infty} g(x) = 1\) وفسر النتيجة بيانيا (يعطى \(\lim_{u \to -\infty} ue^u = 0\)).</li>
+                            <li>ب) أدرس تغيرات الدالة \(g\) ، ثم أنشئ جدول تغيراتها.</li>
+                            <li>ج) بين أن \((C_g)\) يقبل نقطة انعطاف \(I\) يطلب تعيين احداثييها.</li>
+                            <li>د) اكتب معادلة المماس للمنحنى \((C_g)\) عند النقطة \(I\).</li>
+                            <li>هـ) أرسم \((C_g)\).</li>
+                        </ol>
+
+                        <div class="mb-6 mt-8"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثالث (III):</span></div>
+                        <p>\(k\) الدالة المعرفة على \(\mathbb{R}\) بـ: \(k(x) = g(x^2)\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>باستعمال مشتقة دالة مركبة ، عين اتجاه تغير الدالة \(k\) ثم شكل جدول تغيراتها.</li>
+                        </ol>
+                    `
+                }
+            ],
+            
+            
+            math: [
+                {
+                    id: "2024_math",
+                    title: "دورة 2024 - التمرين 48",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>يمثل الجدول المقابل تغيرات الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = (8 - 4x)e^{x} + 16 \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>أثبت أن المعادلة \(g(x) = 0\) تقبل حلاً وحيداً \(\alpha\)، حيث: \(0.2 < \alpha < 0.3\).</li>
+                            <li>ثم استنتج حسب قيم \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = \frac{e^{x} + 4x}{e^{x} + 4} \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) ، ثم بين أن \(\lim_{x \to +\infty} f(x) = 1\) وفسرها هندسيا.</li>
+                            <li>أ) بين أنه من أجل \(x \in \mathbb{R}\):
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ f'(x) = \frac{g(x)}{(e^{x} + 4)^2} \]
+                                </p>
+                            </li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = x\) مقارب مائل لـ \((C_f)\) بجوار \(-\infty\).</li>
+                            <li>ب) أدرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>أ) أرسم \((\Delta)\) ثم \((C_f)\) (نأخذ \(f(\alpha) \approx 1.4\)).</li>
+                            <li>ب) عين بيانيا قيم الوسيط الحقيقي الموجب تماما \(m\) حتى تقبل المعادلة \(f(x) = \ln(m)\) حلين مختلفين.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2023_math",
+                    title: "دورة 2023 - التمرين 49",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>\(g\) هي الدالة المعرفة على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = 1 + (6x - 3)e^{-2x} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>أ) احسب \(\lim_{x \to -\infty} g(x)\) و \(\lim_{x \to +\infty} g(x)\).</li>
+                            <li>ب) أدرس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلاً وحيداً \(\alpha\) يحقق: \(0.7 < \alpha < 0.8\).</li>
+                            <li>ب) استنتج حسب قيم العدد الحقيقي \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = -x + 4 + (2x - 3)e^{x} \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\) (وحدة الطول \(2cm\)).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) احسب \(\lim_{x \to -\infty} f(x)\) ، ثم بين أن \(\lim_{x \to +\infty} f(x) = +\infty\).</li>
+                            <li>ب) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -x + 4\) مقارب مائل للمنحنى \((C_f)\) بجوار \(-\infty\).</li>
+                            <li>ج) أدرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) فإن: \(f'(x) = g(x)\).</li>
+                            <li>ب) استنتج أن \(f\) متناقصة على \(]-\infty, \alpha]\) ومتزايدة تماما على \([\alpha, +\infty[\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) أثبت أن المنحنى \((C_f)\) يقبل مماساً \((T)\) موازياً لـ \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>ب) ارسم \((\Delta)\) ، \((T)\) و \((C_f)\).</li>
+                            <li>ج) عين بيانيا قيم الوسيط الحقيقي \(m\) التي من أجلها تقبل المعادلة \(f(x) = -x + m\) حلين بالضبط.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2022_math",
+                    title: "دورة 2022 - التمرين 50",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2022 - التمرين 50</span></div>
+                        <p>الدالة المعرفة على \(]-\infty, 1[\) بـ: </p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = \frac{e^x - x^2}{x - 1} \]
+                        </p>
+                        <p>و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to 1^-} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(e^x - x > 0\).</li>
+                            <li>ب) بين أنه من أجل كل عدد حقيقي \(x \in ]-\infty, 1[\):
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ f'(x) = \frac{(x - 2)(e^x - x)}{(x - 1)^2} \]
+                                </p>
+                            </li>
+                            <li>ج) استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) احسب \(\lim_{x \to -\infty} (f(x) + x)\) وفسر النتيجة بيانيا.</li>
+                            <li>ب) أدرس وضعية \((C_f)\) بالنسبة للمستقيم \((\Delta)\) الذي معادلته: \(y = -x - 1\).</li>
+                            <li>أكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة 0.</li>
+                            <li>أ) بين أن المعادلة \(f(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(-0.8 < \alpha < -0.7\).</li>
+                            <li>ب) أنشئ \((\Delta)\) ، \((T)\) و \((C_f)\).</li>
+                            <li>ناقش بيانيا، وحسب قيم الوسيط الحقيقي \(m\) عدد وإشارة حلول المعادلة:
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ \frac{e^x - x^2 + x - 1}{x - 1} = mx \]
+                                </p>
+                            </li>
+                            <li>الدالة المعرفة على المجال \(]-\infty, 1[\) بـ:
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ g(x) = \frac{|e^x - x^2|}{x - 1} \]
+                                </p>
+                                و \((C_g)\) تمثيلها البياني في المعلم السابق.<br>اكتب \(g(x)\) دون رمز القيمة المطلقة ثم ارسم \((C_g)\).
+                            </li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2021_math",
+                    title: "دورة 2021 - التمرين 51",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>هي الدالة المعرفة على \(\mathbb{R}\) كما يلي: \(g(x) = (x^2 - 3)e^x + 3\)</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>أدرس تغيرات الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بيّن أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) يحقق: \(1.53 < \alpha < 1.54\).</li>
+                            <li>ب) احسب \(g(0)\) استنتج حسب قيم العدد الحقيقي \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = 3x + 1 + (x^2 - 2x - 1)e^x \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل \(x \in \mathbb{R}\): \(f'(x) = g(x)\).</li>
+                            <li>ب) استنتج ان \(f\) متزايدة على المجال \([\alpha, +\infty[\) و \(]-\infty, 0]\) ومتناقصة على المجال \([0, \alpha]\).</li>
+                            <li>ج) شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) المعادلة \(y = 3x + 1\) مقارب مائل لـ \((C_f)\) بجوار \(-\infty\).</li>
+                            <li>ب) أدرس وضعية \((C_f)\) بالنسبة إلى المستقيم \((\Delta)\).</li>
+                            <li>ج) بين ان \((C_f)\) يقطع محور الفواصل في نقطة وحيدة فاصلتها \(\beta\) حيث \(2.03 < \beta < 2.04\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2020_math",
+                    title: "دورة 2020 - التمرين 52",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالتان العدديتان \(g\) و \(h\) معرفتان على المجال \(]-\infty, 0]\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = -2e^x \quad , \quad h(x) = x(e^x + 1) \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>حدد إشارة كلا من \(g(x)\) و \(h(x)\) على المجال \(]-\infty, 0]\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) معرفة على المجال \(]-\infty, 0]\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = (x - 3)e^x + \frac{1}{2}x^2 \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) بين أنه من أجل كل \(x\) من المجال \(]-\infty, 0]\): \(f'(x) = g(x) + h(x)\).</li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) على المجال \(]-\infty, 0]\).</li>
+                            <li>احسب \(f(0)\) و \(\lim_{x \to -\infty} f(x)\) ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>بين أن المعادلة \(f(x) = 0\) تقبل حلا وحيدا \(\alpha\) في المجال \(]-\infty, 0]\) ثم تحقق أن \(-1.5 < \alpha < -1.4\).</li>
+                            <li>\((P)\) هو التمثيل البياني للدالة \(x \mapsto \frac{1}{2}x^2\) على المجال \(]-\infty, 0]\).<br>أ) احسب \(\lim_{x \to -\infty} [f(x) - \frac{1}{2}x^2]\) فسر النتيجة بيانيا.<br>ب) ادرس الوضع النسبي للمنحنيين \((C_f)\) و \((P)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2019_math",
+                    title: "دورة 2019 - التمرين 53",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(f_k\) المعرفة على \(\mathbb{R}\) كمايلي: \(f_k(x) = (x+1)^2 e^{-kx}\) حيث \(k\) وسيط حقيقي.</p>
+                        <p>ليكن \((C_k)\) تمثيلها البياني للدالة \(f_k\) في المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>بين أن جميع المنحنيات \((C_k)\) تمر من نقطتين ثابتتين يطلب تعيينهما.</li>
+                            <li>أحسب نهايتي الدالة \(f_k\) عند \(-\infty\) و \(+\infty\) (ناقش حسب قيم الوسيط الحقيقي \(k\)).</li>
+                            <li>أ) احسب \(f'_k(x)\) وحدد حسب قيم الوسيط الحقيقي \(k\) اتجاه تغير الدالة \(f_k\).<br>ب) شكل جدول تغيرات الدالة \(f_k\) من أجل \(k\) عدد حقيقي موجب تماما.</li>
+                            <li>ناقش وحسب قيم الوسيط الحقيقي \(k\) الأوضاع النسبية لـ \((C_k)\) و \((C_{k+1})\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) الدالة العددية المعرفة على \(\mathbb{R}\) بـ: \(f(x) = (x+1)^2 e^{-2x}\)<br>و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>شكل جدول تغيرات الدالة \(f\) ، ثم أرسم المنحنى \((C_f)\) على المجال \([-\frac{3}{2}, +\infty[\).</li>
+                            <li>أ) بين ان المعادلة \(f(x) = 1\) تقبل حلين أحدهما \(\alpha\) حيث : \(-1.28 < \alpha < -1.27\).<br>ب) عين قيم العدد الحقيقي \(m\) التي من أجلها تقبل المعادلة : \(\left| \frac{x+1}{e^x} \right| = \left| \frac{m+1}{e^m} \right|\) حلا وحيدا.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2018_math",
+                    title: "دورة 2018 - التمرين 54",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على المجال \(]0, +\infty[\) بـ: \(g(x) = (1+x+x^2)e^{\frac{1}{x}} - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>بين أنه من أجل كل \(x\) من المجال \(]0, +\infty[\): \(g'(x) = \frac{(x+1)(2x^2+1)}{x^2}e^{\frac{1}{x}}\) وأستنتج اتجاه تغير الدالة \(g\).</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(0.9 < \alpha < 1\). واستنتج إشارة \(g(x)\) على المجال \(]0, +\infty[\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) الدالة العددية المعرفة على \(]0, +\infty[\) كما يلي: \(f(x) = \frac{1}{x} + (1+x)e^{\frac{1}{x}}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أحسب \(\lim_{x \to 0^+} f(x)\) و \(\lim_{x \to +\infty} f(x)\).<br>ب) بين أنه من أجل كل عدد حقيقي \(x\) من المجال \(]0, +\infty[\): \(f'(x) = \frac{-g(x)}{x^2}\) واستنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن \(\lim_{x \to +\infty} (xe^{\frac{1}{x}} - x) = 1\) (يمكن وضع \(t = \frac{1}{x}\)) ثم استنتج ان المستقيم \((\Delta)\) ذو المعادلة \(y = x + 2\) مقارب للمنحنى \((C_f)\) بجوار \(+\infty\).</li>
+                            <li>\(h\) الدالة العددية والمعرفة على المجال \(]0, +\infty[\) كما يلي: \(h(x) = \frac{1}{x} - 1 + e^{\frac{1}{x}}\)<br>أ) أحسب \(\lim_{x \to +\infty} h(x)\) وادرس اتجاه تغير الدالة \(h\) واستنتج إشارة \(h(x)\) على المجال \(]0, +\infty[\).<br>ب) تحقق أن: \(f(x) - (x+2) = (1+x)h(x)\) واستنتج الوضعية النسبية لـ \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>أرسم المستقيم \((\Delta)\) و المنحنى \((C_f)\) (نأخذ \(f(\alpha) \approx 4.73\)).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2017_math",
+                    title: "دورة 2017 - التمرين 55",
+                    content: String.raw`
+                        <p>نعتبر الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) كما يلي: \(f(x) = (-x^3 + 2x^2)e^{-x+1}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\) استنتج وجود مستقيم مقارب للمنحنى \((C_f)\) يطلب تعيين معادلة له.<br>ب) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = x(x^2 - 5x + 4)e^{-x+1}\). ثم أستنتج إتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>أكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة 2.</li>
+                            <li>الدالة العددية \(h\) والمعرفة على المجال \([0, +\infty[\) كما يلي: \(h(x) = x^2e^{-x+2} - 4\). ادرس اتجاه تغير \(h\) ثم استنتج اشارة \(h(x)\) و حدد وضعية \((C_f)\) بالنسبة إلى \((T)\) على \([0, +\infty[\).</li>
+                            <li>إرسم المماس \((T)\) و المنحنى \((C_f)\) على المجال \([0, +\infty[\).</li>
+                            <li>نعتبر الوسيط الحقيقي \(m\) والمعادلة ذات المجهول الحقيقي \(x\) الموجب: \(f(x) = m(x - 2)\). ناقش بيانيا وحسب قيم \(m\) عدد حلول المعادلة.</li>
+                            <li>\(g\) الدالة العددية والمعرفة على \(\mathbb{R}\) بـ: \(g(x) = f(|x|)\). اعتمادا على السؤال رقم (1) شكل جدول تغيرات الدالة \(g\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2016_math",
+                    title: "دورة 2016 - التمرين 57",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>دالة عددية \(\varphi\) معرفة على \(\mathbb{R}\) كمايلي: \(\varphi(x) = (x^2 - x + 1)e^{-x+1} - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أ) احسب \(\lim_{x \to -\infty} \varphi(x)\) و \(\lim_{x \to +\infty} \varphi(x)\).<br>ب) ادرس اتجاه تغير الدالة \(\varphi\) و شكل جدول تغيراتها.</li>
+                            <li>تبيان أن المعادلة \(\varphi(x) = 0\) تقبل حلا وحيدا \(\alpha\) يختلف عن 1 ، ثم تحقق أن \(2.79 < \alpha < 2.80\).</li>
+                            <li>استنتجاج إشارة \(\varphi(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) و \(g\) الدالتان المعرفتان على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = (2x - 1)e^{-x+1} \quad , \quad g(x) = \frac{2x - 1}{x^2 - x + 1} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) حساب نهايات الدالة \(f\).<br>ب) ادرس اتجاه تغير الدالة \(f\) و شكل جدول تغيراتها.</li>
+                            <li>بين أن للمنحنيين \((C_f)\) و \((C_g)\) مماسا مشتركا \((T)\) عند النقطة ذات الفاصلة 1 ثم جد معادلة له.</li>
+                            <li>ارسم المماس \((T)\) والمنحنى \((C_f)\).</li>
+                            <li>أ) بين أن من أجل كل عدد حقيقي \(x\): \(f(x) - g(x) = \frac{(2x - 1)\varphi(x)}{x^2 - x + 1}\).<br>ب) ادرس اشارة الفرق واستنتج الوضع النسبي لـ \((C_f)\) و \((C_g)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2015_math",
+                    title: "دورة 2015 - التمرين 58",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2015 - التمرين 58</span></div>
+                        <p>الدالة \(f\) المعرفة بـ : \(f(0) = 0\) ومن أجل كل عدد حقيقي \(x\) من المجال \(\mathbb{R}^*\) : \(f(x) = (x-1)e^{\frac{1}{x}}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أدرس استمرارية الدالة \(f\) عند 0 من اليسار.</li>
+                            <li>أحسب \(\lim_{x \to 0^-} \frac{f(x)}{x}\) وفسر النتيجة هندسيا.</li>
+                            <li>أ) أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).<br>ب) أدرس اتجاه تغير الدالة \(f\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن \(\lim_{x \to -\infty} [f(x) - x] = 0\). استنتج ان المنحنى \((C_f)\) يقبل مستقيما مقاربا مائلا \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>الدالة \(g\) المعرفة على \(]-\infty, 0[\) بـ: \(g(x) = \frac{f(x)}{x}\).<br>أ) أحسب \(\lim_{x \to -\infty} g(x)\). ب) أدرس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) من المجال \(]-\infty, 0[\) : \(f(x) - x > 0\).<br>ب) استنتج وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).<br>ج) أنشئ المنحنى \((C_f)\).</li>
+                            <li>\(m\) عدد حقيقي ، \(h_m\) الدالة ذات المتغير الحقيقي \(x\) المعرفة على \(]-\infty, 0[\) بـ: \(h_m(x) = xe^{\frac{1}{x}} - mx\).<br>أ) أحسب \(h'_m(x)\).<br>ب) باستعمال \((C_f)\) ، ناقش بيانيا وحسب الوسيط الحقيقي \(m\) ، عدد حلول المعادلة: \(h'_m(x) = 0\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2014_math",
+                    title: "دورة 2014 - التمرين 59",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) معرفة على \(\mathbb{R}\) بـ: \(g(x) = (2-x)e^x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس تغيرات الدالة \(g\).</li>
+                            <li>بين أن للمعادلة \(g(x) = 0\) في \(\mathbb{R}\) حلان \(\alpha\) و \(\beta\) حيث: \(-1.2 < \alpha < -1.1\) و \(1.8 < \beta < 1.9\).</li>
+                            <li>استنتج اشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) معرفة على \(\mathbb{R}\) بـ: \(f(x) = \frac{e^x - 1}{e^x - x}\)</p>
+                        <p class="mb-4">و \((C_f)\) منحنى الدالة \(f\) في المستوي المنسوب إلى المعلم المتعامد والمتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب نهاية الدالة \(f\) عند \(-\infty\) و \(+\infty\) وفسر النتيجتين هندسيا.</li>
+                            <li>بين أنه من أجل \(x \in \mathbb{R}\) : \(f'(x) = \frac{g(x)}{(e^x - x)^2}\) و استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن \(f(\alpha) = \frac{1}{\alpha - 1}\) واستنتج حصرا للعددين \(f(\alpha)\) و \(f(\beta)\).</li>
+                            <li>احسب \(f(1)\) ، ثم أرسم المنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2013_math",
+                    title: "دورة 2013 - التمرين 60",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) معرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 + (x^2 - 1)e^{-x}\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} g(x)\) و \(\lim_{x \to +\infty} g(x)\).<br>ب) أدرس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلين في \(\mathbb{R}\). تحقق أن أحدهما معدوم والآخر \(\alpha\) حيث : \(-0.8 < \alpha < -0.7\).<br>ب) استنتج اشارة \(g(x)\) ، حسب قيم العدد الحقيقي \(x\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) معرفة على \(\mathbb{R}\) بـ: \(f(x) = x - (x+1)^2 e^{-x}\) و \((C_f)\) منحنى الدالة \(f\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).<br>ب) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = x\) مقارب مائل للمنحنى \((C_f)\) عند \(+\infty\).<br>ج) أدرس وضعية المنحنى \((C_f)\) بالنسبة إلى المستقيم \((\Delta)\).</li>
+                            <li>أ) بين أن من أجل كل عدد حقيقي \(x\): \(f'(x) = g(x)\).<br>ب) شكل جدول تغيرات الدالة \(f\) على \(\mathbb{R}\) نأخذ: \(f(\alpha) \approx -0.9\).</li>
+                            <li>أ) بين أن المنحنى \((C_f)\) يقبل مماسين ، معامل توجيه كل منهما يساوي 1 يطلب تعيين معادلتيهما.<br>ب) مثل \((\Delta)\) والمماسين والمنحنى \((C_f)\).<br>ج) ناقش بيانيا، وحسب قيم الوسيط الحقيقي \(m\)، عدد وإشارة حلول المعادلة : \((x+1)^2 + me^x = 0\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2012_math",
+                    title: "دورة 2012 - التمرين 61",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>هي الدالة المعرفة على \(\mathbb{R}\) كمايلي: \(g(x) = 2 - xe^x\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس تغيرات الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) ، حيث \(0.8 < \alpha < 0.9\).</li>
+                            <li>عين حسب قيم \(x\) ، اشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) هي الدالة المعرفة على \(\mathbb{R}\) كمايلي: \(f(x) = \frac{2x+2}{e^x+2}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن \(\lim_{x \to +\infty} f(x) = 0\) فسر النتيجة بيانيا.</li>
+                            <li>أ) احسب \(\lim_{x \to -\infty} f(x)\).<br>ب) بين أن المستقيم \((\Delta')\) ذو المعادلة : \(y = x+1\) مقارب لـ \((C_f)\) عند \(-\infty\).</li>
+                            <li>ادرس وضعية \((C_f)\) بالنسبة إلى كل من \((\Delta)\) و \((\Delta')\) حيث \((\Delta)\) هو المستقيم ذو المعادلة \(y=x\).</li>
+                            <li>أ) بين أنه من أجل كل \(x \in \mathbb{R}\) : \(f'(x) = \frac{2g(x)}{(e^x+2)^2}\) ثم استنتج اتجاه تغير الدالة \(f\).<br>ب) بين أن \(f(\alpha) = \alpha\) ، ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>أرسم \((\Delta)\) و \((\Delta')\) و \((C_f)\).</li>
+                            <li>ناقش ، بيانيا ، حسب قيم الوسيط الحقيقي \(m\) ، عدد وإشارة حلول المعادلة \(f(x) = f(m)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2011_math",
+                    title: "دورة 2011 - التمرين 62",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = e^x - x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس اتجاه تغير الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>استنتج أنه من أجل كل عدد حقيقي \(x\) : \(g(x) \ge 0\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>نعتبر الدالة \(f\) المعرفة على \(]-\infty, 1[\) بـ: \(f(x) = \frac{x e^x}{e^x - e}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to 1^-} f(x)\) مفسرا النتيجة الأخيرة هندسيا.</li>
+                            <li>أ) بين أنه من أجل كل \(x \in ]-\infty, 1[\) : \(f'(x) = \frac{e^{x+1} g(x-1)}{(e^x - e)^2}\).<br>ب) استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>اكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة 0.</li>
+                            <li>أ) عين الأعداد الحقيقية \(a\) ، \(b\) ، \(c\) بحيث يكون من أجل كل \(x \in ]-\infty, 1[\) : \(f(x) = ax+b + \frac{cx}{e^{x-1} - 1}\).<br>ب) استنتج أن المستقيم \((\Delta)\) ذا المعادلة \(y = -x\) مقارب مائل لـ \((C_f)\) بجوار \(-\infty\).<br>ج) ادرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>ارسم \((\Delta)\) و \((T)\) و \((C_f)\).</li>
+                            <li>\(h\) الدالة المعرفة على \(\mathbb{R}^*\) بـ: \(h(x) = f(1-|x|)\) و \((C_h)\) تمثيلها البياني.<br>أ) بين أن \(h\) زوجية.<br>ب) اشرح كيف يتم رسم \((C_h)\) انطلاقا من \((C_f)\) ثم ارسمه.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2010_math",
+                    title: "دورة 2010 - الموضوع الأول",
+                    content: String.raw`
+                        <p class="text-sm font-bold text-brand-700 mb-4">بكالوريا الجزائر - شعبة رياضيات - الموضوع الأول</p>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = (3-x)e^x - 3 \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس تغيرات الدالة \(g\).</li>
+                            <li>بين أن المعادلة \(g(x)=0\) تقبل في \(\mathbb{R}\) حلين أحدهما معدوم والآخر \(\alpha\) حيث: \(2.82 < \alpha < 2.83\).</li>
+                            <li>استنتج إشارة \(g(x)\) حسب قيم \(x\).</li>
+                        </ol>
+
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) كما يلي:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[
+                            \begin{cases}
+                            f(x)=\dfrac{x^3}{e^x-1}, & x \ne 0 \\
+                            f(0)=0
+                            \end{cases}
+                            \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن الدالة \(f\) تقبل الاشتقاق عند \(x_0=0\)، ثم اكتب معادلة للمماس \((T)\) لـ \((C_f)\) عند المبدأ \(O\).</li>
+                            <li>أ) بين أن \(\lim_{x \to +\infty} x^3e^{-x}=0\)، ثم احسب \(\lim_{x \to +\infty} f(x)\) و \(\lim_{x \to -\infty} f(x)\).</li>
+                            <li>ب) بين أنه من أجل \(x \ne 0\) فإن: \(f'(x)=\frac{x^2}{(e^x-1)^2}g(x)\).</li>
+                            <li>ج) تحقق أن \(f(\alpha)=\alpha^2(3-\alpha)\)، ثم عين حصرا له.</li>
+                            <li>د) أنشئ جدول تغيرات الدالة \(f\).</li>
+                            <li>احسب \(f(x)+x^3\) واستنتج الوضعية النسبية لـ \((C_f)\) و \((C)\) منحنى الدالة \(x \mapsto -x^3\). بين أن \(\lim_{x \to -\infty}[f(x)+x^3]=0\)، وفسر النتيجة هندسيا.</li>
+                            <li>أنشئ في نفس المعلم المماس \((T)\) والمنحنيين \((C)\) و \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2009_math",
+                    title: "دورة 2009 - التمرين 59",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = 1 + (x - 1)e^x\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس اتجاه تغير الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث \(-0.28 < \alpha < -0.27\).</li>
+                            <li>استنتج إشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) بـ: \(f(x) = x + 2 - (x - 2)e^x\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = -g(x)\).<br>ب) استنتج اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((d)\) ذا المعادلة \(y = x + 2\) مقارب مائل للمنحنى \((C_f)\) بجوار \(-\infty\).<br>ب) ادرس وضعية \((C_f)\) بالنسبة إلى \((d)\).</li>
+                            <li>ارسم \((d)\) و \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2008_math",
+                    title: "دورة 2008 - الموضوع الأول",
+                    content: String.raw`
+                        <p class="text-sm font-bold text-brand-700 mb-4">بكالوريا الجزائر - شعبة رياضيات - الموضوع الأول</p>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>\(f\) دالة عددية معرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = x - 1 + \frac{4}{e^x + 1} \]
+                        </p>
+                        <p class="mb-4">وليكن \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس تغيرات الدالة \(f\).</li>
+                            <li>بين ان \((C_f)\) يقبل نقطة انعطاف \(\omega\) واكتب معادلة لمماس \((C_f)\) عندها. ثم بين ان \(\omega\) مركز تناظر لـ \((C_f)\).</li>
+                            <li>أحسب \(\lim_{x \to -\infty} [f(x) - (x+3)]\) و \(\lim_{x \to +\infty} [f(x) - (x-1)]\). استنتج ان \((C_f)\) يقبل مقاربين يطلب تعيين معادلة كل منهما.</li>
+                            <li>بين ان \((C_f)\) يقطع محور الفواصل في نقطة وحيدة \(x_0 \in ]-2.77; -2.76[\). احسب \(f(1)\) و \(f(-1)\) (تدور النتائج إلى \(10^{-2}\)) ثم ارسم \((C_f)\) ومستقيميه المقاربين.</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(g\) دالة عددية معرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = -x + 3 - \frac{4}{e^x + 1} \]
+                        </p>
+                        <p class="mb-4">واليكن \((C_g)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أنه من أجل كل عدد حقيقي \(x\) فإن \(g(x) = f(-x)\).</li>
+                            <li>استنتج أنه يوجد تحويل نقطي بسيط يحول \((C_f)\) إلى \((C_g)\).</li>
+                            <li>أنشئ \((C_g)\) في نفس المعلم السابق دون دراسة \(g\).</li>
+                        </ol>
+                    `
+                }
+            ],
+            
+            tech_math: [
+                {
+                    id: "2024_tech",
+                    title: "دورة 2024 - التمرين 34",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>التمثيل البياني للدالة \(h\) المعرفة على \(\mathbb{R}\) بـ: \(h(x) = e^{-x}\) و \((D)\) المستقيم ذي المعادلة \(y = x + 2\) و \(\alpha\) فاصلة نقطة تقاطع \((C_h)\) و \((D)\) كما في الشكل المقابل.</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8 mt-4">
+                            <li>بقراءة بيانية: حدد حسب قيم العدد الحقيقي \(x\) إشارة \(g(x)\) حيث:
+                            <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                \[ g(x) = e^{-x} - x - 2 \]
+                            </p>
+                            </li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = -x + (x+1)e^{x} \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\) (وحدة الطول \(2cm\)).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) ، ثم بين أن \(\lim_{x \to +\infty} f(x) = +\infty\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) فإن: \(f'(x) = -g(-x) e^{x}\).</li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -x\) مقارب مائل للمنحنى \((C_f)\) بجوار \(-\infty\).</li>
+                            <li>ب) أدرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>بين أن المنحنى \((C_f)\) يقبل مماساً \((T)\) موازياً لـ \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>أ) أرسم \((\Delta)\) ، \((T)\) و \((C_f)\) (نأخذ \(\alpha = -0.5\)).</li>
+                            <li>ب) عين بيانيا قيم الوسيط الحقيقي \(m\) التي من أجلها تقبل المعادلة \(f(x) = -x - e^m\) حلين مختلفين.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2023_tech",
+                    title: "دورة 2023 - التمرين 35",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الجدول المقابل يمثل تغيرات الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = -1 + (2x - 1)e^{x} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>أثبت أن المعادلة \(g(x) = 0\) تقبل حلاً وحيداً \(\alpha\)، حيث \(0.7 < \alpha < 0.8\).</li>
+                            <li>استنتج حسب قيم \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = -x + 4 + (2x - 3)e^{x} \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) احسب \(\lim_{x \to -\infty} f(x)\) ، ثم بين أن \(\lim_{x \to +\infty} f(x) = +\infty\).</li>
+                            <li>ب) بين أن المستقيم \((\Delta)\) ذو المعادلة: \(y = -x + 4\) مقارب مائل للمنحنى \((C_f)\) بجوار \(-\infty\).</li>
+                            <li>ج) أدرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) فإن: \(f'(x) = g(x)\).</li>
+                            <li>ب) استنتج أن \(f\) متناقصة على \(]-\infty, \alpha]\) ومتزايدة تماما على \([\alpha, +\infty[\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) أثبت أن المنحنى \((C_f)\) يقبل مماساً \((T)\) موازياً لـ \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>ب) ارسم \((\Delta)\) ، \((T)\) و \((C_f)\).</li>
+                            <li>ج) عين بيانيا قيم الوسيط الحقيقي \(m\) التي من أجلها تقبل المعادلة \(f(x) = -x + m\) حلين بالضبط.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2022_tech",
+                    title: "دورة 2022 - التمرين 36",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>المستوي منسوب إلى معلم متعامد و متجانس \((O; \vec{i}, \vec{j})\). \((\Gamma)\) التمثيل البياني للدالة \(x \mapsto e^{-x}\) و \((C_g)\) التمثيل البياني للدالة \(g\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ g(x) = \frac{x^2 + 2x - 1}{(x^2 + 1)^2} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بقراءة بيانية ، حدد حسب قيم العدد الحقيقي \(x\) اشارة \(g(x) - e^{-x}\).</li>
+                            <li>تحقق حسابيا أن \(0.7 < \alpha < 0.8\).</li>
+                        </ol>
+
+                        <div class="mb-6 mt-8"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) دالة معرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = \frac{x + 1}{x^2 + 1} - e^{-x} \]
+                        </p>
+                        <p>و \((C_f)\) تمثيلها البياني في معلم متعامد و متجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أحسب \(\lim_{x \to -\infty} f(x)\) ثم احسب \(\lim_{x \to +\infty} f(x)\) وفسر النتيجة بيانيا.</li>
+                            <li>أ) بين أنه من اجل كل عدد حقيقي \(x\): \(f'(x) = g(x) - e^{-x}\).</li>
+                            <li>ب) استنتج اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>أ) أحسب \(\lim_{x \to +\infty} [f(x) - e^{-x}]\) وفسر النتيجة بيانيا.</li>
+                            <li>ب) أدرس الوضعية النسبية للمنحنيين \((C_f)\) و \((\Gamma)\).</li>
+                            <li>أ) أكتب معادلة لـ \((T)\) مماس \((C_f)\) عند النقطة ذات الفاصلة \(0\).</li>
+                            <li>ب) أنشئ \((\Gamma)\) و \((T)\) ثم \((C_f)\) (نأخذ \(f(\alpha) = -0.6\)).</li>
+                            <li>ج) ناقش بیانیا و حسب قيم الوسيط الحقيقي \(m\) عدد واشارة حلول المعادلة : \(f(x) - m = 0\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2021_tech",
+                    title: "دورة 2021 - التمرين 37",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) المعرفة على المجال \([0, +\infty[\) بـ: \(g(x) = x^2 - 5 + e^{x-1}\)</p>
+                        <ol class="list-decimal list-inside space-y-3 mb-8">
+                            <li>بين أن الدالة \(g\) متزايدة تماما على المجال \([0, +\infty[\).</li>
+                            <li>أ) بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) حيث : \(1.71 < \alpha < 1.72\).</li>
+                            <li>ب) استنتج حسب قيم العدد الحقيقي الموجب \(x\) إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة العددية \(f\) معرفة على المجال \([0, +\infty[\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = x + 1 + (-x^2 - 2x + 3)e^{1-x} \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) من المجال \([0, +\infty[\): \(f'(x) = g(x)e^{1-x}\).</li>
+                            <li>ب) استنتج ان الدالة \(f\) متزايدة تماما على المجال \([\alpha, +\infty[\) ومتناقصة تماما على المجال \([0, \alpha]\).</li>
+                            <li>ج) بين أن \(\lim_{x \to +\infty} f(x) = +\infty\) ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>بين أن المستقيم \((\Delta)\) ذا المعادلة : \(y = x + 1\) مقارب مائل لـ \((C_f)\) وادرس وضعية \((C_f)\) و \((\Delta)\).</li>
+                            <li>بين أن المنحنى \((C_f)\) يقبل مماسا \((T)\) موازيا لـ \((\Delta)\) في نقطة \(A\) يطلب تعيين فاصلتها.</li>
+                            <li>\(h\) الدالة العددية معرفة على المجال \(]-\infty, 0]\) بـ: \(h(x) = -x + 1 + (-x^2 + 2x + 3)e^{1+x}\)<br>أ) تحقق أنه من أجل كل عدد حقيقي \(x\) من المجال \(]-\infty, 0]\): \(h(x) = f(-x)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2020_tech",
+                    title: "دورة 2020 - التمرين 38",
+                    content: String.raw`
+                        <p>الدالة العددية \(f\) معرفة على المجال \([-1, +\infty[\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = x - 1 + \frac{1}{4}(2e^{-x} - 1)^2 \]
+                        </p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\) من المجال \([-1, +\infty[\): 
+                                <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                                    \[ f'(x) = (1 - e^{-x})(2e^{-x} + 1) \]
+                                </p>
+                            </li>
+                            <li>ب) ادرس اشارة \(f'(x)\) واستنتج اتجاه تغير الدالة \(f\).</li>
+                            <li>ج) احسب \(\lim_{x \to +\infty} f(x)\) ثم شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذا المعادلة \(y = x - \frac{3}{4}\) مقارب مائل للمنحنى \((C_f)\).</li>
+                            <li>ب) أدرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>بين أن المنحنى البياني \((C_f)\) يقبل مماسا \((T)\) يوازي المستقيم \((\Delta)\) يطلب كتابة معادلة له.</li>
+                            <li>ليكن \(m\) وسيطا حقيقيا، عين مجموعة قيم \(m\) التي من أجلها تقبل المعادلة \(f(x) = x + m\) حلين مختلفين.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2019_tech",
+                    title: "دورة 2019 - التمرين 39",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة العددية \(g\) للمتغير الحقيقي \(x\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x+3)e^x - 1\) و \((C_g)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>بقراءة بيانية:<br>أ) حدد إشارة \(g(-1)\) و \(g(-\frac{1}{2})\).<br>ب) أستنتج وجود عدد حقيقي وحيد \(\alpha\) من المجال \(]-1, -\frac{1}{2}[\) بحيث \(g(\alpha) = 0\)، ثم تحقق أن \(-0.8 < \alpha < -0.7\).<br>ج) أستنتج إشارة \(g(x)\) على \(\mathbb{R}\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) الدالة العددية المعرفة على \(\mathbb{R}\) كمايلي: \(f(x) = (x+2)(e^x - 1)\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>بين أنه من أجل كل \(x\) من \(\mathbb{R}\): \(f'(x) = g(x)\). شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>أ) احسب \(\lim_{x \to -\infty} [f(x) + x + 2]\) استنتج أن \((C_f)\) يقبل مستقيما مقاربا مائلا \((\Delta)\) يطلب تعيين معادلة له.<br>ب) أدرس الوضع النسبي للمنحنى \((C_f)\) والمستقيم \((\Delta)\).<br>ج) اكتب معادلة لـ \((T)\) مماس \((C_f)\) والموازي للمستقيم \((\Delta)\).</li>
+                            <li>أرسم المستقيم \((\Delta)\) والمنحنى \((C_f)\) على المجال \([-4, 1]\) (يعطى \(f(\alpha) \approx -0.7\)).</li>
+                            <li>\(h\) دالة معرفة على \(\mathbb{R}\) بـ: \(h(x) = |x|(e^{|x|-2} - 1) + 1\) و \((C_h)\) تمثيلها البياني.<br>أ) بين أن الدالة \(h\) زوجية.<br>ب) تأكد انه من اجل كل \(x \in [0, +\infty[\): \(h(x) = f(x-2) + 1\).<br>ج) اشرح كيف يمكن رسم \((C_h)\) إنطلاقا من \((C_f)\) ثم أرسم \((C_h)\) على المجال \([-3, 3]\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2018_tech",
+                    title: "دورة 2018 - التمرين 40",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2018 - التمرين 40</span></div>
+                        <p>الدالة العددية \(f\) المعرفة على المجال \(]-\infty, 1[\) بـ: \(f(x) = \frac{x}{x-1}e^{-x}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب: \(\lim_{x \to 1^-} f(x)\) ثم فسر النتيجة بيانيا، ثم أحسب \(\lim_{x \to -\infty} f(x)\).</li>
+                            <li>بين أنه من أجل كل \(x\) من \(]-\infty, 1[\): \(f'(x) = \frac{(-x^2+x-1)e^{-x}}{(x-1)^2}\). ثم ادرس اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) أكتب معادلة المماس \((T)\) للمنحنى \((C_f)\) عند النقطة ذات الفاصلة صفر.<br>ب) الدالة العددية \(h\) المعرفة على المجال \(]-\infty, 1[\) بـ: \(h(x) = e^{-x} + x - 1\). ادرس اتجاه تغير الدالة \(h\) ثم أستنتج أنه من أجل كل \(x\) من \(]-\infty, 1[\): \(h(x) \ge 0\).</li>
+                            <li>بين أنه من أجل كل \(x\) من \(]-\infty, 1[\): \(f(x) + x = \frac{x h(x)}{x-1}\). استنتج الوضع النسبي للمنحنى \((C_f)\) والمماس \((T)\). فسر النتيجة بيانيا.</li>
+                            <li>أكتب معادلة المستقيم \((\Delta)\) الذي يشمل مبدأ المعلم والنقطة \(A(-2, \frac{2}{3}e^2)\). أرسم المستقيمين \((\Delta)\) و \((T)\) والمنحنى \((C_f)\) على المجال \([-2, 1[\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2017_tech",
+                    title: "دورة 2017 - التمرين 41",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>لتكن الدالة \(g\) المعرفة على \(\mathbb{R}\) كمايلي: \(g(x) = 1 - 2xe^{-x}\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس إتجاه تغير الدالة \(g\) ثم استنتج اشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>نعتبر الدالة العددية \(f\) المعرفة على \(\mathbb{R}\) كمايلي : \(f(x) = (x + 1)(1 + 2e^{-x})\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).<br>ب) ادرس اتجاه تغير الدالة \(f\) وشكل جدول تغيراتها.</li>
+                            <li>أ) بين أن \(\lim_{x \to +\infty} [f(x) - x] = 1\) ثم استنتج معادلة لـ : \((\Delta)\) المقارب المائل للمنحنى \((C_f)\).<br>ب) أدرس وضعية المنحنى \((C_f)\) بالنسبة للمستقيم \((\Delta)\).</li>
+                            <li>أثبت أن المنحنى \((C_f)\) يقبل مماسا وحيدا \((T)\) يوازي \((\Delta)\) يطلب تعيين معادلة له.</li>
+                            <li>باستعمال \((C_f)\) ، عين قيم الوسيط الحقيقي \(m\) حتى يكون للمعادلة \(f(x) = x + m\) حلين مختلفين.</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2016_tech",
+                    title: "دورة 2016",
+                    content: String.raw`
+                        <div class="flex flex-col items-center justify-center py-16 text-gray-500 bg-gray-50 rounded-2xl border border-gray-100 border-dashed">
+                            <svg class="w-20 h-20 mb-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <h3 class="text-2xl font-bold mb-3 text-gray-700">التمرين قيد الإدراج والرقمنة</h3>
+                            <p class="text-center max-w-lg text-lg leading-relaxed">نعمل حالياً على كتابة وتنسيق التمارين الخاصة بـ <strong class="text-brand-600">دورة 2016 لشعبة تقني رياضي</strong> باستخدام الرموز الرياضية الدقيقة لتكون متاحة هنا قريباً.</p>
+                        </div>
+                    `
+                },
+                {
+                    id: "2015_tech",
+                    title: "دورة 2015 - التمرين 42",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>لتكن الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x+2)e^x - 2\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>احسب \(\lim_{x \to -\infty} g(x)\) و \(\lim_{x \to +\infty} g(x)\).</li>
+                            <li>أدرس اتجاه تغير الدالة \(g\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أحسب \(g(0)\) ، ثم استنتج إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) كما يلي: \(f(x) = 2x + 3 - (x+1)e^x\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن \(\lim_{x \to +\infty} f(x) = -\infty\) و احسب \(\lim_{x \to -\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل \(x\) من \(\mathbb{R}\) فإن: \(f'(x) = -g(x)\).<br>ب) أستنتج إشارة \(f'(x)\) ، ثم شكل جدول تغيرات الدالة \(f\).<br>ج) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = 2x+3\) مستقيم مقارب مائل لـ \((C_f)\) بجوار \(-\infty\). ثم أدرس وضعية \((C_f)\) بالنسبة إلى المستقيم \((\Delta)\).</li>
+                            <li>أ) بين أن المعادلة \(f(x) = 0\) تقبل حلين \(\alpha\) و \(\beta\) حيث : \(0.92 < \alpha < 0.93\) و \(1.55 < \beta < 1.56\).<br>ب) أرسم \((\Delta)\) و المنحنى \((C_f)\) على المجال \([-3, 2]\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2014_tech",
+                    title: "دورة 2014 - التمرين 43",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2014 - التمرين 43</span></div>
+                        <p>\(f\) دالة معرفة على \(\mathbb{R}\) بـ: \(f(x) = (x-1)e^x\).</p>
+                        <p class="mb-4">\((C_f)\) منحنى الدالة \(f\) في المستوي المنسوب إلى المعلم المتعامد والمتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>عين نهاية \(f\) عند كل من \(-\infty\) و \(+\infty\).</li>
+                            <li>أدرس اتجاه تغير الدالة \(f\) على \(\mathbb{R}\) ، ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المعادلة \(f(x) = 1\) تقبل حلا وحيدا \(\alpha\) على \(\mathbb{R}\). ثم تحقق أن \(1.27 < \alpha < 1.28\).<br>ب) أكتب معادلة لـ \((T)\) مماس \((C_f)\) عند النقطة ذات الفاصلة 1 وحدد وضعية \((C_f)\) بالنسبة لـ \((T)\).<br>ج) أرسم \((T)\) و \((C_f)\).</li>
+                            <li>عين قيم العدد الحقيقي \(m\) التي من أجلها تقبل المعادلة : \((x-1)e^x - (m-1)e^m = -1\) حلا واحدا في \(\mathbb{R}\).</li>
+                            <li>\(h\) هي الدالة المعرفة على \(\mathbb{R}\) بـ: \(h(x) = (|x|-1)e^{|x|}\) و \((C_h)\) تمثيلها البياني.<br>أ) بين أن الدالة \(h\) زوجية.<br>ب) أرسم \((C_h)\) مستعينا بالمنحنى \((C_f)\).</li>
+                            <li>\(g\) معرفة على \(\mathbb{R}\) بـ: \(g(x) = (ax+b)e^x\) حيث \(a\) و \(b\) عددان حقيقيان.<br>عين \(a\) و \(b\) حتى يكون : من أجل كل \(x\) من \(\mathbb{R}\) : \(g'(x) = f(x)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2013_tech",
+                    title: "دورة 2013 - التمرين 44",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>\(g\) هي الدالة المعرفة على \(\mathbb{R}\) كما يلي: \(g(x) = -4 + (4-2x)e^x\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس تغيرات الدالة \(g\) ، شكل جدول تغيراتها.</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلين أحدهما معدوم والآخر \(\alpha\) حيث: \(1.59 < \alpha < 1.60\).</li>
+                            <li>استنتج إشارة \(g(x)\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>\(f\) هي الدالة المعرفة على \(\mathbb{R}\) كما يلي: \(f(x) = \frac{2x-2}{e^x-2x}\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>بين أن \((C_f)\) يقبل عند \(-\infty\) و \(+\infty\) مستقيمين مقاربين معادلاتهما على الترتيب \(y = -1\) و \(y = 0\).</li>
+                            <li>أ) برهن أنه من أجل \(x \in \mathbb{R}\) : \(f'(x) = \frac{g(x)}{(e^x-2x)^2}\).<br>ب) أستنتج إشارة \(f'(x)\) ، ثم شكل جدول تغيرات الدالة \(f\).<br>ج) احسب \(f(1)\) ، ثم أستنتج إشارة \(f(x)\).</li>
+                            <li>أ) بين أن \(f(\alpha) = -1 + \frac{1}{\alpha - 1}\) ثم عين حصرا للعدد \(f(\alpha)\).<br>ب) أرسم \((C_f)\).</li>
+                            <li>ناقش بيانيا، حسب قيم الوسيط الحقيقي \(m\)، عدد وإشارة حلول المعادلة \(2x-2 = (e^x-2x)(m+1)\).</li>
+                            <li>\(h\) هي الدالة المعرفة على \(\mathbb{R}\) كمايلي: \(h(x) = [f(x)]^2\).<br>أ) أحسب \(h'(x)\) بدلالة \(f'(x)\) و \(f(x)\). أستنتج إشارة \(h'(x)\).<br>ب) شكل جدول تغيرات الدالة \(h\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2012_tech",
+                    title: "دورة 2012",
+                    content: String.raw`
+                        <div class="flex flex-col items-center justify-center py-16 text-gray-500 bg-gray-50 rounded-2xl border border-gray-100 border-dashed">
+                            <svg class="w-20 h-20 mb-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <h3 class="text-2xl font-bold mb-3 text-gray-700">التمرين قيد الإدراج والرقمنة</h3>
+                            <p class="text-center max-w-lg text-lg leading-relaxed">نعمل حالياً على كتابة وتنسيق التمارين الخاصة بـ <strong class="text-brand-600">دورة 2012 لشعبة تقني رياضي</strong> باستخدام الرموز الرياضية الدقيقة لتكون متاحة هنا قريباً.</p>
+                        </div>
+                    `
+                },
+                {
+                    id: "2011_tech",
+                    title: "دورة 2011 - التمرين 45",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = (x+2)e^x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>أدرس اتجاه تغير الدالة \(g\).</li>
+                            <li>بين أن المعادلة \(g(x) = 0\) تقبل حلا وحيدا \(\alpha\) في \(\mathbb{R}\) وأن : \(-0.5 < \alpha < -0.4\).</li>
+                            <li>استنتج إشارة \(g(x)\) حسب قيم \(x\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) بـ: \(f(x) = (x+1)e^x - x\) و \((C_f)\) تمثيلها البياني.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أ) احسب \(\lim_{x \to -\infty} f(x)\).<br>ب) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = -x\) مقارب مائل للمنحنى \((C_f)\) بجوار \(-\infty\) ، ثم ادرس وضعية \((C_f)\) بالنسبة إلى \((\Delta)\).</li>
+                            <li>احسب \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) احسب \(f'(x)\) ، ثم استنتج اتجاه تغير الدالة \(f\).<br>ب) شكل جدول تغيرات الدالة \(f\).</li>
+                            <li>أ) بين أن \(f(\alpha) = -\alpha - \frac{1}{\alpha+2}\) ثم استنتج حصراً لـ \(f(\alpha)\).<br>ب) ارسم المستقيم \((\Delta)\) والمنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2010_tech",
+                    title: "دورة 2010 - التمرين 46",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الأول (I):</span></div>
+                        <p>الدالة \(g\) المعرفة على \(\mathbb{R}\) بـ: \(g(x) = e^x - x - 1\)</p>
+                        <ol class="list-decimal list-inside space-y-4 mb-8">
+                            <li>ادرس اتجاه تغير الدالة \(g\) ثم شكل جدول تغيراتها.</li>
+                            <li>استنتج أنه من أجل كل \(x \in \mathbb{R}\) فإن: \(g(x) \ge 0\).</li>
+                        </ol>
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">الجزء الثاني (II):</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}^*\) بـ: \(f(x) = \frac{x e^x}{e^x - 1}\)</p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس.</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>احسب نهايات الدالة \(f\) عند أطراف مجموعة تعريفها.</li>
+                            <li>أ) بين أنه من أجل كل \(x \in \mathbb{R}^*\): \(f'(x) = \frac{e^x g(x)}{(e^x - 1)^2}\).<br>ب) استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>أ) بين أن المستقيم \((\Delta)\) ذو المعادلة \(y = x\) مقارب مائل للمنحنى \((C_f)\) عند \(+\infty\).<br>ب) استنتج المستقيم المقارب المائل الآخر \((\Delta')\) عند \(-\infty\).</li>
+                            <li>ارسم المستقيمين المقاربين والمنحنى \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2009_tech",
+                    title: "دورة 2009 - التمرين 47",
+                    content: String.raw`
+                        <div class="mb-6"><span class="font-bold text-brand-700 bg-brand-50 px-2 py-1 rounded">دورة 2009 - التمرين 47</span></div>
+                        <p>الدالة \(f\) المعرفة على \(\mathbb{R}\) بـ:</p>
+                        <p class="text-center font-bold text-xl my-4 bg-gray-50 py-3 rounded-lg border border-gray-100" dir="ltr">
+                            \[ f(x) = x + \frac{2}{1+e^{x}} \]
+                        </p>
+                        <p class="mb-4">و \((C_f)\) تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس \((O; \vec{i}, \vec{j})\).</p>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>أحسب \(\lim_{x \to -\infty} f(x)\) و \(\lim_{x \to +\infty} f(x)\).</li>
+                            <li>أ) بين أنه من أجل كل \(x \in \mathbb{R}\): \(f(x) = x + 2 - \frac{2e^x}{1+e^x}\).<br>ب) استنتج أن المنحنى \((C_f)\) يقبل مستقيمين مقاربين مائلين \((\Delta)\) و \((\Delta')\) معادلتاهما \(y = x\) و \(y = x + 2\) على الترتيب.<br>ج) ادرس وضعية \((C_f)\) بالنسبة إلى كل من \((\Delta)\) و \((\Delta')\).</li>
+                            <li>بين أن النقطة \(\omega(0; 1)\) هي مركز تناظر للمنحنى \((C_f)\).</li>
+                            <li>أ) بين أنه من أجل كل عدد حقيقي \(x\): \(f'(x) = 1 - \frac{2e^x}{(1+e^x)^2}\).<br>ب) استنتج اتجاه تغير الدالة \(f\) ثم شكل جدول تغيراتها.</li>
+                            <li>ارسم \((\Delta)\) و \((\Delta')\) و \((C_f)\).</li>
+                        </ol>
+                    `
+                },
+                {
+                    id: "2008_tech",
+                    title: "دورة 2008",
+                    content: String.raw`
+                        <div class="flex flex-col items-center justify-center py-16 text-gray-500 bg-gray-50 rounded-2xl border border-gray-100 border-dashed">
+                            <svg class="w-20 h-20 mb-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <h3 class="text-2xl font-bold mb-3 text-gray-700">التمرين قيد الإدراج والرقمنة</h3>
+                            <p class="text-center max-w-lg text-lg leading-relaxed">نعمل حالياً على كتابة وتنسيق التمارين الخاصة بـ <strong class="text-brand-600">دورة 2008 لشعبة تقني رياضي</strong> باستخدام الرموز الرياضية الدقيقة لتكون متاحة هنا قريباً.</p>
+                        </div>
+                    `
+                }
+            ]
+        };
+
+        // توليد باقي السنوات برمجياً إذا لزم الأمر
+        // (تم إدراج جميع السنوات المطلوبة في البيانات أعلاه)
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const trackSelect = document.getElementById('track-select');
+            const yearSelect = document.getElementById('year-select');
+            const titleElement = document.getElementById('exercise-title');
+            const contentElement = document.getElementById('exercise-content');
+            const appSubtitle = document.getElementById('app-subtitle');
+            const trackBadge = document.getElementById('track-badge');
+
+            function updateYearOptions(track) {
+                const trackExercises = exercisesData[track];
+                yearSelect.innerHTML = '';
+                
+                trackExercises.forEach(exercise => {
+                    const option = document.createElement('option');
+                    option.value = exercise.id;
+                    option.textContent = exercise.title;
+                    yearSelect.appendChild(option);
+                });
+            }
+
+            function displayExercise(track, exerciseId) {
+                const exercise = exercisesData[track].find(ex => ex.id === exerciseId);
+                if (exercise) {
+                    titleElement.textContent = exercise.title;
+                    contentElement.innerHTML = exercise.content;
+                    
+                    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+                        window.MathJax.typesetPromise([contentElement]).catch((err) => console.log(err.message));
+                    }
+                }
+            }
+
+            trackSelect.addEventListener('change', (e) => {
+                const selectedTrack = e.target.value;
+                updateYearOptions(selectedTrack);
+                
+                if (exercisesData[selectedTrack].length > 0) {
+                    displayExercise(selectedTrack, exercisesData[selectedTrack][0].id);
+                }
+
+                if (selectedTrack === 'math') {
+                    appSubtitle.textContent = 'مادة الرياضيات - شعبة الرياضيات';
+                    trackBadge.textContent = 'رياضيات';
+                } else if (selectedTrack === 'tech_math') {
+                    appSubtitle.textContent = 'مادة الرياضيات - شعبة تقني رياضي';
+                    trackBadge.textContent = 'تقني رياضي';
+                } else {
+                    appSubtitle.textContent = 'مادة الرياضيات - شعبة العلوم التجريبية';
+                    trackBadge.textContent = 'علوم تجريبية';
+                }
+            });
+
+            yearSelect.addEventListener('change', (e) => {
+                displayExercise(trackSelect.value, e.target.value);
+            });
+
+            // التهيئة المبدئية عند تحميل الصفحة
+            updateYearOptions(trackSelect.value);
+            if (exercisesData[trackSelect.value].length > 0) {
+                displayExercise(trackSelect.value, exercisesData[trackSelect.value][0].id);
+            }
+        });
+    </script>
+</body>
+</html>
+

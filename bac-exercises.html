@@ -3,34 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>بكالوريا الجزائر | الدوال الأسية واللوغارتمية</title>
+    <title>باب تمارين البكالوريا | مدرسة إيلا للرياضيات</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="assets/ayla_math_school_logo.svg" type="image/svg+xml" />
     <style>
       :root {
-        --bg: #0b0f0d;
-        --surface: #141a17;
-        --surface-2: #1c2320;
+        --bg: #070d0a;
+        --surface: #101713;
+        --surface-2: #151d19;
+        --surface-3: #1a241f;
         --line: rgba(255, 255, 255, 0.08);
         --line-strong: rgba(255, 255, 255, 0.14);
-        --text: #f0fdf4;
-        --muted: #94a3b8;
+        --text: #f7fff9;
+        --muted: #93a4b7;
         --primary: #00d68f;
+        --primary-2: #04c982;
         --blue: #3b82f6;
+        --blue-soft: #9ccaff;
         --amber: #f59e0b;
-        --danger: #ef4444;
-        --shadow: rgba(0, 0, 0, 0.24);
+        --shadow: rgba(0, 0, 0, 0.34);
+        --font-lesson: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", Georgia, serif;
+        --font-math: "Cambria Math", "STIX Two Math", "Latin Modern Math", "Times New Roman", serif;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        background: var(--bg);
+      }
+
       body {
+        min-height: 100vh;
         margin: 0;
         font-family: "Tajawal", system-ui, sans-serif;
-        background: var(--bg);
+        background:
+          radial-gradient(circle at 82% 0%, rgba(0, 214, 143, 0.14), transparent 28rem),
+          linear-gradient(180deg, #08100c 0%, #07100c 45%, #060b09 100%);
         color: var(--text);
       }
 
@@ -44,26 +56,6 @@
         text-decoration: none;
       }
 
-      .page {
-        width: min(1120px, calc(100% - 24px));
-        margin: 0 auto;
-        padding: 20px 0 48px;
-      }
-
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 18px;
-      }
-
-      .eyebrow {
-        color: var(--primary);
-        font-weight: 900;
-        font-size: 13px;
-      }
-
       h1,
       h2,
       h3,
@@ -71,134 +63,288 @@
         margin: 0;
       }
 
-      h1 {
-        margin-top: 4px;
-        font-size: clamp(28px, 5vw, 44px);
-        font-weight: 900;
+      .shell {
+        width: min(1144px, calc(100% - 28px));
+        margin: 0 auto;
+        padding: 18px 0 42px;
       }
 
-      .header p,
-      .muted {
-        color: var(--muted);
-        line-height: 1.7;
+      .layout {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 22px;
+        align-items: start;
       }
 
-      .btn,
-      .filter-btn {
-        min-height: 40px;
+      .side-nav {
+        position: sticky;
+        top: 18px;
+        display: grid;
+        gap: 10px;
+        padding: 8px;
         border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 8px 14px;
-        background: var(--surface);
-        color: var(--text);
+        border-radius: 17px;
+        background: rgba(12, 18, 15, 0.82);
+        box-shadow: 0 18px 38px var(--shadow);
+      }
+
+      .side-nav button,
+      .side-nav a {
+        min-height: 46px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: rgba(255, 255, 255, 0.035);
+        color: #d8e8dd;
         cursor: pointer;
+        font-weight: 800;
+        text-align: center;
+        transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+      }
+
+      .side-nav .active,
+      .side-nav button:hover,
+      .side-nav a:hover {
+        border-color: transparent;
+        background: var(--primary);
+        color: #04140d;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 6px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand img {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: #f8fafc;
+        padding: 5px;
+      }
+
+      .brand p {
+        color: var(--muted);
+        font-size: 13px;
         font-weight: 800;
       }
 
-      .btn:hover,
-      .filter-btn:hover,
-      .filter-btn.active {
-        border-color: rgba(0, 214, 143, 0.4);
-        color: var(--primary);
-        background: rgba(0, 214, 143, 0.09);
+      .brand h2 {
+        margin-top: 2px;
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: 0;
       }
 
-      .btn.primary {
-        border-color: transparent;
-        background: linear-gradient(135deg, var(--primary), #22c55e);
-        color: #04120c;
+      .top-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
       }
 
-      .btn.amber {
-        border-color: rgba(245, 158, 11, 0.32);
-        background: rgba(245, 158, 11, 0.12);
-        color: var(--amber);
-      }
-
-      .card {
+      .teacher-btn,
+      .grade-pill {
+        min-height: 36px;
+        padding: 0 13px;
         border: 1px solid var(--line);
-        border-radius: 18px;
-        background: var(--surface);
-        box-shadow: 0 16px 38px var(--shadow);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .grade-pill {
+        border-color: rgba(0, 214, 143, 0.24);
+        background: rgba(0, 214, 143, 0.09);
+        color: var(--primary);
+      }
+
+      .hero {
+        padding: 2px 0 22px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(34px, 5vw, 54px);
+        font-weight: 900;
+        line-height: 1.04;
+      }
+
+      .hero p {
+        margin-top: 8px;
+        color: var(--blue-soft);
+        font-size: 16px;
+        font-weight: 500;
       }
 
       .stats {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(17, 25, 21, 0.82);
+        box-shadow: 0 18px 38px var(--shadow);
       }
 
       .stat {
-        padding: 14px;
+        min-height: 94px;
+        display: grid;
+        align-content: center;
+        gap: 8px;
+        padding: 18px;
       }
 
       .stat span {
-        display: block;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      .stat strong {
-        display: block;
-        margin-top: 6px;
-        color: var(--primary);
-        font-size: 26px;
+        color: var(--blue-soft);
+        font-size: 13px;
         font-weight: 900;
       }
 
-      .weak-panel,
-      .filters {
-        padding: 14px;
-        margin-bottom: 14px;
+      .stat strong {
+        color: var(--primary);
+        font-size: 28px;
+        font-weight: 900;
+        direction: ltr;
+        text-align: right;
       }
 
-      .panel-title {
+      .stat .amber {
+        color: var(--amber);
+      }
+
+      .stat .blue {
+        color: var(--blue);
+      }
+
+      .weak-panel {
+        min-height: 90px;
+        display: grid;
+        align-content: center;
+        gap: 8px;
+        margin-bottom: 24px;
+        padding: 19px 20px;
+      }
+
+      .panel-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 12px;
+        gap: 14px;
       }
 
-      .panel-title h2 {
+      .panel-head h2 {
         font-size: 18px;
         font-weight: 900;
       }
 
-      .filter-stack {
-        display: grid;
-        gap: 13px;
+      .hint {
+        color: var(--muted);
+        line-height: 1.7;
       }
 
-      .search-wrap {
+      .filters {
+        padding: 18px;
+        margin-bottom: 22px;
+      }
+
+      .filters-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .filters-title h2 {
+        color: var(--blue-soft);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .reset-btn {
+        min-height: 32px;
+        border: 0;
+        background: transparent;
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 900;
+      }
+
+      .search {
         position: relative;
+        margin-bottom: 18px;
       }
 
-      .search-wrap input {
+      .search input {
         width: 100%;
-        min-height: 46px;
+        min-height: 50px;
         border: 1px solid var(--line);
-        border-radius: 13px;
-        padding: 0 14px;
-        background: var(--surface-2);
+        border-radius: 12px;
+        padding: 0 18px;
+        background: var(--surface-3);
         color: var(--text);
         outline: none;
+        font-size: 16px;
       }
 
-      .search-wrap input:focus {
+      .search input::placeholder {
+        color: #9aa7b8;
+      }
+
+      .search input:focus {
         border-color: rgba(0, 214, 143, 0.45);
+      }
+
+      /* Visible keyboard focus */
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      .filter-btn:focus-visible,
+      .action-btn:focus-visible,
+      .exercise-card:focus-visible,
+      .side-nav button:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(0, 214, 143, 0.12);
+      }
+
+      .exercise-card:focus-visible {
+        border-color: rgba(0, 214, 143, 0.6);
       }
 
       .filter-group {
         display: grid;
-        gap: 8px;
+        gap: 9px;
+        justify-items: end;
+        margin-top: 13px;
+      }
+
+      .filter-top-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(120px, 180px);
+        gap: 16px;
+        align-items: end;
       }
 
       .filter-group > span {
-        color: var(--muted);
-        font-size: 12px;
+        color: var(--blue-soft);
+        font-size: 13px;
         font-weight: 900;
       }
 
@@ -206,13 +352,81 @@
       .chip-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 9px;
+        justify-content: flex-start;
       }
 
-      .main-grid {
+      .filter-buttons {
+        justify-content: flex-end;
+      }
+
+      .filter-btn {
+        min-height: 42px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.025);
+        color: var(--blue-soft);
+        cursor: pointer;
+        font-weight: 900;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        border-color: rgba(0, 214, 143, 0.48);
+        background: rgba(0, 214, 143, 0.12);
+        color: var(--primary);
+      }
+
+      .filter-select {
+        min-height: 46px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-3);
+        color: var(--text);
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .filter-select:focus {
+        border-color: rgba(0, 214, 143, 0.45);
+        box-shadow: 0 0 0 4px rgba(0, 214, 143, 0.12);
+      }
+
+      .content-grid {
         display: grid;
-        grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.6fr);
-        gap: 16px;
+        grid-template-columns: minmax(270px, 0.82fr) minmax(0, 1.4fr);
+        gap: 18px;
+      }
+
+      .topic-page {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 4px;
+      }
+
+      .topic-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(17, 25, 21, 0.76);
+      }
+
+      .topic-toolbar h2 {
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .topic-pager {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
       .list-head {
@@ -221,7 +435,10 @@
         justify-content: space-between;
         gap: 10px;
         margin-bottom: 10px;
-        padding: 0 2px;
+      }
+
+      .list-head h2 {
+        font-size: 18px;
       }
 
       .exercise-list {
@@ -231,35 +448,38 @@
 
       .exercise-card {
         width: 100%;
+        min-height: 142px;
         display: grid;
         gap: 10px;
-        padding: 14px;
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(16, 23, 19, 0.78);
+        color: var(--text);
         text-align: start;
+        cursor: pointer;
       }
 
       .exercise-card.active {
-        border-color: rgba(0, 214, 143, 0.5);
+        border-color: rgba(0, 214, 143, 0.52);
         background: rgba(0, 214, 143, 0.08);
       }
 
-      .exercise-card.tried {
-        border-color: rgba(245, 158, 11, 0.38);
-      }
-
-      .exercise-card.completed {
-        border-color: rgba(0, 214, 143, 0.42);
+      .exercise-card h3 {
+        font-size: 18px;
+        line-height: 1.45;
       }
 
       .badge {
         display: inline-flex;
         align-items: center;
-        min-height: 25px;
-        padding: 3px 9px;
+        min-height: 26px;
+        padding: 3px 10px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.075);
         color: var(--muted);
         font-size: 12px;
-        font-weight: 800;
+        font-weight: 900;
       }
 
       .badge.green {
@@ -269,7 +489,7 @@
 
       .badge.blue {
         background: rgba(59, 130, 246, 0.12);
-        color: #60a5fa;
+        color: var(--blue-soft);
       }
 
       .badge.amber {
@@ -283,7 +503,7 @@
       }
 
       .reader-empty {
-        min-height: 420px;
+        min-height: 440px;
         display: grid;
         place-items: center;
         text-align: center;
@@ -291,18 +511,16 @@
       }
 
       .reader-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
+        display: grid;
+        gap: 11px;
         padding-bottom: 14px;
         margin-bottom: 14px;
         border-bottom: 1px solid var(--line);
       }
 
       .reader-header h2 {
-        margin-top: 6px;
-        font-size: clamp(22px, 4vw, 32px);
+        font-size: clamp(24px, 4vw, 32px);
+        line-height: 1.35;
       }
 
       .reader-actions {
@@ -310,6 +528,40 @@
         flex-wrap: wrap;
         gap: 10px;
         margin: 14px 0;
+      }
+
+      .solution-footer {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      .action-btn {
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-3);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 900;
+      }
+
+      .action-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .action-btn.primary {
+        border-color: transparent;
+        background: var(--primary);
+        color: #04140d;
+      }
+
+      .action-btn.amber {
+        border-color: rgba(245, 158, 11, 0.32);
+        background: rgba(245, 158, 11, 0.13);
+        color: var(--amber);
       }
 
       .pdf-frame {
@@ -327,8 +579,178 @@
         border: 1px solid var(--line);
         border-radius: 14px;
         background: var(--surface-2);
-        color: #e7fff0;
+        color: #e8fff0;
         line-height: 1.95;
+      }
+
+      .solution-panel {
+        display: none;
+        margin-top: 16px;
+        padding: 18px;
+        border: 1px solid rgba(0, 214, 143, 0.25);
+        border-radius: 16px;
+        background: rgba(0, 214, 143, 0.06);
+        color: #e8fff0;
+        line-height: 1.95;
+      }
+
+      .solution-panel.active {
+        display: grid;
+        gap: 14px;
+      }
+
+      .solution-panel h3 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 22px;
+      }
+
+      .solution-panel h4 {
+        margin: 10px 0 0;
+        color: var(--blue-soft);
+        font-size: 18px;
+      }
+
+      .solution-panel p,
+      .solution-panel ol {
+        margin: 0;
+      }
+
+      .solution-panel ol {
+        padding-inline-start: 26px;
+      }
+
+      .variation-table {
+        width: min(100%, 760px);
+        margin: 12px auto;
+        border-collapse: collapse;
+        direction: ltr;
+        color: #f7fff9;
+        text-align: center;
+        font-family: var(--font-math);
+        font-size: 1.05rem;
+      }
+
+      .variation-table th,
+      .variation-table td {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        padding: 10px 12px;
+      }
+
+      .variation-table th {
+        background: rgba(0, 214, 143, 0.16);
+        color: var(--primary);
+      }
+
+      .variation-table td {
+        background: rgba(255, 255, 255, 0.035);
+      }
+
+      .variation-table .interval {
+        color: var(--blue-soft);
+        font-weight: 900;
+      }
+
+      .variation-table .var-arrow {
+        display: inline-block;
+        font-size: 1.15em;
+        line-height: 1;
+        vertical-align: middle;
+        margin: 0 2px;
+      }
+
+      .official-exam {
+        direction: rtl;
+        display: grid;
+        gap: 8px;
+        padding: 18px;
+        border-radius: 12px;
+        background: #ffffff;
+        color: #050505;
+        font-family: var(--font-lesson);
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 2;
+      }
+
+      .official-exam h3 {
+        justify-self: end;
+        margin: 0 0 4px;
+        padding: 2px 12px;
+        border: 4px solid #000000;
+        color: #0045d8;
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .official-exam .part {
+        margin-top: 8px;
+      }
+
+      .official-exam p {
+        margin: 0;
+      }
+
+      .official-exam ol {
+        margin: 0;
+        padding-inline-start: 26px;
+      }
+
+      .official-exam li {
+        margin: 2px 0;
+      }
+
+      .math-inline,
+      .math-line {
+        direction: ltr;
+        unicode-bidi: isolate;
+        font-family: var(--font-math);
+        font-style: italic;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .math-line {
+        display: inline-block;
+        margin: 0 6px;
+        white-space: nowrap;
+      }
+
+      .frac {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: middle;
+        font-size: 0.92em;
+        line-height: 1;
+        margin: 0 2px;
+      }
+
+      .frac .num {
+        border-bottom: 1px solid currentColor;
+        padding: 0 5px;
+      }
+
+      .frac .den {
+        padding: 0 5px;
+      }
+
+      .lim {
+        display: inline-grid;
+        justify-items: center;
+        vertical-align: middle;
+        line-height: 1.05;
+        margin-inline: 4px;
+      }
+
+      .lim strong {
+        font-style: normal;
+        font-weight: 900;
+      }
+
+      .lim small {
+        font-size: 12px;
+        white-space: nowrap;
       }
 
       .statement-block {
@@ -361,145 +783,247 @@
         color: #ffffff;
         direction: ltr;
         unicode-bidi: isolate;
-        font-family: Consolas, "Courier New", monospace;
-        font-weight: 800;
+        font-family: var(--font-math);
+        font-size: 1.12rem;
+        font-weight: 700;
+        letter-spacing: 0;
       }
 
-      .method {
-        display: grid;
-        gap: 10px;
-        margin-top: 14px;
-        padding: 14px;
-        border: 1px solid rgba(59, 130, 246, 0.22);
-        border-radius: 14px;
-        background: rgba(59, 130, 246, 0.08);
+      .formula sub,
+      .formula sup {
+        font-size: 0.72em;
       }
 
-      .method h3 {
-        color: #93c5fd;
-      }
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
 
-      .method ol {
-        margin: 0;
-        padding-inline-start: 22px;
-        color: #dbeafe;
-        line-height: 1.9;
-      }
+        .side-nav {
+          position: static;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
 
-      .hidden {
-        display: none;
-      }
+        .topbar,
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
 
-      @media (max-width: 820px) {
-        .header,
-        .reader-header {
-          flex-direction: column;
+        .content-grid {
+          display: grid;
         }
 
         .stats {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+      }
 
-        .main-grid {
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 18px, 1144px);
+          padding-top: 10px;
+        }
+
+        .side-nav {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .brand h2 {
+          font-size: 24px;
+        }
+
+        .hero {
+          text-align: start;
+        }
+
+        .stats,
+        .content-grid {
           grid-template-columns: 1fr;
+        }
+
+        .filter-top-row {
+          grid-template-columns: 1fr;
+        }
+
+        .topic-toolbar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .topic-pager,
+        .topic-pager .action-btn {
+          width: 100%;
+        }
+
+        .filter-buttons {
+          justify-content: stretch;
+        }
+
+        .filter-btn {
+          flex: 1 1 auto;
         }
       }
 
-      @media (max-width: 520px) {
-        .stats {
-          grid-template-columns: 1fr;
-        }
+      /* Embed mode: blend into parent app */
+      body.is-embedded {
+        background: transparent;
+      }
 
-        .reader-actions,
-        .reader-actions .btn {
-          width: 100%;
+      body.is-embedded .shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      body.is-embedded .layout {
+        display: block;
+      }
+
+      body.is-embedded .side-nav,
+      body.is-embedded .topbar,
+      body.is-embedded .hero {
+        display: none;
+      }
+
+      body.is-embedded .stats {
+        margin-top: 14px;
+      }
+
+      body.is-embedded .filters {
+        margin-top: 14px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
         }
       }
     </style>
   </head>
   <body>
-    <div class="page">
-      <header class="header">
-        <div>
-          <div class="eyebrow">Study OS - مدرسة إيلا للرياضيات</div>
-          <h1>باب تمارين البكالوريا</h1>
-          <p>تدرب على مواضيع الدوال الأسية واللوغارتمية حسب الشعبة والسنة والمحور.</p>
-        </div>
-        <a class="btn" href="index.html">العودة للتطبيق</a>
-      </header>
-
-      <section class="stats">
-        <article class="card stat">
-          <span>المواضيع المكتملة</span>
-          <strong><span id="statCompleted">0</span><small id="statTotal"> / 0</small></strong>
-        </article>
-        <article class="card stat">
-          <span>نسبة الإتقان</span>
-          <strong id="statRate">0%</strong>
-        </article>
-        <article class="card stat">
-          <span>حاولتها</span>
-          <strong id="statTried">0</strong>
-        </article>
-        <article class="card stat">
-          <span>آخر موضوع</span>
-          <strong id="statLast">-</strong>
-        </article>
-      </section>
-
-      <section class="card weak-panel">
-        <div class="panel-title">
-          <h2>المحاور الضعيفة</h2>
-        </div>
-        <div class="chip-row" id="weakAreasList">
-          <span class="muted">لم تحدد بعد. ابدأ بحل المواضيع لاكتشافها.</span>
-        </div>
-      </section>
-
-      <section class="card filters">
-        <div class="panel-title">
-          <h2>فلترة المواضيع</h2>
-          <button class="btn" type="button" id="globalResetFilters">إعادة ضبط الفلاتر</button>
-        </div>
-        <div class="filter-stack">
-          <div class="search-wrap">
-            <input id="searchInput" type="text" placeholder="ابحث في المواضيع..." />
-          </div>
-          <div class="filter-group">
-            <span>الشعبة</span>
-            <div class="filter-buttons" id="branchFilters"></div>
-          </div>
-          <div class="filter-group">
-            <span>السنة</span>
-            <div class="filter-buttons" id="yearFilters"></div>
-          </div>
-          <div class="filter-group">
-            <span>المحور</span>
-            <div class="filter-buttons" id="topicFilters"></div>
-          </div>
-          <div class="filter-group">
-            <span>الحالة</span>
-            <div class="filter-buttons" id="statusFilters"></div>
-          </div>
-        </div>
-      </section>
-
-      <div class="main-grid">
-        <aside>
-          <div class="list-head">
-            <h2>قائمة المواضيع</h2>
-            <span class="muted" id="resultsCount">0 موضوع</span>
-          </div>
-          <div class="exercise-list" id="exerciseList"></div>
+    <script>
+      if (new URLSearchParams(location.search).has("embed")) {
+        document.body.classList.add("is-embedded");
+      }
+    </script>
+    <div class="shell">
+      <div class="layout">
+        <aside class="side-nav" aria-label="أبواب التطبيق">
+          <button type="button" data-parent-view="learn">التعلم</button>
+          <button class="active" type="button" data-parent-view="bac">البكالوريا</button>
+          <button type="button" data-parent-view="mockBac">بكالوريا تجريبي</button>
+          <button type="button" data-parent-view="foreignBac">بكالوريا أجنبي</button>
+          <button type="button" data-parent-view="progress">تقدمي</button>
         </aside>
 
-        <main class="card reader" id="readerArea">
-          <div class="reader-empty">
-            <div>
-              <h2>اختر موضوعا للبدء</h2>
-              <p>اضغط على أي بطاقة من القائمة لعرض الملف وخيارات المتابعة.</p>
+        <main>
+          <header class="topbar">
+            <div class="brand">
+              <img src="assets/ayla_math_school_logo.svg" alt="شعار مدرسة إيلا للرياضيات" />
+              <div>
+                <p>مدرسة إيلا للرياضيات</p>
+                <h2>الدوال الأسية واللوغارتمية</h2>
+              </div>
             </div>
-          </div>
+            <div class="top-actions">
+              <span class="grade-pill">السنة الثالثة ثانوي</span>
+              <button class="teacher-btn" type="button" id="resetProgressBtn">الأستاذ</button>
+            </div>
+          </header>
+
+          <section class="hero">
+            <h1>باب تمارين البكالوريا</h1>
+            <p>تدريب على تمارين شعب العلوم التجريبية، الرياضيات، التقني رياضي، والتسيير والاقتصاد من امتحانات البكالوريا (2008-2025)</p>
+          </section>
+
+          <section class="card filters">
+            <div class="filters-title">
+              <h2>فلترة التمارين</h2>
+              <button class="reset-btn" type="button" id="globalResetFilters">إعادة ضبط الفلاتر</button>
+            </div>
+            <div class="search">
+              <input id="searchInput" type="search" placeholder="ابحث في التمارين..." />
+            </div>
+            <div class="filter-top-row">
+              <div class="filter-group">
+                <span>الشعبة</span>
+                <div class="filter-buttons" id="branchFilters"></div>
+              </div>
+              <div class="filter-group">
+                <span>السنة</span>
+                <select id="yearSelect" class="filter-select" aria-label="اختيار سنة البكالوريا">
+                  <option value="all">كل السنوات</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-group">
+              <span>المحور</span>
+              <div class="filter-buttons" id="topicFilters"></div>
+            </div>
+            <div class="filter-group">
+              <span>الحالة</span>
+              <div class="filter-buttons" id="statusFilters"></div>
+            </div>
+          </section>
+
+          <section class="topic-page">
+            <div class="topic-toolbar">
+              <div>
+                <h2>موضوع البكالوريا</h2>
+                <span class="hint" id="resultsCount">0 موضوع</span>
+              </div>
+              <div class="topic-pager" aria-label="التنقل بين المواضيع">
+                <button class="action-btn" type="button" id="prevExerciseBtn">السابق</button>
+                <button class="action-btn primary" type="button" id="nextExerciseBtn">اللاحق</button>
+              </div>
+            </div>
+            <main class="card reader" id="readerArea">
+              <div class="reader-empty">
+                <div>
+                  <h2>لا يوجد موضوع مطابق</h2>
+                  <p>غيّر الفلاتر لاختيار موضوع بكالوريا آخر.</p>
+                </div>
+              </div>
+            </main>
+          </section>
+
+          <section class="stats" aria-label="إحصائيات التقدم">
+            <article class="card stat">
+              <span>التمارين المكتملة</span>
+              <strong><span id="statCompleted">0</span><small id="statTotal"> / 0</small></strong>
+            </article>
+            <article class="card stat">
+              <span>نسبة الإتقان</span>
+              <strong class="blue" id="statRate">0%</strong>
+            </article>
+            <article class="card stat">
+              <span>حاولتها</span>
+              <strong class="amber" id="statTried">0</strong>
+            </article>
+            <article class="card stat">
+              <span>آخر تمرين</span>
+              <strong id="statLast">-</strong>
+            </article>
+          </section>
+
+          <section class="card weak-panel">
+            <div class="panel-head">
+              <h2>المحاور الضعيفة</h2>
+              <span class="badge amber">متابعة</span>
+            </div>
+            <div class="chip-row" id="weakAreasList">
+              <span class="hint">ابدأ بحل التمارين لنكتشف محاور ضعفك.</span>
+            </div>
+          </section>
         </main>
       </div>
     </div>
@@ -507,7 +1031,7 @@
     <script src="assets/bac-algeria-log-exp.js"></script>
     <script>
       const branchLabels = {
-        all: "كل الشعب",
+        all: "الكل",
         science: "علوم تجريبية",
         math: "رياضيات",
         tech: "تقني رياضي",
@@ -519,6 +1043,11 @@
         ln: "الدالة اللوغارتمية",
         equations: "معادلات ومتراجحات",
         "study-functions": "دراسة الدوال",
+        sequences: "المتتاليات",
+        tangents: "المماسات",
+        area: "حساب المساحة",
+        parity: "الشفعية",
+        discussion: "مناقشة بيانية",
       };
 
       const statusLabels = {
@@ -527,20 +1056,24 @@
         completed: "مكتمل",
       };
 
-      const exercises = (window.bacAlgeriaExams || []).map((item, index) => ({
-        id: item.id || `bac-${index + 1}`,
-        title: item.title,
-        subtitle: `${branchLabels[item.branch] || "كل الشعب"} - ${item.year || item.date || ""}`,
-        branch: item.branch || "all",
-        year: item.year || item.date || "",
-        topics: item.tags || ["exp", "ln"],
-        text: item.summary || "",
-        file: item.file,
-        statement: item.statement || "",
-        source: item.source || "assets",
-      }));
+      const allowedBranches = new Set(["science", "math", "tech", "management"]);
+      const exercises = (window.bacAlgeriaExams || [])
+        .filter((item) => allowedBranches.has(item.branch))
+        .map((item, index) => ({
+          id: item.id || `bac-${index + 1}`,
+          title: item.title,
+          subtitle: `${branchLabels[item.branch] || item.branch} - ${item.year || item.date || ""}`,
+          branch: item.branch,
+          year: item.year || item.date || "",
+          topics: item.tags || ["exp", "ln"],
+          text: item.summary || "",
+          file: item.file,
+          statement: item.statement || "",
+          solution: item.solution || "",
+        }));
 
       let selectedExercise = null;
+      let openSolutionId = null;
       let filters = {
         branch: "all",
         year: "all",
@@ -549,16 +1082,34 @@
         search: "",
       };
 
-      const progressKey = "ayla_log_exp_bac_archive_v1";
+      const progressKey = "ayla_log_exp_bac_archive_v2";
       let progress = loadProgress();
 
-      const exerciseListEl = document.getElementById("exerciseList");
       const readerAreaEl = document.getElementById("readerArea");
+      const resultsCountEl = document.getElementById("resultsCount");
+      const prevExerciseBtn = document.getElementById("prevExerciseBtn");
+      const nextExerciseBtn = document.getElementById("nextExerciseBtn");
       const branchFiltersEl = document.getElementById("branchFilters");
-      const yearFiltersEl = document.getElementById("yearFilters");
+      const yearSelect = document.getElementById("yearSelect");
       const topicFiltersEl = document.getElementById("topicFilters");
       const statusFiltersEl = document.getElementById("statusFilters");
       const searchInput = document.getElementById("searchInput");
+
+      function navigateParentView(viewName) {
+        if (!viewName) return;
+        try {
+          if (window.parent && window.parent !== window) {
+            const parentTab = window.parent.document.querySelector(`[data-view="${viewName}"]`);
+            if (parentTab) {
+              parentTab.click();
+              return;
+            }
+          }
+        } catch {
+          // Fall back to opening the main app when iframe parent access is unavailable.
+        }
+        window.location.href = `index.html#${encodeURIComponent(viewName)}`;
+      }
 
       function loadProgress() {
         try {
@@ -596,20 +1147,26 @@
       }
 
       function branchMatches(exercise) {
-        return filters.branch === "all" || exercise.branch === "all" || exercise.branch === filters.branch;
+        return filters.branch === "all" || exercise.branch === filters.branch;
+      }
+
+      function hasRequiredSelection() {
+        return filters.branch !== "all" && filters.year !== "all";
       }
 
       function renderFilters() {
-        const years = [...new Set(exercises.filter(branchMatches).map((item) => item.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a));
         const availableTopics = [...new Set(exercises.flatMap((item) => item.topics))];
 
         branchFiltersEl.innerHTML = Object.entries(branchLabels)
           .map(([key, label]) => `<button class="filter-btn ${filters.branch === key ? "active" : ""}" type="button" data-branch="${key}">${label}</button>`)
           .join("");
 
-        yearFiltersEl.innerHTML = [
-          `<button class="filter-btn ${filters.year === "all" ? "active" : ""}" type="button" data-year="all">الكل</button>`,
-          ...years.map((year) => `<button class="filter-btn ${String(filters.year) === String(year) ? "active" : ""}" type="button" data-year="${year}">${year}</button>`),
+        const availableYears = [...new Set(exercises.map((item) => String(item.year)).filter(Boolean))].sort(
+          (a, b) => Number(b) - Number(a)
+        );
+        yearSelect.innerHTML = [
+          `<option value="all" ${filters.year === "all" ? "selected" : ""}>كل السنوات</option>`,
+          ...availableYears.map((year) => `<option value="${year}" ${String(filters.year) === year ? "selected" : ""}>${year}</option>`),
         ].join("");
 
         topicFiltersEl.innerHTML = [
@@ -624,6 +1181,7 @@
       }
 
       function getFilteredExercises() {
+        if (!hasRequiredSelection()) return [];
         return exercises.filter((exercise) => {
           if (!branchMatches(exercise)) return false;
           if (filters.year !== "all" && String(exercise.year) !== String(filters.year)) return false;
@@ -638,48 +1196,62 @@
         });
       }
 
-      function renderExerciseList() {
-        const filtered = getFilteredExercises();
-        document.getElementById("resultsCount").textContent = `${filtered.length} موضوع`;
+      function getSelectedIndex(filtered) {
+        return filtered.findIndex((exercise) => exercise.id === selectedExercise?.id);
+      }
 
-        if (!filtered.length) {
-          exerciseListEl.innerHTML = `
-            <article class="card exercise-card">
-              <h3>لا توجد مواضيع مطابقة</h3>
-              <p class="muted">غيّر الفلاتر أو أضف ملفات جديدة إلى assets/bac-algeria-log-exp.js.</p>
-            </article>
-          `;
-          return;
+      function ensureSelectedExercise(filtered) {
+        if (!hasRequiredSelection() || !filtered.length) {
+          selectedExercise = null;
+          openSolutionId = null;
+          return -1;
         }
 
-        exerciseListEl.innerHTML = filtered
-          .map((exercise) => {
-            const status = getStatus(exercise.id);
-            return `
-              <button class="card exercise-card ${selectedExercise?.id === exercise.id ? "active" : ""} ${status}" type="button" data-exercise-id="${exercise.id}">
-                <div class="chip-row">
-                  <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || "كل الشعب")}</span>
-                  <span class="badge blue">${escapeHtml(exercise.year)}</span>
-                  ${status !== "new" ? `<span class="badge amber">${statusLabels[status]}</span>` : ""}
-                </div>
-                <h3>${escapeHtml(exercise.title)}</h3>
-                <p class="muted">${escapeHtml(exercise.text)}</p>
-                <div class="chip-row">
-                  ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
-                </div>
-              </button>
-            `;
-          })
-          .join("");
+        let selectedIndex = getSelectedIndex(filtered);
+        if (selectedIndex === -1) {
+          selectedIndex = 0;
+          selectedExercise = filtered[0];
+          openSolutionId = null;
+        }
+        return selectedIndex;
+      }
+
+      function touchSelectedExercise() {
+        if (!selectedExercise || getStatus(selectedExercise.id) !== "new") return;
+        progress[selectedExercise.id] = {
+          ...(progress[selectedExercise.id] || {}),
+          status: "tried",
+          lastViewed: new Date().toISOString(),
+        };
+        saveProgress();
+      }
+
+      function renderTopicPager(filtered, selectedIndex) {
+        resultsCountEl.textContent = hasRequiredSelection()
+          ? (filtered.length ? `${selectedIndex + 1} / ${filtered.length} موضوع` : "0 موضوع")
+          : "اختر الشعبة والسنة";
+        prevExerciseBtn.disabled = selectedIndex <= 0;
+        nextExerciseBtn.disabled = selectedIndex === -1 || selectedIndex >= filtered.length - 1;
+      }
+
+      function renderExerciseList() {
+        const filtered = getFilteredExercises();
+        const selectedIndex = ensureSelectedExercise(filtered);
+        renderTopicPager(filtered, selectedIndex);
+        touchSelectedExercise();
       }
 
       function renderReader() {
         if (!selectedExercise) {
+          const emptyTitle = hasRequiredSelection() ? "لا يوجد موضوع مطابق" : "اختر الشعبة والسنة";
+          const emptyText = hasRequiredSelection()
+            ? "غيّر الشعبة أو السنة أو المحور لعرض موضوع بكالوريا آخر."
+            : "لن يظهر الموضوع حتى تختار الشعبة والسنة من الفلاتر.";
           readerAreaEl.innerHTML = `
             <div class="reader-empty">
               <div>
-                <h2>اختر موضوعا للبدء</h2>
-                <p>اضغط على أي بطاقة من القائمة لعرض الملف وخيارات المتابعة.</p>
+                <h2>${emptyTitle}</h2>
+                <p>${emptyText}</p>
               </div>
             </div>
           `;
@@ -687,50 +1259,54 @@
         }
 
         const exercise = selectedExercise;
-        const resourceView = exercise.file
-          ? `<iframe class="pdf-frame" src="${escapeHtml(exercise.file)}" title="${escapeHtml(exercise.title)}"></iframe>`
-          : `<article class="statement-reader">${exercise.statement || "<p>نص التمرين غير متوفر بعد.</p>"}</article>`;
+        const resourceView = exercise.statement
+          ? `<article class="statement-reader">${exercise.statement}</article>`
+          : `<article class="statement-reader"><p>نص الموضوع غير متوفر بعد. يمكنك فتح ملف PDF من الزر أعلاه.</p></article>`;
         const resourceActions = exercise.file
           ? `
-            <a class="btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
-            <a class="btn" href="${escapeHtml(exercise.file)}" download>تحميل PDF</a>
+            <a class="action-btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
+          `
+          : "";
+        const solutionIsOpen = openSolutionId === exercise.id;
+        const solutionBlock = exercise.solution
+          ? `
+            <div class="solution-footer">
+              <button class="action-btn primary" type="button" id="toggleSolutionBtn">${solutionIsOpen ? "إخفاء الحل" : "الحل"}</button>
+              <section class="solution-panel ${solutionIsOpen ? "active" : ""}" id="solutionPanel">
+                ${exercise.solution}
+              </section>
+            </div>
           `
           : "";
         readerAreaEl.innerHTML = `
           <section class="reader-header">
-            <div>
-              <div class="chip-row">
-                <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || "كل الشعب")}</span>
-                <span class="badge blue">${escapeHtml(exercise.year)}</span>
-                ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
-              </div>
-              <h2>${escapeHtml(exercise.title)}</h2>
-              <p class="muted">${escapeHtml(exercise.text)}</p>
+            <div class="chip-row">
+              <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || exercise.branch)}</span>
+              <span class="badge blue">${escapeHtml(exercise.year)}</span>
+              ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
             </div>
+            <h2>${escapeHtml(exercise.title)}</h2>
+            <p class="hint">${escapeHtml(exercise.text)}</p>
           </section>
           <div class="reader-actions">
-            <button class="btn amber" type="button" id="btnTried">حاولت الموضوع</button>
-            <button class="btn primary" type="button" id="btnCompleted">تمت المراجعة</button>
+            <button class="action-btn amber" type="button" id="btnTried">حاولت التمرين</button>
+            <button class="action-btn primary" type="button" id="btnCompleted">تمت المراجعة</button>
             ${resourceActions}
           </div>
           ${resourceView}
-          <article class="method">
-            <h3>طريقة العمل المقترحة</h3>
-            <ol>
-              <li>حدد مجال التعريف وشروط اللوغارتم قبل أي تحويل.</li>
-              <li>استخرج المشتقة أو التحويل المناسب للدالة الأسية/اللوغارتمية.</li>
-              <li>أنجز جدول التغيرات ثم اربط النتائج بالمطلوب في نص الموضوع.</li>
-              <li>بعد المحاولة، علّم الموضوع كمكتمل حتى تظهر إحصائياتك بدقة.</li>
-            </ol>
-          </article>
+          ${solutionBlock}
         `;
 
         document.getElementById("btnTried").addEventListener("click", () => setStatus(exercise.id, "tried"));
         document.getElementById("btnCompleted").addEventListener("click", () => setStatus(exercise.id, "completed"));
+        document.getElementById("toggleSolutionBtn")?.addEventListener("click", () => {
+          openSolutionId = solutionIsOpen ? null : exercise.id;
+          renderReader();
+        });
       }
 
       function renderStats() {
-        const scoped = exercises.filter(branchMatches);
+        const scoped = hasRequiredSelection() ? getFilteredExercises() : [];
         const completed = scoped.filter((item) => getStatus(item.id) === "completed").length;
         const tried = scoped.filter((item) => getStatus(item.id) === "tried").length;
         const rate = scoped.length ? Math.round((completed / scoped.length) * 100) : 0;
@@ -743,7 +1319,7 @@
         const last = Object.entries(progress)
           .filter(([, data]) => data.lastViewed)
           .sort((a, b) => new Date(b[1].lastViewed) - new Date(a[1].lastViewed))[0];
-        document.getElementById("statLast").textContent = last ? exercises.find((item) => item.id === last[0])?.title || "-" : "-";
+        document.getElementById("statLast").textContent = last ? exercises.find((item) => item.id === last[0])?.year || "-" : "-";
 
         const weakAreas = scoped
           .flatMap((item) => item.topics.map((topic) => ({ topic, completed: getStatus(item.id) === "completed" })))
@@ -760,7 +1336,15 @@
 
         document.getElementById("weakAreasList").innerHTML = completed
           ? chips.map(([topic, stats]) => `<span class="badge amber">${topicLabels[topic] || topic}: ${stats.completed}/${stats.total}</span>`).join("")
-          : `<span class="muted">ابدأ بحل المواضيع لنكتشف محاور ضعفك.</span>`;
+          : `<span class="hint">ابدأ بحل التمارين لنكتشف محاور ضعفك.</span>`;
+      }
+
+      function notifyHeight() {
+        if (!window.parent || window.parent === window) return;
+        window.requestAnimationFrame(() => {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+          window.parent.postMessage({ type: "ayla-iframe-height", height }, "*");
+        });
       }
 
       function render() {
@@ -768,6 +1352,7 @@
         renderExerciseList();
         renderReader();
         renderStats();
+        notifyHeight();
       }
 
       branchFiltersEl.addEventListener("click", (event) => {
@@ -778,10 +1363,8 @@
         render();
       });
 
-      yearFiltersEl.addEventListener("click", (event) => {
-        const button = event.target.closest("[data-year]");
-        if (!button) return;
-        filters.year = button.dataset.year;
+      yearSelect.addEventListener("change", (event) => {
+        filters.year = event.target.value;
         render();
       });
 
@@ -804,24 +1387,56 @@
         render();
       });
 
+      function updateSideNavActive(activeButton) {
+        document.querySelectorAll(".side-nav [data-parent-view]").forEach((button) => {
+          if (button === activeButton) {
+            button.setAttribute("aria-current", "true");
+            button.classList.add("active");
+          } else {
+            button.removeAttribute("aria-current");
+            button.classList.remove("active");
+          }
+        });
+      }
+
+      document.querySelector(".side-nav").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-parent-view]");
+        if (!button) return;
+        updateSideNavActive(button);
+        navigateParentView(button.dataset.parentView);
+      });
+
+      updateSideNavActive(document.querySelector('.side-nav [data-parent-view="bac"]'));
+
       document.getElementById("globalResetFilters").addEventListener("click", () => {
         filters = { branch: "all", year: "all", topic: "all", status: "all", search: "" };
         searchInput.value = "";
         render();
       });
 
-      exerciseListEl.addEventListener("click", (event) => {
-        const card = event.target.closest("[data-exercise-id]");
-        if (!card) return;
-        selectedExercise = exercises.find((item) => item.id === card.dataset.exerciseId);
-        if (selectedExercise && getStatus(selectedExercise.id) === "new") {
-          progress[selectedExercise.id] = {
-            ...(progress[selectedExercise.id] || {}),
-            status: "tried",
-            lastViewed: new Date().toISOString(),
-          };
-          saveProgress();
-        }
+      document.getElementById("resetProgressBtn").addEventListener("click", () => {
+        if (!confirm("هل أنت متأكد من مسح تقدم تمارين البكالوريا؟ لا يمكن التراجع عن هذا الإجراء.")) return;
+        progress = {};
+        saveProgress();
+        render();
+      });
+
+      prevExerciseBtn.addEventListener("click", () => {
+        const filtered = getFilteredExercises();
+        const selectedIndex = getSelectedIndex(filtered);
+        if (selectedIndex <= 0) return;
+        selectedExercise = filtered[selectedIndex - 1];
+        openSolutionId = null;
+        render();
+        readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      nextExerciseBtn.addEventListener("click", () => {
+        const filtered = getFilteredExercises();
+        const selectedIndex = getSelectedIndex(filtered);
+        if (selectedIndex === -1 || selectedIndex >= filtered.length - 1) return;
+        selectedExercise = filtered[selectedIndex + 1];
+        openSolutionId = null;
         render();
         readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
       });

@@ -236,6 +236,9 @@
   display: grid;
   gap: 18px;
   max-width: 920px;
+  font-family: var(--font-lesson);
+  font-size: 1.08rem;
+  line-height: 2;
 }
 
 .structured-lesson-hero {
@@ -258,6 +261,8 @@
   margin: 0;
   color: var(--ink);
   font-size: clamp(24px, 4vw, 36px);
+  font-family: var(--font-lesson);
+  font-weight: 700;
 }
 
 .structured-lesson-subtitle {
@@ -274,9 +279,11 @@
 
 .structured-lesson-hero b,
 .math {
-  font-family: var(--font-mono);
+  font-family: var(--font-math);
   direction: ltr;
   unicode-bidi: isolate;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .definition-box,
@@ -351,16 +358,18 @@
   width: fit-content;
   max-width: 100%;
   margin: 14px 0;
-  padding: 10px 16px;
+  padding: 12px 18px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 12px;
   background: rgba(11, 15, 13, 0.5);
   color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-family: var(--font-math);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.75;
   direction: ltr;
   unicode-bidi: isolate;
+  letter-spacing: 0;
 }
 
 .math-pill {
@@ -671,11 +680,114 @@
   display: none;
 }
 
+.solution-panel {
+  display: none;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid rgba(0, 214, 143, 0.22);
+  border-radius: 14px;
+  background: rgba(0, 214, 143, 0.06);
+  color: #d9fbe7;
+  line-height: 1.95;
+}
+
+.solution-panel.active {
+  display: block;
+  animation: fadeIn 220ms ease;
+}
+
+.activity-panel .solution-toggle,
+.exercise-panel .solution-toggle {
+  margin-top: 12px;
+}
+
+.activity-panel .solution-panel,
+.exercise-panel .solution-panel {
+  text-align: start;
+}
+
 .solution-body {
   padding: 18px;
   color: #d9fbe7;
   line-height: 1.95;
   white-space: normal;
+}
+
+.activity-body {
+  display: grid;
+  gap: 12px;
+}
+
+.activity-sheet {
+  display: grid;
+  gap: 14px;
+  line-height: 1.9;
+}
+
+.activity-visual-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) minmax(220px, 0.8fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.mini-graph {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fbff9b;
+}
+
+.mini-graph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lesson-graph {
+  max-width: 620px;
+}
+
+.lesson-graph figcaption {
+  padding: 10px 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.activity-mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  direction: ltr;
+  overflow: hidden;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.activity-mini-table th,
+.activity-mini-table td {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 7px;
+  text-align: center;
+}
+
+.activity-mini-table th {
+  background: rgba(245, 158, 11, 0.16);
+  color: var(--amber);
+}
+
+.activity-mini-table td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.activity-questions {
+  margin: 0;
+  padding-inline-start: 24px;
+}
+
+.activity-definition {
+  width: 100%;
+  margin-top: 4px;
 }
 
 /* ===== Structured activity solution ===== */
@@ -817,8 +929,9 @@
   background: rgba(0, 214, 143, 0.14);
   color: var(--primary);
   font-weight: 800;
-  font-family: var(--font-mono);
+  font-family: var(--font-math);
   direction: ltr;
+  letter-spacing: 0;
 }
 
 .solution-equation {
@@ -828,11 +941,13 @@
   background: rgba(0, 0, 0, 0.28);
   border: 1px dashed var(--line-strong);
   color: var(--primary);
-  font-family: var(--font-mono);
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-family: var(--font-math);
+  font-size: 1.24rem;
+  font-weight: 700;
+  line-height: 1.7;
   text-align: center;
   direction: ltr;
+  letter-spacing: 0;
 }
 
 .solution-result {
@@ -854,7 +969,7 @@
 }
 
 .solution-phase-body .math {
-  font-family: var(--font-mono);
+  font-family: var(--font-math);
   color: var(--blue);
   font-weight: 700;
   direction: ltr;
@@ -901,16 +1016,6 @@
 
 .badges-grid {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
-
-.bac-intro {
-  margin-bottom: 14px;
-}
-
-#bacView > .study-hero,
-#bacView > .dashboard-grid,
-#bacView > .bac-archive-panel {
-  display: none;
 }
 
 .bac-exam-grid {
@@ -993,21 +1098,7 @@
   grid-column: 1 / -1;
 }
 
-.bac-iframe-wrapper {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: 0 16px 38px var(--shadow);
-}
-
-.bac-iframe-wrapper iframe {
-  display: block;
-  width: 100%;
-  min-height: 720px;
-  border: 0;
-}
+/* bac-iframe-wrapper styles now live in styles.css */
 
 .bac-exercise-card {
   min-height: 150px;
@@ -1167,6 +1258,8 @@
   direction: ltr;
   text-align: center;
   color: var(--text);
+  font-family: var(--font-math);
+  font-size: 1.05rem;
 }
 
 .math-table th,

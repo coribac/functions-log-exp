@@ -13,11 +13,13 @@ const mimeTypes = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.pdf': 'application/pdf'
 };
 
 const server = http.createServer((req, res) => {
-  let filePath = '.' + req.url;
+  const urlPath = new URL(req.url, `http://${req.headers.host}`).pathname;
+  let filePath = '.' + urlPath;
   if (filePath === './') filePath = './index.html';
 
   const extname = path.extname(filePath).toLowerCase();
@@ -34,7 +36,7 @@ const server = http.createServer((req, res) => {
       }
       return;
     }
-    res.writeHead(200, { 'Content-Type': contentType });
+    res.writeHead(200, { 'Content-Type': contentType, 'Cache-Control': 'no-store, must-revalidate' });
     res.end(content);
   });
 });

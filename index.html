@@ -6,12 +6,13 @@
     <title>الدوال الأسية واللوغارتمية - مدرسة إيلا للرياضيات</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" href="assets/ayla_math_school_logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="components.css" />
   </head>
   <body>
-    <section class="splash-screen" id="splashScreen" aria-label="شاشة بداية تطبيق الدوال">
+    <section class="splash-screen" id="splashScreen" aria-label="شاشة بداية تطبيق الدوال" aria-hidden="false">
       <img class="splash-logo" src="assets/ayla_math_school_logo.svg" alt="شعار مدرسة إيلا للرياضيات" />
       <h1>الدوال الأسية واللوغارتمية</h1>
       <p>مدرسة إيلا للرياضيات</p>
@@ -30,19 +31,17 @@
           </div>
           <div class="top-actions">
             <span class="status-pill">السنة الثالثة ثانوي</span>
-            <button class="teacher-entry" type="button" id="resetProgressBtn">تصفير التقدم</button>
           </div>
         </div>
       </header>
 
       <nav class="tab-bar main-nav" aria-label="الأبواب الرئيسية">
-        <button class="tab active" type="button" data-view="home">الرئيسية</button>
+        <button class="tab active" type="button" data-view="home" aria-current="true">الرئيسية</button>
         <button class="tab" type="button" data-view="learn">التعلم</button>
         <button class="tab" type="button" data-view="exercises">التمارين</button>
         <button class="tab" type="button" data-view="progress">تقدمي</button>
-        <button class="tab" type="button" data-view="bac">بكالوريا الجزائر</button>
-        <button class="tab" type="button" data-view="mockBac">بكالوريا تجريبي</button>
-        <button class="tab" type="button" data-view="foreignBac">بكالوريا أجنبي</button>
+        <button class="tab desktop-only" type="button" data-view="bac">البكالوريا</button>
+        <button class="tab mobile-only" type="button" data-view="bac">المزيد</button>
       </nav>
 
       <section class="role-view active">
@@ -53,7 +52,7 @@
               <h2>مسار كامل للدوال الأسية واللوغارتمية</h2>
               <p>محاور مرتبة: درس مركز، نشاط تطبيقي، تمارين تدريبية، ونماذج موجهة للبكالوريا.</p>
             </div>
-            <div class="readiness-ring" id="readinessRing">
+            <div class="readiness-ring" id="readinessRing" aria-label="نسبة تقدمك">
               <strong id="readinessValue">0%</strong>
               <span>تقدمك</span>
             </div>
@@ -112,119 +111,84 @@
 
         <section class="student-tab" id="bacView">
           <div class="section-title">
-            <h2>بكالوريا الجزائر</h2>
-            <span>باب مستقل للتدريب فقط</span>
+            <h2>البكالوريا</h2>
+            <span>تدريب موجه لأبواب البكالوريا</span>
           </div>
-          <article class="action-panel bac-intro">
-            <span class="panel-label blue">تدرب مباشرة</span>
-            <h3>مواضيع وتمارين البكالوريا في الدوال الأسية واللوغارتمية</h3>
-            <p>هنا نضع المواضيع والملفات المنظمة حسب الشعبة والسنة والمحور. هذا الباب منفصل عن الدروس حتى لا تختلط القراءة بالتدريب.</p>
-          </article>
-          <div class="bac-iframe-wrapper">
-            <iframe src="bac-exercises.html" title="بكالوريا الجزائر"></iframe>
-          </div>
-          <section class="study-hero">
-            <div>
-              <span class="kicker">BAC DZ</span>
-              <h2>بكالوريا الجزائر</h2>
-              <p>مسار مراجعة سريع للدوال الأسية واللوغارتمية موجه لتمارين البكالوريا الجزائرية.</p>
+
+          <nav class="bac-subtabs branch-inline" aria-label="أبواب البكالوريا">
+            <button class="active" type="button" data-bac-tab="algeria" aria-current="true">بكالوريا الجزائر</button>
+            <button type="button" data-bac-tab="mock">بكالوريا تجريبي</button>
+            <button type="button" data-bac-tab="foreign">بكالوريا أجنبي</button>
+          </nav>
+
+          <section class="bac-panel active" data-bac-panel="algeria">
+            <article class="action-panel bac-intro">
+              <span class="panel-label blue">تدرب مباشرة</span>
+              <h3>مواضيع وتمارين البكالوريا في الدوال</h3>
+              <p>اختر الشعبة والسنة والمحور من الفلاتر أدناه، وحلّ التمارين خطوة بخطوة.</p>
+            </article>
+            <div class="bac-iframe-wrapper">
+              <iframe id="bacFrame" src="bac-exercises.html?embed=1" title="بكالوريا الجزائر"></iframe>
             </div>
-            <button class="primary-btn" type="button" data-view-jump="solved">فتح التمارين المحلولة</button>
           </section>
 
-          <section class="dashboard-grid">
-            <article class="action-panel">
-              <span class="panel-label green">منهجية</span>
-              <h3>خطوات الحل</h3>
-              <p>ابدأ بمجال التعريف، ثم الاشتقاق أو التحويل اللوغارتمي، وبعدها جدول التغيرات والاستنتاج.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label blue">مواضيع</span>
-              <h3>أسئلة متكررة</h3>
-              <p>حل معادلات ومتراجحات، دراسة دالة، مماسات، نهايات، ومناقشة حسب وسيط.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label">مراجعة</span>
-              <h3>قبل الامتحان</h3>
-              <p>راجع خواص exp و ln، شروط التعريف، إشارات المشتقة، وكيفية تبرير كل خطوة كتابيًا.</p>
-            </article>
-          </section>
-
-          <section class="bac-archive-panel">
-            <div class="section-title">
-              <h2>أرشيف بكالوريا الجزائر</h2>
-              <span id="bacArchiveCount">0 موضوع</span>
-            </div>
-            <div class="bac-filter-panel">
-              <div class="bac-filter-group">
-                <span>الشعبة</span>
-                <div class="bac-filter-buttons" id="bacBranchFilters"></div>
+          <section class="bac-panel" data-bac-panel="mock">
+            <section class="study-hero">
+              <div>
+                <span class="kicker">BAC TEST</span>
+                <h2>بكالوريا تجريبي</h2>
+                <p>فضاء للتدريب على موضوع تجريبي يحاكي طريقة أسئلة البكالوريا في الدوال الأسية واللوغارتمية.</p>
               </div>
-              <div class="bac-filter-group">
-                <span>السنة</span>
-                <div class="bac-filter-buttons" id="bacYearFilters"></div>
+              <button class="primary-btn" type="button" data-view-jump="exercises">بدء التدريب</button>
+            </section>
+            <section class="dashboard-grid">
+              <article class="action-panel">
+                <span class="panel-label green">الجزء الأول</span>
+                <h3>أسئلة مباشرة</h3>
+                <p>خواص exp و ln، تبسيط عبارات، وحل معادلات قصيرة مع احترام شروط التعريف.</p>
+              </article>
+              <article class="action-panel">
+                <span class="panel-label blue">الجزء الثاني</span>
+                <h3>دراسة دالة</h3>
+                <p>مجال التعريف، النهايات، المشتقة، جدول التغيرات، وقراءة النتائج من المنحنى.</p>
+              </article>
+              <article class="action-panel">
+                <span class="panel-label">الجزء الثالث</span>
+                <h3>وضعية إدماجية</h3>
+                <p>تطبيق نموذجي يستعمل دالة أسية أو لوغارتمية مع تفسير النتائج رياضيًا.</p>
+              </article>
+            </section>
+          </section>
+
+          <section class="bac-panel" data-bac-panel="foreign">
+            <section class="study-hero">
+              <div>
+                <span class="kicker">BAC WORLD</span>
+                <h2>بكالوريا أجنبي</h2>
+                <p>تدريب على نماذج وأسئلة خارجية قريبة من محور الدوال الأسية واللوغارتمية مع مقارنة طرق الحل.</p>
               </div>
-            </div>
-            <section class="bac-exam-grid" id="bacArchiveGrid"></section>
-          </section>
-        </section>
-
-        <section class="student-tab" id="mockBacView">
-          <section class="study-hero">
-            <div>
-              <span class="kicker">BAC TEST</span>
-              <h2>بكالوريا تجريبي</h2>
-              <p>فضاء للتدريب على موضوع تجريبي يحاكي طريقة أسئلة البكالوريا في الدوال الأسية واللوغارتمية.</p>
-            </div>
-            <button class="primary-btn" type="button" data-view-jump="exercises">بدء التدريب</button>
-          </section>
-
-          <section class="dashboard-grid">
-            <article class="action-panel">
-              <span class="panel-label green">الجزء الأول</span>
-              <h3>أسئلة مباشرة</h3>
-              <p>خواص exp و ln، تبسيط عبارات، وحل معادلات قصيرة مع احترام شروط التعريف.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label blue">الجزء الثاني</span>
-              <h3>دراسة دالة</h3>
-              <p>مجال التعريف، النهايات، المشتقة، جدول التغيرات، وقراءة النتائج من المنحنى.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label">الجزء الثالث</span>
-              <h3>وضعية إدماجية</h3>
-              <p>تطبيق نموذجي يستعمل دالة أسية أو لوغارتمية مع تفسير النتائج رياضيًا.</p>
-            </article>
-          </section>
-        </section>
-
-        <section class="student-tab" id="foreignBacView">
-          <section class="study-hero">
-            <div>
-              <span class="kicker">BAC WORLD</span>
-              <h2>بكالوريا أجنبي</h2>
-              <p>تدريب على نماذج وأسئلة خارجية قريبة من محور الدوال الأسية واللوغارتمية مع مقارنة طرق الحل.</p>
-            </div>
-            <button class="primary-btn" type="button" data-view-jump="learn">فتح محاور التعلم</button>
+              <button class="primary-btn" type="button" data-view-jump="learn">فتح محاور التعلم</button>
+            </section>
+            <section class="dashboard-grid">
+              <article class="action-panel">
+                <span class="panel-label green">نماذج</span>
+                <h3>أفكار متنوعة</h3>
+                <p>أسئلة بصيغ مختلفة تساعدك على التعرف على نفس المفاهيم عندما تتغير طريقة الطرح.</p>
+              </article>
+              <article class="action-panel">
+                <span class="panel-label blue">مقارنة</span>
+                <h3>طرق الحل</h3>
+                <p>ربط بين منهجية البكالوريا الجزائرية وتمارين أجنبية تستعمل الاشتقاق، النهايات، وخواص اللوغارتم.</p>
+              </article>
+              <article class="action-panel">
+                <span class="panel-label">تحدي</span>
+                <h3>مستوى أعلى</h3>
+                <p>تمارين للتوسع بعد إتقان الأساسيات، خاصة في دراسة الدوال والمناقشة حسب وسيط.</p>
+              </article>
+            </section>
           </section>
 
-          <section class="dashboard-grid">
-            <article class="action-panel">
-              <span class="panel-label green">نماذج</span>
-              <h3>أفكار متنوعة</h3>
-              <p>أسئلة بصيغ مختلفة تساعدك على التعرف على نفس المفاهيم عندما تتغير طريقة الطرح.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label blue">مقارنة</span>
-              <h3>طرق الحل</h3>
-              <p>ربط بين منهجية البكالوريا الجزائرية وتمارين أجنبية تستعمل الاشتقاق، النهايات، وخواص اللوغارتم.</p>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label">تحدي</span>
-              <h3>مستوى أعلى</h3>
-              <p>تمارين للتوسع بعد إتقان الأساسيات، خاصة في دراسة الدوال والمناقشة حسب وسيط.</p>
-            </article>
-          </section>
+
         </section>
 
         <section class="student-tab" id="progressView">
@@ -233,10 +197,14 @@
             <span id="progressSummary">0 محور مكتمل</span>
           </div>
           <section class="dashboard-grid" id="progressGrid"></section>
+          <div class="progress-actions">
+            <button class="ghost-btn reset-progress-btn" type="button" id="resetProgressBtn">تصفير التقدم</button>
+          </div>
         </section>
       </section>
     </main>
 
+    <script src="assets/bac-algeria-log-exp.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
