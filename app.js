@@ -838,10 +838,42 @@ function setActiveTabs(containerSelector, activeButton, attributeName) {
 function setBacPanel(tabName) {
   const container = document.getElementById("bacView");
   if (!container) return;
-  const activeButton = container.querySelector(`[data-bac-tab="${tabName}"]`);
-  setActiveTabs("#bacView .bac-subtabs", activeButton, "data-bac-tab");
+  container.classList.toggle("is-mock-active", tabName === "mock");
+  document.querySelectorAll("[data-bac-tab]").forEach((button) => {
+    const isActive = button.dataset.bacTab === tabName;
+    button.classList.toggle("active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "true");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+  document.querySelectorAll('[data-view="bac"]:not([data-bac-tab])').forEach((button) => {
+    const isActive = tabName !== "mock";
+    button.classList.toggle("active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "true");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
   container.querySelectorAll("[data-bac-panel]").forEach((panel) => {
     panel.classList.toggle("active", panel.dataset.bacPanel === tabName);
+  });
+}
+
+function setMockBacBranch(branchName) {
+  document.querySelectorAll("[data-mock-branch]").forEach((button) => {
+    const isActive = button.dataset.mockBranch === branchName;
+    button.classList.toggle("active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "true");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+  document.querySelectorAll("[data-mock-panel]").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.mockPanel === branchName);
   });
 }
 
@@ -888,7 +920,7 @@ function setView(viewName) {
   state.currentView = viewName;
   Object.entries(views).forEach(([name, node]) => node?.classList.toggle("active", name === viewName));
   document.querySelectorAll("[data-view]").forEach((button) => {
-    const isActive = button.dataset.view === viewName;
+    const isActive = button.dataset.view === viewName && !button.dataset.bacTab;
     button.classList.toggle("active", isActive);
     if (isActive) {
       button.setAttribute("aria-current", "true");
@@ -1226,10 +1258,20 @@ function updateHome() {
 function bindEvents() {
   document.addEventListener("click", (event) => {
     const viewButton = event.target.closest("[data-view]");
-    if (viewButton) setView(viewButton.dataset.view);
+    if (viewButton) {
+      setView(viewButton.dataset.view);
+      if (viewButton.dataset.view === "bac") {
+        setBacPanel(viewButton.dataset.bacTab || "algeria");
+      }
+    }
 
     const jumpButton = event.target.closest("[data-view-jump]");
-    if (jumpButton) setView(jumpButton.dataset.viewJump);
+    if (jumpButton) {
+      setView(jumpButton.dataset.viewJump);
+      if (jumpButton.dataset.viewJump === "bac") {
+        setBacPanel("algeria");
+      }
+    }
 
     const scrollButton = event.target.closest("[data-scroll-target]");
     if (scrollButton) {
@@ -1265,6 +1307,22 @@ function bindEvents() {
     const bacTab = event.target.closest("[data-bac-tab]");
     if (bacTab) {
       setBacPanel(bacTab.dataset.bacTab);
+    }
+
+    const mockBranch = event.target.closest("[data-mock-branch]");
+    if (mockBranch) {
+      event.preventDefault();
+      setMockBacBranch(mockBranch.dataset.mockBranch);
+      document.querySelector(".mock-bac-panels")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    const mockSolutionToggle = event.target.closest("[data-toggle-mock-solution]");
+    if (mockSolutionToggle) {
+      const solution = mockSolutionToggle.closest(".mock-exam-solution");
+      const isCollapsed = solution?.classList.toggle("is-collapsed");
+      mockSolutionToggle.setAttribute("aria-expanded", String(!isCollapsed));
+      return;
     }
 
     const solutionToggle = event.target.closest("[data-solution-key]");

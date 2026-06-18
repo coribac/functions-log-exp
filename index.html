@@ -41,6 +41,7 @@
         <button class="tab" type="button" data-view="exercises">التمارين</button>
         <button class="tab" type="button" data-view="progress">تقدمي</button>
         <button class="tab desktop-only" type="button" data-view="bac">البكالوريا</button>
+        <button class="tab nav-subtab desktop-only" type="button" data-view="bac" data-bac-tab="mock">بكالوريا تجريبية</button>
         <button class="tab mobile-only" type="button" data-view="bac">المزيد</button>
       </nav>
 
@@ -117,7 +118,6 @@
 
           <nav class="bac-subtabs branch-inline" aria-label="أبواب البكالوريا">
             <button class="active" type="button" data-bac-tab="algeria" aria-current="true">بكالوريا الجزائر</button>
-            <button type="button" data-bac-tab="mock">بكالوريا تجريبي</button>
             <button type="button" data-bac-tab="foreign">بكالوريا أجنبي</button>
           </nav>
 
@@ -136,26 +136,998 @@
             <section class="study-hero">
               <div>
                 <span class="kicker">BAC TEST</span>
-                <h2>بكالوريا تجريبي</h2>
-                <p>فضاء للتدريب على موضوع تجريبي يحاكي طريقة أسئلة البكالوريا في الدوال الأسية واللوغارتمية.</p>
+                <h2>بكالوريا تجريبية</h2>
+                <p>اختر الباب المناسب لشعبتك، ثم تدرب على موضوع تجريبي يحاكي طريقة أسئلة البكالوريا في الدوال الأسية واللوغارتمية.</p>
               </div>
-              <button class="primary-btn" type="button" data-view-jump="exercises">بدء التدريب</button>
+              <button class="primary-btn" type="button" data-mock-branch="science">بدء التدريب</button>
             </section>
-            <section class="dashboard-grid">
-              <article class="action-panel">
-                <span class="panel-label green">الجزء الأول</span>
-                <h3>أسئلة مباشرة</h3>
-                <p>خواص exp و ln، تبسيط عبارات، وحل معادلات قصيرة مع احترام شروط التعريف.</p>
+            <section class="dashboard-grid mock-bac-doors" aria-label="أبواب البكالوريا التجريبية">
+              <article class="action-panel mock-bac-door">
+                <span class="panel-label green">باب علمي</span>
+                <h3>علوم تجريبية</h3>
+                <p>موضوع تجريبي يركز على الدراسة الكاملة للدوال، النهايات، الاشتقاق، وجدول التغيرات مع أسئلة مباشرة.</p>
+                <button class="ghost-btn active" type="button" data-mock-branch="science" aria-current="true">فتح الباب</button>
               </article>
-              <article class="action-panel">
-                <span class="panel-label blue">الجزء الثاني</span>
-                <h3>دراسة دالة</h3>
-                <p>مجال التعريف، النهايات، المشتقة، جدول التغيرات، وقراءة النتائج من المنحنى.</p>
+              <article class="action-panel mock-bac-door">
+                <span class="panel-label blue">باب رياضي</span>
+                <h3>رياضيات</h3>
+                <p>موضوع تجريبي أعمق في البرهان، المناقشة، استعمال الوسيط، وربط خواص الدوال الأسية واللوغارتمية.</p>
+                <button class="ghost-btn" type="button" data-mock-branch="math">فتح الباب</button>
               </article>
-              <article class="action-panel">
-                <span class="panel-label">الجزء الثالث</span>
-                <h3>وضعية إدماجية</h3>
-                <p>تطبيق نموذجي يستعمل دالة أسية أو لوغارتمية مع تفسير النتائج رياضيًا.</p>
+              <article class="action-panel mock-bac-door">
+                <span class="panel-label purple">باب تقني رياضي</span>
+                <h3>تقني رياضي</h3>
+                <p>موضوع تجريبي يجمع بين دراسة الدوال، القراءة البيانية، التطبيقات التقنية، وتنظيم الحل خطوة بخطوة.</p>
+                <button class="ghost-btn" type="button" data-mock-branch="tech">فتح الباب</button>
+              </article>
+            </section>
+            <section class="mock-bac-panels" aria-label="مواضيع البكالوريا التجريبية">
+              <article class="action-panel mock-bac-panel active" data-mock-panel="science">
+                <div class="section-title compact-title">
+                  <h2>موضوع تجريبي - علوم تجريبية</h2>
+                  <span>الدوال اللوغارتمية</span>
+                </div>
+                <section class="mock-exam-paper">
+                  <h3>التمرين الأول</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>نعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> حيث:</p>
+                      <div class="math-equation">g(x) = (x<sup>2</sup> - 1)e<sup>x</sup> + 1</div>
+                      <ol>
+                        <li>أوجد <span class="math">g'(x)</span> ثم ادرس إشارتها، مستنتجا اتجاه تغير الدالة <span class="math">g</span>.</li>
+                        <li>احسب نهايتي الدالة <span class="math">g</span> عند <span class="math">+∞</span> و <span class="math">-∞</span>، ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلين، نرمز بـ <span class="math">α</span> للحل غير المعدوم حيث: <span class="math">0.7 &lt; α &lt; 0.8</span>.</li>
+                        <li>استنتج إشارة <span class="math">g(x)</span> حسب قيم <span class="math">x</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> حيث:</p>
+                      <div class="math-equation">f(x) = x + (x - 1)<sup>2</sup>e<sup>x</sup></div>
+                      <p>ونسمي <span class="math">(Cf)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب نهايتي الدالة <span class="math">f</span> عند <span class="math">-∞</span> و <span class="math">+∞</span>.</li>
+                        <li>أوجد <span class="math">f'(x)</span> مستنتجا اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+                        <li>أثبت أن <span class="math">f(α) = α - 1 + 2/(α + 1)</span>، مستنتجا حصرا للعدد <span class="math">f(α)</span>.</li>
+                        <li>أثبت أن <span class="math">(Cf)</span> يقبل نقطتي انعطاف، مع تحديد فاصلة كل منهما.</li>
+                        <li>اكتب معادلة المماس <span class="math">Δ</span> لـ <span class="math">(Cf)</span> عند النقطة <span class="math">A(1;1)</span>.</li>
+                        <li>بين أن المنحنى <span class="math">(Cf)</span> يقبل <span class="math">Δ</span> كمقارب مائل بجوار <span class="math">-∞</span>، ثم حدد وضعيته.</li>
+                        <li>بين أن <span class="math">(Cf)</span> يقبل مماسا <span class="math">Δ'</span> موازيا لـ <span class="math">Δ</span>، يطلب إيجاد معادلته.</li>
+                        <li>ارسم كلا من <span class="math">Δ</span> و <span class="math">Δ'</span> والمنحنى <span class="math">(Cf)</span>.</li>
+                        <li>ناقش بيانيا وحسب قيم الوسيط الحقيقي <span class="math">m</span> عدد وإشارة حلول المعادلة:</li>
+                      </ol>
+                      <div class="math-equation">(x - 1)<sup>2</sup>e<sup>x</sup> - m = 0</div>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R</span> حيث:</p>
+                      <div class="math-equation">h(x) = f(x - 1) - 1</div>
+                      <ol>
+                        <li>استنتج اتجاه تغير الدالة <span class="math">h</span> دون حساب <span class="math">h'(x)</span>.</li>
+                        <li>أوجد عبارة الدالة المشتقة <span class="math">h'(x)</span>، مشكلا جدول تغيرات الدالة.</li>
+                        <li>استنتج كيفية إنشاء <span class="math">(Ch)</span> بيان الدالة <span class="math">h</span> انطلاقا من <span class="math">(Cf)</span>، ثم ارسم <span class="math">(Ch)</span>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الأول</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x) = (x<sup>2</sup> + 2x - 1)e<sup>x</sup></div>
+                        <p>وبما أن <span class="math">e<sup>x</sup> &gt; 0</span> فإن إشارة <span class="math">g'(x)</span> هي إشارة <span class="math">x<sup>2</sup> + 2x - 1</span>.</p>
+                        <div class="math-equation math-rtl">g'(x) &gt; 0 على ]-∞, -1-√2[ ∪ ]-1+√2, +∞[ و g'(x) &lt; 0 على ]-1-√2, -1+√2[</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span> g(x)=1 ، <span class="lim"><span>lim</span><span>x → +∞</span></span> g(x)=+∞</div>
+                        <p>نلاحظ أن <span class="math">g(0)=0</span>، كما أن <span class="math">g(0.7)&lt;0</span> و <span class="math">g(0.8)&gt;0</span>، ومنه يوجد حل غير معدوم <span class="math">α</span> حيث:</p>
+                        <div class="math-equation">0.7 &lt; α &lt; 0.8</div>
+                        <div class="math-equation math-rtl">g(x)&gt;0 على ]-∞,0[ ∪ ]α,+∞[ ، و g(x)&lt;0 على ]0,α[</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation">f'(x)=1+(x<sup>2</sup>-1)e<sup>x</sup>=g(x)</div>
+                        <p>إذن تتغير <span class="math">f</span> حسب إشارة <span class="math">g</span>: متزايدة على <span class="math">]-∞,0]</span>، متناقصة على <span class="math">[0,α]</span>، ثم متزايدة على <span class="math">[α,+∞[</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span> f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span> f(x)=+∞</div>
+                        <p>من <span class="math">g(α)=0</span> نستنتج:</p>
+                        <div class="math-equation">f(α)=α - 1 + <span class="frac"><span>2</span><span>α+1</span></span></div>
+                        <div class="math-equation">0.87 &lt; f(α) &lt; 0.92</div>
+                        <p>كما أن:</p>
+                        <div class="math-equation">f''(x)=g'(x)=(x<sup>2</sup>+2x-1)e<sup>x</sup></div>
+                        <p>فتكون نقطتا الانعطاف عند:</p>
+                        <div class="math-equation">x=-1-√2 و x=-1+√2</div>
+                        <p>في النقطة <span class="math">A(1;1)</span> نجد <span class="math">f'(1)=1</span>، ومنه:</p>
+                        <div class="math-equation">Δ : y=x</div>
+                        <p>ولأن <span class="math">f(x)-x=(x-1)<sup>2</sup>e<sup>x</sup></span> فإن <span class="math">Δ</span> مقارب مائل بجوار <span class="math">-∞</span>، والمنحنى فوقه أو يماسه في <span class="math">A</span>.</p>
+                        <p>المماس الموازي لـ <span class="math">Δ</span> غير المماس في <span class="math">A</span> يكون عند <span class="math">x=-1</span>، ومعادلته:</p>
+                        <div class="math-equation">Δ' : y = x + <span class="frac"><span>4</span><span>e</span></span></div>
+                        <p>المعادلة <span class="math">(x-1)<sup>2</sup>e<sup>x</sup>=m</span> تناقش بيانيا بدراسة تقاطع المنحنى <span class="math">y=(x-1)<sup>2</sup>e<sup>x</sup></span> مع المستقيمات الأفقية <span class="math">y=m</span>.</p>
+                      </article>
+                      <article>
+                        <h4>ثالثا: الدالة <span class="math">h</span></h4>
+                        <p>لدينا <span class="math">h(x)=f(x-1)-1</span>، لذلك نحصل على منحنى <span class="math">(Ch)</span> من <span class="math">(Cf)</span> بترجمة شعاعها:</p>
+                        <div class="math-equation">(1,-1)</div>
+                        <div class="math-equation">h'(x)=f'(x-1)=g(x-1)</div>
+                        <p>ومن ثم تتغير <span class="math">h</span> مثل <span class="math">f</span> مع إزاحة الفواصل بوحدة واحدة إلى اليمين.</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الثاني</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>نعتبر الدالة <span class="math">g</span> والمتغير الحقيقي <span class="math">x</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">g(x) = x - e<sup>-x/2</sup></div>
+                      <ol>
+                        <li>ادرس تغيرات الدالة <span class="math">g</span>، ثم أنشئ جدول تغيراتها على <span class="math">R</span>.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث: <span class="math">0.70 &lt; α &lt; 0.71</span>.</li>
+                        <li>استنتج حسب قيم <span class="math">x</span> إشارة <span class="math">g(x)</span> على <span class="math">R</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>لتكن الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">f(x) = (2x - 4)e<sup>x/2</sup> + 2 - x</div>
+                      <p>وليكن <span class="math">(Cf)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب نهايات الدالة <span class="math">f</span> عند أطراف مجموعة تعريفها.</li>
+                        <li>احسب <span class="math">lim [f(x) - (2 - x)]</span> عندما <span class="math">x → -∞</span>، وفسر النتيجة بيانيا.</li>
+                        <li>ادرس الأوضاع النسبية للمنحنى <span class="math">(Cf)</span> والمستقيم <span class="math">Δ</span> ذي المعادلة <span class="math">y = -x + 2</span>.</li>
+                        <li>بين أنه من أجل كل عدد حقيقي <span class="math">x</span>: <span class="math">f'(x)=e<sup>x/2</sup> × g(x)</span>، ثم أنشئ جدول تغيرات الدالة <span class="math">f</span>.</li>
+                        <li>بين أن <span class="math">f(α) = 4 - α - 4/α</span>، ثم عين حصرا للعدد <span class="math">f(α)</span>.</li>
+                        <li>احسب إحداثيي <span class="math">A</span> نقطة تقاطع المنحنى <span class="math">(Cf)</span> مع حامل محور التراتيب.</li>
+                        <li>اكتب معادلة المماس <span class="math">(T)</span> للمنحنى <span class="math">(Cf)</span> في النقطة <span class="math">A</span>.</li>
+                        <li>احسب <span class="math">f(2)</span> و <span class="math">f(2 ln(1/2))</span>، ثم ارسم كلا من المستقيم <span class="math">Δ</span> والمماس <span class="math">(T)</span> والمنحنى <span class="math">(Cf)</span>.</li>
+                        <li>ناقش بيانيا، تبعا لقيم الوسيط الحقيقي <span class="math">m</span>، عدد وإشارة حلول المعادلة ذات المجهول <span class="math">x</span>:</li>
+                      </ol>
+                      <div class="math-equation">2e<sup>x/2</sup> = <span class="frac"><span>m - 2</span><span>x - 2</span></span></div>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الثاني</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=1+<span class="frac"><span>1</span><span>2</span></span>e<sup>-x/2</sup> &gt; 0</div>
+                        <p>إذن <span class="math">g</span> متزايدة تماما على <span class="math">R</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>g(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=+∞</div>
+                        <p>وبما أن <span class="math">g(0.70)&lt;0</span> و <span class="math">g(0.71)&gt;0</span>، فإن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث:</p>
+                        <div class="math-equation">0.70 &lt; α &lt; 0.71</div>
+                        <div class="math-equation math-rtl">g(x)&lt;0 إذا x&lt;α ، و g(x)&gt;0 إذا x&gt;α</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=+∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>[f(x)-(2-x)]=0</div>
+                        <p>إذن المستقيم <span class="math">Δ : y=-x+2</span> مقارب مائل بجوار <span class="math">-∞</span>.</p>
+                        <div class="math-equation">f(x)-(2-x)=2(x-2)e<sup>x/2</sup></div>
+                        <p>وعليه يكون <span class="math">(Cf)</span> تحت <span class="math">Δ</span> إذا <span class="math">x&lt;2</span> وفوقه إذا <span class="math">x&gt;2</span>.</p>
+                        <div class="math-equation">f'(x)=e<sup>x/2</sup>g(x)</div>
+                        <p>فتكون <span class="math">f</span> متناقصة على <span class="math">]-∞,α]</span> ومتزايدة على <span class="math">[α,+∞[</span>.</p>
+                        <p>من <span class="math">g(α)=0</span> نحصل على:</p>
+                        <div class="math-equation">f(α)=4-α-<span class="frac"><span>4</span><span>α</span></span></div>
+                        <p>نقطة تقاطع المنحنى مع محور التراتيب هي:</p>
+                        <div class="math-equation">A(0,-2)</div>
+                        <p>ومعادلة المماس في <span class="math">A</span> هي:</p>
+                        <div class="math-equation">T : y=-x-2</div>
+                        <div class="math-equation">f(2)=0 ، f(2ln(1/2))=0</div>
+                        <p>المعادلة الأخيرة تكافئ تقاطع <span class="math">(Cf)</span> مع المستقيمات <span class="math">y=m-x</span>، وتناقش بيانيا باستعمال الرسم.</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الثالث</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>لتكن الدالة <span class="math">g</span> المعرفة على المجال <span class="math">]0,+∞[</span> كما يلي:</p>
+                      <div class="math-equation">g(x) = -<span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>2 - ln x</span><span>x<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>احسب <span class="math">lim g(x)</span> عندما <span class="math">x → 0⁺</span> و <span class="math">x → +∞</span>.</li>
+                        <li>ادرس اتجاه تغير الدالة <span class="math">g</span> ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث <span class="math">1.71 &lt; α &lt; 1.72</span>، ثم استنتج إشارة <span class="math">g(x)</span> حسب قيم <span class="math">x</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">]0,+∞[</span> كما يلي:</p>
+                      <div class="math-equation">f(x) = -<span class="frac"><span>1</span><span>2</span></span>x + 2 + <span class="frac"><span>-1 + ln x</span><span>x</span></span></div>
+                      <ol>
+                        <li>احسب <span class="math">lim f(x)</span> عندما <span class="math">x → 0⁺</span> و <span class="math">x → +∞</span>.</li>
+                        <li>ادرس اتجاه تغير الدالة <span class="math">f</span> ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المستقيم <span class="math">Δ: y = -1/2 x + 2</span> مقارب مائل للمنحنى <span class="math">(Cf)</span>، ثم ادرس وضعية المنحنى بالنسبة إليه.</li>
+                        <li>تقبل أن <span class="math">f(α) ≈ 0.87</span> وأن <span class="math">f(γ)-f(β)=0</span> حيث <span class="math">0.76 &lt; β &lt; 0.78</span> و <span class="math">4.19 &lt; γ &lt; 4.22</span>. أنشئ في المعلم السابق المستقيم <span class="math">Δ</span> والمنحنى <span class="math">(Cf)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R*</span> كما يلي:</p>
+                      <div class="math-equation">h(x) = -<span class="frac"><span>1</span><span>2</span></span>|x| + 2 + <span class="frac"><span>-1 + ln |x|</span><span>|x|</span></span></div>
+                      <ol>
+                        <li>برهن أن <span class="math">h</span> زوجية، ثم اكتب <span class="math">h</span> دون رمز القيمة المطلقة.</li>
+                        <li>انطلاقا من التمثيل البياني <span class="math">(Cf)</span> اشرح كيفية إنشاء <span class="math">(Ch)</span> ثم ارسمه بيانيا.</li>
+                        <li>ناقش بيانيا، حسب قيم الوسيط الحقيقي <span class="math">m</span>، عدد وإشارة حلول المعادلة <span class="math">h(x)=m</span>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الثالث</button>
+                    <div class="mock-solution-body">
+                    <article>
+                      <h4>أولا: دراسة الدالة <span class="math">g</span></h4>
+                      <p>لدينا:</p>
+                      <div class="math-equation">g(x) = -<span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>2 - ln x</span><span>x<sup>2</sup></span></span></div>
+                      <p>عند <span class="math">x → 0⁺</span> نجد <span class="math">(2 - ln x) / x² → +∞</span>، ومنه:</p>
+                      <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span> g(x) = +∞</div>
+                      <p>وعند <span class="math">x → +∞</span> نجد <span class="math">(2 - ln x) / x² → 0</span>، ومنه:</p>
+                      <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span> g(x) = -<span class="frac"><span>1</span><span>2</span></span></div>
+                      <p>مشتقة <span class="math">g</span> هي:</p>
+                      <div class="math-equation">g'(x) = <span class="frac"><span>2 ln x - 5</span><span>x<sup>3</sup></span></span></div>
+                      <p>وبما أن <span class="math">x³ &gt; 0</span>، فإن إشارة <span class="math">g'(x)</span> هي إشارة <span class="math">2 ln x - 5</span>.</p>
+                      <div class="math-equation math-rtl">g'(x) &lt; 0 على ]0, e<sup>5/2</sup>[ ، و g'(x) &gt; 0 على ]e<sup>5/2</sup>, +∞[</div>
+                      <p>إذن <span class="math">g</span> متناقصة ثم متزايدة. وبما أن <span class="math">g(1.71) &gt; 0</span> و <span class="math">g(1.72) &lt; 0</span>، فإن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث:</p>
+                      <div class="math-equation">1.71 &lt; α &lt; 1.72</div>
+                      <p>وعليه:</p>
+                      <div class="math-equation math-rtl">g(x) &gt; 0 على ]0, α[ ، g(α)=0 ، g(x) &lt; 0 على ]α, +∞[</div>
+                    </article>
+
+                    <article>
+                      <h4>ثانيا: دراسة الدالة <span class="math">f</span></h4>
+                      <p>لدينا:</p>
+                      <div class="math-equation">f(x) = -<span class="frac"><span>x</span><span>2</span></span> + 2 + <span class="frac"><span>ln x - 1</span><span>x</span></span></div>
+                      <p>النهايات:</p>
+                      <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span> f(x) = -∞</div>
+                      <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span> f(x) = -∞</div>
+                      <p>نحسب المشتقة فنجد:</p>
+                      <div class="math-equation">f'(x) = -<span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>2 - ln x</span><span>x<sup>2</sup></span></span> = g(x)</div>
+                      <p>وباستعمال إشارة <span class="math">g</span> نستنتج أن <span class="math">f</span> متزايدة على <span class="math">]0, α[</span> ومتناقصة على <span class="math">]α, +∞[</span>، وتبلغ قيمة عظمى عند <span class="math">x=α</span> حيث:</p>
+                      <div class="math-equation">f(α) ≈ 0.87</div>
+                      <p>لدراسة المقارب المائل نحسب:</p>
+                      <div class="math-equation">f(x) - (-<span class="frac"><span>x</span><span>2</span></span> + 2) = <span class="frac"><span>ln x - 1</span><span>x</span></span></div>
+                      <p>وبما أن <span class="math">(ln x - 1) / x → 0</span> عندما <span class="math">x → +∞</span>، فإن المستقيم:</p>
+                      <div class="math-equation">Δ : y = -<span class="frac"><span>x</span><span>2</span></span> + 2</div>
+                      <p>مقارب مائل للمنحنى <span class="math">(Cf)</span>. كما أن وضعية المنحنى بالنسبة إلى <span class="math">Δ</span> تحددها إشارة <span class="math">ln x - 1</span>:</p>
+                      <div class="math-equation math-rtl">(Cf) تحت Δ إذا 0 &lt; x &lt; e ، ويمسه عند x=e ، وفوقه إذا x &gt; e</div>
+                      <p>وبما أن <span class="math">f</span> تصعد من <span class="math">-∞</span> إلى <span class="math">0.87</span> ثم تنزل إلى <span class="math">-∞</span>، فإن المعادلة <span class="math">f(x)=0</span> لها حلان موجبان <span class="math">β</span> و <span class="math">γ</span> حيث:</p>
+                      <div class="math-equation math-rtl">0.76 &lt; β &lt; 0.78 و 4.19 &lt; γ &lt; 4.22</div>
+                    </article>
+
+                    <article>
+                      <h4>ثالثا: دراسة الدالة <span class="math">h</span></h4>
+                      <p>لدينا:</p>
+                      <div class="math-equation">h(x) = -<span class="frac"><span>1</span><span>2</span></span>|x| + 2 + <span class="frac"><span>-1 + ln |x|</span><span>|x|</span></span> = f(|x|)</div>
+                      <p>إذن:</p>
+                      <div class="math-equation">h(-x) = f(|-x|) = f(|x|) = h(x)</div>
+                      <p>فتكون <span class="math">h</span> زوجية.</p>
+                      <p>دون رمز القيمة المطلقة:</p>
+                      <div class="math-equation math-rtl">إذا x &gt; 0 : h(x) = -<span class="frac"><span>x</span><span>2</span></span> + 2 + <span class="frac"><span>ln x - 1</span><span>x</span></span></div>
+                      <div class="math-equation math-rtl">إذا x &lt; 0 : h(x) = <span class="frac"><span>x</span><span>2</span></span> + 2 + <span class="frac"><span>ln(-x) - 1</span><span>-x</span></span></div>
+                      <p>لإنشاء <span class="math">(Ch)</span> نحتفظ بمنحنى <span class="math">(Cf)</span> على الجهة اليمنى، ثم نرسم صورته بالتماثل بالنسبة إلى محور التراتيب.</p>
+                      <p>مناقشة <span class="math">h(x)=m</span> بيانيا:</p>
+                      <div class="math-equation math-rtl">إذا m &gt; 0.87 : لا توجد حلول</div>
+                      <div class="math-equation math-rtl">إذا m = 0.87 : حلان هما -α و α</div>
+                      <div class="math-equation math-rtl">إذا m &lt; 0.87 : أربعة حلول متناظرة، حلان سالبان وحلان موجبان</div>
+                      <p>وبشكل خاص، للمعادلة <span class="math">h(x)=0</span> أربعة حلول:</p>
+                      <div class="math-equation">-γ ، -β ، β ، γ</div>
+                    </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الرابع</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>الدالة <span class="math">g</span> دالة عددية معرفة على المجال <span class="math">]0,+∞[</span> حيث:</p>
+                      <div class="math-equation">g(x)=1-<span class="frac"><span>x<sup>3</sup></span><span>3</span></span>-2ln x</div>
+                      <ol>
+                        <li>ادرس تغيرات الدالة <span class="math">g</span>.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث: <span class="math">1 &lt; α &lt; √2</span>، ثم استنتج إشارة <span class="math">g(x)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>الدالة <span class="math">f</span> دالة عددية معرفة على المجال <span class="math">]0,+∞[</span> حيث:</p>
+                      <div class="math-equation">f(x)=-<span class="frac"><span>x</span><span>3</span></span>+<span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span></div>
+                      <p>وليكن <span class="math">(Cf)</span> المنحنى الممثل للدالة <span class="math">f</span> في معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب <span class="math">lim f(x)</span> عندما <span class="math">x → 0<sup>+</sup></span> و <span class="math">x → +∞</span>.</li>
+                        <li>أثبت أنه من أجل كل عدد حقيقي <span class="math">x</span> من <span class="math">]0,+∞[</span>: <span class="math">f'(x)=g(x)/x<sup>3</sup></span>، ثم استنتج اتجاه تغير <span class="math">f</span> وشكل جدول تغيراتها.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> معادلته <span class="math">y=-x/3</span> مقارب مائل للمنحنى <span class="math">(Cf)</span>، ثم ادرس وضعية <span class="math">(Cf)</span> بالنسبة للمستقيم <span class="math">Δ</span>.</li>
+                        <li>أثبت أن المنحنى <span class="math">(Cf)</span> يقبل مماسا <span class="math">T</span> ميله <span class="math">-1/3</span>، ثم عين معادلته.</li>
+                        <li>بين أن <span class="math">f(α)=<span class="frac"><span>1-α<sup>3</sup></span><span>2α<sup>2</sup></span></span></span>.</li>
+                        <li>ارسم <span class="math">Δ</span> و <span class="math">T</span> و <span class="math">(Cf)</span>، وتعطى <span class="math">f(α)≈-0.3</span>.</li>
+                        <li>ناقش بيانيا حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد حلول المعادلة:</li>
+                      </ol>
+                      <div class="math-equation">f(x)=-<span class="frac"><span>x</span><span>3</span></span>+m</div>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الرابع</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=-x<sup>2</sup>-<span class="frac"><span>2</span><span>x</span></span></div>
+                        <p>وبما أن <span class="math">x&gt;0</span> فإن <span class="math">g'(x)&lt;0</span>، إذن <span class="math">g</span> متناقصة تماما على <span class="math">]0,+∞[</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span>g(x)=+∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=-∞</div>
+                        <p>كما أن <span class="math">g(1)&gt;0</span> و <span class="math">g(√2)&lt;0</span>، لذلك تقبل <span class="math">g(x)=0</span> حلا وحيدا <span class="math">α</span> حيث:</p>
+                        <div class="math-equation">1 &lt; α &lt; √2</div>
+                        <div class="math-equation math-rtl">g(x)&gt;0 إذا 0&lt;x&lt;α ، و g(x)&lt;0 إذا x&gt;α</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=-∞</div>
+                        <div class="math-equation">f'(x)=-<span class="frac"><span>1</span><span>3</span></span>+<span class="frac"><span>1-2ln x</span><span>x<sup>3</sup></span></span>=<span class="frac"><span>g(x)</span><span>x<sup>3</sup></span></span></div>
+                        <p>وبما أن <span class="math">x<sup>3</sup>&gt;0</span>، فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">g</span>. إذن <span class="math">f</span> متزايدة على <span class="math">]0,α]</span> ومتناقصة على <span class="math">[α,+∞[</span>.</p>
+                        <p>لدراسة المقارب:</p>
+                        <div class="math-equation">f(x)-(-<span class="frac"><span>x</span><span>3</span></span>)=<span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span></div>
+                        <p>وهذا الفرق يؤول إلى <span class="math">0</span> عندما <span class="math">x → +∞</span>، إذن <span class="math">Δ:y=-x/3</span> مقارب مائل. وضعية المنحنى تحددها إشارة <span class="math">ln x</span>:</p>
+                        <div class="math-equation math-rtl">(Cf) تحت Δ إذا 0&lt;x&lt;1 ، يقطعه عند x=1 ، وفوقه إذا x&gt;1</div>
+                        <p>لإيجاد المماس ذي الميل <span class="math">-1/3</span> نحل <span class="math">f'(x)=-1/3</span> فنحصل على:</p>
+                        <div class="math-equation">1-2ln x=0 ، x=√e</div>
+                        <p>ومعادلة المماس هي:</p>
+                        <div class="math-equation">T : y=-<span class="frac"><span>x</span><span>3</span></span>+<span class="frac"><span>1</span><span>2e</span></span></div>
+                        <p>من <span class="math">g(α)=0</span> نجد:</p>
+                        <div class="math-equation">f(α)=<span class="frac"><span>1-α<sup>3</sup></span><span>2α<sup>2</sup></span></span></div>
+                        <p>أما مناقشة <span class="math">f(x)=-x/3+m</span> فتكافئ مناقشة:</p>
+                        <div class="math-equation"><span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span>=m</div>
+                        <div class="math-equation math-rtl">إذا m&lt;0 يوجد حل واحد في ]0,1[. إذا m=0 يوجد حل واحد x=1. إذا 0&lt;m&lt;1/(2e) يوجد حلان. إذا m=1/(2e) يوجد حل واحد x=√e. إذا m&gt;1/(2e) لا يوجد حل.</div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الخامس</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>نعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">g(x)=2e<sup>2x</sup>-5e<sup>x</sup>+2</div>
+                      <ol>
+                        <li>حل في <span class="math">R</span> المعادلة <span class="math">g(x)=0</span>.</li>
+                        <li>حلل <span class="math">g(x)</span> ثم استنتج إشارة <span class="math">g(x)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">]-∞,0[ ∪ ]0,+∞[</span> كما يلي:</p>
+                      <div class="math-equation">f(x)=2x+<span class="frac"><span>2e<sup>-x</sup>-1</span><span>1-e<sup>-x</sup></span></span></div>
+                      <p>وليكن <span class="math">(Cf)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>بين أنه من أجل كل <span class="math">x ∈ R*</span>: <span class="math">f(-x)+f(x)=-3</span>.</li>
+                        <li>بين أنه من أجل كل <span class="math">x ∈ R*</span>:</li>
+                      </ol>
+                      <div class="math-equation">f(x)=2x+<span class="frac"><span>2-e<sup>x</sup></span><span>e<sup>x</sup>-1</span></span></div>
+                      <ol>
+                        <li>أوجد <span class="math">lim f(x)</span> عندما <span class="math">x → -∞</span> ثم <span class="math">lim [f(x)-2x+2]</span> عندما <span class="math">x → -∞</span>.</li>
+                        <li>أوجد <span class="math">lim f(x)</span> عندما <span class="math">x → +∞</span> ثم <span class="math">lim [f(x)-2x+1]</span> عندما <span class="math">x → +∞</span>.</li>
+                        <li>حدد إشارة <span class="math">1-e<sup>-x</sup></span> على <span class="math">R</span> ثم أوجد <span class="math">lim f(x)</span> عندما <span class="math">x → 0<sup>-</sup></span> و <span class="math">x → 0<sup>+</sup></span>.</li>
+                        <li>استنتج أن <span class="math">(Cf)</span> يقبل ثلاثة مستقيمات مقاربة، وبينها مقاربان مائلان <span class="math">Δ</span> و <span class="math">Δ'</span>، يطلب تعيين معادلة كل منهم.</li>
+                        <li>برهن أنه من أجل كل <span class="math">x ∈ R*</span>:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>(e<sup>x</sup>-1)<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج اتجاه تغير الدالة <span class="math">f</span> ثم شكل جدول تغيراتها.</li>
+                        <li>ارسم كلا من المستقيمات المقاربة والمنحنى <span class="math">(Cf)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر المعادلة ذات المجهول الحقيقي <span class="math">x</span>، حيث <span class="math">α</span> عدد حقيقي موجب تماما:</p>
+                      <div class="math-equation">(-2-ln α)e<sup>-x</sup>+1+ln α=0</div>
+                      <ol>
+                        <li>أوجد قيم <span class="math">α</span> التي من أجلها لا تقبل المعادلة حلا في <span class="math">R</span> بيانيا.</li>
+                        <li>أوجد قيم <span class="math">α</span> التي من أجلها لا تقبل المعادلة حلا في <span class="math">R</span> حسابيا.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الخامس</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: حل ودراسة إشارة <span class="math">g</span></h4>
+                        <p>نضع <span class="math">t=e<sup>x</sup></span> حيث <span class="math">t&gt;0</span>، فنحصل على:</p>
+                        <div class="math-equation">2t<sup>2</sup>-5t+2=0</div>
+                        <div class="math-equation">(2t-1)(t-2)=0</div>
+                        <p>إذن:</p>
+                        <div class="math-equation">e<sup>x</sup>=<span class="frac"><span>1</span><span>2</span></span> أو e<sup>x</sup>=2</div>
+                        <div class="math-equation">x=-ln2 أو x=ln2</div>
+                        <p>كما أن:</p>
+                        <div class="math-equation">g(x)=(2e<sup>x</sup>-1)(e<sup>x</sup>-2)</div>
+                        <div class="math-equation math-rtl">g(x)&gt;0 على ]-∞,-ln2[ ∪ ]ln2,+∞[ ، و g(x)&lt;0 على ]-ln2,ln2[</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة الدالة <span class="math">f</span></h4>
+                        <p>بضرب الكسر في <span class="math">e<sup>x</sup></span> نحصل على:</p>
+                        <div class="math-equation">f(x)=2x+<span class="frac"><span>2-e<sup>x</sup></span><span>e<sup>x</sup>-1</span></span></div>
+                        <p>كما يمكن التحقق مباشرة أن:</p>
+                        <div class="math-equation">f(-x)+f(x)=-3</div>
+                        <p>النهايات والمقاربـات:</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → -∞</span></span>[f(x)-2x+2]=0</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>[f(x)-2x+1]=0</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>-</sup></span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span>f(x)=+∞</div>
+                        <p>إذن المستقيمات المقاربة هي:</p>
+                        <div class="math-equation">x=0 ، Δ:y=2x-2 ، Δ':y=2x-1</div>
+                        <p>المشتقة:</p>
+                        <div class="math-equation">f'(x)=2-<span class="frac"><span>e<sup>x</sup></span><span>(e<sup>x</sup>-1)<sup>2</sup></span></span>=<span class="frac"><span>g(x)</span><span>(e<sup>x</sup>-1)<sup>2</sup></span></span></div>
+                        <p>وبما أن المقام موجب على <span class="math">R*</span> فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">g</span>.</p>
+                        <div class="math-equation math-rtl">f متزايدة على ]-∞,-ln2] و [ln2,+∞[، ومتناقصة على [-ln2,0[ و ]0,ln2]</div>
+                      </article>
+                      <article>
+                        <h4>ثالثا: مناقشة المعادلة حسب <span class="math">α</span></h4>
+                        <p>لدينا:</p>
+                        <div class="math-equation">(-2-lnα)e<sup>-x</sup>+1+lnα=0</div>
+                        <p>وهي تكافئ، عندما يكون ذلك ممكنا:</p>
+                        <div class="math-equation">e<sup>-x</sup>=<span class="frac"><span>1+lnα</span><span>2+lnα</span></span></div>
+                        <p>بما أن <span class="math">e<sup>-x</sup>&gt;0</span>، يجب أن يكون:</p>
+                        <div class="math-equation"><span class="frac"><span>1+lnα</span><span>2+lnα</span></span>&gt;0</div>
+                        <p>إذن لا تقبل المعادلة حلا في <span class="math">R</span> عندما:</p>
+                        <div class="math-equation">e<sup>-2</sup> ≤ α ≤ e<sup>-1</sup></div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين السادس</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>المنحنى الموالي هو التمثيل البياني للدالة <span class="math">g</span> المعرفة على <span class="math">R*</span> كما يلي:</p>
+                      <div class="math-equation">g(x)=2x<sup>3</sup>-3+3ln(x<sup>2</sup>)</div>
+                      <figure class="mini-graph mock-graph">
+                        <svg viewBox="0 0 520 360" role="img" aria-label="تمثيل بياني تقريبي للدالة g">
+                          <rect width="520" height="360" fill="#fff"></rect>
+                          <g stroke="#d6dbe1" stroke-width="1">
+                            <path d="M40 20 V330 M70 20 V330 M100 20 V330 M130 20 V330 M160 20 V330 M190 20 V330 M220 20 V330 M250 20 V330 M280 20 V330 M310 20 V330 M340 20 V330 M370 20 V330 M400 20 V330 M430 20 V330 M460 20 V330"></path>
+                            <path d="M30 40 H480 M30 70 H480 M30 100 H480 M30 130 H480 M30 160 H480 M30 190 H480 M30 220 H480 M30 250 H480 M30 280 H480 M30 310 H480"></path>
+                          </g>
+                          <g stroke="#111" stroke-width="2">
+                            <line x1="30" y1="170" x2="485" y2="170"></line>
+                            <line x1="265" y1="20" x2="265" y2="332"></line>
+                          </g>
+                          <path d="M186 330 C194 270 204 232 219 218 C237 204 250 252 260 330" fill="none" stroke="#ef4444" stroke-width="3"></path>
+                          <path d="M287 330 C298 260 310 205 326 142 C339 88 352 48 365 20" fill="none" stroke="#ef4444" stroke-width="3"></path>
+                          <g fill="#111" font-family="Times New Roman, serif" font-size="16">
+                            <text x="486" y="176">x</text>
+                            <text x="271" y="32">y</text>
+                            <text x="337" y="78" fill="#ef4444">(Cg)</text>
+                          </g>
+                        </svg>
+                      </figure>
+                      <ol>
+                        <li>بقراءة بيانية شكل جدول تغيرات الدالة <span class="math">g</span>.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث: <span class="math">1.08 &lt; α &lt; 1.09</span>.</li>
+                        <li>استنتج إشارة <span class="math">g(x)</span> على <span class="math">R*</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R*</span> كما يلي:</p>
+                      <div class="math-equation">f(x)=2x-<span class="frac"><span>3ln(x<sup>2</sup>)</span><span>2x<sup>2</sup></span></span></div>
+                      <p>ونسمي <span class="math">(Cf)</span> المنحنى الممثل للدالة <span class="math">f</span> في المستوي المنسوب إلى معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>برهن أنه من أجل كل <span class="math">x ∈ R*</span>:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>x × g(x)</span><span>x<sup>4</sup></span></span></div>
+                      <ol>
+                        <li>استنتج اتجاه تغير <span class="math">f</span> على <span class="math">R*</span>.</li>
+                        <li>أوجد <span class="math">lim f(x)</span> عند <span class="math">x → -∞</span> و <span class="math">x → +∞</span>، ثم أوجد <span class="math">lim f(x)</span> عند <span class="math">x → 0</span> واستنتج بيانيا.</li>
+                        <li>شكل جدول تغيرات الدالة <span class="math">f</span>.</li>
+                        <li>بين أن <span class="math">f(α)=3α-3/(2α<sup>2</sup>)</span>، ثم استنتج حصرا للعدد <span class="math">f(α)</span>.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> ذا المعادلة <span class="math">y=2x</span> مقارب للمنحنى <span class="math">(Cf)</span>، ثم ادرس وضعية <span class="math">(Cf)</span> بالنسبة لـ <span class="math">Δ</span>.</li>
+                        <li>بين أنه يوجد مماس <span class="math">T</span> للمنحنى <span class="math">(Cf)</span> يوازي المستقيم <span class="math">Δ</span> ويمس <span class="math">(Cf)</span> في نقطتين <span class="math">A</span> و <span class="math">B</span>، ثم اكتب معادلة هذا المماس.</li>
+                        <li>ارسم كلا من <span class="math">(Cf)</span> و <span class="math">Δ</span> و <span class="math">T</span>، ويعطى <span class="math">f(-3/4)=0</span>.</li>
+                        <li>نعتبر المعادلة:</li>
+                      </ol>
+                      <div class="math-equation">-3e<sup>-m<sup>2</sup></sup>x<sup>2</sup>+3ln(x<sup>2</sup>)=0</div>
+                      <ol>
+                        <li>برهن أن حلولها هي فواصل نقط تقاطع <span class="math">(Cf)</span> والمستقيم ذي المعادلة <span class="math">y=2x-3e<sup>-m²</sup>/2</span>.</li>
+                        <li>استنتج بيانيا قيم <span class="math">m</span> التي من أجلها تقبل المعادلة أربعة حلول متميزة.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين السادس</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=6x<sup>2</sup>+<span class="frac"><span>6</span><span>x</span></span>=<span class="frac"><span>6(x<sup>3</sup>+1)</span><span>x</span></span></div>
+                        <p>إذن <span class="math">g</span> متزايدة على <span class="math">]-∞,-1]</span>، متناقصة على <span class="math">[-1,0[</span>، ومتزايدة على <span class="math">]0,+∞[</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>g(x)=-∞ ، <span class="lim"><span>lim</span><span>x → 0</span></span>g(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=+∞</div>
+                        <p>كما أن <span class="math">g(-1)=-5</span>، ومنه لا توجد جذور سالبة. وعلى <span class="math">]0,+∞[</span> الدالة متزايدة من <span class="math">-∞</span> إلى <span class="math">+∞</span>، لذلك تقبل حلا وحيدا <span class="math">α</span>.</p>
+                        <div class="math-equation">1.08 &lt; α &lt; 1.09</div>
+                        <div class="math-equation math-rtl">g(x)&lt;0 على ]-∞,0[ ∪ ]0,α[ ، و g(x)&gt;0 على ]α,+∞[</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation">f'(x)=2-<span class="frac"><span>3(1-ln(x<sup>2</sup>))</span><span>x<sup>3</sup></span></span>=<span class="frac"><span>g(x)</span><span>x<sup>3</sup></span></span></div>
+                        <p>وهذا يساوي أيضا <span class="math">xg(x)/x<sup>4</sup></span>. باستعمال إشارة <span class="math">g</span> و <span class="math">x<sup>3</sup></span> نجد أن <span class="math">f</span> متزايدة على <span class="math">]-∞,0[</span>، متناقصة على <span class="math">]0,α[</span>، ومتزايدة على <span class="math">]α,+∞[</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → 0</span></span>f(x)=+∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞</div>
+                        <p>من <span class="math">g(α)=0</span> نحصل على:</p>
+                        <div class="math-equation">f(α)=3α-<span class="frac"><span>3</span><span>2α<sup>2</sup></span></span></div>
+                        <p>كما أن:</p>
+                        <div class="math-equation">f(x)-2x=-<span class="frac"><span>3ln(x<sup>2</sup>)</span><span>2x<sup>2</sup></span></span></div>
+                        <p>وهذا الفرق يؤول إلى <span class="math">0</span> عند <span class="math">±∞</span>، إذن <span class="math">Δ:y=2x</span> مقارب مائل للمنحنى. وضعية المنحنى تحددها إشارة <span class="math">-ln(x²)</span>:</p>
+                        <div class="math-equation math-rtl">(Cf) فوق Δ إذا |x|&lt;1 ، وتحته إذا |x|&gt;1</div>
+                        <p>إذا كان المماس موازيا لـ <span class="math">Δ</span> فميله <span class="math">2</span>، أي <span class="math">f'(x)=2</span>، ومنه:</p>
+                        <div class="math-equation">ln(x<sup>2</sup>)=1 ، x=±√e</div>
+                        <p>ومعادلة المماس المشترك هي:</p>
+                        <div class="math-equation">T:y=2x-<span class="frac"><span>3</span><span>2e</span></span></div>
+                        <p>المعادلة المعطاة تكافئ:</p>
+                        <div class="math-equation"><span class="frac"><span>ln(x<sup>2</sup>)</span><span>x<sup>2</sup></span></span>=e<sup>-m²</sup></div>
+                        <p>وهذا يعني تقاطع <span class="math">(Cf)</span> مع المستقيم <span class="math">y=2x-3e<sup>-m²</sup>/2</span>. تقبل المعادلة أربعة حلول متميزة عندما:</p>
+                        <div class="math-equation">|m| &gt; 1</div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين السابع</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>نعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">g(x)=<span class="frac"><span>2x<sup>2</sup>-1</span><span>e<sup>x<sup>2</sup></sup>-1</span></span>+1</div>
+                      <ol>
+                        <li>بين أن الدالة <span class="math">g</span> زوجية على <span class="math">R</span> ثم فسر النتيجة هندسيا.</li>
+                        <li>بين أنه من أجل كل عدد حقيقي <span class="math">x</span> لدينا:</li>
+                      </ol>
+                      <div class="math-equation">g'(x)=<span class="frac"><span>-4x<sup>3</sup>+6x</span><span>e<sup>x<sup>2</sup></sup>-1</span></span></div>
+                      <ol>
+                        <li>أوجد إشارة <span class="math">g'(x)</span> على <span class="math">R</span> ثم حدد اتجاه تغير الدالة <span class="math">g</span>.</li>
+                        <li>احسب <span class="math">lim g(x)</span> عندما <span class="math">x → +∞</span> ثم شكل جدول تغيرات الدالة <span class="math">g</span> على المجال <span class="math">[0,+∞[</span>.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> في المجال <span class="math">[0,+∞[</span>، ثم تحقق أن <span class="math">0.51 &lt; α &lt; 0.52</span>.</li>
+                        <li>استنتج إشارة <span class="math">g(x)</span> على <span class="math">R</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">f(x)=x-<span class="frac"><span>x</span><span>e<sup>x<sup>2</sup></sup>-1</span></span></div>
+                      <p>ونسمي <span class="math">(Cf)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>بين أنه من أجل كل عدد حقيقي <span class="math">x</span> فإن <span class="math">f(x)+f(-x)=0</span>، ثم فسر النتيجة هندسيا.</li>
+                        <li>بين أن <span class="math">lim f(x)=+∞</span> عندما <span class="math">x → +∞</span>، ثم استنتج <span class="math">lim f(x)</span> عندما <span class="math">x → -∞</span>.</li>
+                        <li>بين أن من أجل كل <span class="math">x ∈ R</span>: <span class="math">f'(x)=g(x)</span>، ثم استنتج اتجاه تغير الدالة <span class="math">f</span> وشكل جدول تغيراتها على <span class="math">R</span>.</li>
+                        <li>بين أن <span class="math">f(α)=α(1+1/(2α<sup>2</sup>-1))</span>، ثم أوجد حصرا لـ <span class="math">f(α)</span> و <span class="math">f(-α)</span>.</li>
+                        <li>بين أن <span class="math">(Cf)</span> يقبل 3 نقاط انعطاف، يطلب تحديد إحداثياتها.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> ذا المعادلة <span class="math">y=x</span> مقارب مائل للمنحنى <span class="math">(Cf)</span>، ثم حدد وضعية <span class="math">(Cf)</span> بالنسبة للمقارب <span class="math">Δ</span>.</li>
+                        <li>أوجد معادلات كل من المماسات عند تقاطع <span class="math">(Cf)</span> وحامل محور الفواصل.</li>
+                        <li>ارسم كلا من <span class="math">Δ</span> والمماسات والمنحنى <span class="math">(Cf)</span>.</li>
+                        <li>ناقش بيانيا حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد وإشارة حلول المعادلة <span class="math">f(x)=|m|</span>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين السابع</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <p>تحتوي عبارة <span class="math">g</span> على <span class="math">x<sup>2</sup></span> فقط، لذلك:</p>
+                        <div class="math-equation">g(-x)=g(x)</div>
+                        <p>إذن <span class="math">g</span> زوجية، ومنحناها متناظر بالنسبة إلى محور التراتيب.</p>
+                        <p>حسب عبارة المشتقة المعطاة:</p>
+                        <div class="math-equation">g'(x)=<span class="frac"><span>2x(3-2x<sup>2</sup>)</span><span>e<sup>x<sup>2</sup></sup>-1</span></span></div>
+                        <p>وعلى <span class="math">x&gt;0</span> يكون المقام موجبا، فتتحدد إشارة <span class="math">g'</span> بإشارة <span class="math">3-2x<sup>2</sup></span>.</p>
+                        <div class="math-equation math-rtl">g متزايدة على ]0,√(3/2)[ ومتناقصة على ]√(3/2),+∞[</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=1</div>
+                        <p>وبما أن <span class="math">g</span> تنتقل من قيم سالبة قرب الصفر إلى قيم موجبة، فإن المعادلة <span class="math">g(x)=0</span> تقبل حلا موجبا وحيدا <span class="math">α</span> حيث:</p>
+                        <div class="math-equation">0.51 &lt; α &lt; 0.52</div>
+                        <p>وبسبب زوجية <span class="math">g</span> تكون الإشارة:</p>
+                        <div class="math-equation math-rtl">g(x)&gt;0 إذا |x|&gt;α ، و g(x)&lt;0 إذا 0&lt;|x|&lt;α</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <p>لدينا:</p>
+                        <div class="math-equation">f(-x)=-x+<span class="frac"><span>x</span><span>e<sup>x<sup>2</sup></sup>-1</span></span>=-f(x)</div>
+                        <p>إذن <span class="math">f</span> فردية، ومنحناها متناظر بالنسبة إلى مبدأ المعلم.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞ ، <span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=-∞</div>
+                        <p>وباستعمال النتيجة المطلوبة <span class="math">f'(x)=g(x)</span> وإشارة <span class="math">g</span> نجد:</p>
+                        <div class="math-equation math-rtl">f متزايدة على ]-∞,-α] و [α,+∞[، ومتناقصة على [-α,0[ و ]0,α]</div>
+                        <p>ومن <span class="math">g(α)=0</span> نحصل على:</p>
+                        <div class="math-equation">f(α)=α(1+<span class="frac"><span>1</span><span>2α<sup>2</sup>-1</span></span>)</div>
+                        <p>وبفردية الدالة:</p>
+                        <div class="math-equation">f(-α)=-f(α)</div>
+                        <p>المستقيم <span class="math">Δ:y=x</span> مقارب مائل لأن:</p>
+                        <div class="math-equation">f(x)-x=-<span class="frac"><span>x</span><span>e<sup>x<sup>2</sup></sup>-1</span></span> → 0 عند ±∞</div>
+                        <p>ووضعية المنحنى بالنسبة إليه تحددها إشارة <span class="math">-x/(e<sup>x²</sup>-1)</span>: يكون <span class="math">(Cf)</span> فوق <span class="math">Δ</span> إذا <span class="math">x&lt;0</span> وتحته إذا <span class="math">x&gt;0</span>.</p>
+                        <p>مناقشة <span class="math">f(x)=|m|</span> تتم بيانيا باستعمال عدد تقاطعات المستقيمات الأفقية <span class="math">y=|m|</span> مع المنحنى <span class="math">(Cf)</span>.</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الثامن</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>الدالة العددية <span class="math">g</span> المعرفة على المجال <span class="math">]0,+∞[</span> حيث:</p>
+                      <div class="math-equation">g(x)=x<sup>2</sup>+1-2ln x</div>
+                      <ol>
+                        <li>ادرس تغيرات الدالة <span class="math">g</span>.</li>
+                        <li>استنتج إشارة <span class="math">g(x)</span> على المجال <span class="math">]0,+∞[</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> حيث:</p>
+                      <div class="math-equation">f(x)=x+<span class="frac"><span>1+2ln x</span><span>x</span></span></div>
+                      <p>نسمي <span class="math">(Cf)</span> المنحنى الممثل للدالة <span class="math">f</span> في معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب كلا من <span class="math">lim f(x)</span> عندما <span class="math">x → 0<sup>+</sup></span> و <span class="math">x → +∞</span>.</li>
+                        <li>بين أن مشتقة الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> هي:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>x<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج اتجاه تغير الدالة <span class="math">f</span> ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> ذا المعادلة <span class="math">y=x</span> مستقيم مقارب لـ <span class="math">(Cf)</span>.</li>
+                        <li>ادرس الوضع النسبي للمنحنى <span class="math">(Cf)</span> بالنسبة للمستقيم <span class="math">Δ</span>.</li>
+                        <li>بين أن المعادلة <span class="math">f(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث: <span class="math">0.5 &lt; α &lt; 0.6</span>.</li>
+                        <li>عين معادلة المماس <span class="math">T</span> للمنحنى <span class="math">(Cf)</span> عند نقطة منه <span class="math">A(x;2)</span> مع <span class="math">x ≥ 1</span>.</li>
+                        <li>حل المعادلة <span class="math">x<sup>2</sup>g(x)-2xg(x)=0</span>، ثم بين أن النقطة <span class="math">B(e; e+3/e)</span> نقطة انعطاف للمنحنى <span class="math">(Cf)</span>.</li>
+                        <li>ارسم كلا من <span class="math">Δ</span> و <span class="math">T</span> و <span class="math">(Cf)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>ناقش بيانيا حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد وإشارة حلول المعادلة:</p>
+                      <div class="math-equation">f(x)=|m|</div>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الثامن</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=2x-<span class="frac"><span>2</span><span>x</span></span>=<span class="frac"><span>2(x<sup>2</sup>-1)</span><span>x</span></span></div>
+                        <p>وبما أن <span class="math">x&gt;0</span> فإن <span class="math">g'</span> سالبة على <span class="math">]0,1[</span> وموجبة على <span class="math">]1,+∞[</span>.</p>
+                        <p>إذن <span class="math">g</span> متناقصة على <span class="math">]0,1]</span> ومتزايدة على <span class="math">[1,+∞[</span>، وتبلغ قيمة صغرى:</p>
+                        <div class="math-equation">g(1)=2</div>
+                        <p>وعليه:</p>
+                        <div class="math-equation">g(x)&gt;0 على ]0,+∞[</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞</div>
+                        <div class="math-equation">f'(x)=1+<span class="frac"><span>1-2ln x</span><span>x<sup>2</sup></span></span>=<span class="frac"><span>g(x)</span><span>x<sup>2</sup></span></span></div>
+                        <p>وبما أن <span class="math">g(x)&gt;0</span> و <span class="math">x<sup>2</sup>&gt;0</span> فإن <span class="math">f</span> متزايدة تماما على <span class="math">]0,+∞[</span>.</p>
+                        <p>لدراسة المقارب:</p>
+                        <div class="math-equation">f(x)-x=<span class="frac"><span>1+2ln x</span><span>x</span></span></div>
+                        <p>وهذا الفرق يؤول إلى <span class="math">0</span> عندما <span class="math">x → +∞</span>، إذن <span class="math">Δ:y=x</span> مقارب مائل.</p>
+                        <p>وضعية المنحنى بالنسبة إلى <span class="math">Δ</span> تحددها إشارة <span class="math">1+2ln x</span>:</p>
+                        <div class="math-equation math-rtl">(Cf) تحت Δ إذا 0&lt;x&lt;e<sup>-1/2</sup>، وفوقه إذا x&gt;e<sup>-1/2</sup></div>
+                        <p>بما أن <span class="math">f</span> متزايدة من <span class="math">-∞</span> إلى <span class="math">+∞</span>، فإن <span class="math">f(x)=0</span> تقبل حلا وحيدا <span class="math">α</span>، وبالتحقق:</p>
+                        <div class="math-equation">0.5 &lt; α &lt; 0.6</div>
+                        <p>إذا كانت نقطة التماس <span class="math">A(a,2)</span> حيث <span class="math">a≥1</span>، فإن <span class="math">f(a)=2</span>. وبما أن <span class="math">f(1)=2</span> نحصل على <span class="math">a=1</span>.</p>
+                        <div class="math-equation">T:y=2x</div>
+                        <p>حل <span class="math">x<sup>2</sup>g(x)-2xg(x)=0</span> يعطي:</p>
+                        <div class="math-equation">xg(x)(x-2)=0</div>
+                        <p>وبما أن <span class="math">x&gt;0</span> و <span class="math">g(x)&gt;0</span>، فالحل هو <span class="math">x=2</span>. كما أن النقطة المعطاة <span class="math">B(e,e+3/e)</span> توافق تغير تقعر المنحنى، فهي نقطة انعطاف.</p>
+                        <p>مناقشة <span class="math">f(x)=|m|</span>: بما أن <span class="math">f</span> متزايدة من <span class="math">-∞</span> إلى <span class="math">+∞</span>، فلكل قيمة <span class="math">|m|≥0</span> يوجد حل وحيد موجب.</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين التاسع</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">g(x)=(4-2x)e<sup>x</sup>-4</div>
+                      <ol>
+                        <li>ادرس تغيرات الدالة <span class="math">g</span> وشكل جدول تغيراتها.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلين، أحدهما معدوم والآخر <span class="math">α</span> حيث: <span class="math">1.59 &lt; α &lt; 1.60</span>.</li>
+                        <li>استنتج إشارة <span class="math">g(x)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">f(x)=<span class="frac"><span>2x-2</span><span>e<sup>x</sup>-2x</span></span></div>
+                      <p>وليكن <span class="math">(Cf)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>بين أن المنحنى <span class="math">(Cf)</span> يقبل عند <span class="math">-∞</span> و <span class="math">+∞</span> مستقيمين مقاربين معادلتيهما على الترتيب <span class="math">y=-1</span> و <span class="math">y=0</span>.</li>
+                        <li>برهن أنه من أجل كل عدد حقيقي <span class="math">x</span> لدينا:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>(e<sup>x</sup>-2x)<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج إشارة <span class="math">f'(x)</span> وشكل جدول تغيرات الدالة <span class="math">f</span>.</li>
+                        <li>احسب <span class="math">f(1)</span> ثم استنتج حسب قيم <span class="math">x</span> إشارة <span class="math">f(x)</span>.</li>
+                        <li>بين أن <span class="math">f(α)=-1+1/(α-1)</span> واستنتج حصرا للعدد <span class="math">f(α)</span>.</li>
+                        <li>أنشئ المستقيمين المقاربين والمنحنى <span class="math">(Cf)</span>.</li>
+                        <li>ناقش بيانيا حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد وإشارة حلول المعادلة:</li>
+                      </ol>
+                      <div class="math-equation">2x-2=(e<sup>x</sup>-2x)m</div>
+                    </li>
+                    <li>
+                      <p>لتكن <span class="math">h</span> الدالة المعرفة على <span class="math">R</span> كما يلي:</p>
+                      <div class="math-equation">h(x)=[f(x)]<sup>2</sup></div>
+                      <ol>
+                        <li>احسب <span class="math">h'(x)</span> بدلالة <span class="math">f(x)</span> و <span class="math">f'(x)</span>، واستنتج إشارة <span class="math">h'(x)</span>.</li>
+                        <li>شكل جدول تغيرات الدالة <span class="math">h</span>.</li>
+                        <li>أنشئ <span class="math">(Ch)</span> في نفس المعلم.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين التاسع</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=(2-2x)e<sup>x</sup>=2(1-x)e<sup>x</sup></div>
+                        <p>إذن <span class="math">g</span> متزايدة على <span class="math">]-∞,1]</span> ومتناقصة على <span class="math">[1,+∞[</span>.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>g(x)=-4 ، g(1)=2e-4&gt;0 ، <span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=-∞</div>
+                        <p>نجد <span class="math">g(0)=0</span>، وبما أن <span class="math">g(1.59)&gt;0</span> و <span class="math">g(1.60)&lt;0</span> فهناك حل آخر <span class="math">α</span> حيث:</p>
+                        <div class="math-equation">1.59 &lt; α &lt; 1.60</div>
+                        <div class="math-equation math-rtl">g(x)&lt;0 على ]-∞,0[ ∪ ]α,+∞[ ، و g(x)&gt;0 على ]0,α[</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <p>عندما <span class="math">x → -∞</span> يكون <span class="math">e<sup>x</sup> → 0</span> ومنه:</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=-1</div>
+                        <p>وعندما <span class="math">x → +∞</span> يغلب <span class="math">e<sup>x</sup></span> في المقام، ومنه:</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=0</div>
+                        <p>إذن المقاربان هما <span class="math">y=-1</span> و <span class="math">y=0</span>.</p>
+                        <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>(e<sup>x</sup>-2x)<sup>2</sup></span></span></div>
+                        <p>بما أن المقام موجب، فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">g</span>. إذن <span class="math">f</span> متناقصة على <span class="math">]-∞,0]</span>، متزايدة على <span class="math">[0,α]</span>، ثم متناقصة على <span class="math">[α,+∞[</span>.</p>
+                        <div class="math-equation">f(1)=0</div>
+                        <div class="math-equation math-rtl">f(x)&lt;0 إذا x&lt;1 ، و f(x)&gt;0 إذا x&gt;1</div>
+                        <p>ومن <span class="math">g(α)=0</span> نحصل على:</p>
+                        <div class="math-equation">f(α)=-1+<span class="frac"><span>1</span><span>α-1</span></span></div>
+                        <p>وبما أن <span class="math">1.59&lt;α&lt;1.60</span> فإن:</p>
+                        <div class="math-equation">0.66 &lt; f(α) &lt; 0.70</div>
+                        <p>المعادلة <span class="math">2x-2=(e<sup>x</sup>-2x)m</span> تكافئ <span class="math">f(x)=m</span>، وتناقش بيانيا حسب تقاطع المستقيمات الأفقية <span class="math">y=m</span> مع <span class="math">(Cf)</span>.</p>
+                      </article>
+                      <article>
+                        <h4>ثالثا: دراسة <span class="math">h</span></h4>
+                        <div class="math-equation">h'(x)=2f(x)f'(x)</div>
+                        <p>إشارة <span class="math">h'</span> هي إشارة جداء <span class="math">f(x)</span> و <span class="math">f'(x)</span>. وباستعمال إشارات <span class="math">f</span> و <span class="math">g</span> نحصل على تغيرات <span class="math">h</span>.</p>
+                        <p>بيانيا، <span class="math">(Ch)</span> هو منحنى مربعات ترتيبات نقاط <span class="math">(Cf)</span>: الجزء الموجود تحت محور الفواصل ينعكس إلى أعلى ثم تربع القيم.</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين العاشر</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>نعتبر الدالة العددية <span class="math">g</span> المعرفة على المجال <span class="math">]0,+∞[</span> بـ:</p>
+                      <div class="math-equation">g(x)=-x<sup>2</sup>+x-ln x</div>
+                      <ol>
+                        <li>ادرس تغيرات الدالة <span class="math">g</span>.</li>
+                        <li>احسب <span class="math">g(1)</span> ثم استنتج إشارة <span class="math">g(x)</span> حسب قيم <span class="math">x</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>لتكن الدالة <span class="math">h</span> المعرفة على المجال <span class="math">]0,+∞[</span> بـ:</p>
+                      <div class="math-equation">h(x)=ax+b+<span class="frac"><span>ln x</span><span>x</span></span></div>
+                      <ol>
+                        <li>عين قيمتي العددين الحقيقيين <span class="math">a</span> و <span class="math">b</span> حيث المنحنى <span class="math">(Ch)</span> الممثل للدالة <span class="math">h</span> يقبل مماسا موازيا لحامل محور الفواصل عند <span class="math">A(1;-1)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>لتكن الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> بـ:</p>
+                      <div class="math-equation">f(x)=-x+<span class="frac"><span>ln x</span><span>x</span></span></div>
+                      <p>وليكن <span class="math">(Cf)</span> المنحنى الممثل للدالة <span class="math">f</span> في معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب نهايتي الدالة <span class="math">f</span> عند <span class="math">0</span> و <span class="math">+∞</span>.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> الذي معادلته <span class="math">y=-x</span> مقارب لـ <span class="math">(Cf)</span> بجوار <span class="math">+∞</span>.</li>
+                        <li>ادرس الوضعية النسبية للمنحنى <span class="math">(Cf)</span> بالنسبة للمستقيم <span class="math">Δ</span>.</li>
+                        <li>بين أنه من أجل كل <span class="math">x</span> من <span class="math">]0,+∞[</span> فإن:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>x<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج إشارة <span class="math">f'(x)</span> مع تحديد اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+                        <li>أنشئ المنحنى <span class="math">(Cf)</span> و <span class="math">Δ</span>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين العاشر</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=-2x+1-<span class="frac"><span>1</span><span>x</span></span>=-<span class="frac"><span>2x<sup>2</sup>-x+1</span><span>x</span></span></div>
+                        <p>بما أن <span class="math">2x<sup>2</sup>-x+1</span> مميزته سالبة، فهو موجب دائما، ومع <span class="math">x&gt;0</span> نحصل على <span class="math">g'(x)&lt;0</span>.</p>
+                        <p>إذن <span class="math">g</span> متناقصة تماما على <span class="math">]0,+∞[</span>. كما أن:</p>
+                        <div class="math-equation">g(1)=0</div>
+                        <div class="math-equation math-rtl">g(x)&gt;0 إذا 0&lt;x&lt;1 ، و g(x)&lt;0 إذا x&gt;1</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: تعيين <span class="math">a</span> و <span class="math">b</span></h4>
+                        <p>بما أن <span class="math">A(1,-1)</span> تنتمي إلى المنحنى، فإن:</p>
+                        <div class="math-equation">h(1)=a+b=-1</div>
+                        <p>ولأن المماس أفقي عند <span class="math">x=1</span>:</p>
+                        <div class="math-equation">h'(1)=a+1=0</div>
+                        <p>إذن:</p>
+                        <div class="math-equation">a=-1 ، b=0</div>
+                        <p>ومن ثم <span class="math">h(x)=f(x)</span>.</p>
+                      </article>
+                      <article>
+                        <h4>ثالثا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 0<sup>+</sup></span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=-∞</div>
+                        <p>لدراسة المقارب:</p>
+                        <div class="math-equation">f(x)-(-x)=<span class="frac"><span>ln x</span><span>x</span></span></div>
+                        <p>وهذا الفرق يؤول إلى <span class="math">0</span> عندما <span class="math">x → +∞</span>، إذن <span class="math">Δ:y=-x</span> مقارب مائل.</p>
+                        <p>وضعية المنحنى بالنسبة إلى <span class="math">Δ</span> تحددها إشارة <span class="math">ln x</span>:</p>
+                        <div class="math-equation math-rtl">(Cf) تحت Δ إذا 0&lt;x&lt;1 ، يقطعه عند x=1 ، وفوقه إذا x&gt;1</div>
+                        <div class="math-equation">f'(x)=-1+<span class="frac"><span>1-ln x</span><span>x<sup>2</sup></span></span>=<span class="frac"><span>g(x)</span><span>x<sup>2</sup></span></span></div>
+                        <p>وبما أن <span class="math">x<sup>2</sup>&gt;0</span>، فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">g</span>. إذن <span class="math">f</span> متزايدة على <span class="math">]0,1]</span> ومتناقصة على <span class="math">[1,+∞[</span>.</p>
+                        <div class="math-equation">f(1)=-1</div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الحادي عشر</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>لتكن الدالة العددية <span class="math">g</span> المعرفة على <span class="math">]-1,+∞[</span> بـ:</p>
+                      <div class="math-equation">g(x)=2x<sup>2</sup>+4x+1+ln(x+1)</div>
+                      <ol>
+                        <li>ادرس اتجاه تغير الدالة <span class="math">g</span> ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث <span class="math">-0.3&lt;α&lt;-0.2</span>.</li>
+                        <li>عين حسب قيم <span class="math">x</span> إشارة <span class="math">g(x)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة على <span class="math">]-1,+∞[</span> بـ:</p>
+                      <div class="math-equation">f(x)=-2x+<span class="frac"><span>ln(x+1)</span><span>x+1</span></span></div>
+                      <p>وليكن <span class="math">(C)</span> منحناها البياني في معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب <span class="math">lim f(x)</span> عندما <span class="math">x → +∞</span>، ثم احسب <span class="math">lim f(x)</span> عندما <span class="math">x → -1<sup>+</sup></span> وفسر النتيجة هندسيا.</li>
+                        <li>بين أنه من أجل كل عدد حقيقي <span class="math">x</span> من <span class="math">]-1,+∞[</span>:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=-<span class="frac"><span>g(x)</span><span>(x+1)<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج اتجاه تغير الدالة <span class="math">f</span> ثم شكل جدول تغيراتها.</li>
+                        <li>بين أن المستقيم <span class="math">Δ</span> ذو المعادلة <span class="math">y=-2x</span> مستقيم مقارب مائل لـ <span class="math">(C)</span> بجوار <span class="math">+∞</span>.</li>
+                        <li>ادرس وضعية <span class="math">(C)</span> بالنسبة إلى <span class="math">Δ</span>.</li>
+                        <li>اكتب معادلة المماس <span class="math">T</span> للمنحنى <span class="math">(C)</span> الموازي لـ <span class="math">Δ</span>.</li>
+                        <li>بين أن المعادلة <span class="math">f(x)=0</span> تقبل حلين، أحدهما معدوم والآخر <span class="math">β</span> حيث <span class="math">-0.4&lt;β&lt;-0.3</span>.</li>
+                        <li>أنشئ <span class="math">(C)</span> و <span class="math">Δ</span> و <span class="math">T</span>، وتعطى <span class="math">f(α)=0.2</span>.</li>
+                        <li>ناقش بيانيا حسب قيم <span class="math">m</span> عدد وإشارة حلول المعادلة <span class="math">f(x)=-2x+m</span>.</li>
+                        <li>جد <span class="math">F</span> دالة أصلية للدالة <span class="math">f</span> على المجال <span class="math">]-1,+∞[</span>.</li>
+                        <li>احسب بدلالة <span class="math">β</span> مساحة الحيز <span class="math">S</span> المحدد بـ <span class="math">(C)</span>، ومحور الفواصل، والمستقيمين <span class="math">x=0</span> و <span class="math">x=β</span>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الحادي عشر</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: دراسة <span class="math">g</span></h4>
+                        <div class="math-equation">g'(x)=4x+4+<span class="frac"><span>1</span><span>x+1</span></span>=<span class="frac"><span>4(x+1)<sup>2</sup>+1</span><span>x+1</span></span></div>
+                        <p>وبما أن <span class="math">x+1&gt;0</span>، فإن <span class="math">g'(x)&gt;0</span> على <span class="math">]-1,+∞[</span>. إذن <span class="math">g</span> متزايدة تماما.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -1<sup>+</sup></span></span>g(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>g(x)=+∞</div>
+                        <p>إذن تقبل <span class="math">g(x)=0</span> حلا وحيدا <span class="math">α</span>، وبالتحقق:</p>
+                        <div class="math-equation">-0.3&lt;α&lt;-0.2</div>
+                        <div class="math-equation math-rtl">g(x)&lt;0 إذا -1&lt;x&lt;α ، و g(x)&gt;0 إذا x&gt;α</div>
+                      </article>
+                      <article>
+                        <h4>ثانيا: دراسة <span class="math">f</span></h4>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -1<sup>+</sup></span></span>f(x)=-∞ ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=-∞</div>
+                        <p>ومن <span class="math">x=-1</span> نستنتج مقاربا عموديا.</p>
+                        <div class="math-equation">f'(x)=-2+<span class="frac"><span>1-ln(x+1)</span><span>(x+1)<sup>2</sup></span></span>=-<span class="frac"><span>g(x)</span><span>(x+1)<sup>2</sup></span></span></div>
+                        <p>إشارة <span class="math">f'</span> هي عكس إشارة <span class="math">g</span>، إذن <span class="math">f</span> متزايدة على <span class="math">]-1,α]</span> ومتناقصة على <span class="math">[α,+∞[</span>.</p>
+                        <p>لدراسة المقارب المائل:</p>
+                        <div class="math-equation">f(x)-(-2x)=<span class="frac"><span>ln(x+1)</span><span>x+1</span></span> → 0</div>
+                        <p>إذن <span class="math">Δ:y=-2x</span> مقارب مائل بجوار <span class="math">+∞</span>. وبما أن <span class="math">ln(x+1)</span> يحدد الوضعية:</p>
+                        <div class="math-equation math-rtl">(C) تحت Δ إذا -1&lt;x&lt;0 ، ويقطعه عند x=0 ، وفوقه إذا x&gt;0</div>
+                        <p>المماس الموازي لـ <span class="math">Δ</span> يحقق <span class="math">f'(x)=-2</span>، ومنه:</p>
+                        <div class="math-equation">ln(x+1)=1 ، x=e-1</div>
+                        <p>ومعادلة المماس:</p>
+                        <div class="math-equation">T:y=-2x+<span class="frac"><span>1</span><span>e</span></span></div>
+                        <p>كما أن <span class="math">f(0)=0</span>، ويوجد حل آخر <span class="math">β</span> حيث:</p>
+                        <div class="math-equation">-0.4&lt;β&lt;-0.3</div>
+                        <p>دالة أصلية لـ <span class="math">f</span> هي:</p>
+                        <div class="math-equation">F(x)=-x<sup>2</sup>+<span class="frac"><span>1</span><span>2</span></span>[ln(x+1)]<sup>2</sup></div>
+                        <p>ومساحة الحيز بين <span class="math">β</span> و <span class="math">0</span> تعطى، لأن <span class="math">f</span> موجبة على هذا المجال، بـ:</p>
+                        <div class="math-equation">S=F(0)-F(β)=β<sup>2</sup>-<span class="frac"><span>1</span><span>2</span></span>[ln(β+1)]<sup>2</sup></div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <hr class="mock-exam-divider" />
+
+                  <h3>التمرين الثاني عشر</h3>
+                  <ol class="exam-parts">
+                    <li>
+                      <p>الجدول التالي هو جدول تغيرات الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> حيث:</p>
+                      <div class="math-equation">g(x)=(2x<sup>2</sup>-5x+4)e<sup>x-2</sup>+1</div>
+                      <table class="variation-table mock-variation-table">
+                        <tr><th>x</th><td>-∞</td><td>-1/2</td><td>1</td><td>+∞</td></tr>
+                        <tr><th>g'(x)</th><td>+</td><td>0</td><td>-</td><td>+</td></tr>
+                        <tr><th>g(x)</th><td>↗</td><td>7e<sup>-5/2</sup>+1</td><td>↘</td><td>↗</td></tr>
+                      </table>
+                      <ol>
+                        <li>أتمم ما أمكن جدول تغيرات الدالة <span class="math">g</span>، ثم استنتج إشارة <span class="math">g(x)</span> على <span class="math">R</span>.</li>
+                        <li>
+                          تحقق أنه من أجل كل <span class="math">x</span> من <span class="math">R</span>:
+                          <div class="math-equation">g(x)-1 ≥ 0</div>
+                        </li>
+                        <li>برهن أنه من أجل كل <span class="math">x</span> من <span class="math">R</span>:</li>
+                      </ol>
+                      <div class="math-equation">g(x)-1=2g'(x)-g''(x)+4e<sup>x-2</sup></div>
+                      <ol>
+                        <li>
+                          احسب:
+                          <div class="math-equation">S = <span class="integral"><span>2</span><span>∫</span><span>1</span></span>(g(x)-1) dx</div>
+                          ثم فسر هذه النتيجة بيانيا.
+                        </li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>لتكن الدالة العددية <span class="math">f</span> المعرفة على:</p>
+                      <div class="math-equation">D<sub>f</sub> = R \ {1}</div>
+                      <p>بـ:</p>
+                      <div class="math-equation">f(x)=<span class="frac"><span>2x - 3</span><span>x - 1</span></span>(e<sup>x - 2</sup> + 1)</div>
+                      <p>وليكن <span class="math">(Cf)</span> تمثيلها البياني في معلم متعامد ومتجانس <span class="math">(O, i, j)</span>.</p>
+                      <ol>
+                        <li>احسب <span class="math">lim f(x)</span> عند <span class="math">x → 1<sup>-</sup></span> و <span class="math">x → 1<sup>+</sup></span>، ثم احسب <span class="math">lim f(x)</span> عند <span class="math">x → -∞</span> و <span class="math">x → +∞</span>، وفسر النتائج بيانيا.</li>
+                        <li>أثبت أنه من أجل كل <span class="math">x</span> من <span class="math">Df</span>:</li>
+                      </ol>
+                      <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>(x-1)<sup>2</sup></span></span></div>
+                      <ol>
+                        <li>استنتج اتجاه تغير الدالة <span class="math">f</span> على <span class="math">Df</span>، ثم شكل جدول تغيراتها.</li>
+                        <li>اكتب معادلة المماس <span class="math">T</span> للمنحنى <span class="math">(Cf)</span> عند النقطة ذات الفاصلة <span class="math">x<sub>0</sub>=2</span>.</li>
+                        <li>احسب <span class="math">f(0)</span> و <span class="math">f(3/2)</span>، ثم أنشئ <span class="math">T</span> و <span class="math">(Cf)</span>.</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>لتكن الدالة <span class="math">h</span> المعرفة على <span class="math">Dh=R-{-1,1}</span> بـ:</p>
+                      <div class="math-equation">h(x)=<span class="frac"><span>2|x|-3</span><span>|x|-1</span></span>(e<sup>|x|-2</sup>+1)</div>
+                      <ol>
+                        <li>أثبت أن الدالة <span class="math">h</span> زوجية.</li>
+                        <li>اشرح كيفية إنشاء <span class="math">(Ch)</span> انطلاقا من <span class="math">(Cf)</span>.</li>
+                        <li>أنشئ <span class="math">(Ch)</span> في نفس المعلم.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                  <section class="mock-exam-solution is-collapsed">
+                    <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل التمرين الثاني عشر</button>
+                    <div class="mock-solution-body">
+                      <article>
+                        <h4>أولا: الدالة <span class="math">g</span></h4>
+                        <p>من جدول التغيرات، ومن كون القيمة الصغرى عند <span class="math">x=1</span> تساوي <span class="math">g(1)=e<sup>-1</sup>+1&gt;0</span>، نستنتج:</p>
+                        <div class="math-equation">g(x)&gt;0 على R</div>
+                        <p>كما أن:</p>
+                        <div class="math-equation">g(x)-1=(2x<sup>2</sup>-5x+4)e<sup>x-2</sup></div>
+                        <p>والثلاثي <span class="math">2x²-5x+4</span> مميزه سالب، ومعامله الرئيسي موجب، لذلك <span class="math">g(x)-1&gt;0</span>.</p>
+                        <p>بالحساب المباشر للمشتقات نحصل على:</p>
+                        <div class="math-equation">g(x)-1=2g'(x)-g''(x)+4e<sup>x-2</sup></div>
+                        <p>ومنها:</p>
+                        <div class="math-equation">S=∫<sub>1</sub><sup>2</sup>(g(x)-1)dx=2[g(x)]<sub>1</sub><sup>2</sup>-[g'(x)]<sub>1</sub><sup>2</sup>+4[e<sup>x-2</sup>]<sub>1</sub><sup>2</sup></div>
+                        <p>وتمثل <span class="math">S</span> مساحة الحيز بين منحنى <span class="math">g</span> والمستقيم <span class="math">y=1</span> بين <span class="math">x=1</span> و <span class="math">x=2</span>.</p>
+                      </article>
+                      <article>
+                        <h4>ثانيا: الدالة <span class="math">f</span></h4>
+                        <p>عند <span class="math">x=1</span> يوجد مقارب عمودي لأن المقام ينعدم والبسط لا ينعدم.</p>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → 1<sup>-</sup></span></span>f(x)=+∞ ، <span class="lim"><span>lim</span><span>x → 1<sup>+</sup></span></span>f(x)=-∞</div>
+                        <div class="math-equation"><span class="lim"><span>lim</span><span>x → -∞</span></span>f(x)=2 ، <span class="lim"><span>lim</span><span>x → +∞</span></span>f(x)=+∞</div>
+                        <p>إذن <span class="math">x=1</span> مقارب عمودي و <span class="math">y=2</span> مقارب أفقي بجوار <span class="math">-∞</span>.</p>
+                        <div class="math-equation">f'(x)=<span class="frac"><span>g(x)</span><span>(x-1)<sup>2</sup></span></span></div>
+                        <p>وبما أن <span class="math">g(x)&gt;0</span> والمقام موجب، فإن <span class="math">f</span> متزايدة على كل من <span class="math">]-∞,1[</span> و <span class="math">]1,+∞[</span>.</p>
+                        <p>عند <span class="math">x<sub>0</sub>=2</span> نجد <span class="math">f(2)=2(e<sup>0</sup>+1)=4</span> و <span class="math">f'(2)=g(2)=3</span>، ومنه:</p>
+                        <div class="math-equation">T:y=3x-2</div>
+                        <div class="math-equation">f(0)=3(e<sup>-2</sup>+1) ، f(3/2)=0</div>
+                      </article>
+                      <article>
+                        <h4>ثالثا: الدالة <span class="math">h</span></h4>
+                        <p>بما أن عبارة <span class="math">h</span> تحتوي على <span class="math">|x|</span> فقط، فإن:</p>
+                        <div class="math-equation">h(-x)=h(x)</div>
+                        <p>إذن <span class="math">h</span> زوجية. لإنشاء <span class="math">(Ch)</span> نحتفظ بجزء <span class="math">(Cf)</span> الموافق لـ <span class="math">x&gt;0</span>، ثم نرسم صورته بالتماثل بالنسبة إلى محور التراتيب.</p>
+                      </article>
+                    </div>
+                  </section>
+                </section>
+              </article>
+
+              <article class="action-panel mock-bac-panel" data-mock-panel="math">
+                <div class="section-title compact-title">
+                  <h2>موضوع تجريبي - رياضيات</h2>
+                  <span>قيد التحضير</span>
+                </div>
+                <p>سيظهر هنا موضوع تجريبي خاص بشعبة الرياضيات.</p>
+              </article>
+
+              <article class="action-panel mock-bac-panel" data-mock-panel="tech">
+                <div class="section-title compact-title">
+                  <h2>موضوع تجريبي - تقني رياضي</h2>
+                  <span>قيد التحضير</span>
+                </div>
+                <p>سيظهر هنا موضوع تجريبي خاص بشعبة التقني الرياضي.</p>
               </article>
             </section>
           </section>
