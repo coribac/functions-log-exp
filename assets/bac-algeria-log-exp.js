@@ -848,6 +848,144 @@ window.bacAlgeriaExams = [
     `
   },
   {
+    id: "science-2025-topic-2-ln",
+    title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الثاني",
+    branch: "science",
+    year: "2025",
+    date: "2025",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "equations", "area"],
+    summary: "التمرين الرابع من بكالوريا 2025 لشعبة علوم تجريبية، الموضوع الثاني: دراسة دالة لوغارتمية، إشارة مشتقة، جذور، مناقشة بيانية، ومساحة بين منحنيين.",
+    statement: `
+      <div class="official-exam">
+        <h3>بكالوريا 2025 علوم تجريبية الموضوع الثاني</h3>
+        <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
+
+        <p class="part"><strong>I)</strong> الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
+          <span class="math-line">g(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></span>.
+        </p>
+        <p>تمثيلها البياني <span class="math-inline">(C<sub>g</sub>)</span> يقطع محور الفواصل في نقطتين فاصلتاهما <span class="math-inline">0</span> و <span class="math-inline">α</span>، كما في الشكل المقابل.</p>
+        <ol>
+          <li>بقراءة بيانية، حدد إشارة <span class="math-inline">g(x)</span> على <span class="math-inline">]-4, +∞[</span>.</li>
+          <li>تحقق أنّ: <span class="math-line">-2.5 &lt; α &lt; -2.4</span>.</li>
+        </ol>
+
+        <p class="part"><strong>II)</strong> الدالة <span class="math-inline">f</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
+          <span class="math-line">f(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></span>
+        </p>
+        <p>و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math-inline">(O; i, j)</span>.</p>
+        <ol>
+          <li>
+            <ol type="أ">
+              <li>احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-4<sup>+</sup></small></span> f(x)</span> وبين أنّ: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+∞</small></span> f(x) = +∞</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="أ">
+              <li>بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">]-4, +∞[</span>: <span class="math-line">f&prime;(x) = g(x)</span>.</li>
+              <li>استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكّل جدول تغيّراتها.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="أ">
+              <li>عيّن فاصيلي نقاط تقاطع <span class="math-inline">(C<sub>f</sub>)</span> مع حامل محور الفواصل.</li>
+              <li>احسب <span class="math-inline">f(2)</span> و <span class="math-inline">f(4)</span> ثم ارسم <span class="math-inline">(C<sub>f</sub>)</span>. (يُعطى: <span class="math-inline">f(α) ≃ 1.7</span>).</li>
+            </ol>
+          </li>
+          <li>عيّن قيم العدد الحقيقي الموجب <span class="math-inline">m</span> تماماً حتى يكون للمعادلة <span class="math-inline">f(x) = ln m</span> ثلاثة حلول مختلفة.</li>
+          <li>
+            الدالة <span class="math-inline">h</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
+            <span class="math-line">h(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(x<sup>2</sup> + 1) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></span>
+            و <span class="math-inline">(C<sub>h</sub>)</span> تمثيلها البياني.
+            <ol type="أ">
+              <li>بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">[-3, 0]</span>: <span class="math-inline">h(x) - f(x) ≥ 0</span>.</li>
+              <li>احسب بالوحدة مساحة الحيز المستوي المحدد بـ <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>h</sub>)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x = -3</span> و <span class="math-inline">x = 0</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    `,
+    solution: `
+      <h3>الحل التفصيلي</h3>
+
+      <h4>I - دراسة الدالة المساعدة g</h4>
+      <p>لدينا:</p>
+      <p class="math-line">g(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></p>
+      <ol>
+        <li>
+          من التمثيل البياني لـ <span class="math-inline">(C<sub>g</sub>)</span>، نقرأ أن <span class="math-inline">g(x)</span> موجبة على <span class="math-inline">]-4, α[</span>، سالبة على <span class="math-inline">]α, 0[</span>، وموجبة على <span class="math-inline">]0, +∞[</span>.
+          كما أن <span class="math-inline">g(0) = 0</span> (بديهياً من التعويض).
+        </li>
+        <li>
+          التحقق من الحصر: عند <span class="math-inline">x = -2.5</span> فإنّ <span class="math-inline">x + 4 = 1.5</span> و
+          <span class="math-inline">g(-2.5) &gt; 0</span>، وعند <span class="math-inline">x = -2.4</span> فإنّ <span class="math-inline">x + 4 = 1.6</span> و
+          <span class="math-inline">g(-2.4) &lt; 0</span>. وبما أن <span class="math-inline">g</span> متصلة ومتناقصة بين النقطتين، فإنّ جذرها <span class="math-inline">α</span> يحقق:
+          <span class="math-line">-2.5 &lt; α &lt; -2.4</span>.
+        </li>
+      </ol>
+
+      <h4>II - دراسة الدالة f</h4>
+      <ol>
+        <li>
+          <strong>النهايات:</strong>
+          <ul>
+            <li>عند <span class="math-inline">x &rarr; -4<sup>+</sup></span>: <span class="math-inline">x + 4 &rarr; 0<sup>+</sup></span> و<span class="math-inline">ln(x + 4) &rarr; -∞</span>، و<span class="math-inline">x<sup>2</sup>/(x + 4) &rarr; +∞</span>، إذن:
+              <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-4<sup>+</sup></small></span> f(x) = -∞</span>.
+            </li>
+            <li>عند <span class="math-inline">x &rarr; +∞</span>: <span class="math-inline">x<sup>2</sup>/(x + 4) &sim; x</span> و<span class="math-inline">ln(x + 4) &rarr; +∞</span>، إذن:
+              <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+∞</small></span> f(x) = +∞</span>.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>المشتقة:</strong> باستعمال قاعدة اشتقاق خارجة، نجد:
+          <p class="math-line">f&prime;(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(2x ln(x + 4) + <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">x + 4</span></span>)(x + 4) - x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></p>
+          <p>وبعد التبسيط:</p>
+          <p class="math-line">f&prime;(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span> = g(x)</p>
+          <p>وبما أن إشارة <span class="math-inline">f&prime;</span> هي إشارة <span class="math-inline">g</span>، فإنّ <span class="math-inline">f</span>:</p>
+          <ul>
+            <li>متزايدة على <span class="math-inline">]-4, α]</span>؛</li>
+            <li>متناقصة على <span class="math-inline">[α, 0]</span>؛</li>
+            <li>متزايدة على <span class="math-inline">[0, +∞[</span>.</li>
+          </ul>
+          <p>القيمة القصوى: <span class="math-inline">f(α) ≃ 1.7</span>؛ القيمة الصغرى: <span class="math-inline">f(0) = 0</span>.</p>
+        </li>
+        <li>
+          <strong>نقاط التقاطع مع محور الفواصل:</strong>
+          <p class="math-line">f(x) = 0 &hArr; x<sup>2</sup> ln(x + 4) = 0 &hArr; x = 0 &nbsp;أو&nbsp; ln(x + 4) = 0 &hArr; x = -3</p>
+          <p>إذن نقاط التقاطع هي <span class="math-inline">A(-3, 0)</span> و <span class="math-inline">O(0, 0)</span>.</p>
+          <p><strong>قيم خاصة:</strong></p>
+          <p class="math-line">f(2) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>4 ln 6</span><span style="display:block;border-top:1px solid #000;">6</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>2</span><span style="display:block;border-top:1px solid #000;">3</span></span> ln 6</p>
+          <p class="math-line">f(4) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>16 ln 8</span><span style="display:block;border-top:1px solid #000;">8</span></span> = 2 ln 8 = 6 ln 2</p>
+        </li>
+        <li>
+          <strong>مناقشة المعادلة f(x) = ln m:</strong>
+          <p>بناءً على جدول التغيرات، المعادلة تقبل ثلاثة حلول مختلفة عندما يكون <span class="math-inline">ln m</span> بين القيمتين الصغرى والقصوى:</p>
+          <p class="math-line">0 &lt; ln m &lt; f(α) ≃ 1.7</p>
+          <p>أي:</p>
+          <p class="math-line">1 &lt; m &lt; e<sup>1.7</sup></p>
+        </li>
+        <li>
+          <strong>الدالة h والمساحة:</strong>
+          <ol type="أ">
+            <li>
+              <p class="math-line">h(x) - f(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(x<sup>2</sup> + 1) ln(x + 4) - x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></p>
+              <p>على <span class="math-inline">[-3, 0]</span>، لدينا <span class="math-inline">x + 4 &in; [1, 4]</span>، إذن <span class="math-inline">ln(x + 4) ≥ 0</span> و<span class="math-inline">x + 4 &gt; 0</span>، ومنه <span class="math-inline">h(x) - f(x) ≥ 0</span>.</p>
+            </li>
+            <li>
+              <p>المساحة المطلوبة:</p>
+              <p class="math-line">A = &int;<sub>-3</sub><sup>0</sup> <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span> dx</p>
+              <p>بضبط التغيير <span class="math-inline">u = ln(x + 4)</span>، نحصل على:</p>
+              <p class="math-line">A = &int;<sub>0</sub><sup>ln 4</sup> u du = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(ln 4)<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">2</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>4 (ln 2)<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">2</span></span> = 2 (ln 2)<sup>2</sup></p>
+              <p>إذن <span class="math-inline">A = 2(ln 2)²</span> وحدة مساحة.</p>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    `
+  },
+  {
     id: "management-2025-log-exp",
     title: "موضوع بكالوريا 2025 - التسيير والاقتصاد",
     branch: "management",

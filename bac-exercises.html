@@ -343,9 +343,20 @@
       }
 
       .filter-group > span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--blue-soft);
         font-size: 13px;
         font-weight: 900;
+      }
+
+      .filter-group > span::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
       }
 
       .filter-buttons,
@@ -581,6 +592,18 @@
         background: var(--surface-2);
         color: #e8fff0;
         line-height: 1.95;
+        overflow-wrap: break-word;
+      }
+
+      .statement-reader .math-equation,
+      .statement-reader .formula {
+        max-width: 100%;
+        overflow-x: auto;
+        font-size: 1.15em;
+      }
+
+      .statement-reader ol {
+        padding-inline-start: 22px;
       }
 
       .solution-panel {
@@ -920,8 +943,6 @@
         <aside class="side-nav" aria-label="أبواب التطبيق">
           <button type="button" data-parent-view="learn">التعلم</button>
           <button class="active" type="button" data-parent-view="bac">البكالوريا</button>
-          <button type="button" data-parent-view="mockBac">بكالوريا تجريبي</button>
-          <button type="button" data-parent-view="foreignBac">بكالوريا أجنبي</button>
           <button type="button" data-parent-view="progress">تقدمي</button>
         </aside>
 

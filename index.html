@@ -49,9 +49,9 @@
         <section class="student-tab active" id="homeView">
           <section class="study-hero">
             <div>
-              <span class="kicker">Functions OS</span>
-              <h2>مسار كامل للدوال الأسية واللوغارتمية</h2>
-              <p>محاور مرتبة: درس مركز، نشاط تطبيقي، تمارين تدريبية، ونماذج موجهة للبكالوريا.</p>
+              <span class="kicker">ماذا أفعل الآن؟</span>
+              <h2>لوحة تقدمك في الدوال الأسية واللوغارتمية</h2>
+              <p>تابع مسارك خطوة بخطوة: درس، نشاط، تمرين، ثم بكالوريا.</p>
             </div>
             <div class="readiness-ring" id="readinessRing" aria-label="نسبة تقدمك">
               <strong id="readinessValue">0%</strong>
@@ -59,25 +59,32 @@
             </div>
           </section>
 
-          <section class="dashboard-grid clean-home">
-            <article class="action-panel continue-panel">
-              <span class="panel-label">واصل من حيث توقفت</span>
-              <h3 id="continueTitle">ابدأ بأول محور</h3>
-              <p id="continueSummary">سيظهر هنا آخر محور فتحته.</p>
-              <button class="primary-btn" id="continueLessonBtn" type="button">مواصلة التعلم</button>
+          <section class="home-dashboard">
+            <article class="action-panel next-action-card">
+              <div class="next-action-body">
+                <span class="panel-label">الفعل التالي</span>
+                <h3 id="continueTitle">ابدأ بأول محور</h3>
+                <p id="continueSummary">سيظهر هنا وصف المحور المقترح لك.</p>
+              </div>
+              <button class="primary-btn" id="continueLessonBtn" type="button">ابدأ الآن</button>
             </article>
-            <article class="action-panel">
-              <span class="panel-label green">الدروس</span>
-              <h3 id="homeLessonCount">0 محور</h3>
-              <p>شرح مرتب ومختصر لكل محور.</p>
-              <button class="ghost-btn" type="button" data-view-jump="learn">فتح التعلم</button>
-            </article>
-            <article class="action-panel">
-              <span class="panel-label blue">التدريب</span>
-              <h3 id="homeExerciseCount">0 تمرين</h3>
-              <p>تمارين قصيرة مع حلول مفصلة.</p>
-              <button class="ghost-btn" type="button" data-view-jump="exercises">فتح التمارين</button>
-            </article>
+            <div class="home-stats-row">
+              <article class="action-panel home-stat-card">
+                <h4>المحاور</h4>
+                <strong id="homeLessonCount">0</strong>
+                <button class="link-btn" type="button" data-view-jump="learn">فتح التعلم</button>
+              </article>
+              <article class="action-panel home-stat-card">
+                <h4>التمارين</h4>
+                <strong id="homeExerciseCount">0</strong>
+                <button class="link-btn" type="button" data-view-jump="exercises">فتح التمارين</button>
+              </article>
+              <article class="action-panel home-stat-card">
+                <h4>نسبة التقدم</h4>
+                <strong id="homeProgressPercent">0%</strong>
+                <button class="link-btn" type="button" data-view-jump="progress">عرض التقدم</button>
+              </article>
+            </div>
           </section>
         </section>
 
@@ -1168,6 +1175,7 @@
             <h2>تقدمي</h2>
             <span id="progressSummary">0 محور مكتمل</span>
           </div>
+          <article class="action-panel progress-summary-card" id="progressSummaryCard"></article>
           <section class="dashboard-grid" id="progressGrid"></section>
           <div class="progress-actions">
             <button class="ghost-btn reset-progress-btn" type="button" id="resetProgressBtn">تصفير التقدم</button>

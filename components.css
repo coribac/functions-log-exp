@@ -279,11 +279,32 @@
 
 .structured-lesson-hero b,
 .math {
+  display: inline-block;
   font-family: var(--font-math);
   direction: ltr;
   unicode-bidi: isolate;
   font-weight: 700;
   letter-spacing: 0;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.math sup,
+.math sub,
+.math-equation sup,
+.math-equation sub {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.math sup,
+.math-equation sup {
+  vertical-align: 0.62em;
+}
+
+.math sub,
+.math-equation sub {
+  vertical-align: -0.25em;
 }
 
 .definition-box,
@@ -370,6 +391,59 @@
   direction: ltr;
   unicode-bidi: isolate;
   letter-spacing: 0;
+  overflow-x: auto;
+  white-space: normal;
+  text-wrap: balance;
+}
+
+.math-equation .math-op {
+  font-style: normal;
+  font-weight: 900;
+}
+
+.math-equation .limit-expr {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin-inline: 2px;
+  vertical-align: middle;
+  line-height: 1.05;
+}
+
+.math-equation .limit-expr sub {
+  display: block;
+  font-size: 0.62em;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+.math-equation .math-sep {
+  display: inline-block;
+  margin-inline: 0.65em;
+  color: #cbd5e1;
+}
+
+.variation-table th,
+.variation-table td {
+  font-family: var(--font-math);
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+.variation-table sup,
+.variation-table sub {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.variation-table sup {
+  vertical-align: 0.62em;
+}
+
+.variation-table sub {
+  vertical-align: -0.25em;
 }
 
 .math-pill {
@@ -706,6 +780,86 @@
   text-align: start;
 }
 
+/* Compact exercise cards */
+.exercise-panel {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.exercise-panel .panel-label {
+  justify-self: start;
+  min-height: 24px;
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
+.exercise-panel h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.exercise-panel > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.activity-panel .solution-toggle,
+.exercise-panel .solution-toggle {
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+  font-weight: 700;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.cards-grid > .activity-panel {
+  grid-column: 1 / -1;
+  width: min(980px, 100%);
+  justify-self: end;
+}
+
+.activity-panel .solution-toggle:hover,
+.exercise-panel .solution-toggle:hover {
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.exercise-panel .solution-panel {
+  margin-top: 8px;
+  padding: 14px;
+}
+
+.exercise-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 680px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-panel {
+    padding: 14px;
+  }
+}
+
 .solution-body {
   padding: 18px;
   color: #d9fbe7;
@@ -728,6 +882,8 @@
   display: grid;
   grid-template-columns: minmax(220px, 1.2fr) minmax(220px, 0.8fr);
   gap: 14px;
+  min-width: 0;
+  max-width: 100%;
   align-items: start;
 }
 
@@ -788,6 +944,505 @@
 .activity-definition {
   width: 100%;
   margin-top: 4px;
+}
+
+.exp-discovery {
+  gap: 18px;
+}
+
+.activity-intro,
+.activity-stage,
+.quick-practice,
+.exp-summary-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.activity-intro h4,
+.stage-heading h4 {
+  margin: 8px 0 6px;
+  color: var(--ink);
+}
+
+.activity-intro p,
+.stage-heading p,
+.interactive-table-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.stage-heading {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.stage-heading > span {
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 214, 143, 0.12);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.proof-stage .stage-heading > span {
+  background: rgba(59, 130, 246, 0.14);
+  color: var(--blue);
+}
+
+.exp-visual-grid {
+  grid-template-columns: minmax(260px, 1fr) minmax(280px, 0.95fr);
+  min-width: 0;
+}
+
+.graphical-meaning-card {
+  padding: 14px 16px;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.03));
+  margin-bottom: 12px;
+}
+
+.graphical-meaning-card strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--blue);
+}
+
+.graphical-meaning-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.curve-builder-section {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.curve-builder-section .stage-heading > span {
+  background: rgba(239, 68, 68, 0.14);
+  color: #f87171;
+}
+
+.curve-builder-graph {
+  margin-top: 6px;
+}
+
+.zoomable-graph {
+  position: relative;
+  cursor: zoom-in;
+}
+
+.zoomable-graph figcaption {
+  padding: 10px 12px;
+  background: rgba(11, 15, 13, 0.78);
+  color: #d9fbe7;
+  line-height: 1.7;
+}
+
+.graph-zoom-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(11, 15, 13, 0.26);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #03140d;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.interactive-table-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-step-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.table-step-control input {
+  width: 110px;
+  min-height: 36px;
+  direction: ltr;
+  text-align: center;
+}
+
+.step-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.step-presets button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+  font-family: var(--font-mono);
+  font-weight: 800;
+}
+
+.step-presets button.active {
+  background: var(--amber);
+  color: #111827;
+}
+
+.curve-controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.curve-toggle-btn {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(239, 68, 68, 0.34);
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  font-weight: 900;
+}
+
+.curve-toggle-btn[aria-pressed="true"] {
+  background: #ef4444;
+  color: #fff;
+}
+
+.curve-error-note {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.08);
+  color: #bfdbfe;
+  line-height: 1.5;
+}
+
+.ln-discovery {
+  gap: 18px;
+}
+
+.ln-stage {
+  border-color: rgba(0, 168, 107, 0.22);
+}
+
+.ln-visual-grid {
+  grid-template-columns: minmax(320px, 1.2fr) minmax(280px, 0.8fr);
+}
+
+.ln-inverse-graph figcaption {
+  background: rgba(4, 47, 46, 0.82);
+}
+
+.ln-control-card {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(0, 168, 107, 0.22);
+  border-radius: 14px;
+  background: rgba(0, 168, 107, 0.07);
+}
+
+.ln-control-card > strong {
+  color: var(--primary);
+}
+
+.ln-reading-output {
+  min-height: 44px;
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid rgba(59, 130, 246, 0.24);
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.08);
+  color: #dbeafe;
+  line-height: 1.7;
+}
+
+.ln-value-table {
+  min-width: 620px;
+}
+
+.ln-value-table th,
+.ln-value-table td {
+  text-align: center;
+}
+
+.ln-value-table td:nth-child(3),
+.ln-value-table td:nth-child(4) {
+  color: #bbf7d0;
+  font-weight: 900;
+}
+
+.exp-table input {
+  min-height: 34px;
+  padding: 0 8px;
+  border-radius: 8px;
+  direction: ltr;
+  text-align: center;
+}
+
+.exp-table td[data-gap] {
+  color: var(--amber);
+  font-family: var(--font-mono);
+}
+
+.exp-build-table {
+  min-width: 560px;
+}
+
+.exp-build-table td,
+.exp-build-table th {
+  font-family: var(--font-mono);
+}
+
+.exp-build-table th:first-child,
+.exp-build-table td:first-child {
+  color: var(--amber);
+}
+
+.guided-questions {
+  display: grid;
+  gap: 10px;
+  padding-inline-start: 24px;
+}
+
+.guided-questions li {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.hint-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  margin-inline-start: 6px;
+  padding: 2px 9px;
+  border: 1px solid rgba(245, 158, 11, 0.34);
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: help;
+}
+
+.hint-chip::after {
+  content: attr(data-hint);
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 20;
+  width: min(280px, 80vw);
+  padding: 10px 12px;
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  border-radius: 12px;
+  background: #101713;
+  color: #fef3c7;
+  box-shadow: 0 16px 38px var(--shadow);
+  line-height: 1.7;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.hint-chip:hover::after,
+.hint-chip:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.discovery-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 214, 143, 0.22);
+  border-radius: 14px;
+  background: rgba(0, 214, 143, 0.08);
+}
+
+.discovery-note strong {
+  color: var(--primary);
+}
+
+.practice-grid,
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.practice-grid article,
+.summary-grid span {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.practice-grid strong {
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #03140d;
+}
+
+.exp-summary-card {
+  display: grid;
+  gap: 12px;
+  border-color: rgba(0, 214, 143, 0.22);
+  background: linear-gradient(145deg, rgba(0, 214, 143, 0.1), rgba(255, 255, 255, 0.03));
+}
+
+.summary-formula {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(11, 15, 13, 0.52);
+  color: #d9fbe7;
+}
+
+.summary-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.summary-grid b {
+  color: var(--primary);
+}
+
+.summary-grid em {
+  color: var(--ink);
+  font-family: var(--font-math);
+  font-style: normal;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.graph-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.graph-lightbox-inner {
+  width: min(920px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
+}
+
+.graph-lightbox-close {
+  position: sticky;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  min-height: 38px;
+  margin: 10px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #03140d;
+  font-weight: 900;
+}
+
+.graph-lightbox .mini-graph {
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 760px) {
+  .exp-visual-grid,
+  .ln-visual-grid,
+  .practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-intro,
+  .activity-stage,
+  .quick-practice,
+  .exp-summary-card,
+  .curve-builder-section {
+    padding: 13px;
+  }
+
+  .interactive-table-card {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .exp-build-table {
+    min-width: 520px;
+    font-size: 13px;
+  }
+
+  .exp-build-table th,
+  .exp-build-table td {
+    padding: 8px 6px;
+  }
+
+  .ln-value-table {
+    min-width: 560px;
+  }
+
+  .curve-builder-graph svg {
+    font-size: 11px;
+  }
+
+  .curve-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .graphical-meaning-card {
+    padding: 12px;
+  }
 }
 
 /* ===== Structured activity solution ===== */
