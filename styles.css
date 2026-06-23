@@ -818,25 +818,17 @@ body[data-role="teacher"] .main-nav {
 
 /* BAC unified section */
 .bac-subtabs {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 9px;
   margin: 0 0 14px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.bac-subtabs::-webkit-scrollbar {
-  display: none;
 }
 
 .bac-subtabs button {
-  flex: 0 0 auto;
-  min-height: 40px;
-}
-
-#bacView.is-mock-active .bac-subtabs {
-  display: none;
+  min-height: 56px;
+  border-radius: 11px;
+  font-size: 17px;
+  font-weight: 900;
 }
 
 .bac-panel {
@@ -850,6 +842,32 @@ body[data-role="teacher"] .main-nav {
 
 .bac-intro {
   margin-bottom: 14px;
+}
+
+.foreign-filter-panel {
+  margin-bottom: 14px;
+}
+
+.foreign-year-select {
+  min-height: 38px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+}
+
+.foreign-year-select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.foreign-year-select option {
+  background: #101713;
+  color: #f8fafc;
 }
 
 .mock-bac-doors {
@@ -1076,6 +1094,80 @@ body[data-role="teacher"] .main-nav {
   color: var(--primary);
   font-family: var(--font-arabic);
   font-size: 20px;
+}
+
+.solution-graph {
+  margin: 18px 0 0;
+  overflow-x: auto;
+}
+
+.exam-graph {
+  margin: 18px 0 22px;
+}
+
+.solution-graph svg {
+  width: min(100%, 620px);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+}
+
+.solution-graph rect {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.solution-graph .grid-lines path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+
+.solution-graph .axis-lines path {
+  fill: none;
+  stroke: rgba(248, 250, 252, 0.7);
+  stroke-width: 1.5;
+}
+
+.solution-graph .area-shade {
+  fill: url(#france2011Shade);
+  stroke: none;
+}
+
+.solution-graph .tunisia2020-shade {
+  fill: url(#tunisia2020Shade);
+}
+
+.solution-graph .curve-exp,
+.solution-graph .curve-ln,
+.solution-graph .alpha-line {
+  fill: none;
+  stroke-width: 3;
+}
+
+.solution-graph .curve-exp {
+  stroke: var(--primary);
+}
+
+.solution-graph .curve-ln {
+  stroke: #60a5fa;
+}
+
+.solution-graph .alpha-line {
+  stroke: var(--amber);
+  stroke-dasharray: 6 6;
+}
+
+.solution-graph .point-exp,
+.solution-graph .point-ln {
+  fill: var(--amber);
+}
+
+.solution-graph text {
+  fill: var(--ink);
+  font-family: var(--font-arabic);
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .bac-iframe-wrapper {

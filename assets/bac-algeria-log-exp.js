@@ -8,59 +8,52 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2025 لشعبة علوم تجريبية، الموضوع الأول: دراسة دالة أسية، مستقيم مقارب، مماس، جذور، نقطة انعطاف، مناقشة وسيط، ومساحة.",
+    summary: "الموضوع الأول من بكالوريا 2025 لشعبة علوم تجريبية: دراسة دالة أسية، مستقيم مقارب، مماس، جذور، نقطة انعطاف، مناقشة وسيط، ومساحة.",
     statement: `
-      <div class="official-exam">
-        <h3>بكالوريا 2025 علوم تجريبية الموضوع الأول</h3>
-        <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
+      <section class="statement-block">
+        <h3>بكالوريا 2025 - شعبة علوم تجريبية - الموضوع الأول</h3>
+        <p><strong>الجزء الأول (I):</strong></p>
         <p>
           <span class="math-inline">f</span> الدالة المعرفة على <span class="math-inline">R</span> بـ:
           <span class="math-line">f(x)=e<sup>2x</sup>-e<sup>x</sup>-x-2</span>،
           و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس
-          <span class="math-inline">(O; i, j)</span>، وحدة الطول <span class="math-inline">2cm</span>.
+          <span class="math-inline">(O; i, j)</span> (وحدة الطول <span class="math-inline">2cm</span>).
         </p>
         <ol>
           <li>
-            <strong>أ)</strong> احسب
-            <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-&infin;</small></span>f(x)</span>
-            وبين أن:
-            <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)=+&infin;</span>.
+            <strong>(أ)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-&infin;</small></span>f(x)</span>
+            و بين أن: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)=+&infin;</span>.
+            <br><strong>(ب)</strong> بين أن المستقيم <span class="math-inline">(&Delta;)</span> ذا المعادلة:
+            <span class="math-inline">y=-x-2</span> مقارب مائل للمنحنى <span class="math-inline">(C<sub>f</sub>)</span> عند <span class="math-inline">-&infin;</span>.
+            <br><strong>(ج)</strong> ادرس الوضع النسبي للمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span>.
           </li>
           <li>
-            <strong>ب)</strong> بين أن المستقيم <span class="math-inline">(&Delta;)</span> ذا المعادلة
-            <span class="math-inline">y=-x-2</span> مقارب مائل للمنحنى
-            <span class="math-inline">(C<sub>f</sub>)</span> عند <span class="math-inline">-&infin;</span>.
-          </li>
-          <li><strong>ج)</strong> ادرس الوضع النسبي للمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span>.</li>
-          <li>
-            <strong>2 أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span>:
+            <strong>(أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span>:
             <span class="math-line">f&prime;(x)=(e<sup>x</sup>-1)(2e<sup>x</sup>+1)</span>.
-          </li>
-          <li><strong>ب)</strong> استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكل جدول تغيراتها.</li>
-          <li>
-            <strong>3)</strong> بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل مماسا
-            <span class="math-inline">(T)</span> موازيا لـ <span class="math-inline">(&Delta;)</span>، يطلب تعيين معادلة له.
+            <br><strong>(ب)</strong> استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكّل جدول تغيراتها.
           </li>
           <li>
-            <strong>4)</strong> أثبت أن المعادلة <span class="math-inline">f(x)=0</span> تقبل حلين فقط
-            <span class="math-inline">&alpha;</span> و <span class="math-inline">&beta;</span> تحققان:
-            <span class="math-line">-2.2&lt;&alpha;&lt;-2.1</span>
-            و
-            <span class="math-line">0.8&lt;&beta;&lt;0.9</span>.
+            بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل مماساً <span class="math-inline">(T)</span> موازياً للمستقيم <span class="math-inline">(&Delta;)</span>، يطلب تعيين معادلة له.
           </li>
-          <li><strong>5)</strong> بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل نقطة انعطاف، يطلب تعيين إحداثييها.</li>
-          <li><strong>6 أ)</strong> ارسم كلا من <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(T)</span> و <span class="math-inline">(C<sub>f</sub>)</span>.</li>
           <li>
-            <strong>ب)</strong> ناقش بيانيا وحسب قيم العدد الحقيقي <span class="math-inline">m</span> عدد حلول المعادلة:
+            أثبت أن المعادلة <span class="math-inline">f(x)=0</span> تقبل حلين فقط <span class="math-inline">&alpha;</span> و <span class="math-inline">&beta;</span> تحققان:
+            <span class="math-line">-2.2&lt;&alpha;&lt;-2.1</span> و <span class="math-line">0.8&lt;&beta;&lt;0.9</span>.
+          </li>
+          <li>
+            بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل نقطة انعطاف، يطلب تعيين إحداثييها.
+          </li>
+          <li>
+            <strong>(أ)</strong> أرسم <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(T)</span> و <span class="math-inline">(C<sub>f</sub>)</span>.
+            <br><strong>(ب)</strong> ناقش بيانيا وحسب قيم العدد الحقيقي <span class="math-inline">m</span> عدد حلول المعادلة:
             <span class="math-line">e<sup>2x</sup>-e<sup>x</sup>-m-2=0</span>.
           </li>
           <li>
-            <strong>7)</strong> احسب بالسنتيمتر المربع مساحة الحيز المستوي المحدد بالمنحنى
-            <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات التي معادلاتها:
-            <span class="math-line">x=0</span> و <span class="math-line">x=-1</span> و <span class="math-line">y=-x-2</span>.
+            احسب بالسنتيمتر المربع مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span>
+            والمستقيمات التي معادلاتها:
+            <span class="math-line">y=-x-2</span> و <span class="math-line">x=-1</span> و <span class="math-line">x=0</span>.
           </li>
         </ol>
-      </div>
+      </section>
     `,
     solution: `
       <h3>الحل التفصيلي</h3>
@@ -264,6 +257,77 @@ window.bacAlgeriaExams = [
     `
   },
   {
+    id: "science-2025-log-exp-topic2",
+    title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الثاني",
+    branch: "science",
+    year: "2025",
+    date: "2025",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "equations", "area"],
+    summary: "الموضوع الثاني من بكالوريا 2025 لشعبة علوم تجريبية: دوال لوغارتمية، إشارة، نهايات، دراسة تغيرات، تقاطعات، مناقشة بيانية، ومساحة.",
+    statement: `
+      <section class="statement-block">
+        <h3>بكالوريا 2025 - شعبة علوم تجريبية - الموضوع الثاني</h3>
+        <p><strong>الجزء الأول (I):</strong></p>
+        <p>
+          عرّفت الدالة <span class="math-inline">g</span> على <span class="math-inline">]-4,+&infin;[</span> بـ:
+          <span class="math-line">g(x)=<span class="frac"><span class="num">x<sup>2</sup>+(x<sup>2</sup>+8x)ln(x+4)</span><span class="den">x+4</span></span></span>.
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>g</sub>)</span> تمثيلها البياني في الشكل المقابل، يقطع محور الفواصل في نقطتين فاصلتاهما
+          <span class="math-inline">&alpha;</span> و <span class="math-inline">&beta;</span>.
+        </p>
+        <ol>
+          <li>
+            <strong>(أ)</strong> بقراءة منحنية، جد إشارة <span class="math-inline">g(x)</span> على <span class="math-inline">]-4,+&infin;[</span>.
+          </li>
+          <li>
+            تبقّ أن: <span class="math-line">-2.4&lt;&alpha;&lt;-2.3</span>.
+          </li>
+        </ol>
+        <p><strong>الجزء الثاني (II):</strong></p>
+        <p>
+          <span class="math-inline">f</span> الدالة المعرفة على <span class="math-inline">]-4,+&infin;[</span> بـ:
+          <span class="math-line">f(x)=<span class="frac"><span class="num">x<sup>2</sup>ln(x+4)</span><span class="den">x+4</span></span></span>.
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوى المنسوب إلى المعلم المتعامد والمتجانس
+          <span class="math-inline">(O; i, j)</span>.
+        </p>
+        <ol>
+          <li>
+            أحسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-4<sup>+</sup></small></span>f(x)</span>
+            و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span>.
+          </li>
+          <li>
+            <strong>(أ)</strong> بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">]-4,+&infin;[</span>:
+            <span class="math-line">f&prime;(x)=g(x)</span>.
+            <br><strong>(ب)</strong> استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكّل جدول تغيراتها.
+            <br><strong>(ج)</strong> عيّن فاصيلي نقاط تقاطع <span class="math-inline">(C<sub>f</sub>)</span> مع محور الفواصل.
+          </li>
+          <li>
+            <strong>(أ)</strong> احسب <span class="math-inline">f(2)</span> و <span class="math-inline">f&prime;(4)</span> ثم ارسم <span class="math-inline">(C<sub>f</sub>)</span>.
+            (نافذة: <span class="math-inline">f(&alpha;)=2.7</span>)
+            <br><strong>(ب)</strong> عيّن قيم العدد الحقيقي الموجب <span class="math-inline">m</span> التي تعطي المعادلة:
+            <span class="math-line">f(x)=ln m</span> ثلاثة حلول مختلفة.
+          </li>
+          <li>
+            <span class="math-inline">h</span> الدالة المعرفة على <span class="math-inline">]-4,+&infin;[</span> بـ:
+            <span class="math-line">h(x)=<span class="frac"><span class="num">(x<sup>2</sup>+1)ln(x+4)</span><span class="den">x+4</span></span></span>،
+            و <span class="math-inline">(C<sub>h</sub>)</span> تمثيلها البياني.
+            <br><strong>(أ)</strong> بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">[-3,0]</span>:
+            <span class="math-line">h(x)-f(x)&ge;0</span>.
+            <br><strong>(ب)</strong> احسب مساحة الحيز المستوي المحدد بـ
+            <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>h</sub>)</span>
+            والمستقيمين ذوي المعادلتين <span class="math-line">x=-3</span> و <span class="math-line">x=0</span>.
+          </li>
+        </ol>
+      </section>
+    `,
+    solution: ""
+  },
+  {
     id: "science-2024-exp-function-cycle",
     title: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية - دورة 2024 - التمرين 16",
     branch: "science",
@@ -281,6 +345,28 @@ window.bacAlgeriaExams = [
                                 <p>
                                     <span class="math-line">g(x) = xe<sup>-x+1</sup> - 2</span>
                                 </p>
+                                <table class="variation-table" aria-label="جدول تغيرات الدالة g">
+                                    <tbody>
+                                        <tr>
+                                            <th>x</th>
+                                            <td>-&infin;</td>
+                                            <td>1</td>
+                                            <td>+&infin;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>g&prime;(x)</th>
+                                            <td>+</td>
+                                            <td>0</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>g(x)</th>
+                                            <td>-&infin;</td>
+                                            <td><span class="var-arrow">&nearrow;</span> g(1) <span class="var-arrow">&searrow;</span></td>
+                                            <td>-2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <ol>
                                     <li>احسب <span class="math-inline">g(1)</span> ثم استنتج إشارة <span class="math-inline">g(x)</span>.</li>
                                 </ol>
@@ -300,6 +386,100 @@ window.bacAlgeriaExams = [
     `
   },
   {
+    id: "science-2024-topic-2-ln-area",
+    title: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية الموضوع الثاني",
+    branch: "science",
+    year: "2024",
+    date: "2024",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "tangents", "discussion", "area"],
+    summary: "الموضوع الثاني من بكالوريا 2024 لشعبة علوم تجريبية: دالة لوغارتمية على ]0,+∞[، قراءة بيانية لإشارة دالة مساعدة، نهايات، اشتقاق، مقارب مائل، مماس، مناقشة بيانية، ومساحة.",
+    statement: `
+      <section class="statement-block">
+        <h3>بكالوريا الجزائر 2024 - شعبة علوم تجريبية - الموضوع الثاني</h3>
+        <div><span>الجزء الأول (I):</span></div>
+        <p>
+          لتكن <span class="math-inline">g</span> الدالة المعرفة على المجال
+          <span class="math-inline">]0,+&infin;[</span> كما يلي:
+          <span class="math-line">g(x)=<span class="frac"><span class="num">1</span><span class="den">2</span></span>x<sup>3</sup>+
+          <span class="frac"><span class="num">1</span><span class="den">2</span></span>-ln x</span>
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>g</sub>)</span> تمثيلها البياني كما في الشكل.
+        </p>
+        <div class="official-exam-note">
+          <strong>قراءة الشكل:</strong>
+          يظهر منحنى <span class="math-inline">(C<sub>g</sub>)</span> فوق محور الفواصل على
+          <span class="math-inline">]0,+&infin;[</span>، وله قيمة صغرى موجبة قرب
+          <span class="math-inline">x=1</span>.
+        </div>
+        <ol>
+          <li>بقراءة بيانية، عين إشارة <span class="math-inline">g(x)</span> على <span class="math-inline">]0,+&infin;[</span>.</li>
+        </ol>
+
+        <div><span>الجزء الثاني (II):</span></div>
+        <p>
+          لتكن <span class="math-inline">f</span> الدالة المعرفة على <span class="math-inline">]0,+&infin;[</span> بـ:
+          <span class="math-line">f(x)=x+<span class="frac"><span class="num">ln x</span><span class="den">x<sup>2</sup></span></span></span>
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس
+          <span class="math-inline">(O; i, j)</span>.
+        </p>
+        <ol>
+          <li>
+            احسب
+            <span class="math-inline">lim<sub>x &rarr; 0<sup>+</sup></sub> f(x)</span>
+            و
+            <span class="math-inline">lim<sub>x &rarr; +&infin;</sub> f(x)</span>.
+          </li>
+          <li>
+            <strong>أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> من
+            <span class="math-inline">]0,+&infin;[</span>:
+            <span class="math-line">f&prime;(x)=<span class="frac"><span class="num">2g(x)</span><span class="den">x<sup>3</sup></span></span></span>
+            <br>
+            <strong>ب)</strong> استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكل جدول تغيراتها.
+            <br>
+            <strong>ج)</strong> بين أن المعادلة <span class="math-inline">f(x)=0</span> تقبل حلا وحيدا
+            <span class="math-inline">&alpha;</span> حيث
+            <span class="math-inline">0.7&lt;&alpha;&lt;0.71</span>.
+          </li>
+          <li>
+            <strong>أ)</strong> بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل مستقيما مقاربا مائلا
+            <span class="math-inline">(&Delta;)</span> يطلب تعيين معادلته.
+            <br>
+            <strong>ب)</strong> ادرس وضعية المنحنى <span class="math-inline">(C<sub>f</sub>)</span> بالنسبة إلى المستقيم
+            <span class="math-inline">(&Delta;)</span>.
+          </li>
+          <li>
+            بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقبل مماسا
+            <span class="math-inline">(T)</span> عند النقطة ذات الفاصلة <span class="math-inline">1</span>، ثم عين معادلته.
+          </li>
+          <li>
+            <strong>أ)</strong> ارسم <span class="math-inline">(&Delta;)</span> و
+            <span class="math-inline">(T)</span> و <span class="math-inline">(C<sub>f</sub>)</span>.
+            <br>
+            <strong>ب)</strong> ناقش بيانيا، حسب قيم الوسيط الحقيقي <span class="math-inline">m</span>، عدد حلول المعادلة:
+            <span class="math-line"><span class="frac"><span class="num">ln x</span><span class="den">x<sup>2</sup></span></span>=m</span>
+          </li>
+          <li>
+            <strong>أ)</strong> بين أن الدالة
+            <span class="math-line">H(x)=x-<span class="frac"><span class="num">ln x+1</span><span class="den">x</span></span></span>
+            دالة أصلية للدالة
+            <span class="math-line">h(x)=1+<span class="frac"><span class="num">ln x</span><span class="den">x<sup>2</sup></span></span></span>
+            على <span class="math-inline">]0,+&infin;[</span>.
+            <br>
+            <strong>ب)</strong> احسب، بدلالة <span class="math-inline">&alpha;</span>، مساحة الحيز المستوي المحدد بالمنحنى
+            <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات ذات المعادلات:
+            <span class="math-line">x=1 ، x=&alpha; ، y=x</span>
+          </li>
+        </ol>
+      </section>
+    `,
+    solution: ""
+  },
+  {
     id: "science-2023-exp-function-cycle",
     title: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية - دورة 2023 - التمرين 17",
     branch: "science",
@@ -315,6 +495,28 @@ window.bacAlgeriaExams = [
         <div><span>الجزء الأول (I):</span></div>
                                 <p>التمثيل البياني للدالة <span class="math-inline">x \mapsto 2x - 1</span> و <span class="math-inline">(D)</span> المستقيم ذو المعادلة <span class="math-inline">y=1</span>.</p>
                                 <p><span class="math-inline">&alpha;</span> هي فاصلة نقطة تقاطع <span class="math-inline">(&Gamma;)</span> و <span class="math-inline">(D)</span>.</p>
+                                <svg viewBox="0 0 360 260" role="img" aria-label="بيان المنحنى Gamma والمستقيم D في موضوع 2023 علوم تجريبية" style="width:min(360px,100%);height:auto;background:#fff;border:1px solid #111;border-radius:8px;direction:ltr;">
+                                  <defs>
+                                    <pattern id="science2023Grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#d2d6dc" stroke-width="1"/>
+                                    </pattern>
+                                  </defs>
+                                  <rect x="20" y="20" width="300" height="200" fill="url(#science2023Grid)"/>
+                                  <path d="M20 100 H320" stroke="#111" stroke-width="2"/>
+                                  <path d="M140 20 V220" stroke="#111" stroke-width="2"/>
+                                  <path d="M20 60 H320" stroke="#111" stroke-width="2.4"/>
+                                  <text x="292" y="94" fill="#111" font-size="15" font-family="Arial">(D)</text>
+                                  <path d="M20 108 C58 112 101 126 140 140 C158 139 172 118 180 100 C186 85 190 69 196 60 C202 50 207 33 212 10"
+                                    fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+                                  <text x="84" y="154" fill="#111" font-size="15" font-family="Arial">(&Gamma;)</text>
+                                  <path d="M196 60 V100" stroke="#111" stroke-width="1.5" stroke-dasharray="5 4"/>
+                                  <circle cx="196" cy="60" r="4" fill="#111"/>
+                                  <text x="190" y="118" fill="#111" font-size="14" font-family="Arial">&alpha;</text>
+                                  <text x="326" y="104" fill="#111" font-size="14" font-family="Arial">x</text>
+                                  <text x="88" y="17" fill="#111" font-size="14" font-family="Arial">y</text>
+                                  <text x="126" y="116" fill="#111" font-size="13" font-family="Arial">0</text>
+                                  <text x="145" y="238" fill="#111" font-size="13" font-family="Arial">0.6 &lt; &alpha; &lt; 0.7</text>
+                                </svg>
                                 <ol>
                                     <li>بقراءة بيانية، حدد وضعية <span class="math-inline">(&Gamma;)</span> بالنسبة إلى <span class="math-inline">(D)</span>.</li>
                                     <li>الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> بـ: 
@@ -342,24 +544,129 @@ window.bacAlgeriaExams = [
     `
   },
   {
+    id: "science-2023-topic-2-ln-area",
+    title: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية الموضوع الثاني",
+    branch: "science",
+    year: "2023",
+    date: "2023",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "tangents", "area"],
+    summary: "الموضوع الثاني من بكالوريا 2023 لشعبة علوم تجريبية: دراسة دالة لوغارتمية على ]0,+∞[، نهايات، اشتقاق، مماس، تقاطع، دالة أصلية، مساحة، وتحويل منحنى.",
+    statement: `
+      <section class="statement-block">
+        <h3>بكالوريا الجزائر 2023 - شعبة علوم تجريبية - الموضوع الثاني</h3>
+        <p>
+          لتكن <span class="math-inline">f</span> الدالة المعرفة على المجال
+          <span class="math-inline">]0,+&infin;[</span> بـ:
+          <span class="math-line">f(x)=(ln x)<sup>2</sup>-3ln x</span>
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس
+          <span class="math-inline">(O; i, j)</span>.
+        </p>
+        <ol>
+          <li>
+            <strong>أ)</strong> احسب <span class="math-inline">f(1)</span> ثم فسر النتيجة هندسيا.
+            <br>
+            <strong>ب)</strong> احسب
+            <span class="math-inline">lim<sub>x &rarr; 0<sup>+</sup></sub> f(x)</span>
+            و
+            <span class="math-inline">lim<sub>x &rarr; +&infin;</sub> f(x)</span>.
+          </li>
+          <li>
+            <strong>أ)</strong> بين أنه من أجل كل <span class="math-inline">x</span> من
+            <span class="math-inline">]0,+&infin;[</span>:
+            <span class="math-line">f&prime;(x)=<span class="frac"><span class="num">3(-1+ln x)(1+ln x)</span><span class="den">x</span></span></span>
+            <br>
+            <strong>ب)</strong> بين أن
+            <span class="math-inline">(-1+ln x)(1+ln x)&gt;0</span>
+            على
+            <span class="math-inline">]0;e<sup>-1</sup>[ &cup; ]e;+&infin;[</span>.
+            <br>
+            <strong>ج)</strong> استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكل جدول تغيراتها على
+            <span class="math-inline">]0,+&infin;[</span>.
+          </li>
+          <li>
+            عين معادلة المماس <span class="math-inline">(T)</span> للمنحنى
+            <span class="math-inline">(C<sub>f</sub>)</span> عند النقطة ذات الفاصلة
+            <span class="math-inline">1</span>.
+          </li>
+          <li>
+            <strong>أ)</strong> عين فواصل نقط تقاطع <span class="math-inline">(C<sub>f</sub>)</span> مع محور الفواصل.
+            <br>
+            <strong>ب)</strong> ارسم <span class="math-inline">(T)</span> و
+            <span class="math-inline">(C<sub>f</sub>)</span> على المجال
+            <span class="math-inline">]0;e<sup>3</sup>]</span>.
+          </li>
+          <li>
+            الدالة <span class="math-inline">F</span> المعرفة على المجال
+            <span class="math-inline">]0,+&infin;[</span> بـ:
+            <span class="math-line">F(x)=x((ln x)<sup>2</sup>-3ln x+3ln x-3)</span>
+            <br>
+            <strong>أ)</strong> تحقق أن <span class="math-inline">F</span> دالة أصلية للدالة
+            <span class="math-inline">f</span> على المجال <span class="math-inline">]0,+&infin;[</span>.
+            <br>
+            <strong>ب)</strong> احسب مساحة الحيز المستوي المحدد بالمنحنى
+            <span class="math-inline">(C<sub>f</sub>)</span> ومحور الفواصل والمستقيمين ذوي المعادلتين:
+            <span class="math-line">x=1 و x=e</span>
+          </li>
+          <li>
+            لتكن <span class="math-inline">h</span> الدالة المعرفة على المجال
+            <span class="math-inline">]0,+&infin;[</span> بـ:
+            <span class="math-line">h(x)=(ln x)<sup>2</sup>-3|ln x|</span>
+            و <span class="math-inline">(C<sub>h</sub>)</span> تمثيلها البياني في نفس المعلم.
+            <br>
+            بين كيف يمكن رسم <span class="math-inline">(C<sub>h</sub>)</span> انطلاقا من
+            <span class="math-inline">(C<sub>f</sub>)</span> ثم ارسمه على المجال
+            <span class="math-inline">]0;e<sup>3</sup>]</span>.
+          </li>
+        </ol>
+      </section>
+    `,
+    solution: ""
+  },
+  {
     id: "science-2022-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية - دورة 2022 - التمرين 18",
+    title: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الأول",
     branch: "science",
     year: "2022",
     date: "2022",
     source: "learn-exp-function",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "تمرين من دورة 2022 - التمرين 18 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
+    summary: "الموضوع الأول من بكالوريا 2022 لشعبة علوم تجريبية: قراءة بيانية لدالة أسية، مماس، مناقشة f(x)=x+m، تحديد وسيطين، وإنشاء منحنى دالة زوجية مرتبطة.",
     statement: `
       <section class="statement-block">
-        <h3>بكالوريا الجزائر 2022 - شعبة علوم تجريبية - دورة 2022 - التمرين 18</h3>
-        <div><span>دورة 2022 - التمرين 18</span></div>
+        <h3>بكالوريا الجزائر 2022 - شعبة علوم تجريبية - الموضوع الأول</h3>
+        <div><span>التمرين الرابع</span></div>
                                 <p>الدالة العددية <span class="math-inline">f</span> المعرفة على <span class="math-inline">R</span> بتمثيلها البياني <span class="math-inline">(C<sub>f</sub>)</span> في المستوي منسوب إلى معلم متعامد ومتجانس <span class="math-inline">(O; i, j)</span> و <span class="math-inline">(T)</span> مماس لـ <span class="math-inline">(C<sub>f</sub>)</span> في النقطة ذات الفاصلة <span class="math-inline">0</span> كما هو مبين في الشكل.</p>
+                                <svg viewBox="0 0 420 260" role="img" aria-label="بيان الدالة f والمماس T في موضوع 2022 علوم تجريبية" style="width:min(420px,100%);height:auto;background:#fff;border:1px solid #111;border-radius:8px;direction:ltr;">
+                                  <defs>
+                                    <pattern id="science2022Grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                                      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#d3d7dd" stroke-width="1"/>
+                                    </pattern>
+                                  </defs>
+                                  <rect x="20" y="20" width="360" height="208" fill="url(#science2022Grid)"/>
+                                  <path d="M20 148 H380" stroke="#111" stroke-width="2"/>
+                                  <path d="M188 20 V228" stroke="#111" stroke-width="2"/>
+                                  <path d="M40 188 L360 28" stroke="#111" stroke-width="1.8" stroke-dasharray="6 5"/>
+                                  <text x="330" y="42" fill="#111" font-size="14" font-family="Arial">y=x-1</text>
+                                  <path d="M118 228 L228 20" stroke="#111" stroke-width="2.2"/>
+                                  <text x="230" y="34" fill="#111" font-size="15" font-family="Arial">(T)</text>
+                                  <path d="M24 204 C66 184 107 164 148 144 C166 135 180 127 188 116 C196 104 202 86 210 58 C217 34 224 21 234 20"
+                                    fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+                                  <text x="238" y="58" fill="#111" font-size="15" font-family="Arial">(C<tspan baseline-shift="sub" font-size="10">f</tspan>)</text>
+                                  <circle cx="188" cy="116" r="4" fill="#111"/>
+                                  <text x="192" y="132" fill="#111" font-size="13" font-family="Arial">f(0)</text>
+                                  <text x="384" y="152" fill="#111" font-size="14" font-family="Arial">x</text>
+                                  <text x="176" y="18" fill="#111" font-size="14" font-family="Arial">y</text>
+                                  <text x="176" y="162" fill="#111" font-size="13" font-family="Arial">0</text>
+                                </svg>
                                 <ol>
                                     <li>بقراءة بيانية: عين <span class="math-inline">f(0)</span> و <span class="math-inline">lim<sub>x &rarr; -&infin;</sub> f(x)</span> وأعط معادلة <span class="math-inline">(T)</span>.</li>
                                     <li>ناقش بيانيا، وحسب قيم الوسيط الحقيقي <span class="math-inline">m</span> عدد حلول المعادلة <span class="math-inline">f(x) = x + m</span>.</li>
-                                    <li>إذا علمت أن <span class="math-inline">f(x) = (x<sup>2</sup> + a)e<sup>x</sup> + b</span>: بين أن <span class="math-inline">a=1</span> و <span class="math-inline">b=-1</span>.</li>
+                                    <li>إذا علمت أن <span class="math-inline">f(x)=x+ae<sup>2x</sup>+b</span>: بين أن <span class="math-inline">a=1</span> و <span class="math-inline">b=-1</span>، ثم اكتب عبارة <span class="math-inline">f(x)</span>.</li>
                                     <li>الدالة العددية <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> بـ: 
                                         <p>
                                             <span class="math-line">g(x) = (x<sup>2</sup> + 1)e<sup>|x|</sup> - 1</span>
@@ -369,6 +676,77 @@ window.bacAlgeriaExams = [
                                 </ol>
       </section>
     `
+  },
+  {
+    id: "science-2022-topic-2-ln-abs",
+    title: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الثاني",
+    branch: "science",
+    year: "2022",
+    date: "2022",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "tangents", "discussion", "absolute-value"],
+    summary: "الموضوع الثاني من بكالوريا 2022 لشعبة علوم تجريبية: دالة لوغارتمية، قراءة بيانية، مماس، تحديد وسيط، مناقشة معادلة، ودالة بالقيمة المطلقة.",
+    statement: `
+      <section class="statement-block">
+        <h3>بكالوريا الجزائر 2022 - شعبة علوم تجريبية - الموضوع الثاني</h3>
+        <div><span>التمرين الرابع</span></div>
+        <p>
+          لتكن <span class="math-inline">f</span> الدالة المعرفة على
+          <span class="math-inline">]-1,+&infin;[</span> بـ:
+          <span class="math-line">f(x)=ax-2ln(x+1)+b</span>
+          حيث <span class="math-inline">a</span> و <span class="math-inline">b</span> عددان حقيقيان.
+        </p>
+        <p>
+          و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى معلم متعامد ومتجانس
+          <span class="math-inline">(O; i, j)</span>، و <span class="math-inline">(T)</span> مماس لـ
+          <span class="math-inline">(C<sub>f</sub>)</span> عند النقطة ذات الفاصلة <span class="math-inline">0</span>.
+        </p>
+        <svg viewBox="0 0 360 260" role="img" aria-label="بيان الدالة f والمماس T في موضوع 2022 علوم تجريبية الموضوع الثاني" style="width:min(360px,100%);height:auto;background:#fff;border:1px solid #111;border-radius:8px;direction:ltr;">
+          <defs>
+            <pattern id="science2022Topic2Grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#d3d7dd" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect x="18" y="18" width="304" height="210" fill="url(#science2022Topic2Grid)"/>
+          <path d="M18 116 H322" stroke="#111" stroke-width="2"/>
+          <path d="M116 18 V228" stroke="#111" stroke-width="2"/>
+          <path d="M42 28 L238 224" stroke="#111" stroke-width="2.2"/>
+          <text x="52" y="52" fill="#111" font-size="15" font-family="Arial">(T)</text>
+          <path d="M46 22 C57 55 72 88 94 112 C112 132 137 145 169 148 C204 151 243 134 306 92"
+            fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+          <text x="246" y="102" fill="#111" font-size="15" font-family="Arial">(C<tspan baseline-shift="sub" font-size="10">f</tspan>)</text>
+          <circle cx="116" cy="116" r="4" fill="#111"/>
+          <text x="120" y="132" fill="#111" font-size="13" font-family="Arial">O</text>
+          <text x="326" y="120" fill="#111" font-size="14" font-family="Arial">x</text>
+          <text x="104" y="15" fill="#111" font-size="14" font-family="Arial">y</text>
+        </svg>
+        <ol>
+          <li>بقراءة بيانية، عين <span class="math-inline">f(0)</span> و <span class="math-inline">f&prime;(0)</span>، ثم عين معادلة المماس <span class="math-inline">(T)</span>.</li>
+          <li>بين أن <span class="math-inline">a=1</span> و <span class="math-inline">b=0</span>.</li>
+          <li>
+            ناقش بيانيا، حسب قيم الوسيط الحقيقي <span class="math-inline">m</span>، عدد وحلول المعادلة:
+            <span class="math-line">f(x)+x-m=0</span>
+          </li>
+          <li>
+            لتكن <span class="math-inline">g</span> الدالة المعرفة على <span class="math-inline">R</span> بـ:
+            <span class="math-line">g(x)=|x+1|-2ln|x+1|</span>
+            و <span class="math-inline">(C<sub>g</sub>)</span> تمثيلها البياني في نفس المعلم.
+            <br>
+            <strong>أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> حيث
+            <span class="math-inline">x&lt;-1</span>:
+            <span class="math-line">g(-2-x)=g(x)</span>
+            <br>
+            <strong>ب)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> من المجال
+            <span class="math-inline">]-1,+&infin;[</span>:
+            <span class="math-line">g(x)=f(x)</span>
+            <br>
+            <strong>ج)</strong> استنتج كيفية إنشاء <span class="math-inline">(C<sub>g</sub>)</span> في نفس المعلم.
+          </li>
+        </ol>
+      </section>
+    `,
+    solution: ""
   },
   {
     id: "science-2021-exp-function-cycle",
@@ -845,144 +1223,6 @@ window.bacAlgeriaExams = [
                                     <li>باستعمال مشتقة دالة مركبة ، عين اتجاه تغير الدالة <span class="math-inline">k</span> ثم شكل جدول تغيراتها.</li>
                                 </ol>
       </section>
-    `
-  },
-  {
-    id: "science-2025-topic-2-ln",
-    title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الثاني",
-    branch: "science",
-    year: "2025",
-    date: "2025",
-    source: "inline",
-    file: "",
-    tags: ["ln", "study-functions", "equations", "area"],
-    summary: "التمرين الرابع من بكالوريا 2025 لشعبة علوم تجريبية، الموضوع الثاني: دراسة دالة لوغارتمية، إشارة مشتقة، جذور، مناقشة بيانية، ومساحة بين منحنيين.",
-    statement: `
-      <div class="official-exam">
-        <h3>بكالوريا 2025 علوم تجريبية الموضوع الثاني</h3>
-        <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
-
-        <p class="part"><strong>I)</strong> الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
-          <span class="math-line">g(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></span>.
-        </p>
-        <p>تمثيلها البياني <span class="math-inline">(C<sub>g</sub>)</span> يقطع محور الفواصل في نقطتين فاصلتاهما <span class="math-inline">0</span> و <span class="math-inline">α</span>، كما في الشكل المقابل.</p>
-        <ol>
-          <li>بقراءة بيانية، حدد إشارة <span class="math-inline">g(x)</span> على <span class="math-inline">]-4, +∞[</span>.</li>
-          <li>تحقق أنّ: <span class="math-line">-2.5 &lt; α &lt; -2.4</span>.</li>
-        </ol>
-
-        <p class="part"><strong>II)</strong> الدالة <span class="math-inline">f</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
-          <span class="math-line">f(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></span>
-        </p>
-        <p>و <span class="math-inline">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math-inline">(O; i, j)</span>.</p>
-        <ol>
-          <li>
-            <ol type="أ">
-              <li>احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-4<sup>+</sup></small></span> f(x)</span> وبين أنّ: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+∞</small></span> f(x) = +∞</span>.</li>
-            </ol>
-          </li>
-          <li>
-            <ol type="أ">
-              <li>بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">]-4, +∞[</span>: <span class="math-line">f&prime;(x) = g(x)</span>.</li>
-              <li>استنتج اتجاه تغير الدالة <span class="math-inline">f</span> ثم شكّل جدول تغيّراتها.</li>
-            </ol>
-          </li>
-          <li>
-            <ol type="أ">
-              <li>عيّن فاصيلي نقاط تقاطع <span class="math-inline">(C<sub>f</sub>)</span> مع حامل محور الفواصل.</li>
-              <li>احسب <span class="math-inline">f(2)</span> و <span class="math-inline">f(4)</span> ثم ارسم <span class="math-inline">(C<sub>f</sub>)</span>. (يُعطى: <span class="math-inline">f(α) ≃ 1.7</span>).</li>
-            </ol>
-          </li>
-          <li>عيّن قيم العدد الحقيقي الموجب <span class="math-inline">m</span> تماماً حتى يكون للمعادلة <span class="math-inline">f(x) = ln m</span> ثلاثة حلول مختلفة.</li>
-          <li>
-            الدالة <span class="math-inline">h</span> المعرفة على <span class="math-inline">]-4, +∞[</span> بـ:
-            <span class="math-line">h(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(x<sup>2</sup> + 1) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></span>
-            و <span class="math-inline">(C<sub>h</sub>)</span> تمثيلها البياني.
-            <ol type="أ">
-              <li>بين أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">[-3, 0]</span>: <span class="math-inline">h(x) - f(x) ≥ 0</span>.</li>
-              <li>احسب بالوحدة مساحة الحيز المستوي المحدد بـ <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>h</sub>)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x = -3</span> و <span class="math-inline">x = 0</span>.</li>
-            </ol>
-          </li>
-        </ol>
-      </div>
-    `,
-    solution: `
-      <h3>الحل التفصيلي</h3>
-
-      <h4>I - دراسة الدالة المساعدة g</h4>
-      <p>لدينا:</p>
-      <p class="math-line">g(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></p>
-      <ol>
-        <li>
-          من التمثيل البياني لـ <span class="math-inline">(C<sub>g</sub>)</span>، نقرأ أن <span class="math-inline">g(x)</span> موجبة على <span class="math-inline">]-4, α[</span>، سالبة على <span class="math-inline">]α, 0[</span>، وموجبة على <span class="math-inline">]0, +∞[</span>.
-          كما أن <span class="math-inline">g(0) = 0</span> (بديهياً من التعويض).
-        </li>
-        <li>
-          التحقق من الحصر: عند <span class="math-inline">x = -2.5</span> فإنّ <span class="math-inline">x + 4 = 1.5</span> و
-          <span class="math-inline">g(-2.5) &gt; 0</span>، وعند <span class="math-inline">x = -2.4</span> فإنّ <span class="math-inline">x + 4 = 1.6</span> و
-          <span class="math-inline">g(-2.4) &lt; 0</span>. وبما أن <span class="math-inline">g</span> متصلة ومتناقصة بين النقطتين، فإنّ جذرها <span class="math-inline">α</span> يحقق:
-          <span class="math-line">-2.5 &lt; α &lt; -2.4</span>.
-        </li>
-      </ol>
-
-      <h4>II - دراسة الدالة f</h4>
-      <ol>
-        <li>
-          <strong>النهايات:</strong>
-          <ul>
-            <li>عند <span class="math-inline">x &rarr; -4<sup>+</sup></span>: <span class="math-inline">x + 4 &rarr; 0<sup>+</sup></span> و<span class="math-inline">ln(x + 4) &rarr; -∞</span>، و<span class="math-inline">x<sup>2</sup>/(x + 4) &rarr; +∞</span>، إذن:
-              <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-4<sup>+</sup></small></span> f(x) = -∞</span>.
-            </li>
-            <li>عند <span class="math-inline">x &rarr; +∞</span>: <span class="math-inline">x<sup>2</sup>/(x + 4) &sim; x</span> و<span class="math-inline">ln(x + 4) &rarr; +∞</span>، إذن:
-              <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+∞</small></span> f(x) = +∞</span>.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>المشتقة:</strong> باستعمال قاعدة اشتقاق خارجة، نجد:
-          <p class="math-line">f&prime;(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(2x ln(x + 4) + <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">x + 4</span></span>)(x + 4) - x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span></p>
-          <p>وبعد التبسيط:</p>
-          <p class="math-line">f&prime;(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>x<sup>2</sup> + (x<sup>2</sup> + 8x) ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">(x + 4)<sup>2</sup></span></span> = g(x)</p>
-          <p>وبما أن إشارة <span class="math-inline">f&prime;</span> هي إشارة <span class="math-inline">g</span>، فإنّ <span class="math-inline">f</span>:</p>
-          <ul>
-            <li>متزايدة على <span class="math-inline">]-4, α]</span>؛</li>
-            <li>متناقصة على <span class="math-inline">[α, 0]</span>؛</li>
-            <li>متزايدة على <span class="math-inline">[0, +∞[</span>.</li>
-          </ul>
-          <p>القيمة القصوى: <span class="math-inline">f(α) ≃ 1.7</span>؛ القيمة الصغرى: <span class="math-inline">f(0) = 0</span>.</p>
-        </li>
-        <li>
-          <strong>نقاط التقاطع مع محور الفواصل:</strong>
-          <p class="math-line">f(x) = 0 &hArr; x<sup>2</sup> ln(x + 4) = 0 &hArr; x = 0 &nbsp;أو&nbsp; ln(x + 4) = 0 &hArr; x = -3</p>
-          <p>إذن نقاط التقاطع هي <span class="math-inline">A(-3, 0)</span> و <span class="math-inline">O(0, 0)</span>.</p>
-          <p><strong>قيم خاصة:</strong></p>
-          <p class="math-line">f(2) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>4 ln 6</span><span style="display:block;border-top:1px solid #000;">6</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>2</span><span style="display:block;border-top:1px solid #000;">3</span></span> ln 6</p>
-          <p class="math-line">f(4) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>16 ln 8</span><span style="display:block;border-top:1px solid #000;">8</span></span> = 2 ln 8 = 6 ln 2</p>
-        </li>
-        <li>
-          <strong>مناقشة المعادلة f(x) = ln m:</strong>
-          <p>بناءً على جدول التغيرات، المعادلة تقبل ثلاثة حلول مختلفة عندما يكون <span class="math-inline">ln m</span> بين القيمتين الصغرى والقصوى:</p>
-          <p class="math-line">0 &lt; ln m &lt; f(α) ≃ 1.7</p>
-          <p>أي:</p>
-          <p class="math-line">1 &lt; m &lt; e<sup>1.7</sup></p>
-        </li>
-        <li>
-          <strong>الدالة h والمساحة:</strong>
-          <ol type="أ">
-            <li>
-              <p class="math-line">h(x) - f(x) = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(x<sup>2</sup> + 1) ln(x + 4) - x<sup>2</sup> ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span></p>
-              <p>على <span class="math-inline">[-3, 0]</span>، لدينا <span class="math-inline">x + 4 &in; [1, 4]</span>، إذن <span class="math-inline">ln(x + 4) ≥ 0</span> و<span class="math-inline">x + 4 &gt; 0</span>، ومنه <span class="math-inline">h(x) - f(x) ≥ 0</span>.</p>
-            </li>
-            <li>
-              <p>المساحة المطلوبة:</p>
-              <p class="math-line">A = &int;<sub>-3</sub><sup>0</sup> <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>ln(x + 4)</span><span style="display:block;border-top:1px solid #000;">x + 4</span></span> dx</p>
-              <p>بضبط التغيير <span class="math-inline">u = ln(x + 4)</span>، نحصل على:</p>
-              <p class="math-line">A = &int;<sub>0</sub><sup>ln 4</sup> u du = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>(ln 4)<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">2</span></span> = <span style="display:inline-block;vertical-align:middle;text-align:center;"><span>4 (ln 2)<sup>2</sup></span><span style="display:block;border-top:1px solid #000;">2</span></span> = 2 (ln 2)<sup>2</sup></p>
-              <p>إذن <span class="math-inline">A = 2(ln 2)²</span> وحدة مساحة.</p>
-            </li>
-          </ol>
-        </li>
-      </ol>
     `
   },
   {

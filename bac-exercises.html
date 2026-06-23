@@ -47,7 +47,8 @@
       }
 
       button,
-      input {
+      input,
+      select {
         font: inherit;
       }
 
@@ -258,8 +259,46 @@
       }
 
       .filters {
-        padding: 18px;
+        display: grid;
+        gap: 14px;
+        padding: 14px 16px;
         margin-bottom: 22px;
+      }
+
+      .bac-mode-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .bac-mode-tab {
+        min-height: 58px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.035);
+        color: #e7f3ed;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .bac-mode-tab.active {
+        border-color: rgba(0, 214, 143, 0.42);
+        background: linear-gradient(135deg, #00d68f, #3edfc9);
+        color: #03130d;
+        box-shadow: 0 16px 30px rgba(0, 214, 143, 0.16);
+      }
+
+      .bac-filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 16px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: rgba(15, 23, 20, 0.82);
       }
 
       .filters-title {
@@ -335,6 +374,13 @@
         margin-top: 13px;
       }
 
+      .filter-group.inline-select {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 0;
+      }
+
       .filter-top-row {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(120px, 180px);
@@ -392,6 +438,7 @@
 
       .filter-select {
         min-height: 46px;
+        min-width: 148px;
         padding: 0 14px;
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -404,6 +451,37 @@
       .filter-select:focus {
         border-color: rgba(0, 214, 143, 0.45);
         box-shadow: 0 0 0 4px rgba(0, 214, 143, 0.12);
+      }
+
+      .bac-context-card {
+        margin-bottom: 18px;
+        padding: 18px 20px;
+        text-align: right;
+      }
+
+      .bac-context-card .panel-label {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 999px;
+        background: rgba(0, 214, 143, 0.12);
+        color: var(--primary);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .bac-context-card h2 {
+        margin-top: 10px;
+        font-size: clamp(26px, 4vw, 38px);
+        font-weight: 900;
+      }
+
+      .bac-context-card p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 17px;
+        font-weight: 700;
       }
 
       .content-grid {
@@ -438,6 +516,11 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        direction: ltr;
+      }
+
+      .topic-pager .action-btn {
+        direction: rtl;
       }
 
       .list-head {
@@ -455,6 +538,17 @@
       .exercise-list {
         display: grid;
         gap: 10px;
+      }
+
+      .exercise-list-panel {
+        max-height: 360px;
+        overflow-y: auto;
+      }
+
+      .exercise-list-panel > .hint {
+        text-align: center;
+        padding: 12px 0;
+        margin: 0;
       }
 
       .exercise-card {
@@ -534,6 +628,12 @@
         line-height: 1.35;
       }
 
+      .reader-header-actions {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 4px;
+      }
+
       .reader-actions {
         display: flex;
         flex-wrap: wrap;
@@ -545,6 +645,44 @@
         margin-top: 18px;
         padding-top: 16px;
         border-top: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .solution-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .solution-chevron {
+        display: inline-block;
+        transition: transform 300ms ease;
+        font-size: 1.15em;
+        line-height: 1;
+      }
+
+      .solution-toggle[aria-expanded="true"] .solution-chevron {
+        transform: rotate(180deg);
+      }
+
+      .solution-expander {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows 350ms ease, opacity 350ms ease;
+      }
+
+      .solution-expander.open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+
+      .solution-expander-inner {
+        min-height: 0;
+        overflow: hidden;
       }
 
       .action-btn {
@@ -607,7 +745,8 @@
       }
 
       .solution-panel {
-        display: none;
+        display: grid;
+        gap: 14px;
         margin-top: 16px;
         padding: 18px;
         border: 1px solid rgba(0, 214, 143, 0.25);
@@ -615,11 +754,6 @@
         background: rgba(0, 214, 143, 0.06);
         color: #e8fff0;
         line-height: 1.95;
-      }
-
-      .solution-panel.active {
-        display: grid;
-        gap: 14px;
       }
 
       .solution-panel h3 {
@@ -869,6 +1003,24 @@
           grid-template-columns: 1fr;
         }
 
+        .bac-mode-tabs {
+          grid-template-columns: 1fr;
+        }
+
+        .bac-filter-bar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .filter-group.inline-select {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .filter-select {
+          width: 100%;
+        }
+
         .filter-top-row {
           grid-template-columns: 1fr;
         }
@@ -908,7 +1060,8 @@
 
       body.is-embedded .side-nav,
       body.is-embedded .topbar,
-      body.is-embedded .hero {
+      body.is-embedded .hero,
+      body.is-embedded .bac-mode-tabs {
         display: none;
       }
 
@@ -966,25 +1119,28 @@
             <p>تدريب على تمارين شعب العلوم التجريبية، الرياضيات، التقني رياضي، والتسيير والاقتصاد من امتحانات البكالوريا (2008-2025)</p>
           </section>
 
+          <nav class="bac-mode-tabs" aria-label="أنواع البكالوريا">
+            <button class="bac-mode-tab active" type="button" aria-current="true">بكالوريا الجزائر</button>
+            <button class="bac-mode-tab" type="button">بكالوريا أجنبي</button>
+            <button class="bac-mode-tab" type="button">بكالوريا تجريبي</button>
+          </nav>
+
           <section class="card filters">
-            <div class="filters-title">
-              <h2>فلترة التمارين</h2>
-              <button class="reset-btn" type="button" id="globalResetFilters">إعادة ضبط الفلاتر</button>
-            </div>
-            <div class="search">
-              <input id="searchInput" type="search" placeholder="ابحث في التمارين..." />
-            </div>
-            <div class="filter-top-row">
-              <div class="filter-group">
-                <span>الشعبة</span>
-                <div class="filter-buttons" id="branchFilters"></div>
+            <div class="bac-filter-bar">
+              <div class="filter-group inline-select">
+                <span>المسار</span>
+                <select id="branchSelect" class="filter-select" aria-label="اختيار شعبة البكالوريا"></select>
               </div>
-              <div class="filter-group">
+              <div class="filter-group inline-select">
                 <span>السنة</span>
                 <select id="yearSelect" class="filter-select" aria-label="اختيار سنة البكالوريا">
                   <option value="all">كل السنوات</option>
                 </select>
               </div>
+              <button class="reset-btn" type="button" id="globalResetFilters">إعادة ضبط</button>
+            </div>
+            <div class="search">
+              <input id="searchInput" type="search" placeholder="ابحث في المواضيع..." />
             </div>
             <div class="filter-group">
               <span>المحور</span>
@@ -993,6 +1149,21 @@
             <div class="filter-group">
               <span>الحالة</span>
               <div class="filter-buttons" id="statusFilters"></div>
+            </div>
+          </section>
+
+          <section class="card bac-context-card" aria-label="ملخص باب البكالوريا">
+            <span class="panel-label" id="bacContextBadge">بكالوريا الجزائر</span>
+            <h2 id="bacContextTitle">الشعب العلمية</h2>
+            <p id="bacContextText">تعرض الشعب العلمية فقط: رياضيات، تقني رياضي، وعلوم تجريبية.</p>
+          </section>
+
+          <section class="card exercise-list-panel" id="exerciseListPanel">
+            <div class="list-head">
+              <h2>قائمة المواضيع</h2>
+            </div>
+            <div class="exercise-list" id="exerciseList">
+              <p class="hint">اختر الشعبة لعرض المواضيع.</p>
             </div>
           </section>
 
@@ -1049,7 +1220,7 @@
       </div>
     </div>
 
-    <script src="assets/bac-algeria-log-exp.js"></script>
+    <script src="assets/bac-algeria-log-exp.js?v=11"></script>
     <script>
       const branchLabels = {
         all: "الكل",
@@ -1110,11 +1281,14 @@
       const resultsCountEl = document.getElementById("resultsCount");
       const prevExerciseBtn = document.getElementById("prevExerciseBtn");
       const nextExerciseBtn = document.getElementById("nextExerciseBtn");
-      const branchFiltersEl = document.getElementById("branchFilters");
+      const exerciseListEl = document.getElementById("exerciseList");
+      const branchSelect = document.getElementById("branchSelect");
       const yearSelect = document.getElementById("yearSelect");
       const topicFiltersEl = document.getElementById("topicFilters");
       const statusFiltersEl = document.getElementById("statusFilters");
       const searchInput = document.getElementById("searchInput");
+      const bacContextTitle = document.getElementById("bacContextTitle");
+      const bacContextText = document.getElementById("bacContextText");
 
       function navigateParentView(viewName) {
         if (!viewName) return;
@@ -1172,14 +1346,17 @@
       }
 
       function hasRequiredSelection() {
-        return filters.branch !== "all" && filters.year !== "all";
+        return true;
       }
 
       function renderFilters() {
-        const availableTopics = [...new Set(exercises.flatMap((item) => item.topics))];
+        const scopedExercises = hasRequiredSelection()
+          ? exercises.filter((item) => branchMatches(item) && (filters.year === "all" || String(item.year) === String(filters.year)))
+          : exercises;
+        const availableTopics = [...new Set(scopedExercises.flatMap((item) => item.topics))];
 
-        branchFiltersEl.innerHTML = Object.entries(branchLabels)
-          .map(([key, label]) => `<button class="filter-btn ${filters.branch === key ? "active" : ""}" type="button" data-branch="${key}">${label}</button>`)
+        branchSelect.innerHTML = Object.entries(branchLabels)
+          .map(([key, label]) => `<option value="${key}" ${filters.branch === key ? "selected" : ""}>${label}</option>`)
           .join("");
 
         const availableYears = [...new Set(exercises.map((item) => String(item.year)).filter(Boolean))].sort(
@@ -1199,6 +1376,13 @@
           `<button class="filter-btn ${filters.status === "all" ? "active" : ""}" type="button" data-status="all">الكل</button>`,
           ...Object.entries(statusLabels).map(([key, label]) => `<button class="filter-btn ${filters.status === key ? "active" : ""}" type="button" data-status="${key}">${label}</button>`),
         ].join("");
+
+        const branchTitle = filters.branch === "all" ? "الشعب العلمية" : branchLabels[filters.branch] || "الشعب العلمية";
+        bacContextTitle.textContent = branchTitle;
+        bacContextText.textContent =
+          filters.branch === "all"
+            ? "تعرض الشعب العلمية فقط: رياضيات، تقني رياضي، وعلوم تجريبية."
+            : `بكالوريا الجزائر - تعرض مواضيع ${branchTitle} حسب السنة والمحور والحالة.`;
       }
 
       function getFilteredExercises() {
@@ -1248,9 +1432,14 @@
       }
 
       function renderTopicPager(filtered, selectedIndex) {
-        resultsCountEl.textContent = hasRequiredSelection()
-          ? (filtered.length ? `${selectedIndex + 1} / ${filtered.length} موضوع` : "0 موضوع")
-          : "اختر الشعبة والسنة";
+        if (!hasRequiredSelection()) {
+          resultsCountEl.textContent = "اختر الشعبة";
+        } else {
+          const yearText = filters.year === "all" ? "كل السنوات" : filters.year;
+          resultsCountEl.textContent = filtered.length
+            ? `الموضوع ${selectedIndex + 1} من ${filtered.length} • ${yearText}`
+            : "0 موضوع";
+        }
         prevExerciseBtn.disabled = selectedIndex <= 0;
         nextExerciseBtn.disabled = selectedIndex === -1 || selectedIndex >= filtered.length - 1;
       }
@@ -1260,14 +1449,95 @@
         const selectedIndex = ensureSelectedExercise(filtered);
         renderTopicPager(filtered, selectedIndex);
         touchSelectedExercise();
+
+        if (!hasRequiredSelection()) {
+          exerciseListEl.innerHTML = `<p class="hint">اختر الشعبة لعرض المواضيع.</p>`;
+          return;
+        }
+        if (!filtered.length) {
+          exerciseListEl.innerHTML = `<p class="hint">لا يوجد موضوع مطابق.</p>`;
+          return;
+        }
+
+        exerciseListEl.innerHTML = filtered
+          .map((exercise) => {
+            const isActive = exercise.id === selectedExercise?.id;
+            const status = getStatus(exercise.id);
+            const statusBadge =
+              status === "completed"
+                ? '<span class="badge green">مكتمل</span>'
+                : status === "tried"
+                ? '<span class="badge amber">حاولته</span>'
+                : "";
+            return `
+              <button class="exercise-card ${isActive ? "active" : ""}" type="button" data-exercise-id="${exercise.id}" aria-current="${isActive}">
+                <div class="chip-row">
+                  <span class="badge blue">${escapeHtml(exercise.year)}</span>
+                  ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
+                  ${statusBadge}
+                </div>
+                <h3>${escapeHtml(exercise.title)}</h3>
+                <p class="hint">${escapeHtml(exercise.text)}</p>
+              </button>
+            `;
+          })
+          .join("");
+
+        exerciseListEl.querySelectorAll("[data-exercise-id]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const exercise = exercises.find((item) => item.id === button.dataset.exerciseId);
+            if (!exercise) return;
+            selectedExercise = exercise;
+            openSolutionId = null;
+            render();
+            readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+      }
+
+      function getStatementFallback(exercise) {
+        if (
+          exercise?.id !== "science-2024-exp-function-cycle" ||
+          String(exercise.statement || "").includes("variation-table")
+        ) {
+          return "";
+        }
+
+        return `
+          <section class="statement-block">
+            <h3>جدول تغيرات الدالة g</h3>
+            <table class="variation-table" aria-label="جدول تغيرات الدالة g">
+              <tbody>
+                <tr>
+                  <th>x</th>
+                  <td>-&infin;</td>
+                  <td>1</td>
+                  <td>+&infin;</td>
+                </tr>
+                <tr>
+                  <th>g&prime;(x)</th>
+                  <td>+</td>
+                  <td>0</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>g(x)</th>
+                  <td>-&infin;</td>
+                  <td><span class="var-arrow">&nearrow;</span> g(1) <span class="var-arrow">&searrow;</span></td>
+                  <td>-2</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        `;
       }
 
       function renderReader() {
         if (!selectedExercise) {
-          const emptyTitle = hasRequiredSelection() ? "لا يوجد موضوع مطابق" : "اختر الشعبة والسنة";
+          const emptyTitle = hasRequiredSelection() ? "لا يوجد موضوع مطابق" : "اختر الشعبة";
           const emptyText = hasRequiredSelection()
             ? "غيّر الشعبة أو السنة أو المحور لعرض موضوع بكالوريا آخر."
-            : "لن يظهر الموضوع حتى تختار الشعبة والسنة من الفلاتر.";
+            : "اختر الشعبة لعرض كل مواضيع البكالوريا الخاصة بها.";
           readerAreaEl.innerHTML = `
             <div class="reader-empty">
               <div>
@@ -1280,8 +1550,9 @@
         }
 
         const exercise = selectedExercise;
+        const statementFallback = getStatementFallback(exercise);
         const resourceView = exercise.statement
-          ? `<article class="statement-reader">${exercise.statement}</article>`
+          ? `<article class="statement-reader">${statementFallback}${exercise.statement}</article>`
           : `<article class="statement-reader"><p>نص الموضوع غير متوفر بعد. يمكنك فتح ملف PDF من الزر أعلاه.</p></article>`;
         const resourceActions = exercise.file
           ? `
@@ -1289,16 +1560,32 @@
           `
           : "";
         const solutionIsOpen = openSolutionId === exercise.id;
-        const solutionBlock = exercise.solution
-          ? `
-            <div class="solution-footer">
-              <button class="action-btn primary" type="button" id="toggleSolutionBtn">${solutionIsOpen ? "إخفاء الحل" : "الحل"}</button>
-              <section class="solution-panel ${solutionIsOpen ? "active" : ""}" id="solutionPanel">
-                ${exercise.solution}
-              </section>
-            </div>
-          `
-          : "";
+        const hasSolution = Boolean(exercise.solution);
+        const solutionBlock = `
+          <div class="solution-footer">
+            ${hasSolution
+              ? `<button class="action-btn primary solution-toggle" type="button" id="toggleSolutionBtn" aria-expanded="${solutionIsOpen}">
+                  <span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span>
+                  <span class="solution-chevron" aria-hidden="true">⌄</span>
+                </button>`
+              : `<span class="hint">لا يوجد حل مكتوب لهذا الموضوع بعد.</span>`
+            }
+          </div>
+          ${hasSolution
+            ? `<div class="solution-expander ${solutionIsOpen ? "open" : ""}" id="solutionExpander">
+                <div class="solution-expander-inner">
+                  <section class="solution-panel" id="solutionPanel">
+                    ${exercise.solution}
+                  </section>
+                </div>
+              </div>`
+            : ""
+          }
+        `;
+        const headerSolutionInfo = hasSolution
+          ? `<div class="reader-header-actions"><button class="action-btn primary solution-toggle" type="button" id="headerSolutionBtn" aria-expanded="${solutionIsOpen}"><span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span><span class="solution-chevron" aria-hidden="true">⌄</span></button></div>`
+          : `<div class="reader-header-actions"><span class="badge amber">الحل غير متوفر بعد</span></div>`;
+
         readerAreaEl.innerHTML = `
           <section class="reader-header">
             <div class="chip-row">
@@ -1308,6 +1595,7 @@
             </div>
             <h2>${escapeHtml(exercise.title)}</h2>
             <p class="hint">${escapeHtml(exercise.text)}</p>
+            ${headerSolutionInfo}
           </section>
           <div class="reader-actions">
             <button class="action-btn amber" type="button" id="btnTried">حاولت التمرين</button>
@@ -1318,12 +1606,21 @@
           ${solutionBlock}
         `;
 
-        document.getElementById("btnTried").addEventListener("click", () => setStatus(exercise.id, "tried"));
-        document.getElementById("btnCompleted").addEventListener("click", () => setStatus(exercise.id, "completed"));
-        document.getElementById("toggleSolutionBtn")?.addEventListener("click", () => {
+        function toggleSolution() {
           openSolutionId = solutionIsOpen ? null : exercise.id;
           renderReader();
-        });
+          if (openSolutionId === exercise.id) {
+            setTimeout(() => {
+              document.getElementById("solutionPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+              notifyHeight();
+            }, 360);
+          }
+        }
+
+        document.getElementById("btnTried").addEventListener("click", () => setStatus(exercise.id, "tried"));
+        document.getElementById("btnCompleted").addEventListener("click", () => setStatus(exercise.id, "completed"));
+        document.getElementById("toggleSolutionBtn")?.addEventListener("click", toggleSolution);
+        document.getElementById("headerSolutionBtn")?.addEventListener("click", toggleSolution);
       }
 
       function renderStats() {
@@ -1368,6 +1665,10 @@
         });
       }
 
+      if (window.ResizeObserver) {
+        new ResizeObserver(notifyHeight).observe(document.body);
+      }
+
       function render() {
         renderFilters();
         renderExerciseList();
@@ -1376,10 +1677,8 @@
         notifyHeight();
       }
 
-      branchFiltersEl.addEventListener("click", (event) => {
-        const button = event.target.closest("[data-branch]");
-        if (!button) return;
-        filters.branch = button.dataset.branch;
+      branchSelect.addEventListener("change", (event) => {
+        filters.branch = event.target.value;
         filters.year = "all";
         render();
       });
@@ -1460,6 +1759,24 @@
         openSolutionId = null;
         render();
         readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        const key = event.key.toLowerCase();
+        if (key !== "h" && key !== "s") return;
+        const active = document.activeElement;
+        if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) return;
+        if (!selectedExercise || !selectedExercise.solution) return;
+        event.preventDefault();
+        const wasOpen = openSolutionId === selectedExercise.id;
+        openSolutionId = wasOpen ? null : selectedExercise.id;
+        render();
+        if (!wasOpen) {
+          setTimeout(() => {
+            document.getElementById("solutionPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            notifyHeight();
+          }, 360);
+        }
       });
 
       render();
