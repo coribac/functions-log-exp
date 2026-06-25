@@ -259,10 +259,19 @@
       }
 
       .filters {
+        position: sticky;
+        top: 0;
+        z-index: 30;
         display: grid;
-        gap: 14px;
-        padding: 14px 16px;
+        gap: 0;
+        padding: 10px 12px;
         margin-bottom: 22px;
+        box-shadow: 0 18px 32px rgba(0, 0, 0, 0.28);
+      }
+
+      .filters .search,
+      .filters > .filter-group:not(.inline-select) {
+        display: none;
       }
 
       .bac-mode-tabs {
@@ -607,6 +616,23 @@
         padding: 18px;
       }
 
+      .reader-stack {
+        display: grid;
+        gap: 22px;
+      }
+
+      .reader-exercise {
+        display: grid;
+        gap: 14px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .reader-exercise:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
       .reader-empty {
         min-height: 440px;
         display: grid;
@@ -821,9 +847,10 @@
         display: grid;
         gap: 8px;
         padding: 18px;
+        border: 1px solid var(--line);
         border-radius: 12px;
-        background: #ffffff;
-        color: #050505;
+        background: rgba(15, 23, 20, 0.72);
+        color: #e8fff0;
         font-family: var(--font-lesson);
         font-size: 21px;
         font-weight: 700;
@@ -833,9 +860,11 @@
       .official-exam h3 {
         justify-self: end;
         margin: 0 0 4px;
-        padding: 2px 12px;
-        border: 4px solid #000000;
-        color: #0045d8;
+        padding: 6px 12px;
+        border: 1px solid rgba(0, 214, 143, 0.35);
+        border-radius: 10px;
+        background: rgba(0, 214, 143, 0.08);
+        color: var(--primary);
         font-size: 20px;
         font-weight: 900;
       }
@@ -1070,7 +1099,8 @@
       }
 
       body.is-embedded .filters {
-        margin-top: 14px;
+        top: 0;
+        margin-top: 0;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1173,10 +1203,7 @@
                 <h2>موضوع البكالوريا</h2>
                 <span class="hint" id="resultsCount">0 موضوع</span>
               </div>
-              <div class="topic-pager" aria-label="التنقل بين المواضيع">
-                <button class="action-btn" type="button" id="prevExerciseBtn">السابق</button>
-                <button class="action-btn primary" type="button" id="nextExerciseBtn">اللاحق</button>
-              </div>
+              <div class="topic-pager" aria-label="عدد المواضيع المعروضة"></div>
             </div>
             <main class="card reader" id="readerArea">
               <div class="reader-empty">
@@ -1220,7 +1247,7 @@
       </div>
     </div>
 
-    <script src="assets/bac-algeria-log-exp.js?v=11"></script>
+    <script src="assets/bac-algeria-log-exp.js?v=19"></script>
     <script>
       const branchLabels = {
         all: "الكل",
@@ -1279,8 +1306,6 @@
 
       const readerAreaEl = document.getElementById("readerArea");
       const resultsCountEl = document.getElementById("resultsCount");
-      const prevExerciseBtn = document.getElementById("prevExerciseBtn");
-      const nextExerciseBtn = document.getElementById("nextExerciseBtn");
       const exerciseListEl = document.getElementById("exerciseList");
       const branchSelect = document.getElementById("branchSelect");
       const yearSelect = document.getElementById("yearSelect");
@@ -1431,23 +1456,21 @@
         saveProgress();
       }
 
-      function renderTopicPager(filtered, selectedIndex) {
+      function renderTopicPager(filtered) {
         if (!hasRequiredSelection()) {
           resultsCountEl.textContent = "اختر الشعبة";
-        } else {
-          const yearText = filters.year === "all" ? "كل السنوات" : filters.year;
-          resultsCountEl.textContent = filtered.length
-            ? `الموضوع ${selectedIndex + 1} من ${filtered.length} • ${yearText}`
-            : "0 موضوع";
+          return;
         }
-        prevExerciseBtn.disabled = selectedIndex <= 0;
-        nextExerciseBtn.disabled = selectedIndex === -1 || selectedIndex >= filtered.length - 1;
+        const yearText = filters.year === "all" ? "كل السنوات" : filters.year;
+        resultsCountEl.textContent = filtered.length
+          ? `${filtered.length} موضوع • ${yearText}`
+          : "0 موضوع";
       }
 
       function renderExerciseList() {
         const filtered = getFilteredExercises();
-        const selectedIndex = ensureSelectedExercise(filtered);
-        renderTopicPager(filtered, selectedIndex);
+        ensureSelectedExercise(filtered);
+        renderTopicPager(filtered);
         touchSelectedExercise();
 
         if (!hasRequiredSelection()) {
@@ -1490,7 +1513,8 @@
             selectedExercise = exercise;
             openSolutionId = null;
             render();
-            readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+            const target = readerAreaEl.querySelector(`[data-reader-exercise-id="${CSS.escape(exercise.id)}"]`);
+            (target || readerAreaEl).scrollIntoView({ behavior: "smooth", block: "start" });
           });
         });
       }
@@ -1532,8 +1556,69 @@
         `;
       }
 
+      function renderExerciseArticle(exercise) {
+        const statementFallback = getStatementFallback(exercise);
+        const resourceView = exercise.statement
+          ? `<article class="statement-reader">${statementFallback}${exercise.statement}</article>`
+          : `<article class="statement-reader"><p>نص الموضوع غير متوفر بعد. يمكنك فتح ملف PDF من الزر أعلاه.</p></article>`;
+        const resourceActions = exercise.file
+          ? `
+            <a class="action-btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
+          `
+          : "";
+        const solutionIsOpen = openSolutionId === exercise.id;
+        const hasSolution = Boolean(exercise.solution);
+        const solutionBlock = `
+          <div class="solution-footer">
+            ${hasSolution
+              ? `<button class="action-btn primary solution-toggle" type="button" data-solution-id="${escapeHtml(exercise.id)}" aria-expanded="${solutionIsOpen}">
+                  <span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span>
+                  <span class="solution-chevron" aria-hidden="true">⌄</span>
+                </button>`
+              : `<span class="hint">لا يوجد حل مكتوب لهذا الموضوع بعد.</span>`
+            }
+          </div>
+          ${hasSolution
+            ? `<div class="solution-expander ${solutionIsOpen ? "open" : ""}">
+                <div class="solution-expander-inner">
+                  <section class="solution-panel" data-solution-panel="${escapeHtml(exercise.id)}">
+                    ${exercise.solution}
+                  </section>
+                </div>
+              </div>`
+            : ""
+          }
+        `;
+        const headerSolutionInfo = hasSolution
+          ? `<div class="reader-header-actions"><button class="action-btn primary solution-toggle" type="button" data-solution-id="${escapeHtml(exercise.id)}" aria-expanded="${solutionIsOpen}"><span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span><span class="solution-chevron" aria-hidden="true">⌄</span></button></div>`
+          : `<div class="reader-header-actions"><span class="badge amber">الحل غير متوفر بعد</span></div>`;
+
+        return `
+          <section class="reader-exercise" data-reader-exercise-id="${escapeHtml(exercise.id)}">
+            <section class="reader-header">
+              <div class="chip-row">
+                <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || exercise.branch)}</span>
+                <span class="badge blue">${escapeHtml(exercise.year)}</span>
+                ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
+              </div>
+              <h2>${escapeHtml(exercise.title)}</h2>
+              <p class="hint">${escapeHtml(exercise.text)}</p>
+              ${headerSolutionInfo}
+            </section>
+            <div class="reader-actions">
+              <button class="action-btn amber" type="button" data-status-action="tried" data-exercise-id="${escapeHtml(exercise.id)}">حاولت التمرين</button>
+              <button class="action-btn primary" type="button" data-status-action="completed" data-exercise-id="${escapeHtml(exercise.id)}">تمت المراجعة</button>
+              ${resourceActions}
+            </div>
+            ${resourceView}
+            ${solutionBlock}
+          </section>
+        `;
+      }
+
       function renderReader() {
-        if (!selectedExercise) {
+        const filtered = getFilteredExercises();
+        if (!filtered.length) {
           const emptyTitle = hasRequiredSelection() ? "لا يوجد موضوع مطابق" : "اختر الشعبة";
           const emptyText = hasRequiredSelection()
             ? "غيّر الشعبة أو السنة أو المحور لعرض موضوع بكالوريا آخر."
@@ -1549,80 +1634,27 @@
           return;
         }
 
-        const exercise = selectedExercise;
-        const statementFallback = getStatementFallback(exercise);
-        const resourceView = exercise.statement
-          ? `<article class="statement-reader">${statementFallback}${exercise.statement}</article>`
-          : `<article class="statement-reader"><p>نص الموضوع غير متوفر بعد. يمكنك فتح ملف PDF من الزر أعلاه.</p></article>`;
-        const resourceActions = exercise.file
-          ? `
-            <a class="action-btn" href="${escapeHtml(exercise.file)}" target="_blank" rel="noopener">فتح في نافذة</a>
-          `
-          : "";
-        const solutionIsOpen = openSolutionId === exercise.id;
-        const hasSolution = Boolean(exercise.solution);
-        const solutionBlock = `
-          <div class="solution-footer">
-            ${hasSolution
-              ? `<button class="action-btn primary solution-toggle" type="button" id="toggleSolutionBtn" aria-expanded="${solutionIsOpen}">
-                  <span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span>
-                  <span class="solution-chevron" aria-hidden="true">⌄</span>
-                </button>`
-              : `<span class="hint">لا يوجد حل مكتوب لهذا الموضوع بعد.</span>`
+        readerAreaEl.innerHTML = `<div class="reader-stack">${filtered.map(renderExerciseArticle).join("")}</div>`;
+
+        readerAreaEl.querySelectorAll("[data-status-action]").forEach((button) => {
+          button.addEventListener("click", () => setStatus(button.dataset.exerciseId, button.dataset.statusAction));
+        });
+
+        readerAreaEl.querySelectorAll("[data-solution-id]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const exerciseId = button.dataset.solutionId;
+            const wasOpen = openSolutionId === exerciseId;
+            openSolutionId = wasOpen ? null : exerciseId;
+            renderReader();
+            if (!wasOpen) {
+              setTimeout(() => {
+                document.querySelector(`[data-solution-panel="${CSS.escape(exerciseId)}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                notifyHeight();
+              }, 360);
             }
-          </div>
-          ${hasSolution
-            ? `<div class="solution-expander ${solutionIsOpen ? "open" : ""}" id="solutionExpander">
-                <div class="solution-expander-inner">
-                  <section class="solution-panel" id="solutionPanel">
-                    ${exercise.solution}
-                  </section>
-                </div>
-              </div>`
-            : ""
-          }
-        `;
-        const headerSolutionInfo = hasSolution
-          ? `<div class="reader-header-actions"><button class="action-btn primary solution-toggle" type="button" id="headerSolutionBtn" aria-expanded="${solutionIsOpen}"><span>${solutionIsOpen ? "إخفاء الحل" : "عرض الحل"}</span><span class="solution-chevron" aria-hidden="true">⌄</span></button></div>`
-          : `<div class="reader-header-actions"><span class="badge amber">الحل غير متوفر بعد</span></div>`;
-
-        readerAreaEl.innerHTML = `
-          <section class="reader-header">
-            <div class="chip-row">
-              <span class="badge green">${escapeHtml(branchLabels[exercise.branch] || exercise.branch)}</span>
-              <span class="badge blue">${escapeHtml(exercise.year)}</span>
-              ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
-            </div>
-            <h2>${escapeHtml(exercise.title)}</h2>
-            <p class="hint">${escapeHtml(exercise.text)}</p>
-            ${headerSolutionInfo}
-          </section>
-          <div class="reader-actions">
-            <button class="action-btn amber" type="button" id="btnTried">حاولت التمرين</button>
-            <button class="action-btn primary" type="button" id="btnCompleted">تمت المراجعة</button>
-            ${resourceActions}
-          </div>
-          ${resourceView}
-          ${solutionBlock}
-        `;
-
-        function toggleSolution() {
-          openSolutionId = solutionIsOpen ? null : exercise.id;
-          renderReader();
-          if (openSolutionId === exercise.id) {
-            setTimeout(() => {
-              document.getElementById("solutionPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-              notifyHeight();
-            }, 360);
-          }
-        }
-
-        document.getElementById("btnTried").addEventListener("click", () => setStatus(exercise.id, "tried"));
-        document.getElementById("btnCompleted").addEventListener("click", () => setStatus(exercise.id, "completed"));
-        document.getElementById("toggleSolutionBtn")?.addEventListener("click", toggleSolution);
-        document.getElementById("headerSolutionBtn")?.addEventListener("click", toggleSolution);
+          });
+        });
       }
-
       function renderStats() {
         const scoped = hasRequiredSelection() ? getFilteredExercises() : [];
         const completed = scoped.filter((item) => getStatus(item.id) === "completed").length;
@@ -1741,26 +1773,6 @@
         render();
       });
 
-      prevExerciseBtn.addEventListener("click", () => {
-        const filtered = getFilteredExercises();
-        const selectedIndex = getSelectedIndex(filtered);
-        if (selectedIndex <= 0) return;
-        selectedExercise = filtered[selectedIndex - 1];
-        openSolutionId = null;
-        render();
-        readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      nextExerciseBtn.addEventListener("click", () => {
-        const filtered = getFilteredExercises();
-        const selectedIndex = getSelectedIndex(filtered);
-        if (selectedIndex === -1 || selectedIndex >= filtered.length - 1) return;
-        selectedExercise = filtered[selectedIndex + 1];
-        openSolutionId = null;
-        render();
-        readerAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
       document.addEventListener("keydown", (event) => {
         const key = event.key.toLowerCase();
         if (key !== "h" && key !== "s") return;
@@ -1773,7 +1785,7 @@
         render();
         if (!wasOpen) {
           setTimeout(() => {
-            document.getElementById("solutionPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            document.querySelector(`[data-solution-panel="${CSS.escape(selectedExercise.id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
             notifyHeight();
           }, 360);
         }

@@ -2310,3 +2310,71 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.math-rich,
+.math,
+.math-equation {
+  letter-spacing: 0;
+}
+
+.math-rich {
+  unicode-bidi: plaintext;
+}
+
+.math-rich sup,
+.math-rich sub,
+.math-equation sup,
+.math-equation sub,
+.solution-panel sup,
+.solution-panel sub {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.math-rich sup,
+.math-equation sup,
+.solution-panel sup {
+  vertical-align: 0.58em;
+}
+
+.math-rich sub,
+.math-equation sub,
+.solution-panel sub {
+  vertical-align: -0.25em;
+}
+
+.math-rich .frac,
+.math-equation .frac,
+.solution-panel .frac {
+  color: inherit;
+  font-family: var(--font-math);
+  font-weight: 700;
+}
+
+.latex-root {
+  display: inline-flex;
+  align-items: flex-start;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-math);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.latex-root > sup {
+  margin-inline-end: -0.25em;
+  font-size: 0.58em;
+  transform: translateY(-0.22em);
+}
+
+.latex-root .root-symbol {
+  font-size: 1.08em;
+  line-height: 1;
+}
+
+.latex-root .radicand {
+  display: inline-block;
+  padding: 0 0.12em;
+  border-top: 1.4px solid currentColor;
+  line-height: 1.12;
+}
