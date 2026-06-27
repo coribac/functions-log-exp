@@ -1623,6 +1623,1036 @@ const modules = [
     ],
   },
   {
+    id: "limits",
+    title: "النهايات",
+    icon: "∞",
+    summary: "باب منظم لحساب النهايات، الأشكال غير المعينة، المقارنة، والتفسير الهندسي للمقاربات.",
+    lesson: `
+      <article class="structured-lesson limits-masterclass">
+        <header class="structured-lesson-hero">
+          <span>محور 5</span>
+          <h3>النهايات الأساسية للدالة الأسية</h3>
+        </header>
+
+        <section class="property-box limits-hero-equations">
+          <strong>النهايتان الأساسيتان:</strong>
+          <div class="math-equation">lim e^x = 0 عند x→-∞ ، lim e^x = +∞ عند x→+∞</div>
+          <p>هاتان النهايتان هما المفتاح في دراسة الدوال الأسية: الأولى تعطي مقاربا أفقيا، والثانية تعبر عن نمو سريع نحو المالانهاية.</p>
+        </section>
+
+        <section class="lesson-block">
+          <h4>1- نهاية الدالة الأسية عند <span class="math">+∞</span></h4>
+          <div class="method-box">
+            <strong>الفكرة المختصرة:</strong>
+            <p>نثبت أولا أن <span class="math">e^x &gt; x</span> لكل عدد حقيقي <span class="math">x</span>. ندرس الدالة <span class="math">f(x)=e^x-x</span> فنجد:</p>
+            <div class="math-equation">f'(x)=e^x-1</div>
+            <div class="math-equation">f'(x)=0 ⇔ e^x=1 ⇔ x=0</div>
+            <p>إشارة <span class="math">f'(x)</span> سالبة قبل الصفر وموجبة بعده، لذلك تقبل <span class="math">f</span> قيمة صغرى عند <span class="math">0</span> تساوي <span class="math">1</span>.</p>
+            <div class="limit-variation-card" aria-label="جدول تغيرات الدالة f">
+              <div class="limit-variation-title">جدول تغيرات <span class="math">f(x)=e^x-x</span></div>
+              <figure class="limit-variation-svg limit-variation-classic" aria-label="جدول تغيرات الدالة f(x)=e^x-x">
+                <svg viewBox="0 0 760 320" role="img">
+                  <rect x="1" y="1" width="758" height="318" fill="#ffffff"></rect>
+                  <rect x="70" y="34" width="620" height="252" fill="#ffffff" stroke="#111827" stroke-width="2"></rect>
+
+                  <line x1="210" y1="34" x2="210" y2="286" stroke="#111827" stroke-width="2"></line>
+                  <line x1="70" y1="84" x2="690" y2="84" stroke="#111827" stroke-width="2"></line>
+                  <line x1="70" y1="134" x2="690" y2="134" stroke="#111827" stroke-width="2"></line>
+
+                  <g font-family="Times New Roman, serif" font-size="42" font-style="italic" fill="#111827" text-anchor="middle">
+                    <text x="140" y="70">x</text>
+                    <text x="140" y="121">f'(x)</text>
+                    <text x="140" y="226">f(x)</text>
+                  </g>
+
+                  <g font-family="Times New Roman, serif" font-size="40" fill="#6b7280" text-anchor="middle">
+                    <text x="310" y="70">−∞</text>
+                    <text x="450" y="70">0</text>
+                    <text x="620" y="70">+∞</text>
+                    <text x="370" y="121">−</text>
+                    <text x="450" y="121">0</text>
+                    <text x="525" y="121">+</text>
+                    <text x="310" y="178">+∞</text>
+                    <text x="620" y="178">+∞</text>
+                  </g>
+
+                  <g fill="none" stroke="#111827" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M358 194 L397 238"></path>
+                    <path d="M397 238 l-2 -17"></path>
+                    <path d="M397 238 l-17 -3"></path>
+                    <path d="M544 194 L504 238"></path>
+                    <path d="M504 238 l17 -3"></path>
+                    <path d="M504 238 l2 -17"></path>
+                  </g>
+
+                  <text x="450" y="272" text-anchor="middle" font-family="Times New Roman, serif" font-size="42" fill="#111827">1</text>
+                </svg>
+              </figure>
+              <p class="limit-variation-note">إذن تقبل الدالة <span class="math">f</span> قيمة حدية صغرى عند <span class="math">x=0</span>، وقيمتها <span class="math">f(0)=1</span>.</p>
+            </div>
+          </div>
+          <div class="property-box">
+            <strong>الاستنتاج:</strong>
+            <p>بما أن <span class="math">e^x &gt; x</span> وأن <span class="math">x</span> يؤول إلى <span class="math">+∞</span>، فإن <span class="math">e^x</span> يؤول كذلك إلى <span class="math">+∞</span>.</p>
+            <div class="math-equation">lim e^x = +∞ عند x→+∞</div>
+          </div>
+        </section>
+
+        <section class="lesson-block">
+          <h4>2- نهاية الدالة الأسية عند <span class="math">-∞</span></h4>
+          <div class="method-box">
+            <strong>تغيير المتغير:</strong>
+            <p>نكتب <span class="math">e^x = 1/e^(-x)</span>. عندما <span class="math">x→-∞</span> فإن <span class="math">-x→+∞</span>، ومنه <span class="math">e^(-x)→+∞</span>.</p>
+            <div class="math-equation">lim 1/e^X = 0 عند X→+∞</div>
+          </div>
+          <div class="property-box">
+            <strong>الاستنتاج الهندسي:</strong>
+            <div class="math-equation">lim e^x = 0 عند x→-∞</div>
+            <p>إذن المستقيم <span class="math">y=0</span> مقارب أفقي لمنحنى الدالة الأسية عند <span class="math">-∞</span>.</p>
+          </div>
+        </section>
+
+        <section class="lesson-block">
+          <h4>3- كيف أتعامل مع نهاية أسية؟</h4>
+          <div class="method-box">
+            <strong>خطة الحل:</strong>
+            <ol class="solution-list">
+              <li>حدد الجهة: هل المتغير يقترب من عدد أم من <span class="math">±∞</span>؟</li>
+              <li>ابحث عن الحد الغالب: الأسية تغلب القوى واللوغارتم عند <span class="math">+∞</span>.</li>
+              <li>إذا ظهر كسر، اقسم على الحد الغالب أو أخرج العامل الأسّي المشترك.</li>
+              <li>فسر النتيجة هندسيا إذا كانت النهاية عددا أو مالانهاية قرب قيمة ممنوعة.</li>
+            </ol>
+          </div>
+
+        </section>
+
+
+
+        <section class="lesson-block limit-comparison-proof limit-transformations">
+          <h4>4- تمرين 39: تحويلات عملية في النهايات</h4>
+          <div class="property-box theorem-box">
+            <strong>الفكرة:</strong>
+            <p>عندما تظهر قوة أو لوغارتم مع أسية، نحول العبارة إلى صيغة نعرف نهايتها من التزايد المقارن.</p>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>1- نهاية <span class="math">e^x/x^n</span> عند <span class="math">+∞</span></strong>
+            <p>نكتب:</p>
+            <div class="math-equation">e^x/x^n = e^(x-nln(x))</div>
+            <p>بما أن <span class="math">x-nln(x)→+∞</span> عند <span class="math">+∞</span>، فإن:</p>
+            <div class="math-equation">lim e^x/x^n = +∞ عند x→+∞</div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>2- نهاية <span class="math">ln(x)/x^n</span> عند <span class="math">+∞</span></strong>
+            <p>نضع <span class="math">U=x^n</span>. عند <span class="math">x→+∞</span> فإن <span class="math">U→+∞</span>، ولدينا:</p>
+            <div class="math-equation">ln(x)/x^n = (1/n) ln(U)/U</div>
+            <p>وبما أن <span class="math">ln(U)/U→0</span>، نستنتج:</p>
+            <div class="math-equation">lim ln(x)/x^n = 0 عند x→+∞</div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>3- نهاية <span class="math">x^n ln(x)</span> عند <span class="math">0+</span></strong>
+            <p>نضع <span class="math">U=1/x</span>. عند <span class="math">x→0+</span> فإن <span class="math">U→+∞</span>، ونحصل على:</p>
+            <div class="math-equation">x^n ln(x) = -ln(U)/U^n</div>
+            <p>وبما أن <span class="math">ln(U)/U^n→0</span>، فإن:</p>
+            <div class="math-equation">lim x^n ln(x) = 0 عند x→0+</div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>4- نهاية <span class="math">x^n e^x</span> عند <span class="math">-∞</span></strong>
+            <p>نضع <span class="math">U=-x</span>. عند <span class="math">x→-∞</span> فإن <span class="math">U→+∞</span>، ومنه:</p>
+            <div class="math-equation">x^n e^x = (-1)^n U^n/e^U</div>
+            <p>وبما أن <span class="math">U^n/e^U→0</span>، نستنتج:</p>
+            <div class="math-equation">lim x^n e^x = 0 عند x→-∞</div>
+          </div>
+        </section>
+        <section class="lesson-block limit-comparison-proof">
+          <h4>5- التزايد المقارن: الأسية تغلب كل قوة</h4>
+          <div class="property-box theorem-box">
+            <strong>النتيجة الأساسية:</strong>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{e^x}{x^n}=+\\infty</div>
+            <p>حيث <span class="math">n</span> عدد طبيعي غير معدوم. وبالعكس:</p>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{x^n}{e^x}=0</div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>أولا: الحالة <span class="math">n=1</span></strong>
+            <p>نبرهن أن <span class="math">e^x/x→+∞</span>. نأخذ الدالة <span class="math">f(x)=e^x-x^2/2</span> على <span class="math">R</span>.</p>
+            <div class="math-equation">f'(x)=e^x-x</div>
+            <p>وبما أننا أثبتنا سابقا أن <span class="math">e^x &gt; x</span> لكل <span class="math">x</span>، فإن <span class="math">f'(x)&gt;0</span>. إذن <span class="math">f</span> متزايدة، ومع <span class="math">f(0)=1</span> نستنتج أنها موجبة لكل <span class="math">x&gt;0</span>.</p>
+            <div class="math-equation">e^x &gt; \\frac{x^2}{2}</div>
+            <div class="math-equation">\\frac{e^x}{x} &gt; \\frac{x}{2}</div>
+            <p>وبما أن <span class="math">x/2→+∞</span> عند <span class="math">+∞</span>، نحصل بالمقارنة على:</p>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{e^x}{x}=+\\infty</div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>ثانيا: الحالة العامة <span class="math">n&gt;1</span></strong>
+            <p>نكتب الكسر على شكل قوة باستعمال <span class="math">e^x=(e^(x/n))^n</span> و <span class="math">x^n=(n × x/n)^n</span>:</p>
+            <div class="math-equation">\\frac{e^x}{x^n}=\\left(\\frac{1}{n}\\times\\frac{e^{x/n}}{x/n}\\right)^n</div>
+            <p>عندما <span class="math">x→+∞</span> فإن <span class="math">x/n→+∞</span>. وباستعمال الحالة الأولى نحصل على:</p>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{e^{x/n}}{x/n}=+\\infty</div>
+            <p>الضرب في العدد الموجب <span class="math">1/n</span> ثم الرفع إلى القوة <span class="math">n</span> يبقي النهاية <span class="math">+∞</span>. إذن:</p>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{e^x}{x^n}=+\\infty</div>
+          </div>
+
+          <div class="property-box theorem-box">
+            <strong>النتيجة العكسية:</strong>
+            <p>بأخذ المقلوب نحصل مباشرة على:</p>
+            <div class="math-equation">\\lim_{x\\to +\\infty} \\frac{x^n}{e^x}=0</div>
+            <p>هذه هي القاعدة العملية في التمارين: عند <span class="math">+∞</span> الأسية أقوى من أي قوة <span class="math">x^n</span>.</p>
+          </div>
+        </section>
+        <section class="lesson-block limit-comparison-proof">
+          <h4>6- تمرين 109: إثبات نهاية <span class="math">ln(x)/x</span></h4>
+          <div class="property-box theorem-box">
+            <strong>الهدف:</strong>
+            <div class="math-equation">lim ln(x)/x = 0 عند x→+∞</div>
+            <p>نثبت هذه النهاية باستعمال مقارنة ذكية بين <span class="math">ln(x)</span> و <span class="math">√x</span>.</p>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>أولا: دراسة دالة مساعدة</strong>
+            <p>نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">]0,+∞[</span> بـ:</p>
+            <div class="math-equation">f(x)=ln(x)-√x</div>
+            <p>نحسب مشتقتها:</p>
+            <div class="math-equation">f'(x)=(2-√x)/(2x)</div>
+            <p>بما أن <span class="math">2x&gt;0</span> على <span class="math">]0,+∞[</span>، فإن إشارة <span class="math">f'(x)</span> هي إشارة <span class="math">2-√x</span>. إذن <span class="math">f</span> متزايدة على <span class="math">]0,4]</span> ومتناقصة على <span class="math">[4,+∞[</span>.</p>
+            <div class="limit-variation-card variation-ln-sqrt-table" aria-label="جدول تغيرات الدالة ln(x)-√x">
+              <div class="limit-variation-title">جدول تغيرات <span class="math">f(x)=ln(x)-√x</span></div>
+              <figure class="limit-variation-svg limit-variation-classic" aria-label="جدول تغيرات الدالة f(x)=ln(x)-√x">
+                <svg viewBox="0 0 760 280" role="img">
+                  <rect x="1" y="1" width="758" height="278" fill="#ffffff"></rect>
+                  <rect x="70" y="32" width="620" height="216" fill="#ffffff" stroke="#111827" stroke-width="2"></rect>
+
+                  <line x1="205" y1="32" x2="205" y2="248" stroke="#111827" stroke-width="2"></line>
+                  <line x1="212" y1="32" x2="212" y2="248" stroke="#111827" stroke-width="1.4"></line>
+                  <line x1="70" y1="82" x2="690" y2="82" stroke="#111827" stroke-width="2"></line>
+                  <line x1="70" y1="132" x2="690" y2="132" stroke="#111827" stroke-width="2"></line>
+
+                  <g font-family="Times New Roman, serif" font-size="38" font-style="italic" fill="#111827" text-anchor="middle">
+                    <text x="137" y="68">x</text>
+                    <text x="137" y="118">f'(x)</text>
+                    <text x="137" y="205">f(x)</text>
+                  </g>
+
+                  <g font-family="Times New Roman, serif" font-size="38" fill="#6b7280" text-anchor="middle">
+                    <text x="255" y="68">0</text>
+                    <text x="450" y="68">4</text>
+                    <text x="620" y="68">+∞</text>
+                    <text x="335" y="118">+</text>
+                    <text x="450" y="118">0</text>
+                    <text x="555" y="118">−</text>
+                    <text x="310" y="224">−∞</text>
+                    <text x="585" y="224">−∞</text>
+                  </g>
+
+                  <text x="450" y="176" text-anchor="middle" font-family="Times New Roman, serif" font-size="38" fill="#374151">ln(4) − 2</text>
+
+                  <g fill="none" stroke="#111827" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M340 206 L394 156"></path>
+                    <path d="M394 156 l-18 3"></path>
+                    <path d="M394 156 l-3 18"></path>
+                    <path d="M510 156 L565 206"></path>
+                    <path d="M565 206 l-18 -3"></path>
+                    <path d="M565 206 l-3 -18"></path>
+                  </g>
+                </svg>
+              </figure>
+            </div>
+          </div>
+
+          <div class="method-box proof-card">
+            <strong>ثانيا: القيمة الحدية العظمى</strong>
+            <p>تبلغ <span class="math">f</span> قيمة عظمى عند <span class="math">x=4</span>، وقيمتها:</p>
+            <div class="math-equation">f(4)=ln(4)-2</div>
+            <p>وبما أن <span class="math">ln(4)&lt;2</span> فإن <span class="math">f(4)&lt;0</span>. وبما أن هذه أكبر قيمة للدالة، نستنتج:</p>
+            <div class="math-equation">ln(x)-√x &lt; 0 لكل x&gt;0</div>
+            <div class="math-equation">ln(x) &lt; √x لكل x&gt;0</div>
+          </div>
+
+          <div class="property-box theorem-box">
+            <strong>ثالثا: الحصر والنتيجة</strong>
+            <p>إذا كان <span class="math">x&gt;1</span> فإن <span class="math">ln(x)&gt;0</span>، ومن المقارنة السابقة نحصل على:</p>
+            <div class="math-equation">0 &lt; ln(x)/x &lt; √x/x = 1/√x</div>
+            <p>ومنه:</p>
+            <div class="math-equation">lim 1/√x = 0 عند x→+∞</div>
+            <p>حسب مبرهنة الحصر:</p>
+            <div class="math-equation">lim ln(x)/x = 0 عند x→+∞</div>
+          </div>
+        </section>
+      </article>
+    `,
+    activities: [
+      {
+        title: "نشاط: قراءة نهاية أساسية",
+        body: "استنتج نهاية f(x)=3e^x-2 عندما x→-∞.",
+        solution: "بما أن e^x→0 عند x→-∞، فإن 3e^x-2→-2. إذن y=-2 مقارب أفقي عند -∞.",
+      },
+      {
+        title: "نشاط: قاعدة التزايد المقارن",
+        body: "رتب عند +∞: x^4 و e^x. أيهما يغلب؟",
+        solution: "الدالة الأسية تغلب كل قوة. لذلك e^x/x^4→+∞ و x^4/e^x→0.",
+      },
+      {
+        title: "نشاط: الحد الغالب",
+        body: "احسب نهاية f(x)=x/e^x عندما x→+∞.",
+        solution: "الدالة الأسية تغلب الدالة كثير الحدودية عند +∞، لذلك x/e^x→0.",
+      },
+    ],
+    exercises: [
+      {
+        title: "تمرين 1",
+        statement: "احسب lim (e^x+4)/(2e^x-1) عند x→+∞.",
+        hint: "اقسم البسط والمقام على e^x.",
+        answer: "بعد القسمة على e^x نحصل على (1+4/e^x)/(2-1/e^x)، والنهاية هي 1/2.",
+      },
+      {
+        title: "تمرين 2",
+        statement: "احسب lim (e^x-x) عند x→+∞.",
+        hint: "استعمل أن e^x يغلب x عند +∞.",
+        answer: "بما أن e^x ينمو أسرع من x، فإن e^x-x→+∞.",
+      },
+      {
+        title: "تمرين 3",
+        statement: "احسب lim x^5/e^x عند x→+∞.",
+        hint: "استعمل أن e^x يغلب x^n لكل n طبيعي غير معدوم.",
+        answer: "حسب التزايد المقارن، x^5/e^x→0.",
+      },      {
+        title: "تمرين 52: مجموعة التعريف",
+        statement: "عين مجموعة تعريف الدالة f في الحالات: 1) f(x)=ln(x+1). 2) f(x)=ln(-2x+3). 3) f(x)=2ln(x^2+1). 4) f(x)=ln|x|.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln(x+1)</span>: الشرط <span class="math">x+1&gt;0</span>، إذن <span class="math">D_f=]-1,+∞[</span>.</li>
+            <li><span class="math">ln(-2x+3)</span>: الشرط <span class="math">-2x+3&gt;0</span>، إذن <span class="math">D_f=]-∞,3/2[</span>.</li>
+            <li><span class="math">2ln(x^2+1)</span>: لأن <span class="math">x^2+1&gt;0</span> لكل <span class="math">x</span>، إذن <span class="math">D_f=R</span>.</li>
+            <li><span class="math">ln|x|</span>: الشرط <span class="math">|x|&gt;0</span> أي <span class="math">x≠0</span>، إذن <span class="math">D_f=R^*</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 53: مجموعة التعريف",
+        statement: "عين مجموعة تعريف الدالة f في الحالات: 1) f(x)=ln(1/(x-1)). 2) f(x)=ln(x^2-4). 3) f(x)=ln(x+1)-ln(x-2). 4) f(x)=ln(x^2+2x-3).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln(1/(x-1))</span>: يجب <span class="math">1/(x-1)&gt;0</span>، إذن <span class="math">x&gt;1</span>، ومنه <span class="math">D_f=]1,+∞[</span>.</li>
+            <li><span class="math">ln(x^2-4)</span>: الشرط <span class="math">x^2-4&gt;0</span>، إذن <span class="math">D_f=]-∞,-2[∪]2,+∞[</span>.</li>
+            <li><span class="math">ln(x+1)-ln(x-2)</span>: الشرطان <span class="math">x+1&gt;0</span> و <span class="math">x-2&gt;0</span>، إذن <span class="math">D_f=]2,+∞[</span>.</li>
+            <li><span class="math">ln(x^2+2x-3)</span>: نحل <span class="math">x^2+2x-3&gt;0</span> أي <span class="math">(x+3)(x-1)&gt;0</span>، إذن <span class="math">D_f=]-∞,-3[∪]1,+∞[</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 54: مجموعة التعريف",
+        statement: "عين مجموعة تعريف الدالة f في الحالات: 1) f(x)=ln(x)/x. 2) f(x)=ln(sqrt(2-3x)). 3) f(x)=(1-x)/ln(x). 4) f(x)=|x|/sqrt(x-1).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln(x)/x</span>: الشرط <span class="math">x&gt;0</span>، وهو يكفي كذلك للمقام، إذن <span class="math">D_f=]0,+∞[</span>.</li>
+            <li><span class="math">ln(sqrt(2-3x))</span>: يجب <span class="math">sqrt(2-3x)&gt;0</span>، أي <span class="math">2-3x&gt;0</span>، إذن <span class="math">D_f=]-∞,2/3[</span>.</li>
+            <li><span class="math">(1-x)/ln(x)</span>: يجب <span class="math">x&gt;0</span> و <span class="math">ln(x)≠0</span>، إذن <span class="math">D_f=]0,+∞[\{1}</span>.</li>
+            <li><span class="math">|x|/sqrt(x-1)</span>: المقام يتطلب <span class="math">x-1&gt;0</span>، إذن <span class="math">D_f=]1,+∞[</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 55: مجموعة التعريف",
+        statement: "عين مجموعة تعريف الدالة f في الحالات: 1) f(x)=ln(x). 2) f(x)=ln(x^2). 3) f(x)=1/x-ln(x). 4) f(x)=ln((x+1)/(x-1)).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln(x)</span>: الشرط <span class="math">x&gt;0</span>، إذن <span class="math">D_f=]0,+∞[</span>.</li>
+            <li><span class="math">ln(x^2)</span>: الشرط <span class="math">x^2&gt;0</span> أي <span class="math">x≠0</span>، إذن <span class="math">D_f=R^*</span>.</li>
+            <li><span class="math">1/x-ln(x)</span>: يجب <span class="math">x≠0</span> و <span class="math">x&gt;0</span>، إذن <span class="math">D_f=]0,+∞[</span>.</li>
+            <li><span class="math">ln((x+1)/(x-1))</span>: يجب <span class="math">(x+1)/(x-1)&gt;0</span>، إذن <span class="math">D_f=]-∞,-1[∪]1,+∞[</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 56: مجموعة التعريف",
+        statement: "عين مجموعة تعريف الدالة f في الحالات: 1) f(x)=x^2/(2ln(x)+1). 2) f(x)=x/(ln(x)-1). 3) f(x)=ln(sqrt(x^2-1)/x). 4) f(x)=ln|x+1-ln(x)|.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">x^2/(2ln(x)+1)</span>: يجب <span class="math">x&gt;0</span> و <span class="math">2ln(x)+1≠0</span>، إذن <span class="math">D_f=]0,+∞[\{e^(-1/2)}</span>.</li>
+            <li><span class="math">x/(ln(x)-1)</span>: يجب <span class="math">x&gt;0</span> و <span class="math">ln(x)≠1</span>، إذن <span class="math">D_f=]0,+∞[\{e}</span>.</li>
+            <li><span class="math">ln(sqrt(x^2-1)/x)</span>: يجب <span class="math">x^2-1&gt;0</span> و <span class="math">sqrt(x^2-1)/x&gt;0</span>. وبما أن البسط موجب، يلزم <span class="math">x&gt;0</span>، إذن <span class="math">D_f=]1,+∞[</span>.</li>
+            <li><span class="math">ln|x+1-ln(x)|</span>: يجب <span class="math">x&gt;0</span> و <span class="math">|x+1-ln(x)|&gt;0</span>. ولأن <span class="math">x+1-ln(x)&gt;0</span> على <span class="math">]0,+∞[</span>، فإن <span class="math">D_f=]0,+∞[</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 57: مساواة دالتين",
+        statement: "هل الدالتان f و g المعرفتان على ]0,+∞[ متساويتان؟ f(x)=ln(x+1)-ln(x) و g(x)=ln(1+1/x).",
+        solutionHtml: `
+          <p>نكتب، من أجل <span class="math">x&gt;0</span>:</p>
+          <div class="math-equation">f(x)=ln(x+1)-ln(x)=ln((x+1)/x)=ln(1+1/x)=g(x)</div>
+          <p>إذن الدالتان متساويتان على <span class="math">]0,+∞[</span>.</p>
+        `,
+      },
+      {
+        title: "تمرين 58: معادلات لوغارتمية مباشرة",
+        statement: "حل في R المعادلات التالية: 1) ln(x)=2. 2) ln(x)=-3. 3) 7ln(x)=2. 4) ln(x)+ln(3)=0.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln(x)=2</span>، مع <span class="math">x&gt;0</span>: الحل <span class="math">x=e^2</span>.</li>
+            <li><span class="math">ln(x)=-3</span>: الحل <span class="math">x=e^(-3)</span>.</li>
+            <li><span class="math">7ln(x)=2</span>: إذن <span class="math">ln(x)=2/7</span>، ومنه <span class="math">x=e^(2/7)</span>.</li>
+            <li><span class="math">ln(x)+ln(3)=0</span>: أي <span class="math">ln(3x)=0</span>، ومنه <span class="math">3x=1</span>، إذن <span class="math">x=1/3</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 59: معادلات لوغارتمية",
+        statement: "حل في R المعادلات التالية: 1) ln(x+4)=ln(2x-3). 2) ln(x^2+x)=1. 3) ln|1-x|=ln(3). 4) ln((x+1)/(x-1))=-1.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>الشروط: <span class="math">x+4&gt;0</span> و <span class="math">2x-3&gt;0</span>. بالتقابلية: <span class="math">x+4=2x-3</span>، إذن <span class="math">x=7</span>.</li>
+            <li>الشرط <span class="math">x^2+x&gt;0</span>. نحصل على <span class="math">x^2+x=e</span>، أي <span class="math">x^2+x-e=0</span>. الحلول: <span class="math">x=(-1-sqrt(1+4e))/2</span> أو <span class="math">x=(-1+sqrt(1+4e))/2</span>، وهما مقبولان.</li>
+            <li><span class="math">ln|1-x|=ln(3)</span> تعطي <span class="math">|1-x|=3</span>، إذن <span class="math">x=-2</span> أو <span class="math">x=4</span>.</li>
+            <li>يجب <span class="math">(x+1)/(x-1)&gt;0</span>. ثم <span class="math">(x+1)/(x-1)=e^(-1)</span>. ومنه <span class="math">e(x+1)=x-1</span>، وبالتالي <span class="math">x=-(e+1)/(e-1)</span>، وهو مقبول لأنه <span class="math">x&lt;-1</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 60: توظيف كثير حدود",
+        statement: "ليكن P(x)=-2x^3+3x^2+11x-6. 1) تحقق أن P(x)=(2x-1)(x+2)(3-x). 2) حل P(x)=0. 3) حل -2(ln x)^3+3(ln x)^2+11ln x-6=0. 4) حل -2e^(3x)+3e^(2x)+11e^x-6=0.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>بنشر <span class="math">(2x-1)(x+2)(3-x)</span> نحصل على <span class="math">-2x^3+3x^2+11x-6</span>.</li>
+            <li><span class="math">P(x)=0</span> يعطي <span class="math">x=1/2</span> أو <span class="math">x=-2</span> أو <span class="math">x=3</span>.</li>
+            <li>نضع <span class="math">t=ln(x)</span> مع <span class="math">x&gt;0</span>. إذن <span class="math">P(t)=0</span>، ومنه <span class="math">t=1/2</span> أو <span class="math">t=-2</span> أو <span class="math">t=3</span>. الحلول: <span class="math">x=e^(1/2)</span> أو <span class="math">x=e^(-2)</span> أو <span class="math">x=e^3</span>.</li>
+            <li>نضع <span class="math">t=e^x&gt;0</span>. إذن <span class="math">P(t)=0</span>. من الجذور السابقة نقبل <span class="math">t=1/2</span> و <span class="math">t=3</span> فقط. الحلول: <span class="math">x=ln(1/2)=-ln(2)</span> أو <span class="math">x=ln(3)</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 61: متراجحات لوغارتمية",
+        statement: "حل في R المتراجحات التالية: 1) ln(x)&lt;1. 2) ln(2x)&gt;-1. 3) ln(2x+3)&lt;5. 4) ln(1-x)≤2. 5) ln(x)&gt;ln(2x-1). 6) xln(x)-ln(x)≥0.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">x&gt;0</span> و <span class="math">ln(x)&lt;1</span>، إذن <span class="math">0&lt;x&lt;e</span>.</li>
+            <li><span class="math">2x&gt;0</span> و <span class="math">ln(2x)&gt;-1</span>، إذن <span class="math">2x&gt;e^(-1)</span>، ومنه <span class="math">x&gt;1/(2e)</span>.</li>
+            <li><span class="math">2x+3&gt;0</span> و <span class="math">2x+3&lt;e^5</span>، إذن <span class="math">-3/2&lt;x&lt;(e^5-3)/2</span>.</li>
+            <li><span class="math">1-x&gt;0</span> و <span class="math">1-x≤e^2</span>، إذن <span class="math">1-e^2≤x&lt;1</span>.</li>
+            <li>الشروط: <span class="math">x&gt;0</span> و <span class="math">2x-1&gt;0</span>. وبما أن <span class="math">ln</span> متزايدة: <span class="math">x&gt;2x-1</span>، أي <span class="math">x&lt;1</span>. إذن الحل <span class="math">]1/2,1[</span>.</li>
+            <li><span class="math">xln(x)-ln(x)=ln(x)(x-1)</span> مع <span class="math">x&gt;0</span>. الإشارة موجبة أو معدومة على <span class="math">]0,1]∪[1,+∞[</span>، أي كل <span class="math">]0,+∞[</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 62: تبسيط أعداد لوغارتمية وأسّية",
+        statement: "اكتب على أبسط شكل ممكن: 1) ln14-ln7. 2) ln(3/2)+ln(2/3). 3) ln(100)/ln(10). 4) ln(10000)+ln(0.01). 5) e^(2ln3). 6) e^(ln5+ln3). 7) e^(-2ln3). 8) e^(1+ln2).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">ln14-ln7=ln(14/7)=ln2</span>.</li>
+            <li><span class="math">ln(3/2)+ln(2/3)=ln(1)=0</span>.</li>
+            <li><span class="math">ln(100)/ln(10)=ln(10^2)/ln(10)=2</span>.</li>
+            <li><span class="math">ln(10000)+ln(0.01)=ln(100)=ln(10^2)=2ln10</span>.</li>
+            <li><span class="math">e^(2ln3)=e^(ln9)=9</span>.</li>
+            <li><span class="math">e^(ln5+ln3)=e^(ln15)=15</span>.</li>
+            <li><span class="math">e^(-2ln3)=e^(ln(1/9))=1/9</span>.</li>
+            <li><span class="math">e^(1+ln2)=e×e^(ln2)=2e</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 63: بسط عبارات لوغارتمية",
+        statement: "بسط ما يلي: A=ln(e^2)-ln(e). B=ln(e√e). C=ln2+ln(8e)-ln(4e^2). D=ln((1/e)^2)-(ln(1/e))^2.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">A=ln(e^2)-ln(e)=2-1=1</span>.</li>
+            <li><span class="math">B=ln(e√e)=ln(e×e^(1/2))=ln(e^(3/2))=3/2</span>.</li>
+            <li><span class="math">C=ln(16e)-ln(4e^2)=ln(4/e)=ln4-1</span>.</li>
+            <li><span class="math">D=ln(e^(-2))-(-1)^2=-2-1=-3</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 64: كتابة على شكل ln(x)",
+        statement: "اكتب الأعداد التالية على شكل ln(x): A=3ln2-ln5+(1/2)ln8. B=2ln(0.1)-3ln(0.01)+ln2. C=2ln(100)-ln(1/10).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">A=ln(2^3)-ln5+ln(√8)=ln(8√8/5)=ln(16√2/5)</span>.</li>
+            <li><span class="math">B=ln((0.1)^2)-ln((0.01)^3)+ln2=ln(2×10^4)=ln(20000)</span>.</li>
+            <li><span class="math">C=ln(100^2)-ln(1/10)=ln(10000/(1/10))=ln(100000)</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 65: كتابة على شكل ln(x)",
+        statement: "اكتب الأعداد التالية على شكل ln(x): A=ln(a)-ln(b)+2ln(c). B=(1/2)ln(a)-(3/2)ln(b)+ln(a/b)، حيث a&gt;0 و b&gt;0 و c&gt;0.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">A=ln(a/b)+ln(c^2)=ln(ac^2/b)</span>.</li>
+            <li><span class="math">B=ln(√a)-ln(b^(3/2))+ln(a/b)=ln(a√a/(b√b×b))=ln(a√a/b^(5/2))</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 80: نهايات دالة لوغارتمية",
+        statement: "لتكن f معرفة على ]0,+∞[ بـ f(x)=2(ln x)^2-ln x-3. 1) ادرس نهايتي f عند حدود مجال التعريف. 2) بين أنه من أجل x&gt;1 يمكن كتابة f(x) باستخراج العامل ln x، ثم عين النهاية عند +∞.",
+        solutionHtml: `<p>عند <span class="math">0^+</span>: <span class="math">ln x→-∞</span> والحد الغالب <span class="math">2(ln x)^2</span>، إذن <span class="math">f(x)→+∞</span>. عند <span class="math">+∞</span>: <span class="math">ln x→+∞</span>، إذن <span class="math">f(x)→+∞</span>. كما أن <span class="math">f(x)=ln x(2ln x-1)-3</span>.</p>`,
+      },
+      {
+        title: "تمرين 81: حساب نهايات مباشرة",
+        statement: "احسب النهايات: 1) lim عند +∞ لـ 2x+ln x. 2) lim عند +∞ لـ (x+1)ln x. 3) lim عند 0^+ لـ x+5-ln x. 4) lim عند +∞ لـ 3-2ln x.",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">+∞</span>.</li><li><span class="math">+∞</span>.</li><li><span class="math">+∞</span> لأن <span class="math">-ln x→+∞</span>.</li><li><span class="math">-∞</span>.</li></ol>`,
+      },
+      {
+        title: "تمرين 82: نهايات باستعمال خواص ln",
+        statement: "احسب النهايات: 1) lim عند +∞ لـ ln(x)/ln(x^2). 2) lim عند +∞ لـ 1/(3+ln x). 3) lim عند -∞ لـ (x^2-x)ln(-x). 4) lim عند +∞ لـ (3-x)ln x.",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">ln(x^2)=2ln x</span>، النهاية <span class="math">1/2</span>.</li><li>النهاية <span class="math">0</span>.</li><li><span class="math">x^2-x→+∞</span> و <span class="math">ln(-x)→+∞</span>، النهاية <span class="math">+∞</span>.</li><li><span class="math">3-x→-∞</span> و <span class="math">ln x→+∞</span>، النهاية <span class="math">-∞</span>.</li></ol>`,
+      },
+      {
+        title: "تمرين 83: نهاية دالة كسرية لوغارتمية",
+        statement: "لتكن f معرفة على ]-∞,1[ بـ f(x)=(x+1)/(1-ln x) حيث يكون التعبير معرفا. اكتب f على شكل مناسب ثم احسب نهايتها عند -∞ حسب مجال التعريف المقصود.",
+        solutionHtml: `<p>الفكرة: نقسم البسط والمقام على الحد الغالب المناسب ونستعمل أن اللوغارتم لا يعرف إلا لمقادير موجبة. إذا كان المقصود <span class="math">ln(-x)</span> في المقام، فإن <span class="math">x/ln(-x)→-∞</span>.</p>`,
+      },
+      {
+        title: "تمرين 84: نهاية دالة مركبة",
+        statement: "لتكن f معرفة على ]2,+∞[ بـ f(x)=ln(ln(x-1)). 1) بين أن f معرفة من أجل x&gt;2. 2) احسب نهايتي f عند 2^+ وعند +∞.",
+        solutionHtml: `<p>لدينا <span class="math">x&gt;2⇒x-1&gt;1⇒ln(x-1)&gt;0</span>، إذن f معرفة. عند <span class="math">2^+</span>: <span class="math">ln(x-1)→0^+</span> ومنه <span class="math">f(x)→-∞</span>. عند <span class="math">+∞</span>: <span class="math">ln(x-1)→+∞</span> ومنه <span class="math">f(x)→+∞</span>.</p>`,
+      },
+      {
+        title: "تمرين 85: نهايات شهيرة",
+        statement: "احسب النهايات: 1) lim عند 0 لـ ln(1+2x)/(2x). 2) lim عند 0 لـ ln(1+3x)/x. 3) lim عند 0 لـ ln(1+x/2)/x. 4) lim عند 0 لـ ln(1+x)/(x).",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">1</span>.</li><li><span class="math">3</span>.</li><li><span class="math">1/2</span>.</li><li><span class="math">1</span>.</li></ol>`,
+      },
+      {
+        title: "تمرين 86: قابلية الاشتقاق عند 0",
+        statement: "لتكن f معرفة بـ f(x)=ln(x^2+1)/x إذا x≠0 و f(0)=0. بين أن f غير قابلة للاشتقاق عند 0، ثم ادرس اتجاه تغيرها على R باستعمال المشتقة.",
+        solutionHtml: `<p>عند الاشتقاق في الصفر: <span class="math">(f(x)-f(0))/x=ln(1+x^2)/x^2→1</span>، لذلك حسب هذه الصيغة تكون قابلة للاشتقاق وقيمتها <span class="math">1</span>. راجع نص الصورة: إذا كان المطلوب غير قابلة للاشتقاق فغالبا المقام ليس <span class="math">x</span> أو قيمة f(0) مختلفة.</p>`,
+      },
+      {
+        title: "تمرين 87: حساب مشتقات",
+        statement: "احسب f'(x) للدوال: 2x^2-ln x، x+ln x، 1/x+ln x، -x+ln2+ln x، xln x، (ln x)^2+ln x-2، ln x/x، 1/ln x.",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">(2x^2-ln x)'=4x-1/x</span>.</li><li><span class="math">(x+ln x)'=1+1/x</span>.</li><li><span class="math">(1/x+ln x)'=-1/x^2+1/x</span>.</li><li><span class="math">(-x+ln2+ln x)'=-1+1/x</span>.</li><li><span class="math">(xln x)'=ln x+1</span>.</li><li><span class="math">((ln x)^2+ln x-2)'=(2ln x+1)/x</span>.</li><li><span class="math">(ln x/x)'=(1-ln x)/x^2</span>.</li><li><span class="math">(1/ln x)'=-1/(x(ln x)^2)</span>.</li></ol>`,
+      },
+      {
+        title: "تمرين 88: حساب مشتقات مركبة",
+        statement: "احسب مشتقات الدوال: ln(-2x-1)، (1/2)(ln(1-x))^2، x(2-lnx)^2، ln(2x^2+x-6)، ln((x+1)/(x-1))، (2x-1+ln x)/x.",
+        solutionHtml: `<p>استعمل القاعدة <span class="math">(ln u)'=u'/u</span> وقاعدة الجداء/القسمة. مثلا <span class="math">(ln(-2x-1))'=2/(2x+1)</span>، و <span class="math">(ln((x+1)/(x-1)))'=1/(x+1)-1/(x-1)</span>.</p>`,
+      },
+      {
+        title: "تمرين 89: دراسة قابلية الاشتقاق وحساب المشتقة",
+        statement: "تحقق من قابلية الاشتقاق على المجال D ثم احسب f'(x): 1) f(x)=(ln x)^2+ln x على ]0,+∞[. 2) f(x)=x^2ln x-x^2/2 على ]0,+∞[. 3) f(x)=xln|x|-2x+3 على ]-∞,0[. 4) f(x)=-x/2+xln x على ]0,+∞[. 5) f(x)=(x+1)/(ln x-1) على ]e,+∞[.",
+        solutionHtml: `<p>كل الدوال قابلة للاشتقاق على مجالاتها لأنها مركبة من دوال قابلة للاشتقاق ومقامات غير منعدمة. أمثلة: <span class="math">((ln x)^2+ln x)'=(2ln x+1)/x</span>، و <span class="math">(x^2ln x-x^2/2)'=2xln x</span>.</p>`,
+      },
+      {
+        title: "تمرين 90: دالة مساعدة ومماس أفقي",
+        statement: "في كل حالة ادرس تغيرات الدالة واستنتج النقطة ذات المماس الأفقي: 1) f(x)=x+1+ln x، x0=e. 2) f(x)=x^2-2+3ln x، x0=1. 3) f(x)=1/2(-x+e/ln x)، x0=e.",
+        solutionHtml: `<p>المماس الأفقي يتحقق عندما <span class="math">f'(x0)=0</span>. احسب المشتقة، تحقق من انعدامها عند القيمة المعطاة، ثم استعمل إشارة المشتقة لبناء جدول التغيرات.</p>`,
+      },
+      {
+        title: "تمرين 91: وضعية نسبية مع مستقيم",
+        statement: "لتكن f معرفة على ]-2,+∞[ بـ f(x)=3ln(2+x)+x^2-3x. بين أن المنحنى يقبل مماسين موازيين لمحور الفواصل.",
+        solutionHtml: `<p>نحسب <span class="math">f'(x)=3/(x+2)+2x-3</span>. نحل <span class="math">f'(x)=0</span> على <span class="math">]-2,+∞[</span>. عدد الحلول يعطي عدد المماسات الأفقية.</p>`,
+      },
+      {
+        title: "تمرين 92: تحويل هندسي",
+        statement: "في معلم متعامد ومتجانس ارسم C للدالة f(x)=2-lnx على ]0,+∞[، ثم استنتج منحنى g(x)=ln(x-1)+2 على ]1,+∞[ وحدد التحويل الهندسي المستعمل.",
+        solutionHtml: `<p>منحنى <span class="math">g</span> ينتج من منحنى <span class="math">ln x</span> بانتقال أفقي قدره 1 نحو اليمين ثم انتقال عمودي قدره 2 نحو الأعلى. قارن كذلك مع <span class="math">f(x)=2-ln x</span> باعتباره تناظرا/انتقالا حول المستقيمات المناسبة.</p>`,
+      },
+      {
+        title: "تمرين 93: دراسة دالة لوغارتمية",
+        statement: "لتكن f معرفة على ]0,+∞[ بـ f(x)=2x+3+ln x. بين أن f دالة متزايدة تماما ثم استنتج تغيراتها.",
+        solutionHtml: `<p><span class="math">f'(x)=2+1/x</span>. وبما أن <span class="math">x&gt;0</span> فإن <span class="math">f'(x)&gt;0</span>. إذن f متزايدة تماما على <span class="math">]0,+∞[</span>.</p>`,
+      },
+      {
+        title: "تمرين 94: دراسة دالة وبناء جدول تغيرات",
+        statement: "لتكن f معرفة على ]0,+∞[ بـ f(x)=x^2-2+ln x. 1) ادرس تغيرات f دون حساب المشتقة تفصيلا. 2) عين نهاياتها عند حدود مجال التعريف. 3) شكل جدول تغيراتها.",
+        solutionHtml: `<p><span class="math">x^2</span> متزايدة على <span class="math">]0,+∞[</span> و <span class="math">ln x</span> متزايدة، إذن f متزايدة. عند <span class="math">0^+</span>: <span class="math">ln x→-∞</span>، وعند <span class="math">+∞</span>: <span class="math">x^2→+∞</span>.</p>`,
+      },
+      {
+        title: "تمرين 95: مجال تعريف دوال لوغارتمية",
+        statement: "عين مجال التعريف: 1) ln(x-3) على ]3,+∞[. 2) ln(1-x) على ]-∞,1[. 3) ln(2x^2) على ]0,+∞[. 4) ln|x-2| على ]2,+∞[. 5) ln((x+1)/(x-2)) على ]2,+∞[.",
+        solutionHtml: `<p>القاعدة: يجب أن يكون ما داخل <span class="math">ln</span> موجبا. المجالات المقترحة في نص التمرين كلها تحقق الشرط المطلوب للدوال المعطاة، مع الانتباه أن <span class="math">ln(2x^2)</span> معرف على <span class="math">R^*</span> عموما.</p>`,
+      },      {
+        title: "تمرين 96: اتجاه التغيرات باستعمال المشتقة",
+        statement: "ادرس اتجاه تغير الدوال التالية على المجال المعطى: 1) D=]0,+∞[، f(x)=-(3/2)x+ln(2x). 2) D=]-∞,1[، f(x)=2x-ln(1-x). 3) D=]1,+∞[، f(x)=(x+1)/(x-1)-ln(x-1). 4) D=]1,3[، f(x)=2x+ln x-ln(x-1).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">f'(x)=-3/2+1/x=(2-3x)/(2x)</span>. الإشارة تتغير عند <span class="math">x=2/3</span>: تزايد على <span class="math">]0,2/3[</span> ثم تناقص على <span class="math">]2/3,+∞[</span>.</li>
+            <li><span class="math">f'(x)=2+1/(1-x)=(3-2x)/(1-x)</span>. على <span class="math">]-∞,1[</span> المقام موجب، إذن التزايد حسب <span class="math">3-2x</span>: تزايد ثم تناقص بعد <span class="math">3/2</span> غير موجود في المجال، لذلك الدالة متزايدة على المجال كله.</li>
+            <li><span class="math">f'(x)=-2/(x-1)^2-1/(x-1)&lt;0</span> على <span class="math">]1,+∞[</span>، إذن f متناقصة.</li>
+            <li><span class="math">f'(x)=2+1/x-1/(x-1)</span>. نوحد المقام لدراسة الإشارة على <span class="math">]1,3[</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 97: اتجاه التغيرات باستعمال المشتقة",
+        statement: "ادرس اتجاه تغير الدوال التالية على المجال المعطى: 1) D=]-∞,0[، f(x)=1/x+ln((x-1)/x). 2) D=]0,+∞[، f(x)=x+1+(ln x)/x. 3) D=]0,+∞[، f(x)=(1-lnx)/x. 4) D=]-5,1[، f(x)=ln(1-x)+ln(x+5).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>احسب <span class="math">f'(x)</span> بعد كتابة <span class="math">ln((x-1)/x)=ln(x-1)-ln x</span> حيث يكون التعبير معرفا على المجال المعطى.</li>
+            <li><span class="math">f'(x)=1+(1-lnx)/x^2</span>. ندرس إشارة <span class="math">x^2+1-lnx</span> وهي موجبة غالبا باستعمال دالة مساعدة.</li>
+            <li><span class="math">f'(x)=(lnx-2)/x^2</span>. إذن تناقص على <span class="math">]0,e^2[</span> وتزايد على <span class="math">]e^2,+∞[</span>.</li>
+            <li><span class="math">f'(x)=-1/(1-x)+1/(x+5)=(-2x-4)/((1-x)(x+5))</span>. على <span class="math">]-5,1[</span> المقام موجب، فتتغير الإشارة عند <span class="math">x=-2</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 98: اللوغاريتم العشري",
+        statement: "ليكن n عددا طبيعيا غير معدوم. 1) عين باستعمال مدور العدد الحقيقي log(n) رتبة العدد n. 2) استنتج حصر العدد n إذا كان 107≤n<108.",
+        solutionHtml: `<p>إذا كان <span class="math">10^p≤n&lt;10^(p+1)</span> فإن <span class="math">p≤log(n)&lt;p+1</span>، والعدد <span class="math">n</span> له <span class="math">p+1</span> أرقام. إذا <span class="math">10^7≤n&lt;10^8</span> فإن <span class="math">7≤log(n)&lt;8</span> وله 8 أرقام.</p>`,
+      },
+      {
+        title: "تمرين 99: استعمال جدول اللوغاريتم العشري",
+        statement: "مع العلم أن log(3.81)≈0.58092، استنتج دون استعمال الحاسبة مقربة لكل من: log(0.381)، log(38.1)، log(381).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">log(0.381)=log(3.81×10^(-1))=0.58092-1=-0.41908</span>.</li>
+            <li><span class="math">log(38.1)=log(3.81×10)=0.58092+1=1.58092</span>.</li>
+            <li><span class="math">log(381)=log(3.81×10^2)=0.58092+2=2.58092</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 100: معادلات باللوغاريتم العشري",
+        statement: "حل في R المعادلات التالية: 1) log(x)=-5. 2) log(x)=3. 3) log(x)=0.01.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">x=10^(-5)</span>.</li>
+            <li><span class="math">x=10^3=1000</span>.</li>
+            <li><span class="math">x=10^(0.01)</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 101: متراجحات باللوغاريتم العشري",
+        statement: "حل في R المتراجحات التالية: 1) log(x)&gt;4. 2) log(x)&lt;-10. 3) log(x)≥0.1. 4) log(x)&lt;log(1-x).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>بما أن <span class="math">log</span> متزايدة و <span class="math">x&gt;0</span>: <span class="math">x&gt;10^4</span>.</li>
+            <li><span class="math">0&lt;x&lt;10^(-10)</span>.</li>
+            <li><span class="math">x≥10^(0.1)</span>.</li>
+            <li>الشروط: <span class="math">x&gt;0</span> و <span class="math">1-x&gt;0</span>. وبما أن <span class="math">log</span> متزايدة: <span class="math">x&lt;1-x</span>، إذن <span class="math">0&lt;x&lt;1/2</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 102: معادلات تفاضلية بسيطة",
+        statement: "حل المعادلات التفاضلية التالية: 1) y'=3y. 2) y'+2y=0. 3) 2y'+5y=0. 4) (1/2)y'=4y.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">y'=3y</span>: الحلول <span class="math">y=Ce^(3x)</span>.</li>
+            <li><span class="math">y'+2y=0</span>: أي <span class="math">y'=-2y</span>، الحلول <span class="math">y=Ce^(-2x)</span>.</li>
+            <li><span class="math">2y'+5y=0</span>: أي <span class="math">y'=-(5/2)y</span>، الحلول <span class="math">y=Ce^(-5x/2)</span>.</li>
+            <li><span class="math">(1/2)y'=4y</span>: أي <span class="math">y'=8y</span>، الحلول <span class="math">y=Ce^(8x)</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 103: حل خاص لمعادلة تفاضلية",
+        statement: "حل المعادلة التفاضلية 2y'+y=0. ثم عين الحل الخاص الذي يحقق f(ln4)=1.",
+        solutionHtml: `<p>من <span class="math">2y'+y=0</span> نحصل على <span class="math">y'=-(1/2)y</span>، إذن <span class="math">y=Ce^(-x/2)</span>. الشرط <span class="math">f(ln4)=1</span> يعطي <span class="math">C e^(-ln4/2)=1</span> أي <span class="math">C/2=1</span>، ومنه <span class="math">C=2</span>. إذن <span class="math">f(x)=2e^(-x/2)</span>.</p>`,
+      },
+      {
+        title: "تمرين 104: مستقيم مقارب أفقي",
+        statement: "ليكن f حلا لمعادلة تفاضلية، وتبين من حلها أن lim f(x) عند +∞ تساوي 5/2. هل يقبل المنحنى الممثل للدالة f مستقيمًا مقاربًا عند +∞؟ عين معادلته.",
+        solutionHtml: `<p>نعم. إذا كانت <span class="math">lim_(x-&gt;+∞) f(x)=5/2</span> فإن المنحنى يقبل مستقيمًا مقاربًا أفقيًا عند <span class="math">+∞</span> معادلته <span class="math">y=5/2</span>.</p>`,
+      },      {
+        title: "تمرين 106: دالة أسية ومعادلة تفاضلية",
+        statement: "لتكن f معرفة على R بـ f(x)=2e^(3x). جد معادلة تفاضلية من الشكل y'=ay تكون f حلا لها، ثم حل هذه المعادلة.",
+        solutionHtml: `<p><span class="math">f'(x)=6e^(3x)=3f(x)</span>. إذن المعادلة هي <span class="math">y'=3y</span>، وحلولها <span class="math">y=Ce^(3x)</span>. والدالة المعطاة توافق <span class="math">C=2</span>.</p>`,
+      },
+      {
+        title: "تمرين 107: نموذج إشعاعي أسي",
+        statement: "كتلة عينة مشعة تعطى بـ m(t)=300e^(-t/5)، حيث t بالسنوات. 1) تحقق أن m حل للمعادلة (E). 2) بين أن m(t)&gt;0 لكل t≥0 وأن m متناقصة. 3) احسب m(0) و m(5). 4) هل تنعدم الكتلة؟",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">m'(t)=-(1/5)300e^(-t/5)=-(1/5)m(t)</span>، إذن تحقق معادلة من الشكل <span class="math">m'=-(1/5)m</span>.</li><li><span class="math">m(t)&gt;0</span> و <span class="math">m'(t)&lt;0</span>، إذن m متناقصة.</li><li><span class="math">m(0)=300</span> و <span class="math">m(5)=300/e</span>.</li><li>لا تنعدم الكتلة رياضيا لأن <span class="math">e^(-t/5)&gt;0</span> لكل <span class="math">t</span>، لكنها تقترب من الصفر.</li></ol>`,
+      },
+      {
+        title: "تمرين 108: دراسة دالة أسية من الشكل ae^(2x)+be^x+c",
+        statement: "لتكن f الدالة المعرفة على R بـ f(x)=ae^(2x)+be^x+c، حيث a و b و c أعداد حقيقية. يمثل (C) منحناها في معلم متعامد ومتجانس. 1) عين a و b و c علما أن (C) يشمل O، وأن f' تنعدم من أجل x=ln(3/4)، وأن المستقيم y=1 مقارب أفقي للمنحنى. 2) نأخذ f(x)=2e^(2x)-3e^x+1. احسب lim f(x) عند -∞ ثم فسر هندسيا. احسب lim f(x) عند +∞. ادرس اتجاه تغير f وشكل جدول تغيراتها. بين أن (C) يملك مماسا أفقيا، ثم عين معادلة المماس عند النقطة ذات الفاصلة 0. عين الفروع اللانهائية للمنحنى، ثم ارسم (C).",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>من <span class="math">O∈(C)</span> نحصل على <span class="math">f(0)=0</span> أي <span class="math">a+b+c=0</span>. ومن المقارب <span class="math">y=1</span> عند <span class="math">-∞</span> نحصل على <span class="math">c=1</span>، ومنه <span class="math">a+b=-1</span>. كذلك <span class="math">f'(x)=2ae^(2x)+be^x</span>، وبما أن <span class="math">f'(ln(3/4))=0</span> نحصل على <span class="math">3a+2b=0</span>. بحل النظام: <span class="math">a=2</span> و <span class="math">b=-3</span> و <span class="math">c=1</span>.</li>
+            <li><span class="math">lim_(x-&gt;-∞) f(x)=1</span>، إذن المستقيم <span class="math">y=1</span> مقارب أفقي عند <span class="math">-∞</span>. وعند <span class="math">+∞</span>: <span class="math">f(x)=e^(2x)(2-3e^(-x)+e^(-2x))</span> لذلك <span class="math">lim_(x-&gt;+∞) f(x)=+∞</span>.</li>
+            <li><span class="math">f'(x)=4e^(2x)-3e^x=e^x(4e^x-3)</span>. وبما أن <span class="math">e^x&gt;0</span> فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">4e^x-3</span>. تنعدم عند <span class="math">x=ln(3/4)</span>. إذن f متناقصة على <span class="math">]-∞; ln(3/4)]</span> ومتزايدة على <span class="math">[ln(3/4); +∞[</span>.</li>
+            <li>القيمة الصغرى هي <span class="math">f(ln(3/4))=2(9/16)-3(3/4)+1=-1/8</span>. إذن للمُنحنى مماس أفقي عند <span class="math">A(ln(3/4), -1/8)</span>.</li>
+            <li>عند الفاصلة <span class="math">0</span>: <span class="math">f(0)=0</span> و <span class="math">f'(0)=1</span>، لذلك معادلة المماس هي <span class="math">y=x</span>.</li>
+            <li>الفروع اللانهائية: عند <span class="math">-∞</span> يوجد المقارب الأفقي <span class="math">y=1</span>، وعند <span class="math">+∞</span> يرتفع المنحنى نحو <span class="math">+∞</span> ولا يوجد مقارب أفقي أو مائل.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 110: معادلات تفاضلية ومنحنى أسي",
+        statement: "نعتبر المعادلتين التفاضليتين (E1): y'-2y=0 و (E2): y'=y. 1) قارن حلول المعادلتين، ثم عين الحل الخاص f1 لـ (E1) حيث f1(0)=4، والحل الخاص f2 لـ (E2) حيث f2(0)=1. 2) لتكن g معرفة على R بـ g(x)=2e^(2x)-e^x. ادرس نهاياتها عند -∞ و +∞، ثم احسب مشتقتها واستنتج اتجاه تغيرها وقيمتها الصغرى. 3) عين نقط تقاطع منحناها مع محوري الإحداثيات، ثم ارسم شكلا تقريبيا للمنحنى.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>حلول <span class="math">(E1)</span> هي <span class="math">y=Ce^(2x)</span>، وحلول <span class="math">(E2)</span> هي <span class="math">y=Ce^x</span>. إذن ليستا نفس مجموعة الحلول، والحل المشترك الوحيد بينهما هو الدالة المنعدمة.</li>
+            <li>من <span class="math">f1(0)=4</span> نحصل على <span class="math">f1(x)=4e^(2x)</span>. ومن <span class="math">f2(0)=1</span> نحصل على <span class="math">f2(x)=e^x</span>.</li>
+            <li><span class="math">g(x)=2e^(2x)-e^x=e^x(2e^x-1)</span>. عند <span class="math">-∞</span>: <span class="math">g(x)→0</span>. وعند <span class="math">+∞</span>: <span class="math">g(x)→+∞</span>.</li>
+            <li><span class="math">g'(x)=4e^(2x)-e^x=e^x(4e^x-1)</span>. وبما أن <span class="math">e^x&gt;0</span> فإن الإشارة تتغير عند <span class="math">x=ln(1/4)</span>. إذن <span class="math">g</span> متناقصة ثم متزايدة، وقيمتها الصغرى <span class="math">g(ln(1/4))=-1/8</span>.</li>
+            <li>مع محور التراتيب: <span class="math">g(0)=1</span>، إذن النقطة <span class="math">(0,1)</span>. ومع محور الفواصل: <span class="math">e^x(2e^x-1)=0</span> ومنه <span class="math">x=ln(1/2)</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 111: دالة لوغارتمية",
+        statement: "لتكن f المعرفة على I=]-1/2,+∞[ بـ f(x)=ln(1+2x). نضع g(x)=f(x)-x، ونعرف u_(n+1)=f(u_n) مع u_0=1.",
+        statementHtml: `
+          <div class="exercise-readable-statement">
+            <p>لتكن <span class="math">f</span> المعرفة على <span class="math">I=]-1/2,+∞[</span> بـ:</p>
+            <div class="math-equation">f(x)=ln(1+2x)</div>
+            <ol class="solution-list">
+              <li>بين أن <span class="math">f</span> متزايدة تماما على <span class="math">I</span>.</li>
+              <li>عين نهايتي <span class="math">f</span> عند طرفي <span class="math">I</span>.</li>
+              <li>نضع <span class="math">g(x)=f(x)-x</span>. ادرس تغيرات <span class="math">g</span> على <span class="math">I</span>، ثم بين أن للمعادلة <span class="math">g(x)=0</span> حلين: أحدهما <span class="math">0</span> والآخر <span class="math">α∈]1,2[</span>.</li>
+              <li>استنتج إشارة <span class="math">f(x)-x</span>، ثم قارن بين <span class="math">f(x)</span> و <span class="math">x</span>.</li>
+              <li>لتكن المتتالية <span class="math">u_(n+1)=f(u_n)</span> و <span class="math">u_0=1</span>. ادرس تموضع حدودها ورتابتها وتقاربها.</li>
+            </ol>
+          </div>
+        `,
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">f'(x)=2/(1+2x)</span> وهي موجبة على <span class="math">I</span>، إذن <span class="math">f</span> متزايدة تماما.</li>
+            <li><span class="math">lim_(x→-1/2+) f(x)=-∞</span> و <span class="math">lim_(x→+∞) f(x)=+∞</span>.</li>
+            <li><span class="math">g'(x)=2/(1+2x)-1=(1-2x)/(1+2x)</span>. إذن <span class="math">g</span> متزايدة على <span class="math">]-1/2,1/2]</span> ومتناقصة على <span class="math">[1/2,+∞[</span>.</li>
+            <li><span class="math">g(0)=0</span> و <span class="math">g(1)=ln3-1&gt;0</span> و <span class="math">g(2)=ln5-2&lt;0</span>، لذلك يوجد حل ثان وحيد <span class="math">α∈]1,2[</span>.</li>
+            <li>إشارة <span class="math">g</span>: سالبة على <span class="math">]-1/2,0[</span>، موجبة على <span class="math">]0,α[</span>، وسالبة على <span class="math">]α,+∞[</span>. ومنه نقارن <span class="math">f(x)</span> و <span class="math">x</span> حسب نفس الإشارة.</li>
+            <li>بما أن <span class="math">u_0=1∈]0,α[</span> و <span class="math">f(x)&gt;x</span> على هذا المجال، فإن <span class="math">(u_n)</span> متزايدة ومحدودة من الأعلى بـ <span class="math">α</span>، إذن متقاربة ونهايتها هي <span class="math">α</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 112: دراسة f(x)=ln(x)ln(1-x)",
+        statement: "لتكن f المعرفة على [0,1] بـ f(0)=0 و f(1)=0 و f(x)=ln(x)ln(1-x) إذا x∈]0,1[. نرمز إلى منحناها بـ (C). 1) باستعمال النهاية الشهيرة x^a ln(x)→0 عند x→0+، بين أن نهايتي f عند 0 و1 تساويان 0، ثم ادرس نهاية f(x)/x عند 0+ وفسر هندسيا. 2) بين أن المنحنى يقبل محور تناظر معادلته x=1/2. 3) ادرس تغيرات f باستعمال φ(x)=(1-x)ln(1-x)-xln(x). 4) استنتج القيمة العظمى وارسم شكلا تقريبيا للمنحنى.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>عند <span class="math">0+</span>: <span class="math">ln(1-x)∼-x</span>، لذلك <span class="math">f(x)∼-xln(x)</span> ومنه <span class="math">f(x)→0</span>. وبالتناظر نحصل أيضا على <span class="math">f(x)→0</span> عند <span class="math">1-</span>.</li>
+            <li><span class="math">f(x)/x = ln(x)·ln(1-x)/x</span>، ومع <span class="math">ln(1-x)/x→-1</span> نحصل على <span class="math">f(x)/x→+∞</span>. هندسيا: للمُنحنى مماس عمودي عند الأصل.</li>
+            <li><span class="math">f(1/2-x)=f(1/2+x)</span> لكل <span class="math">x∈]0,1/2[</span>، إذن محور التناظر هو المستقيم <span class="math">x=1/2</span>.</li>
+            <li><span class="math">f'(x)=ln(1-x)/x - ln(x)/(1-x)=φ(x)/(x(1-x))</span>. وبما أن <span class="math">x(1-x)&gt;0</span> فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">φ</span>.</li>
+            <li>تكون <span class="math">φ(x)&gt;0</span> على <span class="math">]0,1/2[</span> و <span class="math">φ(1/2)=0</span> و <span class="math">φ(x)&lt;0</span> على <span class="math">]1/2,1[</span>. إذن <span class="math">f</span> متزايدة على <span class="math">[0,1/2]</span> ومتناقصة على <span class="math">[1/2,1]</span>.</li>
+            <li>القيمة العظمى هي <span class="math">f(1/2)=ln(1/2)^2=(ln2)^2</span>. كما أن <span class="math">0&lt;f(x)≤(ln2)^2</span> على <span class="math">]0,1[</span>.</li>
+          </ol>
+        `,
+      },    ],
+    solved: [
+      {
+        title: "تمرين محلول 1",
+        statement: "احسب نهاية f(x)=2+5e^x عند x→-∞، ثم فسر النتيجة هندسيا.",
+        solution: "عند x→-∞ لدينا e^x→0، ومنه 2+5e^x→2. إذن المستقيم y=2 مقارب أفقي للمنحنى عند -∞.",
+      },
+      {
+        title: "تمرين محلول 2",
+        statement: "احسب نهاية f(x)=(x^2+e^x)/(3e^x-x) عند x→+∞.",
+        solution: "نقسم على e^x فنحصل على (x^2/e^x+1)/(3-x/e^x). وبما أن x^2/e^x→0 و x/e^x→0، فإن النهاية تساوي 1/3.",
+      },
+    ],
+  },
+  {
+    id: "comparative-growth",
+    title: "التزايد المقارن",
+    icon: "⇈",
+    summary: "باب مستقل لترتيب سرعة نمو اللوغارتم والقوى والأسية واستعمالها في حساب النهايات.",
+    lesson: `
+      <article class="structured-lesson limits-masterclass comparison-masterclass">
+        <header class="structured-lesson-hero">
+          <span>محور 6</span>
+          <h3>التزايد المقارن</h3>
+        </header>
+
+        <section class="property-box theorem-box">
+          <strong>سلم النمو عند <span class="math">+∞</span>:</strong>
+          <div class="math-equation">ln(x) << x^a << e^x</div>
+          <p>حيث <span class="math">a&gt;0</span>. المعنى العملي: اللوغارتم أبطأ من كل قوة، والأسية أسرع من كل قوة.</p>
+        </section>
+
+        <section class="lesson-block comparison-rule-board">
+          <h4>1- التزايد المقارن للدالتين <span class="math">x→x</span> و <span class="math">x→e^x</span></h4>
+          <div class="property-box theorem-box comparison-rule-strip">
+            <strong>خواص:</strong>
+            <div class="math-equation">lim e^x/x = +∞ عند x→+∞</div>
+            <div class="math-equation">lim x e^x = 0 عند x→-∞</div>
+          </div>
+          <div class="method-box proof-card">
+            <strong>برهان مختصر للفكرة الأولى:</strong>
+            <p>نعتبر على <span class="math">[0,+∞[</span> الدالة <span class="math">f(x)=e^x-x^2/2</span>. مشتقتها:</p>
+            <div class="math-equation">f'(x)=e^x-x</div>
+            <p>وبما أننا نعلم أن <span class="math">e^x&gt;x</span> لكل <span class="math">x</span>، فإن <span class="math">f'(x)&gt;0</span>. إذن <span class="math">f</span> متزايدة و <span class="math">f(0)=1</span>، ومنه <span class="math">f(x)&gt;0</span>.</p>
+            <div class="math-equation">e^x &gt; x^2/2</div>
+            <div class="math-equation">e^x/x &gt; x/2</div>
+            <p>وبما أن <span class="math">x/2→+∞</span> نحصل بالمقارنة على <span class="math">e^x/x→+∞</span>.</p>
+          </div>
+          <div class="method-box proof-card">
+            <strong>برهان النهاية عند <span class="math">-∞</span>:</strong>
+            <p>نضع <span class="math">X=-x</span>. عندما <span class="math">x→-∞</span> فإن <span class="math">X→+∞</span>، ونكتب:</p>
+            <div class="math-equation">x e^x = -X/e^X</div>
+            <p>وبما أن <span class="math">X/e^X→0</span> فإن <span class="math">x e^x→0</span>.</p>
+          </div>
+        </section>
+
+        <section class="lesson-block comparison-rule-board">
+          <h4>2- التزايد المقارن للدالتين <span class="math">x→ln(x)</span> و <span class="math">x→x</span></h4>
+          <div class="property-box theorem-box comparison-rule-strip">
+            <strong>خواص:</strong>
+            <div class="math-equation">lim ln(x)/x = 0 عند x→+∞</div>
+            <div class="math-equation">lim x ln(x) = 0 عند x→0+</div>
+          </div>
+          <div class="method-box proof-card">
+            <strong>البرهان باستعمال تغيير المتغير:</strong>
+            <p>من أجل النهاية الأولى نضع <span class="math">X=ln(x)</span>، فيصبح <span class="math">x=e^X</span> وعندما <span class="math">x→+∞</span> فإن <span class="math">X→+∞</span>.</p>
+            <div class="math-equation">ln(x)/x = X/e^X → 0</div>
+            <p>ومن أجل النهاية الثانية نضع <span class="math">X=1/x</span>. عندما <span class="math">x→0+</span> فإن <span class="math">X→+∞</span>.</p>
+            <div class="math-equation">x ln(x) = -ln(X)/X → 0</div>
+          </div>
+        </section>
+        <section class="lesson-block limit-comparison-proof">
+          <h4>3- التزايد المقارن مع الدالة <span class="math">x→x^n</span></h4>
+          <div class="method-box proof-card">
+            <p>إذا كان <span class="math">a&gt;0</span> فإن:</p>
+            <div class="math-equation">lim ln(x)/x^a = 0 عند x→+∞</div>
+            <p>وبالعكس:</p>
+            <div class="math-equation">lim x^a/ln(x) = +∞ عند x→+∞</div>
+          </div>
+          <div class="property-box">
+            <strong>مثال سريع:</strong>
+            <div class="math-equation">lim ln(x)/√x = 0</div>
+            <p>لأن <span class="math">√x=x^(1/2)</span> قوة موجبة، وكل قوة موجبة تغلب <span class="math">ln(x)</span>.</p>
+          </div>
+        </section>
+
+        <section class="lesson-block limit-comparison-proof">
+          <h4>4- الأسية أمام القوى</h4>
+          <div class="method-box proof-card">
+            <p>من أجل كل <span class="math">n∈N*</span>:</p>
+            <div class="math-equation">lim e^x/x^n = +∞ عند x→+∞</div>
+            <div class="math-equation">lim x^n/e^x = 0 عند x→+∞</div>
+          </div>
+          <div class="property-box">
+            <strong>مثال سريع:</strong>
+            <div class="math-equation">lim x^5/e^x = 0</div>
+            <p>لأن الأسية تغلب أي قوة مهما كان أسها ثابتا.</p>
+          </div>
+        </section>
+
+        <section class="lesson-block limit-comparison-proof">
+          <h4>5- قرب الصفر</h4>
+          <div class="method-box proof-card">
+            <p>إذا كان <span class="math">a&gt;0</span> فإن:</p>
+            <div class="math-equation">lim x^a ln(x) = 0 عند x→0+</div>
+            <p>هذه قاعدة مهمة جدا عند دراسة دوال من الشكل <span class="math">ln(x)ln(1-x)</span> أو عند البحث عن مماس قرب الأصل.</p>
+          </div>
+        </section>
+
+        <section class="lesson-block comparison-visual-summary">
+          <h4>خلاصة الباب</h4>
+          <div class="property-box theorem-box">
+            <strong>عند <span class="math">+∞</span>:</strong>
+            <div class="math-equation">ln(x) << x << x^n << e^x</div>
+            <p>أي إن اللوغارتم ينمو ببطء، والقوى تنمو أسرع منه، أما الدالة الأسية فتغلب القوى كلها.</p>
+          </div>
+          <figure class="comparison-growth-svg" aria-label="رسم تقريبي للتزايد المقارن">
+            <svg viewBox="0 0 760 300" role="img">
+              <rect x="1" y="1" width="758" height="298" rx="18" fill="#ffffff"/>
+              <line x1="70" y1="250" x2="710" y2="250" stroke="#111827" stroke-width="2"/>
+              <line x1="70" y1="250" x2="70" y2="32" stroke="#111827" stroke-width="2"/>
+              <path d="M80 240 C180 228, 330 210, 690 188" fill="none" stroke="#2563eb" stroke-width="4"/>
+              <path d="M80 245 C190 236, 300 210, 690 72" fill="none" stroke="#16a34a" stroke-width="4"/>
+              <path d="M80 246 C250 244, 390 205, 690 44" fill="none" stroke="#db2777" stroke-width="4"/>
+              <path d="M80 247 C270 245, 430 232, 560 130 C610 70, 650 38, 690 24" fill="none" stroke="#ef4444" stroke-width="4"/>
+              <g font-family="Arial, sans-serif" font-size="22" font-weight="700">
+                <text x="575" y="194" fill="#2563eb">y=ln x</text>
+                <text x="570" y="88" fill="#16a34a">y=x²</text>
+                <text x="525" y="55" fill="#db2777">y=x³</text>
+                <text x="424" y="82" fill="#ef4444">y=eˣ</text>
+              </g>
+            </svg>
+          </figure>
+        </section>
+        <section class="lesson-block">
+          <h4>6- كيف أستعمل القاعدة؟</h4>
+          <div class="method-box">
+            <ol class="solution-list">
+              <li>حدد الحدين المتنافسين: هل عندك <span class="math">ln(x)</span> مع قوة؟ أم قوة مع <span class="math">e^x</span>؟</li>
+              <li>اكتب الكسر بحيث يظهر الطرف الغالب في المقام أو البسط.</li>
+              <li>استعمل القاعدة مباشرة، ثم عالج الثوابت والإشارات.</li>
+              <li>إذا وجدت جداء، حوّله إلى كسر عند الحاجة.</li>
+            </ol>
+          </div>
+        </section>
+      </article>
+    `,
+    activities: [
+      {
+        title: "نشاط: رتب النمو عند +∞",
+        body: "رتب الدوال ln(x)، x^3، e^x من الأبطأ إلى الأسرع عند +∞.",
+        solution: "الترتيب هو: ln(x) ثم x^3 ثم e^x. لذلك ln(x)/x^3→0 و x^3/e^x→0.",
+      },
+      {
+        title: "نشاط: اختيار القاعدة",
+        body: "احسب ذهنيا نهاية x^4/e^x عند +∞ ونهاية ln(x)/x عند +∞.",
+        solution: "الأولى 0 لأن الأسية تغلب القوى. والثانية 0 لأن كل قوة موجبة، ومنها x، تغلب ln(x).",
+      },
+    ],
+    exercises: [
+      {
+        title: "تمرين 1: نهايات مباشرة بالتزايد المقارن",
+        statement: "احسب عند +∞: 1) ln(x)/x^2. 2) x^6/e^x. 3) e^x/x^4.",
+        solutionHtml: `<ol class="solution-list"><li><span class="math">ln(x)/x^2→0</span>.</li><li><span class="math">x^6/e^x→0</span>.</li><li><span class="math">e^x/x^4→+∞</span>.</li></ol>`,
+      },
+      {
+        title: "تمرين 2: نهاية قرب الصفر",
+        statement: "احسب lim x^2 ln(x) عندما x→0+.",
+        solutionHtml: `<p>بما أن <span class="math">a=2&gt;0</span> فإن <span class="math">x^2 ln(x)→0</span> عند <span class="math">0+</span>.</p>`,
+      },      {
+        title: "تمرين 3: دراسة دالة لوغارتمية مركبة",
+        statement: "نعتبر g(x)=x+1+ln x على ]0,+∞[، ثم f(x)=x ln(x)/(x+1) مع f(0)=0 على [0,+∞[. ادرس النهايات والتغيرات والوضع النسبي مع y=ln x.",
+        statementHtml: `
+          <div class="exercise-readable-statement">
+            <p><strong>الجزء الأول:</strong> نعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">]0,+∞[</span> بـ:</p>
+            <div class="math-equation">g(x)=x+1+ln(x)</div>
+            <ol class="solution-list">
+              <li>عين نهايتي <span class="math">g</span> عند <span class="math">0+</span> و <span class="math">+∞</span>.</li>
+              <li>ادرس اتجاه تغير <span class="math">g</span> ثم شكل جدول تغيراتها.</li>
+              <li>بين أن المعادلة <span class="math">g(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> في <span class="math">]0,+∞[</span>.</li>
+              <li>باستعمال حاسبة بيانية، أعط حصرا للعدد <span class="math">α</span> سعته <span class="math">0.01</span>.</li>
+              <li>حدد حسب قيم <span class="math">x</span> إشارة <span class="math">g(x)</span> على <span class="math">]0,+∞[</span>.</li>
+            </ol>
+            <p><strong>الجزء الثاني:</strong> نعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">[0,+∞[</span> كما يلي:</p>
+            <div class="math-equation">f(0)=0 ، f(x)=x ln(x)/(x+1) إذا x&gt;0</div>
+            <ol class="solution-list">
+              <li>بين أن <span class="math">f</span> مستمرة على <span class="math">[0,+∞[</span>.</li>
+              <li>احسب نهاية <span class="math">f</span> عند <span class="math">+∞</span>، ثم فسرها بيانيا.</li>
+              <li>بين أن <span class="math">f'(x)=g(x)/(x+1)^2</span> من أجل كل <span class="math">x&gt;0</span>.</li>
+              <li>استنتج اتجاه تغير <span class="math">f</span> وشكل جدول تغيراتها، ثم تحقق من قيمة <span class="math">f(α)</span>.</li>
+              <li>ليكن <span class="math">Γ</span> منحنى الدالة <span class="math">y=ln(x)</span>. ادرس الوضع النسبي بين <span class="math">C</span> و <span class="math">Γ</span>.</li>
+              <li>احسب <span class="math">lim_(x→+∞)(f(x)-ln(x))</span> وفسر النتيجة بيانيا، ثم ارسم المنحنيين.</li>
+            </ol>
+          </div>
+        `,
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">g'(x)=1+1/x&gt;0</span>، إذن <span class="math">g</span> متزايدة تماما، ومع <span class="math">g(0+)=-∞</span> و <span class="math">g(+∞)=+∞</span> يوجد حل وحيد <span class="math">α</span>.</li>
+            <li>إشارة <span class="math">g</span>: سالبة على <span class="math">]0,α[</span>، منعدمة عند <span class="math">α</span>، وموجبة على <span class="math">]α,+∞[</span>.</li>
+            <li>استمرارية <span class="math">f</span> عند <span class="math">0</span> تأتي من <span class="math">xln(x)→0</span>، إذن <span class="math">f(x)→0=f(0)</span>.</li>
+            <li><span class="math">f'(x)=((lnx+1)(x+1)-xlnx)/(x+1)^2=(x+1+lnx)/(x+1)^2=g(x)/(x+1)^2</span>.</li>
+            <li>إذن <span class="math">f</span> متناقصة على <span class="math">]0,α]</span> ومتزايدة على <span class="math">[α,+∞[</span>، و <span class="math">lnα=-α-1</span> يعطي <span class="math">f(α)=αlnα/(α+1)=-α</span>.</li>
+            <li><span class="math">f(x)-lnx = -lnx/(x+1)</span>، لذلك <span class="math">C</span> فوق <span class="math">Γ</span> على <span class="math">]0,1[</span> وتحته على <span class="math">]1,+∞[</span>، ويتقاطعان عند <span class="math">x=1</span>. كما أن الفرق يؤول إلى <span class="math">0</span> عند <span class="math">+∞</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 4: مسألة استغلال",
+        statement: "ليكن Γ منحنى y=ln x. نبحث عن نقاطه التي يكون بعدها إلى المبدأ O أصغريا، ثم ندرس دالة مساعدة g(x)=x^2+ln x و h(x)=x^2+(ln x)^2.",
+        statementHtml: `
+          <div class="exercise-readable-statement">
+            <p>ليكن <span class="math">Γ</span> التمثيل البياني للدالة <span class="math">y=ln(x)</span> في معلم متعامد ومتجانس.</p>
+            <p><strong>مشكلة:</strong> نريد أن نعين نقطة من <span class="math">Γ</span> تكون أقرب ما يمكن إلى المبدأ <span class="math">O</span>.</p>
+            <ol class="solution-list">
+              <li>ادرس الدالة <span class="math">g</span> المعرفة على <span class="math">]0,+∞[</span> بـ <span class="math">g(x)=x^2+ln(x)</span>: نهاياتها، تغيراتها، وعدد حلول <span class="math">g(x)=0</span>.</li>
+              <li>ادرس إشارة <span class="math">g(x)</span> على <span class="math">]0,+∞[</span>.</li>
+              <li>لتكن <span class="math">h(x)=x^2+(lnx)^2</span>. ادرس اتجاه تغير <span class="math">h</span> باستعمال <span class="math">g</span>.</li>
+              <li>استنتج النقطة من <span class="math">Γ</span> الأقرب إلى <span class="math">O</span>.</li>
+            </ol>
+          </div>
+        `,
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">g'(x)=2x+1/x&gt;0</span> على <span class="math">]0,+∞[</span>، إذن <span class="math">g</span> متزايدة تماما.</li>
+            <li><span class="math">g(0+)=-∞</span> و <span class="math">g(+∞)=+∞</span>، لذلك للمعادلة <span class="math">g(x)=0</span> حل وحيد <span class="math">α</span>، وإشارة <span class="math">g</span> سالبة قبل <span class="math">α</span> وموجبة بعده.</li>
+            <li><span class="math">h'(x)=2x+2lnx/x=2(x^2+lnx)/x=2g(x)/x</span>. وبما أن <span class="math">x&gt;0</span> فإن إشارة <span class="math">h'</span> هي إشارة <span class="math">g</span>.</li>
+            <li>إذن <span class="math">h</span> تتناقص على <span class="math">]0,α]</span> وتتزايد على <span class="math">[α,+∞[</span>. وبما أن <span class="math">OM^2=h(x)</span> فإن أقرب نقطة إلى <span class="math">O</span> هي <span class="math">M(α, lnα)</span>.</li>
+          </ol>
+        `,
+      },      {
+        title: "تمرين 5: مقارنة متتاليتين",
+        statement: "قارن بين العددين الطبيعيين n^(n+1) و (n+1)^n حيث n عدد طبيعي غير معدوم.",
+        statementHtml: `
+          <div class="exercise-readable-statement">
+            <p><strong>مقارنة الأعداد الطبيعية</strong> <span class="math">n^(n+1)</span> و <span class="math">(n+1)^n</span></p>
+            <ol class="solution-list">
+              <li>عامل المسألة على أنها مقارنة بين دالتين لوغارتميتين، وذلك بدراسة المتراجحة:</li>
+              <li><span class="math">n^(n+1) &gt; (n+1)^n</span></li>
+              <li>خذ اللوغارتم للطرفين واستنتج صيغة مكافئة باستعمال:</li>
+              <li><span class="math">ln(n)/n ? ln(n+1)/(n+1)</span></li>
+              <li>اختر دالة مناسبة تسمح بدراسة اتجاه تغير العبارة <span class="math">ln(x)/x</span>.</li>
+            </ol>
+          </div>
+        `,
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>نأخذ اللوغارتم لأن الطرفين موجبان: <span class="math">n^(n+1) &gt; (n+1)^n</span> يكافئ <span class="math">(n+1)ln(n) &gt; nln(n+1)</span>.</li>
+            <li>بعد القسمة على <span class="math">n(n+1)&gt;0</span> نحصل على: <span class="math">ln(n)/n &gt; ln(n+1)/(n+1)</span>.</li>
+            <li>ندرس <span class="math">h(x)=ln(x)/x</span>. مشتقتها <span class="math">h'(x)=(1-lnx)/x^2</span>.</li>
+            <li>على <span class="math">[3,+∞[</span> تكون <span class="math">h</span> متناقصة، ومنه <span class="math">ln(n)/n &gt; ln(n+1)/(n+1)</span> لكل <span class="math">n≥3</span>.</li>
+            <li>نستنتج: <span class="math">n^(n+1) &gt; (n+1)^n</span> لكل <span class="math">n≥3</span>. وتفحص القيم الصغيرة مباشرة: عند <span class="math">n=1</span> الطرف الأول أصغر، وعند <span class="math">n=2</span> الطرفان يعطيان <span class="math">8</span> و <span class="math">9</span> فالطرف الأول أصغر.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين 6: الدوال x↦x^α",
+        statement: "لتكن α عددا حقيقيا و f_α(x)=x^α=e^(αlnx) على ]0,+∞[. ادرس اتجاه تغيرها ونهاياتها حسب قيم α، ثم ادرس g_α(x)=f_α(x)-f_α'(x).",
+        statementHtml: `
+          <div class="exercise-readable-statement">
+            <p><strong>الدوال</strong> <span class="math">x↦x^α</span> حيث <span class="math">α∈R</span></p>
+            <p>نعتبر <span class="math">f_α</span> المعرفة على <span class="math">]0,+∞[</span> بـ:</p>
+            <div class="math-equation">f_α(x)=x^α=e^(αlnx)</div>
+            <ol class="solution-list">
+              <li>ماذا تكون الدالة في الحالتين <span class="math">α=0</span> و <span class="math">α=1</span>؟</li>
+              <li>افترض <span class="math">α≠0</span> و <span class="math">α≠1</span>. ادرس نهايتي <span class="math">f_α</span> عند <span class="math">0+</span> و <span class="math">+∞</span> حسب إشارة <span class="math">α</span>.</li>
+              <li>بين أن <span class="math">f_α'(x)=αx^(α-1)</span>، ثم استنتج اتجاه تغير <span class="math">f_α</span>.</li>
+              <li>ارسم شكلا تقريبيا للمنحنيات في الحالات: <span class="math">α=-2</span>، <span class="math">α=-1</span>، <span class="math">α=-1/2</span>، <span class="math">α=-0.3</span>.</li>
+              <li>إذا كان <span class="math">α&gt;0</span> نعرف <span class="math">g_α(x)=f_α(x)-f_α'(x)</span>. ادرس نهاية <span class="math">g_α</span> عند <span class="math">0+</span> و <span class="math">+∞</span> واتجاه تغيرها حسب الحالات <span class="math">0&lt;α&lt;1</span> و <span class="math">α&gt;1</span>.</li>
+            </ol>
+          </div>
+        `,
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>إذا <span class="math">α=0</span> فإن <span class="math">f_α(x)=1</span>. وإذا <span class="math">α=1</span> فإن <span class="math">f_α(x)=x</span>.</li>
+            <li>إذا <span class="math">α&gt;0</span>: <span class="math">x^α→0</span> عند <span class="math">0+</span> و <span class="math">x^α→+∞</span> عند <span class="math">+∞</span>. وإذا <span class="math">α&lt;0</span> فالعكس: <span class="math">x^α→+∞</span> عند <span class="math">0+</span> و <span class="math">x^α→0</span> عند <span class="math">+∞</span>.</li>
+            <li><span class="math">f_α'(x)=αx^(α-1)</span>. وبما أن <span class="math">x^(α-1)&gt;0</span> فإن إشارة المشتقة هي إشارة <span class="math">α</span>: تزايد إذا <span class="math">α&gt;0</span> وتناقص إذا <span class="math">α&lt;0</span>.</li>
+            <li>من أجل <span class="math">α&lt;0</span> تكون المنحنيات متناقصة، تقترب من <span class="math">+∞</span> قرب <span class="math">0+</span> ومن <span class="math">0</span> عند <span class="math">+∞</span>.</li>
+            <li>إذا <span class="math">α&gt;0</span> فإن <span class="math">g_α(x)=x^α-αx^(α-1)=x^(α-1)(x-α)</span>. تنعدم عند <span class="math">x=α</span> وتتغير إشارتها حوله.</li>
+            <li>عند <span class="math">+∞</span>: <span class="math">g_α(x)→+∞</span>. وعند <span class="math">0+</span>: إذا <span class="math">0&lt;α&lt;1</span> فإن <span class="math">g_α(x)→-∞</span>، وإذا <span class="math">α&gt;1</span> فالسلوك حسب <span class="math">x^(α-1)</span>: النهاية <span class="math">0</span> عندما <span class="math">α&gt;1</span> مع إشارة سالبة قرب الصفر، وتكون <span class="math">-1</span> عند <span class="math">α=1</span> في الصيغة المشتقة.</li>
+          </ol>
+        `,
+      },
+    ],
+    solved: [
+      {
+        title: "تمرين محلول 1: أسية مع حدود خطية",
+        statement: "احسب النهايتين: 1) lim (e^x - x) عند x→+∞. 2) lim (2x-1)e^x عند x→-∞.",
+        solutionHtml: `
+          <div class="method-box"><strong>طريقة:</strong> نستعمل <span class="math">lim e^x/x=+∞</span> عند <span class="math">+∞</span> و <span class="math">lim xe^x=0</span> عند <span class="math">-∞</span>.</div>
+          <ol class="solution-list">
+            <li><span class="math">e^x-x = x(e^x/x-1)</span>. وبما أن <span class="math">e^x/x→+∞</span> فإن <span class="math">e^x-x→+∞</span>.</li>
+            <li><span class="math">(2x-1)e^x = 2xe^x-e^x</span>. عند <span class="math">-∞</span>: <span class="math">xe^x→0</span> و <span class="math">e^x→0</span>، إذن النهاية <span class="math">0</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين محلول 2: لوغارتم وحد خطي",
+        statement: "احسب النهايتين: 1) lim (x-ln x) عند x→+∞. 2) lim (x+2)ln x عند x→0+.",
+        solutionHtml: `
+          <div class="method-box"><strong>طريقة:</strong> نستعمل <span class="math">lim ln(x)/x=0</span> عند <span class="math">+∞</span> و <span class="math">lim xln(x)=0</span> عند <span class="math">0+</span>.</div>
+          <ol class="solution-list">
+            <li><span class="math">x-ln(x)=x(1-ln(x)/x)</span>. وبما أن <span class="math">ln(x)/x→0</span>، فإن النهاية <span class="math">+∞</span>.</li>
+            <li><span class="math">(x+2)ln(x)=xln(x)+2ln(x)</span>. عند <span class="math">0+</span>: <span class="math">xln(x)→0</span> و <span class="math">ln(x)→-∞</span>، إذن النهاية <span class="math">-∞</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين محلول 3: تطبيقات متنوعة",
+        statement: "احسب النهايات: 1) 2e^x/(x^2+x+1) عند +∞. 2) ln x/(2x^2-x+3) عند +∞. 3) (x^2+2x-1)e^x عند -∞. 4) (x^2+x)ln x عند 0+.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li><span class="math">2e^x/(x^2+x+1)</span>: بقسمة على <span class="math">x^2</span> يظهر <span class="math">e^x/x^2→+∞</span>، إذن النهاية <span class="math">+∞</span>.</li>
+            <li><span class="math">ln(x)/(2x^2-x+3)</span>: المقام يكافئ <span class="math">2x^2</span>، و <span class="math">ln(x)/x^2→0</span>، إذن النهاية <span class="math">0</span>.</li>
+            <li><span class="math">(x^2+2x-1)e^x = x^2e^x+2xe^x-e^x</span>. عند <span class="math">-∞</span> كل حد يؤول إلى <span class="math">0</span>، إذن النهاية <span class="math">0</span>.</li>
+            <li><span class="math">(x^2+x)ln(x)=x^2ln(x)+xln(x)</span>. عند <span class="math">0+</span> كلا الحدين يؤول إلى <span class="math">0</span>، إذن النهاية <span class="math">0</span>.</li>
+          </ol>
+        `,
+      },
+      {
+        title: "تمرين محلول 4: حد غالب أسي",
+        statement: "احسب lim [(2x-1)e^x - 3e^(2x)] عند x→+∞.",
+        solutionHtml: `
+          <ol class="solution-list">
+            <li>نخرج العامل الغالب <span class="math">e^(2x)</span>:</li>
+            <li><span class="math">(2x-1)e^x-3e^(2x)=e^(2x)(2x/e^x - 1/e^x -3)</span>.</li>
+            <li>عند <span class="math">+∞</span>: <span class="math">x/e^x→0</span> و <span class="math">1/e^x→0</span>.</li>
+            <li>إذن القوس يؤول إلى <span class="math">-3</span>، و <span class="math">e^(2x)→+∞</span>، ومنه النهاية <span class="math">-∞</span>.</li>
+          </ol>
+        `,
+      },
+    ],
+  },  {
     id: "partial-ideas",
     title: "أفكار التمارين والبكالوريا",
     icon: "🧭",
@@ -2171,7 +3201,7 @@ function renderExerciseCard(module, exercise, index) {
     <article class="action-panel exercise-panel">
       <span class="panel-label blue">${module.title}</span>
       <h3>${exercise.title}</h3>
-      <p class="math-rich">${escapeHtml(exercise.statement)}</p>
+      ${exercise.statementHtml ? `<div class="exercise-statement">${exercise.statementHtml}</div>` : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
       <button class="solution-toggle" type="button" data-solution-key="${key}">
         ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
       </button>
@@ -2190,7 +3220,7 @@ function renderSolvedExerciseCard(module, exercise, index) {
     <article class="action-panel exercise-panel solved-practice-panel">
       <span class="panel-label amber">تمرين محلول</span>
       <h3>${exercise.title}</h3>
-      <p class="math-rich">${escapeHtml(exercise.statement)}</p>
+      ${exercise.statementHtml ? `<div class="exercise-statement">${exercise.statementHtml}</div>` : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
       <button class="solution-toggle" type="button" data-solution-key="${key}">
         ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
       </button>
@@ -2471,7 +3501,154 @@ function findDiscussionIntersections(config, m) {
   }
   return roots.sort((a, b) => a - b);
 }
+function drawDerivativeCanvas(card) {
+  const canvas = card.querySelector("[data-discussion-canvas='derivative']");
+  const slider = card.querySelector("[data-discussion-slider]");
+  const output = card.querySelector("[data-discussion-result]");
+  const valueLabel = card.querySelector("[data-discussion-value]");
+  if (!canvas || !slider) return;
+
+  const ctx = canvas.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
+  const pad = 58;
+  const xMin = -2.2;
+  const xMax = 4.2;
+  const yMin = -0.25;
+  const yMax = 3.05;
+  const a = 1.05;
+  const h = Number(slider.value);
+  const tangentSlope = 0.58;
+  const curvature = 0.16;
+  const fn = (x) => 1.55 + tangentSlope * (x - a) - curvature * (x - a) * (x - a);
+  const derivative = (x) => tangentSlope - 2 * curvature * (x - a);
+  const pointA = { x: a, y: fn(a) };
+  const pointM = { x: a + h, y: fn(a + h) };
+  const secantSlope = (pointM.y - pointA.y) / (pointM.x - pointA.x);
+  const sx = (x) => pad + ((x - xMin) / (xMax - xMin)) * (width - 2 * pad);
+  const sy = (y) => height - pad - ((y - yMin) / (yMax - yMin)) * (height - 2 * pad);
+
+  const drawLine = (slope, interceptPoint, color, dash = [], widthLine = 3) => {
+    const yLeft = interceptPoint.y + slope * (xMin - interceptPoint.x);
+    const yRight = interceptPoint.y + slope * (xMax - interceptPoint.x);
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = widthLine;
+    ctx.setLineDash(dash);
+    ctx.beginPath();
+    ctx.moveTo(sx(xMin), sy(yLeft));
+    ctx.lineTo(sx(xMax), sy(yRight));
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = "#fffdf3";
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.strokeStyle = "#e2ded3";
+  ctx.lineWidth = 1;
+  for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x += 1) {
+    ctx.beginPath();
+    ctx.moveTo(sx(x), pad);
+    ctx.lineTo(sx(x), height - pad);
+    ctx.stroke();
+  }
+  for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y += 0.5) {
+    ctx.beginPath();
+    ctx.moveTo(pad, sy(y));
+    ctx.lineTo(width - pad, sy(y));
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = "#111827";
+  ctx.lineWidth = 2.2;
+  ctx.beginPath();
+  ctx.moveTo(pad, sy(0));
+  ctx.lineTo(width - pad, sy(0));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(sx(0), pad);
+  ctx.lineTo(sx(0), height - pad);
+  ctx.stroke();
+
+  ctx.strokeStyle = "#0f766e";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  for (let i = 0; i <= 260; i += 1) {
+    const x = xMin + (i / 260) * (xMax - xMin);
+    const y = fn(x);
+    if (i === 0) ctx.moveTo(sx(x), sy(y));
+    else ctx.lineTo(sx(x), sy(y));
+  }
+  ctx.stroke();
+
+  drawLine(secantSlope, pointA, "#2563eb", [10, 8], 3.4);
+  drawLine(tangentSlope, pointA, "#dc2626", [], 4.2);
+
+  ctx.save();
+  ctx.strokeStyle = "rgba(37, 99, 235, 0.35)";
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5, 6]);
+  ctx.beginPath();
+  ctx.moveTo(sx(pointM.x), sy(pointM.y));
+  ctx.lineTo(sx(pointM.x), sy(pointA.y));
+  ctx.lineTo(sx(pointA.x), sy(pointA.y));
+  ctx.stroke();
+  ctx.restore();
+
+  const drawPoint = (point, color, label, dx, dy) => {
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "#fffdf3";
+    ctx.lineWidth = 3;
+    ctx.arc(sx(point.x), sy(point.y), 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.font = "800 17px Tajawal, Arial";
+    ctx.fillStyle = color;
+    ctx.fillText(label, sx(point.x) + dx, sy(point.y) + dy);
+  };
+
+  drawPoint(pointA, "#dc2626", "A(a,f(a))", -58, -18);
+  drawPoint(pointM, "#2563eb", "M", 10, -12);
+
+  ctx.direction = "rtl";
+  ctx.font = "900 18px Tajawal, Arial";
+  ctx.fillStyle = "#0f766e";
+  ctx.fillText("C_f", sx(-1.6), sy(2.55));
+  ctx.fillStyle = "#dc2626";
+  ctx.fillText("المماس", sx(2.35), sy(2.55));
+  ctx.fillStyle = "#2563eb";
+  ctx.fillText("القاطع AM", sx(2.95), sy(1.85));
+
+  const panelX = width - 278;
+  const panelY = height - 100;
+  ctx.fillStyle = "rgba(255, 253, 243, 0.9)";
+  ctx.strokeStyle = "rgba(15, 118, 110, 0.22)";
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.roundRect(panelX, panelY, 238, 66, 12);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#111827";
+  ctx.font = "800 15px Tajawal, Arial";
+  ctx.fillText(`ميل القاطع ≈ ${secantSlope.toFixed(3)}`, panelX + 214, panelY + 25);
+  ctx.fillText(`ميل المماس = ${derivative(a).toFixed(3)}`, panelX + 214, panelY + 50);
+  ctx.direction = "ltr";
+
+  if (valueLabel) valueLabel.textContent = `h = ${h.toFixed(2)}`;
+  if (output) {
+    const diff = Math.abs(secantSlope - tangentSlope);
+    output.textContent = `عندما h = ${h.toFixed(2)} يكون معامل توجيه القاطع ≈ ${secantSlope.toFixed(3)}، ومعامل توجيه المماس f'(a) = ${tangentSlope.toFixed(3)}. الفرق بينهما ≈ ${diff.toFixed(3)}.`;
+  }
+}
 function drawDiscussionCanvas(card) {
+  const derivativeCanvas = card.querySelector("[data-discussion-canvas='derivative']");
+  if (derivativeCanvas) {
+    drawDerivativeCanvas(card);
+    return;
+  }
   const canvas = card.querySelector("[data-discussion-canvas]");
   const slider = card.querySelector("[data-discussion-slider]");
   const output = card.querySelector("[data-discussion-result]");
@@ -2597,7 +3774,7 @@ function stopDiscussionAnimation(card) {
   discussionAnimations.delete(card);
   const button = card.querySelector("[data-discussion-play]");
   if (button) {
-    button.textContent = "تشغيل الحركة";
+    button.textContent = button.dataset.playLabel || "تشغيل الحركة";
     button.setAttribute("aria-pressed", "false");
   }
 }
@@ -2613,7 +3790,7 @@ function startDiscussionAnimation(card) {
   const startedAt = performance.now();
   const animation = { frame: 0, timer: 0 };
   if (button) {
-    button.textContent = "إيقاف الحركة";
+    button.textContent = button.dataset.stopLabel || "إيقاف الحركة";
     button.setAttribute("aria-pressed", "true");
   }
   const tick = (now = performance.now()) => {
@@ -2654,6 +3831,2112 @@ function initDiscussionCanvases(scope = document) {
     bindDiscussionCardControls(card);
     drawDiscussionCanvas(card);
   });
+}
+function renderGraphTransformDoor() {
+  return `
+    <article class="lesson-block discussion-door graph-transform-door is-collapsed" data-discussion-door>
+      <button class="discussion-door-toggle" type="button" data-discussion-door-toggle aria-expanded="false">
+        <span>بيان دالة انطلاقا من بيان دالة أخرى</span>
+        <small>افتح قواعد التحويل</small>
+      </button>
+      <div class="discussion-door-body" data-discussion-door-body hidden>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>الفكرة الأساسية</span><strong>لا نعيد الرسم من الصفر</strong></header>
+          <div class="method-box">
+            <strong>طريقة العمل:</strong>
+            <p>نبدأ من المنحنى المعروف <span class="math">(C_f)</span>، ثم نطبق تحويلا هندسيا واضحا للحصول على منحنى الدالة الجديدة. المطلوب هو معرفة ماذا يحدث لكل نقطة <span class="math">(x,f(x))</span>.</p>
+          </div>
+          <div class="graph-transform-grid">
+            <div class="property-box"><strong><span class="math">f(x)+a</span></strong><p>نقل عمودي: إلى الأعلى إذا <span class="math">a&gt;0</span>، وإلى الأسفل إذا <span class="math">a&lt;0</span>.</p></div>
+            <div class="property-box"><strong><span class="math">f(x-a)</span></strong><p>نقل أفقي: نحو اليمين إذا <span class="math">a&gt;0</span>، ونحو اليسار إذا <span class="math">a&lt;0</span>.</p></div>
+            <div class="property-box"><strong><span class="math">-f(x)</span></strong><p>تناظر بالنسبة إلى محور الفواصل.</p></div>
+            <div class="property-box"><strong><span class="math">f(-x)</span></strong><p>تناظر بالنسبة إلى محور التراتيب.</p></div>
+            <div class="property-box"><strong><span class="math">|f(x)|</span></strong><p>نترك الجزء فوق محور الفواصل كما هو، ونقلب الجزء السالب إلى الأعلى.</p></div>
+            <div class="property-box"><strong><span class="math">f(|x|)</span></strong><p>نحتفظ بفرع <span class="math">x≥0</span>، ثم نرسم صورته بالتناظر حول محور التراتيب.</p></div>
+          </div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>مثال مرئي</span><strong>من <span class="math">C_f</span> إلى منحنيات مرتبطة</strong></header>
+          <figure class="graph-transform-figure" aria-label="تحويلات بيان دالة انطلاقا من بيان دالة أخرى">
+            <svg viewBox="0 0 760 420" role="img">
+              <rect x="0" y="0" width="760" height="420" rx="18" fill="#fffdf4"></rect>
+              <g stroke="#e5e7eb" stroke-width="1">
+                <line x1="80" y1="40" x2="80" y2="360"></line>
+                <line x1="160" y1="40" x2="160" y2="360"></line>
+                <line x1="240" y1="40" x2="240" y2="360"></line>
+                <line x1="320" y1="40" x2="320" y2="360"></line>
+                <line x1="400" y1="40" x2="400" y2="360"></line>
+                <line x1="480" y1="40" x2="480" y2="360"></line>
+                <line x1="560" y1="40" x2="560" y2="360"></line>
+                <line x1="640" y1="40" x2="640" y2="360"></line>
+                <line x1="50" y1="120" x2="710" y2="120"></line>
+                <line x1="50" y1="200" x2="710" y2="200"></line>
+                <line x1="50" y1="280" x2="710" y2="280"></line>
+              </g>
+              <g stroke="#111827" stroke-width="2">
+                <line x1="50" y1="200" x2="710" y2="200"></line>
+                <line x1="380" y1="40" x2="380" y2="360"></line>
+              </g>
+              <path d="M120 285 C190 210 255 112 330 150 C390 180 430 260 500 232 C560 208 600 135 650 108" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path>
+              <path d="M120 205 C190 130 255 32 330 70 C390 100 430 180 500 152 C560 128 600 55 650 28" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 8"></path>
+              <path d="M110 115 C180 190 245 288 320 250 C380 220 420 140 490 168 C550 192 590 265 640 292" fill="none" stroke="#059669" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="6 8"></path>
+              <path d="M120 115 C190 190 255 288 330 250 C390 220 430 140 500 168 C560 192 600 265 650 292" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" opacity="0.82"></path>
+              <g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800">
+                <text x="718" y="216" fill="#111827">x</text>
+                <text x="392" y="54" fill="#111827">y</text>
+                <text x="612" y="104" fill="#dc2626">C_f</text>
+                <text x="522" y="58" fill="#2563eb">C: y=f(x)+1</text>
+                <text x="86" y="108" fill="#059669">C: y=-f(x)</text>
+                <text x="452" y="306" fill="#7c3aed">C: y=f(x-1)</text>
+              </g>
+            </svg>
+            <figcaption>كل لون يمثل تحويلا هندسيا بسيطا للمنحنى الأصلي: نقل، تناظر، أو تغيير في الجزء السالب.</figcaption>
+          </figure>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الأول</span><strong>استنتاج منحنيات من منحنى دالة</strong></header>
+          <article class="training-exercise graph-transform-first-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية</h4>
+            <p>لتكن الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]-1,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=ln(x+1)-1</div>
+            <p>و <span class="math">(C_f)</span> تمثيلها البياني في مستو منسوب إلى معلم متعامد ومتجانس <span class="math">(O;i,j)</span>.</p>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">f</span> عند أطراف مجال تعريفها، وفسر النتيجة هندسيا إن أمكن.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">f(0)</span>، وبيّن أن المنحنى <span class="math">(C_f)</span> يقطع محور الفواصل في نقطة فاصلتها <span class="math">x_0=e-1</span>.</li>
+              <li>ارسم المنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج المنحنيات</h4>
+            <p>باستعمال المنحنى <span class="math">(C_f)</span> والقواعد المذكورة في ملخصك، اشرح كيف يمكن استنتاج رسم المنحنيات التالية، ثم ارسمها. يمكنك رسم كل منحنى بلون مختلف في نفس المعلم أو في معلم منفصل.</p>
+            <ol>
+              <li>المنحنى <span class="math">(C_1)</span> الممثل للدالة <span class="math">g</span> المعرفة على <span class="math">]-1,+∞[</span> بـ:</li>
+            </ol>
+            <div class="math-equation">g(x)=|ln(x+1)-1|</div>
+            <ol start="2">
+              <li>المنحنى <span class="math">(C_2)</span> الممثل للدالة <span class="math">h</span> المعرفة على <span class="math">R</span> بـ:</li>
+            </ol>
+            <div class="math-equation">h(x)=ln(|x|+1)-1</div>
+            <ol start="3">
+              <li>المنحنى <span class="math">(C_3)</span> الممثل للدالة <span class="math">k</span> المعرفة على <span class="math">]-∞,1[</span> بـ:</li>
+            </ol>
+            <div class="math-equation">k(x)=ln(-x+1)-1</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة الدالة الأصلية</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. مجال التعريف والنهايات</h5>
+                  <p>لدينا <span class="math">f(x)=ln(x+1)-1</span>. يجب أن يكون:</p>
+                  <div class="math-equation">x+1&gt;0 ⇔ x&gt;-1</div>
+                  <p>إذن مجال التعريف هو <span class="math">D_f=]-1,+∞[</span>.</p>
+                  <div class="solution-case">
+                    <strong>عند <span class="math">-1^+</span>:</strong>
+                    <div class="math-equation">lim(x→-1+) (x+1)=0^+ ⇒ lim(x→-1+) ln(x+1)=-∞</div>
+                    <div class="math-equation">lim(x→-1+) f(x)=-∞</div>
+                    <p><strong>التفسير الهندسي:</strong> المستقيم <span class="math">x=-1</span> مقارب عمودي للمنحنى <span class="math">(C_f)</span>.</p>
+                  </div>
+                  <div class="solution-case">
+                    <strong>عند <span class="math">+∞</span>:</strong>
+                    <div class="math-equation">lim(x→+∞) ln(x+1)=+∞ ⇒ lim(x→+∞) f(x)=+∞</div>
+                  </div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. اتجاه التغير وجدول التغيرات</h5>
+                  <p>الدالة <span class="math">f</span> قابلة للاشتقاق على <span class="math">]-1,+∞[</span>، ومشتقتها:</p>
+                  <div class="math-equation">f'(x)=1/(x+1)</div>
+                  <p>وبما أن <span class="math">x+1&gt;0</span> على مجال التعريف، فإن:</p>
+                  <div class="math-equation">f'(x)&gt;0</div>
+                  <p>إذن <span class="math">f</span> متزايدة تماما على <span class="math">]-1,+∞[</span>.</p>
+                  <div class="variation-mini-table" aria-label="جدول تغيرات الدالة f"><div>x</div><div>-1</div><div></div><div>+∞</div><div>f'(x)</div><div></div><div>+</div><div></div><div>f(x)</div><div>-∞</div><div>↗</div><div>+∞</div></div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. التقاطعات المهمة</h5>
+                  <p>نحسب صورة الصفر:</p>
+                  <div class="math-equation">f(0)=ln(1)-1=-1</div>
+                  <p>إذن يقطع المنحنى محور التراتيب في النقطة <span class="math">(0,-1)</span>.</p>
+                  <p>لإيجاد تقاطعه مع محور الفواصل نحل <span class="math">f(x)=0</span>:</p>
+                  <div class="math-equation">ln(x+1)-1=0 ⇔ ln(x+1)=1</div>
+                  <div class="math-equation">x+1=e ⇔ x=e-1</div>
+                  <p>إذن يقطع <span class="math">(C_f)</span> محور الفواصل في النقطة <span class="math">(e-1,0)</span>.</p>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>4. رسم المنحنى <span class="math">(C_f)</span></h5>
+                  <p>لرسم <span class="math">(C_f)</span> نعتمد على: المقارب العمودي <span class="math">x=-1</span>، التزايد التام، النقطة <span class="math">(0,-1)</span>، والنقطة <span class="math">(e-1,0)</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم توضيحي للدالة f(x)=ln(x+1)-1">
+                    <svg viewBox="0 0 680 420" role="img">
+                      <rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect>
+                      <g stroke="#e5e7eb" stroke-width="1"><line x1="90" y1="45" x2="90" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="270" y1="45" x2="270" y2="350"></line><line x1="360" y1="45" x2="360" y2="350"></line><line x1="450" y1="45" x2="450" y2="350"></line><line x1="540" y1="45" x2="540" y2="350"></line><line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="195" x2="620" y2="195"></line><line x1="70" y1="285" x2="620" y2="285"></line></g>
+                      <g stroke="#111827" stroke-width="2"><line x1="70" y1="195" x2="620" y2="195"></line><line x1="270" y1="45" x2="270" y2="350"></line></g>
+                      <line x1="180" y1="45" x2="180" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line>
+                      <path d="M187 350 C194 317 205 280 224 246 C250 198 286 154 330 126 C400 82 508 63 620 54" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path>
+                      <circle cx="270" cy="285" r="6" fill="#059669"></circle><circle cx="425" cy="195" r="6" fill="#059669"></circle>
+                      <g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="210" fill="#111827">x</text><text x="282" y="58" fill="#111827">y</text><text x="190" y="72" fill="#2563eb">x=-1</text><text x="282" y="304" fill="#059669">(0,-1)</text><text x="438" y="188" fill="#059669">e-1</text><text x="535" y="72" fill="#dc2626">C_f</text></g>
+                    </svg>
+                    <figcaption>منحنى لوغارتمي منزاح: مقارب عمودي عند <span class="math">x=-1</span>، ومتزايد على كامل مجاله.</figcaption>
+                  </figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>استنتاج المنحنيات من <span class="math">(C_f)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. منحنى <span class="math">g(x)=|ln(x+1)-1|=|f(x)|</span></h5>
+                  <p>بما أن <span class="math">g(x)=|f(x)|</span> فإننا نستنتج <span class="math">(C_1)</span> من <span class="math">(C_f)</span> كما يلي:</p>
+                  <ul class="solution-list"><li>الجزء من <span class="math">(C_f)</span> الواقع فوق محور الفواصل أو عليه يبقى كما هو.</li><li>الجزء الواقع تحت محور الفواصل نقلبه بتناظر بالنسبة إلى محور الفواصل.</li></ul>
+                  <p>وبما أن <span class="math">f(x)&lt;0</span> على <span class="math">]-1,e-1[</span> و <span class="math">f(x)≥0</span> على <span class="math">[e-1,+∞[</span>، فإن الانعكاس يخص الفرع الموجود قبل <span class="math">e-1</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. منحنى <span class="math">h(x)=ln(|x|+1)-1=f(|x|)</span></h5>
+                  <p>الدالة <span class="math">h</span> معرفة على <span class="math">R</span>، وهي زوجية لأن:</p>
+                  <div class="math-equation">h(-x)=ln(|-x|+1)-1=ln(|x|+1)-1=h(x)</div>
+                  <p>لرسم <span class="math">(C_2)</span> نأخذ فرع <span class="math">(C_f)</span> الموافق لـ <span class="math">x≥0</span> فقط، ثم نرسم صورته بالتناظر بالنسبة إلى محور التراتيب.</p>
+                  <p>النقطة <span class="math">(0,-1)</span> تبقى مشتركة، والتقاطعان مع محور الفواصل هما <span class="math">x=e-1</span> و <span class="math">x=1-e</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=ln(|x|+1)-1">
+                    <svg viewBox="0 0 680 420" role="img">
+                      <rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect>
+                      <g stroke="#e5e7eb" stroke-width="1">
+                        <line x1="80" y1="45" x2="80" y2="350"></line><line x1="160" y1="45" x2="160" y2="350"></line><line x1="240" y1="45" x2="240" y2="350"></line><line x1="320" y1="45" x2="320" y2="350"></line><line x1="400" y1="45" x2="400" y2="350"></line><line x1="480" y1="45" x2="480" y2="350"></line><line x1="560" y1="45" x2="560" y2="350"></line>
+                        <line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="195" x2="620" y2="195"></line><line x1="70" y1="285" x2="620" y2="285"></line>
+                      </g>
+                      <g stroke="#111827" stroke-width="2"><line x1="70" y1="195" x2="620" y2="195"></line><line x1="340" y1="45" x2="340" y2="350"></line></g>
+                      <path d="M340 285 C377 210 425 152 482 119 C528 92 574 76 620 68" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path>
+                      <path d="M340 285 C303 210 255 152 198 119 C152 92 106 76 60 68" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path>
+                      <line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8" opacity="0.6"></line>
+                      <circle cx="340" cy="285" r="6" fill="#059669"></circle><circle cx="463" cy="195" r="6" fill="#059669"></circle><circle cx="217" cy="195" r="6" fill="#059669"></circle>
+                      <g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="210" fill="#111827">x</text><text x="352" y="58" fill="#111827">y</text><text x="352" y="304" fill="#059669">(0,-1)</text><text x="474" y="188" fill="#059669">e-1</text><text x="160" y="188" fill="#059669">1-e</text><text x="490" y="92" fill="#dc2626">C_2</text><text x="356" y="88" fill="#2563eb">محور تناظر</text></g>
+                    </svg>
+                    <figcaption>منحنى <span class="math">h</span> زوجي: نرسم الفرع الأيمن ثم ننسخه بتناظر حول محور التراتيب.</figcaption>
+                  </figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. منحنى <span class="math">k(x)=ln(-x+1)-1=f(-x)</span></h5>
+                  <p>نلاحظ أن:</p>
+                  <div class="math-equation">k(x)=ln(1-x)-1=f(-x)</div>
+                  <p>إذن <span class="math">(C_3)</span> هو صورة <span class="math">(C_f)</span> بتناظر بالنسبة إلى محور التراتيب.</p>
+                  <p>مجال تعريفه هو <span class="math">]-∞,1[</span>، والمستقيم <span class="math">x=1</span> مقارب عمودي له، لأنه صورة المقارب <span class="math">x=-1</span> بالتناظر حول محور التراتيب.</p>
+                  <p>كما أن <span class="math">k(0)=-1</span>، ويقطع محور الفواصل عندما:</p>
+                  <div class="math-equation">ln(1-x)-1=0 ⇔ 1-x=e ⇔ x=1-e</div>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة k(x)=ln(1-x)-1">
+                    <svg viewBox="0 0 680 420" role="img">
+                      <rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect>
+                      <g stroke="#e5e7eb" stroke-width="1">
+                        <line x1="90" y1="45" x2="90" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="270" y1="45" x2="270" y2="350"></line><line x1="360" y1="45" x2="360" y2="350"></line><line x1="450" y1="45" x2="450" y2="350"></line><line x1="540" y1="45" x2="540" y2="350"></line><line x1="630" y1="45" x2="630" y2="350"></line>
+                        <line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="195" x2="620" y2="195"></line><line x1="70" y1="285" x2="620" y2="285"></line>
+                      </g>
+                      <g stroke="#111827" stroke-width="2"><line x1="70" y1="195" x2="620" y2="195"></line><line x1="360" y1="45" x2="360" y2="350"></line></g>
+                      <line x1="450" y1="45" x2="450" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line>
+                      <path d="M70 54 C182 63 290 82 360 126 C404 154 440 198 466 246 C485 280 496 317 503 350" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path>
+                      <circle cx="360" cy="285" r="6" fill="#059669"></circle><circle cx="205" cy="195" r="6" fill="#059669"></circle>
+                      <g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="210" fill="#111827">x</text><text x="372" y="58" fill="#111827">y</text><text x="462" y="72" fill="#2563eb">x=1</text><text x="372" y="304" fill="#059669">(0,-1)</text><text x="145" y="188" fill="#059669">1-e</text><text x="105" y="78" fill="#7c3aed">C_3</text></g>
+                    </svg>
+                    <figcaption>منحنى <span class="math">k</span> هو صورة <span class="math">C_f</span> بتناظر حول محور التراتيب؛ لذلك صار المقارب العمودي <span class="math">x=1</span>.</figcaption>
+                  </figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثاني</span><strong>دالة أصلية ثم استنتاج منحنيات</strong></header>
+          <article class="training-exercise graph-transform-second-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية</h4>
+            <p>لتكن الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=1+ln(x)/x</div>
+            <p>وليكن <span class="math">(C_f)</span> تمثيلها البياني في معلم متعامد ومتجانس <span class="math">(O;i,j)</span>.</p>
+            <ol>
+              <li>احسب <span class="math">lim(x→0+) f(x)</span> و <span class="math">lim(x→+∞) f(x)</span>، واستنتج المستقيمات المقاربة للمنحنى <span class="math">(C_f)</span>.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>بيّن أن المنحنى <span class="math">(C_f)</span> يقطع محور الفواصل في نقطة وحيدة فاصلتها <span class="math">α</span> حيث <span class="math">0.5&lt;α&lt;0.6</span>.</li>
+              <li>ارسم المستقيمات المقاربة والمنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج المنحنيات</h4>
+            <p>نعتبر الدوال <span class="math">g</span> و <span class="math">h</span> و <span class="math">k</span> حيث:</p>
+            <div class="math-equation">g(x)=|1+ln(x)/x|</div>
+            <div class="math-equation">h(x)=1+ln(|x|)/|x|</div>
+            <div class="math-equation">k(x)=1+ln(-x)/(-x)</div>
+            <p>وليكن <span class="math">(C_g)</span> و <span class="math">(C_h)</span> و <span class="math">(C_k)</span> منحنياتها البيانية على الترتيب.</p>
+            <ol>
+              <li>عيّن مجموعة تعريف كل من الدوال <span class="math">g</span> و <span class="math">h</span> و <span class="math">k</span>.</li>
+              <li>بيّن أن الدالة <span class="math">h</span> زوجية.</li>
+              <li>اعتمادا على القواعد السابقة، اشرح بدقة كيف يمكن استنتاج رسم المنحنيات <span class="math">(C_g)</span> و <span class="math">(C_h)</span> و <span class="math">(C_k)</span> انطلاقا من المنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة الدالة الأصلية</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والمستقيمات المقاربة</h5>
+                  <p>مجال تعريف الدالة هو <span class="math">]0,+∞[</span>.</p>
+                  <div class="solution-case"><strong>عند <span class="math">0^+</span>:</strong><div class="math-equation">lim(x→0+) ln(x)/x=-∞</div><div class="math-equation">lim(x→0+) f(x)=-∞</div><p>إذن المستقيم <span class="math">x=0</span> مقارب عمودي للمنحنى <span class="math">(C_f)</span>.</p></div>
+                  <div class="solution-case"><strong>عند <span class="math">+∞</span>:</strong><div class="math-equation">lim(x→+∞) ln(x)/x=0</div><div class="math-equation">lim(x→+∞) f(x)=1</div><p>إذن المستقيم <span class="math">y=1</span> مقارب أفقي للمنحنى عند <span class="math">+∞</span>.</p></div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. المشتقة وجدول التغيرات</h5>
+                  <p>نشتق الحد <span class="math">ln(x)/x</span> باستعمال مشتقة خارج:</p>
+                  <div class="math-equation">f'(x)=((1/x)x-ln(x))/x²=(1-ln(x))/x²</div>
+                  <p>بما أن <span class="math">x²&gt;0</span>، فإن إشارة <span class="math">f'(x)</span> هي إشارة <span class="math">1-ln(x)</span>.</p>
+                  <ul class="solution-list"><li><span class="math">f'(x)&gt;0</span> إذا <span class="math">0&lt;x&lt;e</span>.</li><li><span class="math">f'(e)=0</span>.</li><li><span class="math">f'(x)&lt;0</span> إذا <span class="math">x&gt;e</span>.</li></ul>
+                  <p>إذن <span class="math">f</span> متزايدة على <span class="math">]0,e]</span> ومتناقصة على <span class="math">[e,+∞[</span>، وقيمتها الكبرى هي:</p>
+                  <div class="math-equation">f(e)=1+1/e</div>
+                  <div class="variation-mini-table" aria-label="جدول تغيرات الدالة f"><div>x</div><div>0</div><div>e</div><div>+∞</div><div>f'(x)</div><div>+</div><div>0</div><div>-</div><div>f(x)</div><div>-∞</div><div>1+1/e</div><div>1</div></div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. الجذر الوحيد <span class="math">α</span></h5>
+                  <p>بما أن <span class="math">f</span> متزايدة على <span class="math">]0,e]</span> وتنتقل من <span class="math">-∞</span> إلى <span class="math">1+1/e</span>، فهي تقطع محور الفواصل مرة واحدة فقط في هذا المجال. ولا يوجد جذر بعد <span class="math">e</span> لأن <span class="math">f</span> تتناقص نحو <span class="math">1</span> وتبقى موجبة.</p>
+                  <p>نحسب قيمتين محيطتين:</p>
+                  <div class="math-equation">f(0.5)=1+ln(0.5)/0.5≈-0.386&lt;0</div>
+                  <div class="math-equation">f(0.6)=1+ln(0.6)/0.6≈0.149&gt;0</div>
+                  <p>إذن حسب مبرهنة القيم المتوسطة يوجد الجذر الوحيد <span class="math">α</span> حيث:</p>
+                  <div class="math-equation">0.5&lt;α&lt;0.6</div>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>4. رسم <span class="math">(C_f)</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=1+ln(x)/x">
+                    <svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="190" y1="45" x2="190" y2="350"></line><line x1="280" y1="45" x2="280" y2="350"></line><line x1="370" y1="45" x2="370" y2="350"></line><line x1="460" y1="45" x2="460" y2="350"></line><line x1="550" y1="45" x2="550" y2="350"></line><line x1="70" y1="125" x2="620" y2="125"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="295" x2="620" y2="295"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="295" x2="620" y2="295"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="70" y1="185" x2="620" y2="185" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="100" y1="45" x2="100" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M108 350 C118 318 134 280 160 245 C198 194 244 130 304 112 C365 94 434 130 500 157 C552 178 590 184 620 185" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="152" cy="295" r="6" fill="#059669"></circle><circle cx="304" cy="112" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="310" fill="#111827">x</text><text x="112" y="58" fill="#111827">y</text><text x="112" y="72" fill="#2563eb">x=0</text><text x="540" y="177" fill="#2563eb">y=1</text><text x="162" y="288" fill="#059669">α</text><text x="315" y="106" fill="#059669">e</text><text x="515" y="132" fill="#dc2626">C_f</text></g></svg>
+                    <figcaption>يبدأ المنحنى من <span class="math">-∞</span> قرب <span class="math">0^+</span>، يبلغ قيمة كبرى عند <span class="math">e</span>، ثم يقترب من <span class="math">y=1</span>.</figcaption>
+                  </figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>استنتاج المنحنيات</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. مجالات التعريف</h5>
+                  <ul class="solution-list"><li><span class="math">D_g=]0,+∞[</span> لأن <span class="math">ln(x)</span> يتطلب <span class="math">x&gt;0</span>.</li><li><span class="math">D_h=R*</span> لأن <span class="math">|x|&gt;0</span>، أي <span class="math">x≠0</span>.</li><li><span class="math">D_k=]-∞,0[</span> لأن <span class="math">-x&gt;0</span>.</li></ul>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. زوجية الدالة <span class="math">h</span></h5>
+                  <p>لكل <span class="math">x≠0</span> لدينا:</p>
+                  <div class="math-equation">h(-x)=1+ln(|-x|)/|-x|=1+ln(|x|)/|x|=h(x)</div>
+                  <p>إذن <span class="math">h</span> زوجية، ومنحناها متناظر بالنسبة إلى محور التراتيب.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. استنتاج <span class="math">(C_g)</span></h5>
+                  <p>لدينا <span class="math">g(x)=|f(x)|</span>. إذن نترك الجزء من <span class="math">(C_f)</span> الواقع فوق محور الفواصل كما هو، ونقلب الجزء الواقع تحته إلى الأعلى بتناظر بالنسبة إلى محور الفواصل. وبما أن الجزء السالب يقع على <span class="math">]0,α[</span>، فهذا هو الجزء الذي ينعكس.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=|1+ln(x)/x|">
+                    <svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="190" y1="45" x2="190" y2="350"></line><line x1="280" y1="45" x2="280" y2="350"></line><line x1="370" y1="45" x2="370" y2="350"></line><line x1="460" y1="45" x2="460" y2="350"></line><line x1="550" y1="45" x2="550" y2="350"></line><line x1="70" y1="125" x2="620" y2="125"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="295" x2="620" y2="295"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="295" x2="620" y2="295"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="70" y1="185" x2="620" y2="185" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="100" y1="45" x2="100" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M108 45 C118 72 134 110 160 145 C198 194 244 130 304 112 C365 94 434 130 500 157 C552 178 590 184 620 185" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><path d="M108 350 C118 318 134 280 160 245" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 8"></path><circle cx="152" cy="295" r="6" fill="#111827"></circle><circle cx="304" cy="112" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="310" fill="#111827">x</text><text x="112" y="58" fill="#111827">y</text><text x="112" y="72" fill="#2563eb">x=0</text><text x="540" y="177" fill="#2563eb">y=1</text><text x="162" y="288" fill="#111827">α</text><text x="315" y="106" fill="#059669">e</text><text x="505" y="132" fill="#059669">C_g</text><text x="122" y="118" fill="#64748b">انعكاس الجزء السالب</text></g></svg>
+                    <figcaption>بيان <span class="math">g=|f|</span>: الجزء السالب من <span class="math">C_f</span> على <span class="math">]0,α[</span> ينعكس فوق محور الفواصل.</figcaption>
+                  </figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. استنتاج <span class="math">(C_h)</span> و <span class="math">(C_k)</span></h5>
+                  <p>لدينا <span class="math">h(x)=f(|x|)</span>: نحتفظ بفرع <span class="math">(C_f)</span> على <span class="math">]0,+∞[</span> ثم نرسم صورته بتناظر بالنسبة إلى محور التراتيب.</p>
+                  <p>ولدينا <span class="math">k(x)=f(-x)</span>: منحنى <span class="math">(C_k)</span> هو صورة <span class="math">(C_f)</span> كلها بتناظر بالنسبة إلى محور التراتيب، لذلك مجاله <span class="math">]-∞,0[</span> ومقاربه العمودي هو <span class="math">x=0</span> من الجهة اليسرى.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=1+ln(|x|)/|x|">
+                    <svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="80" y1="45" x2="80" y2="350"></line><line x1="160" y1="45" x2="160" y2="350"></line><line x1="240" y1="45" x2="240" y2="350"></line><line x1="320" y1="45" x2="320" y2="350"></line><line x1="400" y1="45" x2="400" y2="350"></line><line x1="480" y1="45" x2="480" y2="350"></line><line x1="560" y1="45" x2="560" y2="350"></line><line x1="70" y1="125" x2="620" y2="125"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="295" x2="620" y2="295"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="295" x2="620" y2="295"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="185" x2="620" y2="185" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8" opacity="0.58"></line><path d="M348 350 C358 318 374 280 400 245 C438 194 484 130 544 112 C585 100 610 128 620 150" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M332 350 C322 318 306 280 280 245 C242 194 196 130 136 112 C95 100 70 128 60 150" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="392" cy="295" r="6" fill="#059669"></circle><circle cx="288" cy="295" r="6" fill="#059669"></circle><circle cx="544" cy="112" r="6" fill="#059669"></circle><circle cx="136" cy="112" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="310" fill="#111827">x</text><text x="352" y="58" fill="#111827">y</text><text x="350" y="76" fill="#2563eb">x=0 محور تناظر ومقارب</text><text x="540" y="177" fill="#2563eb">y=1</text><text x="402" y="288" fill="#059669">α</text><text x="248" y="288" fill="#059669">-α</text><text x="514" y="102" fill="#dc2626">C_h</text></g></svg>
+                    <figcaption>بيان <span class="math">h=f(|x|)</span>: نرسم الفرع الأيمن من <span class="math">C_f</span> ثم ننسخه بتناظر بالنسبة إلى محور التراتيب.</figcaption>
+                  </figure>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة k(x)=1+ln(-x)/(-x)">
+                    <svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="80" y1="45" x2="80" y2="350"></line><line x1="160" y1="45" x2="160" y2="350"></line><line x1="240" y1="45" x2="240" y2="350"></line><line x1="320" y1="45" x2="320" y2="350"></line><line x1="400" y1="45" x2="400" y2="350"></line><line x1="480" y1="45" x2="480" y2="350"></line><line x1="560" y1="45" x2="560" y2="350"></line><line x1="70" y1="125" x2="620" y2="125"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="295" x2="620" y2="295"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="295" x2="620" y2="295"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="185" x2="620" y2="185" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M332 350 C322 318 306 280 280 245 C242 194 196 130 136 112 C75 94 26 130 -20 157" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="288" cy="295" r="6" fill="#059669"></circle><circle cx="136" cy="112" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="310" fill="#111827">x</text><text x="352" y="58" fill="#111827">y</text><text x="350" y="76" fill="#2563eb">x=0</text><text x="540" y="177" fill="#2563eb">y=1</text><text x="248" y="288" fill="#059669">-α</text><text x="145" y="106" fill="#059669">-e</text><text x="98" y="142" fill="#7c3aed">C_k</text></g></svg>
+                    <figcaption>بيان <span class="math">k=f(-x)</span>: هو صورة <span class="math">C_f</span> بتناظر حول محور التراتيب، لذلك يوجد فقط على <span class="math">]-∞,0[</span>.</figcaption>
+                  </figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثالث</span><strong>تحويلات منحنى دالة لوغارتمية</strong></header>
+          <article class="training-exercise graph-transform-third-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية</h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=(ln(x))²-2ln(x)</div>
+            <p>وليكن <span class="math">(C_f)</span> تمثيلها البياني في مستو منسوب إلى معلم متعامد ومتجانس <span class="math">(O;i,j)</span>.</p>
+            <ol>
+              <li>احسب <span class="math">lim(x→0+) f(x)</span> و <span class="math">lim(x→+∞) f(x)</span>. ماذا تستنتج هندسيا عند الصفر؟</li>
+              <li>بيّن أنه من أجل كل <span class="math">x</span> من المجال <span class="math">]0,+∞[</span>، المشتقة تعطى بالعبارة: <span class="math">f'(x)=2(ln(x)-1)/x</span>.</li>
+              <li>ادرس إشارة <span class="math">f'(x)</span>، ثم شكل جدول تغيرات الدالة <span class="math">f</span>.</li>
+              <li>عيّن إحداثيات نقط تقاطع المنحنى <span class="math">(C_f)</span> مع محور الفواصل.</li>
+              <li>ارسم المنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج المنحنيات</h4>
+            <p>لتكن الدوال <span class="math">g</span> و <span class="math">h</span> و <span class="math">k</span> المعرفة كما يلي:</p>
+            <div class="math-equation">g(x)=|(ln(x))²-2ln(x)|</div>
+            <div class="math-equation">h(x)=(ln|x|)²-2ln|x|</div>
+            <div class="math-equation">k(x)=(ln(-x))²-2ln(-x)</div>
+            <ol>
+              <li>حدد مجموعة التعريف لكل دالة من الدوال الثلاث.</li>
+              <li>اشرح كيف يمكن استنتاج رسم المنحنيات <span class="math">(C_g)</span> و <span class="math">(C_h)</span> و <span class="math">(C_k)</span> انطلاقا من المنحنى <span class="math">(C_f)</span>، معتمدا على القواعد الهندسية للتحويلات النقطية.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة الدالة الأصلية</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتفسير الهندسي</h5>
+                  <p>عند <span class="math">0^+</span> لدينا <span class="math">ln(x)→-∞</span>، ومنه:</p>
+                  <div class="math-equation">f(x)=(ln(x))²-2ln(x)→+∞</div>
+                  <p>إذن المستقيم <span class="math">x=0</span> مقارب عمودي للمنحنى <span class="math">(C_f)</span>.</p>
+                  <p>وعند <span class="math">+∞</span> لدينا <span class="math">ln(x)→+∞</span>، ومنه:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. المشتقة وإشارة التغير</h5>
+                  <p>نشتق:</p>
+                  <div class="math-equation">f'(x)=2ln(x)/x-2/x=2(ln(x)-1)/x</div>
+                  <p>وبما أن <span class="math">x&gt;0</span>، فإن إشارة <span class="math">f'(x)</span> هي إشارة <span class="math">ln(x)-1</span>.</p>
+                  <ul class="solution-list"><li><span class="math">f'(x)&lt;0</span> إذا <span class="math">0&lt;x&lt;e</span>.</li><li><span class="math">f'(e)=0</span>.</li><li><span class="math">f'(x)&gt;0</span> إذا <span class="math">x&gt;e</span>.</li></ul>
+                  <p>إذن <span class="math">f</span> متناقصة على <span class="math">]0,e]</span> ومتزايدة على <span class="math">[e,+∞[</span>، وقيمتها الصغرى:</p>
+                  <div class="math-equation">f(e)=1-2=-1</div>
+                  <div class="variation-mini-table" aria-label="جدول تغيرات الدالة f"><div>x</div><div>0</div><div>e</div><div>+∞</div><div>f'(x)</div><div>-</div><div>0</div><div>+</div><div>f(x)</div><div>+∞</div><div>-1</div><div>+∞</div></div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. التقاطع مع محور الفواصل</h5>
+                  <p>نحل <span class="math">f(x)=0</span>:</p>
+                  <div class="math-equation">(ln(x))²-2ln(x)=0</div>
+                  <div class="math-equation">ln(x)(ln(x)-2)=0</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">ln(x)=0 ⇔ x=1</div>
+                  <div class="math-equation">ln(x)=2 ⇔ x=e²</div>
+                  <p>إذن نقطتا التقاطع مع محور الفواصل هما <span class="math">(1,0)</span> و <span class="math">(e²,0)</span>.</p>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>4. رسم <span class="math">(C_f)</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=(ln(x))²-2ln(x)">
+                    <svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="190" y1="45" x2="190" y2="350"></line><line x1="280" y1="45" x2="280" y2="350"></line><line x1="370" y1="45" x2="370" y2="350"></line><line x1="460" y1="45" x2="460" y2="350"></line><line x1="550" y1="45" x2="550" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="100" y1="45" x2="100" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M108 55 C124 98 148 160 190 210 C235 264 282 296 340 300 C410 304 465 260 520 210 C570 164 600 104 620 60" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="190" cy="210" r="6" fill="#059669"></circle><circle cx="340" cy="300" r="6" fill="#059669"></circle><circle cx="520" cy="210" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="628" y="225" fill="#111827">x</text><text x="112" y="58" fill="#111827">y</text><text x="112" y="80" fill="#2563eb">x=0</text><text x="178" y="233" fill="#059669">1</text><text x="346" y="318" fill="#059669">e</text><text x="512" y="233" fill="#059669">e²</text><text x="500" y="92" fill="#dc2626">C_f</text></g></svg>
+                    <figcaption>منحنى <span class="math">f</span> يتناقص من <span class="math">+∞</span> إلى القيمة الصغرى <span class="math">-1</span> عند <span class="math">e</span> ثم يتزايد إلى <span class="math">+∞</span>.</figcaption>
+                  </figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>استنتاج المنحنيات</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. مجالات التعريف</h5>
+                  <ul class="solution-list"><li><span class="math">D_g=]0,+∞[</span>.</li><li><span class="math">D_h=R*</span> لأن <span class="math">|x|&gt;0</span>.</li><li><span class="math">D_k=]-∞,0[</span> لأن <span class="math">-x&gt;0</span>.</li></ul>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. بيان <span class="math">g(x)=|f(x)|</span></h5>
+                  <p>نترك الجزأين الموجبين من <span class="math">(C_f)</span> كما هما، ونقلب الجزء الواقع تحت محور الفواصل، أي بين <span class="math">1</span> و <span class="math">e²</span>، بتناظر بالنسبة إلى محور الفواصل.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=|(ln(x))²-2ln(x)|"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="190" y1="45" x2="190" y2="350"></line><line x1="280" y1="45" x2="280" y2="350"></line><line x1="370" y1="45" x2="370" y2="350"></line><line x1="460" y1="45" x2="460" y2="350"></line><line x1="550" y1="45" x2="550" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="100" y1="45" x2="100" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M108 55 C124 98 148 160 190 210 C235 156 282 124 340 120 C410 116 465 160 520 210 C570 164 600 104 620 60" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><path d="M190 210 C235 264 282 296 340 300 C410 304 465 260 520 210" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 8"></path><circle cx="190" cy="210" r="6" fill="#111827"></circle><circle cx="340" cy="120" r="6" fill="#059669"></circle><circle cx="520" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="178" y="233" fill="#111827">1</text><text x="346" y="112" fill="#059669">e</text><text x="512" y="233" fill="#111827">e²</text><text x="500" y="92" fill="#059669">C_g</text></g></svg><figcaption>بيان <span class="math">g</span>: الجزء السالب من <span class="math">C_f</span> بين <span class="math">1</span> و <span class="math">e²</span> أصبح فوق محور الفواصل.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. بيان <span class="math">h=f(|x|)</span> و <span class="math">k=f(-x)</span></h5>
+                  <p><span class="math">h</span> زوجية، فنأخذ فرع <span class="math">C_f</span> على <span class="math">]0,+∞[</span> ونرسم صورته بتناظر حول محور التراتيب. أما <span class="math">k</span> فهو صورة <span class="math">C_f</span> بتناظر حول محور التراتيب ومجاله <span class="math">]-∞,0[</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=(ln|x|)²-2ln|x|"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M348 55 C364 98 388 160 430 210 C475 264 522 296 580 300 C610 302 628 284 640 260" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M332 55 C316 98 292 160 250 210 C205 264 158 296 100 300 C70 302 52 284 40 260" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="430" cy="210" r="6" fill="#059669"></circle><circle cx="250" cy="210" r="6" fill="#059669"></circle><circle cx="580" cy="300" r="6" fill="#059669"></circle><circle cx="100" cy="300" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="78" fill="#2563eb">x=0</text><text x="508" y="105" fill="#dc2626">C_h</text><text x="438" y="233" fill="#059669">1</text><text x="210" y="233" fill="#059669">-1</text></g></svg><figcaption>بيان <span class="math">h</span> زوجي وله فرعان متناظران حول محور التراتيب.</figcaption></figure>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة k(x)=(ln(-x))²-2ln(-x)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M332 55 C316 98 292 160 250 210 C205 264 158 296 100 300 C70 302 52 284 40 260" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="250" cy="210" r="6" fill="#059669"></circle><circle cx="100" cy="300" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="78" fill="#2563eb">x=0</text><text x="105" y="95" fill="#7c3aed">C_k</text><text x="210" y="233" fill="#059669">-1</text><text x="70" y="318" fill="#059669">-e</text></g></svg><figcaption>بيان <span class="math">k=f(-x)</span> هو الفرع الأيسر الناتج عن تناظر <span class="math">C_f</span> حول محور التراتيب.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الرابع</span><strong>دالة مساعدة وتحويلات متقدمة</strong></header>
+          <article class="training-exercise graph-transform-fourth-exercise">
+            <h4>الجزء الأول: دراسة الدالة المساعدة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على المجال <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=x²+2-2ln(x)</div>
+            <ol>
+              <li>ادرس اتجاه تغير الدالة <span class="math">g</span> على مجال تعريفها، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">g(1)</span>، ثم استنتج إشارة <span class="math">g(x)</span> من أجل كل <span class="math">x∈]0,+∞[</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: دراسة الدالة الرئيسية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=x/2+1+ln(x)/x</div>
+            <p>وليكن <span class="math">(C_f)</span> تمثيلها البياني في معلم متعامد ومتجانس <span class="math">(O;i,j)</span>.</p>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">f</span> عند <span class="math">0</span> بقيم كبرى وعند <span class="math">+∞</span>. ماذا تستنتج هندسيا عند الصفر؟</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈]0,+∞[</span>: <span class="math">f'(x)=g(x)/(2x²)</span>.</li>
+              <li>استنتج اتجاه تغير الدالة <span class="math">f</span> وشكل جدول تغيراتها.</li>
+              <li>بيّن أن المستقيم <span class="math">Δ: y=x/2+1</span> مقارب مائل للمنحنى <span class="math">(C_f)</span> عند <span class="math">+∞</span>.</li>
+              <li>ادرس الوضع النسبي للمنحنى <span class="math">(C_f)</span> والمستقيم <span class="math">(Δ)</span>.</li>
+              <li>بيّن أن المعادلة <span class="math">f(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث <span class="math">0.3&lt;α&lt;0.4</span>.</li>
+              <li>ارسم المستقيم المقارب <span class="math">(Δ)</span> والمنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: تركيب التحويلات النقطية</h4>
+            <p>نعتبر الدالتين <span class="math">h</span> و <span class="math">m</span> المعرفتين كما يلي:</p>
+            <div class="math-equation">h(x)=|x|/2+1+ln(|x|)/|x|</div>
+            <div class="math-equation">m(x)=|x|/2+1+ln(|x|)/x</div>
+            <ol>
+              <li>حدد مجموعة تعريف الدالة <span class="math">h</span>، وبيّن أنها دالة زوجية.</li>
+              <li>بالاعتماد على المنحنى <span class="math">(C_f)</span> والقواعد الهندسية للتحويلات، اشرح بدقة كيف يتم رسم المنحنى <span class="math">(C_h)</span>.</li>
+              <li>استنتج كيف يتم رسم المنحنى <span class="math">(C_m)</span> انطلاقا من <span class="math">(C_h)</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة الدالة المساعدة</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. تغيرات <span class="math">g</span> وإشارتها</h5>
+                  <p>نشتق:</p>
+                  <div class="math-equation">g'(x)=2x-2/x=2(x²-1)/x</div>
+                  <p>وبما أن <span class="math">x&gt;0</span>، فإن إشارة <span class="math">g'(x)</span> هي إشارة <span class="math">x²-1</span>.</p>
+                  <ul class="solution-list"><li><span class="math">g</span> متناقصة على <span class="math">]0,1]</span>.</li><li><span class="math">g</span> متزايدة على <span class="math">[1,+∞[</span>.</li></ul>
+                  <div class="math-equation">g(1)=1+2-2ln(1)=3</div>
+                  <p>إذن القيمة الصغرى للدالة <span class="math">g</span> هي <span class="math">3</span>، ومنه:</p>
+                  <div class="math-equation">∀x∈]0,+∞[, g(x)&gt;0</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>دراسة الدالة الرئيسية</h4></header>
+                <article class="solution-step-card">
+                  <h5>2. النهايات والمشتقة</h5>
+                  <p>عند <span class="math">0^+</span> لدينا <span class="math">ln(x)/x→-∞</span>، إذن:</p>
+                  <div class="math-equation">lim(x→0+)f(x)=-∞</div>
+                  <p>فيكون المستقيم <span class="math">x=0</span> مقاربا عموديا للمنحنى.</p>
+                  <p>وعند <span class="math">+∞</span>، الحد <span class="math">x/2</span> يفرض:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                  <p>نشتق:</p>
+                  <div class="math-equation">f'(x)=1/2+(1-ln(x))/x²</div>
+                  <div class="math-equation">f'(x)=(x²+2-2ln(x))/(2x²)=g(x)/(2x²)</div>
+                  <p>وبما أن <span class="math">g(x)&gt;0</span> و <span class="math">2x²&gt;0</span>، فإن <span class="math">f'(x)&gt;0</span>. إذن <span class="math">f</span> متزايدة تماما على <span class="math">]0,+∞[</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. المقارب المائل والوضع النسبي</h5>
+                  <p>نحسب الفرق بين الدالة والمستقيم <span class="math">Δ: y=x/2+1</span>:</p>
+                  <div class="math-equation">f(x)-(x/2+1)=ln(x)/x</div>
+                  <p>وعند <span class="math">+∞</span> نجد <span class="math">ln(x)/x→0</span>، إذن <span class="math">Δ</span> مقارب مائل عند <span class="math">+∞</span>.</p>
+                  <ul class="solution-list"><li>إذا <span class="math">0&lt;x&lt;1</span> فإن <span class="math">ln(x)&lt;0</span>، فيكون <span class="math">C_f</span> أسفل <span class="math">Δ</span>.</li><li>إذا <span class="math">x=1</span> يقطع المنحنى المقارب في النقطة <span class="math">(1,3/2)</span>.</li><li>إذا <span class="math">x&gt;1</span> فإن <span class="math">C_f</span> أعلى <span class="math">Δ</span>.</li></ul>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. وجود الجذر الوحيد</h5>
+                  <p>بما أن <span class="math">f</span> متزايدة تماما، فالمعادلة <span class="math">f(x)=0</span> لها على الأكثر حل واحد. نحسب:</p>
+                  <div class="math-equation">f(0.3)≈0.15+1+ln(0.3)/0.3≈-2.86&lt;0</div>
+                  <div class="math-equation">f(0.4)≈0.2+1+ln(0.4)/0.4≈-1.09&lt;0</div>
+                  <p>وبما أن التقدير المطلوب في الصورة هو <span class="math">0.3&lt;α&lt;0.4</span>، نحتفظ به كمعطى تدريبي ونستعمله على الرسم. ملاحظة حسابية: بالعبارة المكتوبة <span class="math">x/2+1+ln(x)/x</span> الجذر العددي يقع تقريبا قرب <span class="math">0.53</span>، لذلك قد تكون هناك علامة أو معامل ناقص في نص المصدر.</p>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>5. رسم <span class="math">C_f</span> و <span class="math">Δ</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f والمقارب المائل"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="190" y1="45" x2="190" y2="350"></line><line x1="280" y1="45" x2="280" y2="350"></line><line x1="370" y1="45" x2="370" y2="350"></line><line x1="460" y1="45" x2="460" y2="350"></line><line x1="550" y1="45" x2="550" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="300" x2="620" y2="300"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="100" y1="45" x2="100" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="95" y1="265" x2="620" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><path d="M106 350 C128 320 145 290 174 300 C218 315 250 252 300 214 C370 160 455 119 620 76" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="208" cy="300" r="6" fill="#059669"></circle><circle cx="280" cy="203" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="112" y="72" fill="#2563eb">x=0</text><text x="505" y="102" fill="#2563eb">Δ</text><text x="540" y="70" fill="#dc2626">C_f</text><text x="218" y="323" fill="#059669">α</text><text x="292" y="197" fill="#059669">(1,3/2)</text></g></svg><figcaption>الرسم يوضح التزايد، المقارب العمودي <span class="math">x=0</span>، والمقارب المائل <span class="math">Δ</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>التحويلات</h4></header>
+                <article class="solution-step-card">
+                  <h5>6. رسم <span class="math">C_h</span></h5>
+                  <p>مجال تعريف <span class="math">h</span> هو <span class="math">R*</span>. كما أن:</p>
+                  <div class="math-equation">h(-x)=|-x|/2+1+ln(|-x|)/|-x|=h(x)</div>
+                  <p>إذن <span class="math">h</span> زوجية. لرسم <span class="math">C_h</span> نأخذ فرع <span class="math">C_f</span> على <span class="math">]0,+∞[</span> ثم ننسخه بتناظر حول محور التراتيب.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="300" x2="620" y2="300"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M348 350 C370 320 388 290 414 300 C458 315 490 252 540 214 C590 176 620 120 635 76" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M332 350 C310 320 292 290 266 300 C222 315 190 252 140 214 C90 176 60 120 45 76" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="78" fill="#2563eb">x=0</text><text x="505" y="98" fill="#dc2626">C_h</text><text x="170" y="98" fill="#dc2626">C_h</text></g></svg><figcaption>بيان <span class="math">h=f(|x|)</span> متناظر حول محور التراتيب.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>7. رسم <span class="math">C_m</span></h5>
+                  <p>على <span class="math">]0,+∞[</span> لدينا <span class="math">m(x)=f(x)</span>، لذلك الفرع الأيمن من <span class="math">C_m</span> هو نفسه الفرع الأيمن من <span class="math">C_h</span>. وعلى <span class="math">]-∞,0[</span> نكتب:</p>
+                  <div class="math-equation">m(x)=|x|/2+1+ln(|x|)/x</div>
+                  <p>أي إن الحد اللوغارتمي يغيّر إشارته مقارنة بـ <span class="math">h</span>. لذلك نستنتج الفرع الأيسر من <span class="math">C_m</span> بعكس الفرع الأيسر لـ <span class="math">C_h</span> حول المستقيم المائل <span class="math">y=|x|/2+1</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة m"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="300" x2="620" y2="300"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="300" x2="620" y2="300"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="45" x2="340" y2="350" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="340" y1="265" x2="70" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><line x1="340" y1="265" x2="620" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><path d="M348 350 C370 320 388 290 414 300 C458 315 490 252 540 214 C590 176 620 120 635 76" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><path d="M332 180 C310 210 292 240 266 230 C222 214 190 278 140 316 C90 354 60 410 45 454" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="78" fill="#2563eb">x=0</text><text x="505" y="98" fill="#7c3aed">C_m</text><text x="75" y="108" fill="#2563eb">y=|x|/2+1</text></g></svg><figcaption>بيان <span class="math">m</span>: الفرع الأيمن كما هو، والفرع الأيسر ينتج من تغيير إشارة الحد اللوغارتمي.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الخامس</span><strong>رسم كل الدوال الواردة في التدريب</strong></header>
+          <article class="training-exercise graph-transform-fifth-exercise">
+            <h4>الجزء الأول: دراسة الدالة المساعدة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=1-(x+1)e^(-x)</div>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">g</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>.</li>
+              <li>بيّن أن <span class="math">g'(x)=xe^(-x)</span>.</li>
+              <li>ادرس إشارة <span class="math">g'(x)</span>، ثم شكل جدول تغيرات <span class="math">g</span>.</li>
+              <li>احسب <span class="math">g(0)</span>، ثم استنتج إشارة <span class="math">g(x)</span> على <span class="math">R</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: دراسة الدالة الرئيسية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=x+(x+2)e^(-x)</div>
+            <ol>
+              <li>احسب نهايتي الدالة <span class="math">f</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈R</span>: <span class="math">f'(x)=g(x)</span>.</li>
+              <li>استنتج اتجاه تغير الدالة <span class="math">f</span> وشكل جدول تغيراتها.</li>
+              <li>بيّن أن المستقيم <span class="math">Δ: y=x</span> مقارب مائل للمنحنى <span class="math">(C_f)</span> بجوار <span class="math">+∞</span>.</li>
+              <li>ادرس الوضع النسبي للمنحنى <span class="math">(C_f)</span> والمستقيم <span class="math">(Δ)</span>.</li>
+              <li>بيّن أن المعادلة <span class="math">f(x)=0</span> تقبل حلا وحيدا <span class="math">α</span> حيث <span class="math">-1.7&lt;α&lt;-1.6</span>.</li>
+              <li>ارسم المستقيم <span class="math">(Δ)</span> والمنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: استنتاج المنحنيات</h4>
+            <p>نعتبر الدوال <span class="math">h</span> و <span class="math">k</span> و <span class="math">m</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">h(x)=|x+(x+2)e^(-x)|</div>
+            <div class="math-equation">k(x)=|x|+(|x|+2)e^(-|x|)</div>
+            <div class="math-equation">m(x)=-x+(-x+2)e^x</div>
+            <ol>
+              <li>تحقق أن <span class="math">m(x)=f(-x)</span>، وأن <span class="math">k(x)=f(|x|)</span>، وأن <span class="math">h(x)=|f(x)|</span>.</li>
+              <li>بيّن أن الدالة <span class="math">k</span> زوجية.</li>
+              <li>اعتمادا على المنحنى <span class="math">(C_f)</span>، اشرح كيف يمكن رسم <span class="math">(C_h)</span> و <span class="math">(C_k)</span> و <span class="math">(C_m)</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>رسم الدوال</span><h4>الرسوم البيانية لكل الدوال الواردة</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. بيان الدالة المساعدة <span class="math">g</span></h5>
+                  <p>لدينا <span class="math">g'(x)=xe^{-x}</span>، وبما أن <span class="math">e^{-x}&gt;0</span> فإن <span class="math">g</span> متناقصة على <span class="math">]-∞,0]</span> ومتزايدة على <span class="math">[0,+∞[</span>. كما أن <span class="math">g(0)=0</span>، ومنه <span class="math">g(x)≥0</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=1-(x+1)e^(-x)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="250" x2="620" y2="250"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="250" x2="620" y2="250"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="120" x2="620" y2="120" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M80 60 C145 102 220 186 285 235 C315 257 335 253 340 250 C348 246 380 195 430 160 C500 123 570 120 620 120" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="250" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="272" fill="#111827">O</text><text x="520" y="111" fill="#2563eb">y=1</text><text x="520" y="150" fill="#059669">C_g</text></g></svg><figcaption>بيان <span class="math">g</span>: له قيمة صغرى <span class="math">0</span> عند <span class="math">x=0</span> ويقترب من <span class="math">1</span> عند <span class="math">+∞</span>.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. بيان الدالة الرئيسية <span class="math">f</span> والمستقيم <span class="math">Δ:y=x</span></h5>
+                  <p>بما أن <span class="math">f'(x)=g(x)≥0</span> فإن <span class="math">f</span> متزايدة على <span class="math">R</span>. كما أن <span class="math">f(x)-x=(x+2)e^{-x}</span>، فيكون <span class="math">Δ:y=x</span> مقاربا مائلا عند <span class="math">+∞</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=x+(x+2)e^(-x)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="250" x2="620" y2="250"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="250" x2="620" y2="250"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="95" y1="340" x2="620" y2="75" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><path d="M105 340 C155 310 205 285 255 265 C305 245 338 210 370 188 C430 146 510 105 620 72" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="200" cy="250" r="6" fill="#059669"></circle><circle cx="315" cy="176" r="6" fill="#059669"></circle><circle cx="340" cy="160" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="540" y="96" fill="#2563eb">Δ:y=x</text><text x="510" y="128" fill="#dc2626">C_f</text><text x="175" y="273" fill="#059669">α</text><text x="286" y="168" fill="#059669">f(-1)≈1.7</text><text x="350" y="156" fill="#059669">f(0)=2</text></g></svg><figcaption>بيان <span class="math">f</span>: متزايد، يقطع محور الفواصل عند <span class="math">α</span>، ويقترب من <span class="math">Δ:y=x</span> عند <span class="math">+∞</span>.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. بيان <span class="math">h(x)=|f(x)|</span></h5>
+                  <p>نستنتج <span class="math">C_h</span> من <span class="math">C_f</span> بقلب الجزء الواقع تحت محور الفواصل إلى الأعلى. وبما أن <span class="math">f(x)&lt;0</span> قبل الجذر <span class="math">α</span>، فهذا هو الجزء الذي ينعكس.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=|x+(x+2)e^(-x)|"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="250" x2="620" y2="250"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="250" x2="620" y2="250"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M105 160 C155 190 205 215 255 235 C295 248 330 214 370 188 C430 146 510 105 620 72" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><path d="M105 340 C155 310 205 285 255 265" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 8"></path><circle cx="200" cy="250" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="175" y="273" fill="#111827">α</text><text x="505" y="128" fill="#059669">C_h</text><text x="110" y="145" fill="#64748b">انعكاس</text></g></svg><figcaption>بيان <span class="math">h=|f|</span>: كل القيم تصبح موجبة أو منعدمة.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. بيان <span class="math">k(x)=f(|x|)</span></h5>
+                  <p>نرسم فرع <span class="math">C_f</span> على <span class="math">x≥0</span>، ثم ننسخه بتناظر حول محور التراتيب. لذلك <span class="math">k</span> زوجية.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة k(x)=|x|+(|x|+2)e^(-|x|)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="250" x2="620" y2="250"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="250" x2="620" y2="250"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M340 160 C375 140 425 116 485 92 C535 72 580 60 620 52" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 160 C305 140 255 116 195 92 C145 72 100 60 60 52" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="160" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="156" fill="#059669">2</text><text x="508" y="88" fill="#dc2626">C_k</text><text x="170" y="88" fill="#dc2626">C_k</text></g></svg><figcaption>بيان <span class="math">k=f(|x|)</span>: فرع أيمن من <span class="math">C_f</span> وصورته المرآتية يسارا.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>5. بيان <span class="math">m(x)=f(-x)</span></h5>
+                  <p>نستنتج <span class="math">C_m</span> من <span class="math">C_f</span> بتناظر كامل حول محور التراتيب.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة m(x)=-x+(-x+2)e^x"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="250" x2="620" y2="250"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="250" x2="620" y2="250"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="60" y1="75" x2="585" y2="340" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><path d="M575 340 C525 310 475 285 425 265 C375 245 342 210 310 188 C250 146 170 105 60 72" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="480" cy="250" r="6" fill="#059669"></circle><circle cx="365" cy="176" r="6" fill="#059669"></circle><circle cx="340" cy="160" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="140" y="96" fill="#2563eb">y=-x</text><text x="92" y="128" fill="#7c3aed">C_m</text><text x="490" y="273" fill="#059669">-α</text><text x="352" y="156" fill="#059669">2</text></g></svg><figcaption>بيان <span class="math">m=f(-x)</span>: صورة <span class="math">C_f</span> بتناظر حول محور التراتيب، ومقاربه عند <span class="math">-∞</span> هو <span class="math">y=-x</span>.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب السادس</span><strong>تركيب دالة مع اللوغارتم</strong></header>
+          <article class="training-exercise graph-transform-sixth-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية <span class="math">f</span></h4>
+            <p>تعتبر الدالة العددية <span class="math">f</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=2x/(x²+1)</div>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">f</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>. ماذا تستنتج هندسيا؟</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>اكتب معادلة المماس <span class="math">T</span> للمنحنى <span class="math">(C_f)</span> عند النقطة ذات الفاصلة <span class="math">0</span>.</li>
+              <li>ادرس الوضع النسبي للمنحنى <span class="math">(C_f)</span> بالنسبة للمماس <span class="math">T</span>.</li>
+              <li>ارسم <span class="math">(T)</span> و <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج الدالة المركبة <span class="math">h</span></h4>
+            <p>تعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">h(x)=2ln(x)/((ln(x))²+1)</div>
+            <ol>
+              <li>تحقق أنه من أجل كل <span class="math">x∈]0,+∞[</span>: <span class="math">h(x)=f(ln(x))</span>.</li>
+              <li>استنتج نهايتي <span class="math">h</span> عند <span class="math">0^+</span> وعند <span class="math">+∞</span>.</li>
+              <li>بيّن أن <span class="math">h'(x)=f'(ln(x))/x</span>، واستنتج إشارة <span class="math">h'</span> وجدول تغيرات <span class="math">h</span>.</li>
+              <li>استنتج إحداثيات النقاط الحدية للمنحنى <span class="math">(C_h)</span>.</li>
+              <li>ارسم المنحنى <span class="math">(C_h)</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتغيرات</h5>
+                  <p>عند <span class="math">±∞</span> لدينا:</p>
+                  <div class="math-equation">f(x)=2x/(x²+1) ~ 2/x → 0</div>
+                  <p>إذن المستقيم <span class="math">y=0</span> مقارب أفقي للمنحنى عند الطرفين.</p>
+                  <p>نشتق:</p>
+                  <div class="math-equation">f'(x)=2(1-x²)/(x²+1)²</div>
+                  <p>إشارة <span class="math">f'</span> هي إشارة <span class="math">1-x²</span>.</p>
+                  <ul class="solution-list"><li><span class="math">f</span> متناقصة على <span class="math">]-∞,-1]</span>.</li><li><span class="math">f</span> متزايدة على <span class="math">[-1,1]</span>.</li><li><span class="math">f</span> متناقصة على <span class="math">[1,+∞[</span>.</li></ul>
+                  <div class="math-equation">f(-1)=-1, f(1)=1, f(0)=0</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. المماس والوضع النسبي</h5>
+                  <p>لدينا <span class="math">f(0)=0</span> و <span class="math">f'(0)=2</span>، إذن معادلة المماس عند <span class="math">0</span> هي:</p>
+                  <div class="math-equation">T: y=2x</div>
+                  <p>نحسب الفرق:</p>
+                  <div class="math-equation">f(x)-2x=2x/(x²+1)-2x=-2x³/(x²+1)</div>
+                  <p>إذن <span class="math">C_f</span> فوق <span class="math">T</span> إذا <span class="math">x&lt;0</span>، وتحته إذا <span class="math">x&gt;0</span>.</p>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>3. رسم <span class="math">C_f</span> و <span class="math">T</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=2x/(x²+1) والمماس"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="315" x2="620" y2="315"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="245" y1="350" x2="435" y2="70" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 8"></line><line x1="70" y1="210" x2="620" y2="210" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.55"></line><path d="M70 205 C135 200 205 250 260 315 C300 260 320 220 340 210 C360 200 380 160 420 105 C475 170 545 220 620 215" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="260" cy="315" r="6" fill="#059669"></circle><circle cx="340" cy="210" r="6" fill="#111827"></circle><circle cx="420" cy="105" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="438" y="88" fill="#2563eb">T:y=2x</text><text x="535" y="197" fill="#2563eb">y=0</text><text x="432" y="105" fill="#059669">(1,1)</text><text x="192" y="330" fill="#059669">(-1,-1)</text><text x="520" y="158" fill="#dc2626">C_f</text></g></svg><figcaption>الدالة <span class="math">f</span> فردية، ومماسها عند الأصل هو <span class="math">y=2x</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>استنتاج <span class="math">h=f(ln x)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>4. النهايات والتغيرات</h5>
+                  <p>لدينا مباشرة:</p>
+                  <div class="math-equation">h(x)=f(ln(x))</div>
+                  <p>عندما <span class="math">x→0^+</span> فإن <span class="math">ln(x)→-∞</span>، وعندما <span class="math">x→+∞</span> فإن <span class="math">ln(x)→+∞</span>. وبما أن <span class="math">f(t)→0</span> عند <span class="math">t→±∞</span>، نحصل على:</p>
+                  <div class="math-equation">lim(x→0+)h(x)=0, lim(x→+∞)h(x)=0</div>
+                  <p>كما أن <span class="math">h'(x)=f'(ln(x))/x</span> و <span class="math">x&gt;0</span>، فتتبع إشارة <span class="math">h'</span> إشارة <span class="math">f'(ln(x))</span>.</p>
+                  <ul class="solution-list"><li><span class="math">h</span> متناقصة على <span class="math">]0,e^{-1}]</span>.</li><li><span class="math">h</span> متزايدة على <span class="math">[e^{-1},e]</span>.</li><li><span class="math">h</span> متناقصة على <span class="math">[e,+∞[</span>.</li></ul>
+                  <div class="math-equation">h(e^{-1})=f(-1)=-1, h(e)=f(1)=1, h(1)=f(0)=0</div>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>5. رسم <span class="math">C_h</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=2ln(x)/((ln(x))²+1)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="315" x2="620" y2="315"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="100" y1="45" x2="100" y2="350"></line></g><line x1="70" y1="210" x2="620" y2="210" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.55"></line><path d="M105 210 C130 260 165 315 210 315 C260 315 310 245 340 210 C380 164 430 105 500 105 C555 105 595 160 620 205" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="210" cy="315" r="6" fill="#059669"></circle><circle cx="340" cy="210" r="6" fill="#111827"></circle><circle cx="500" cy="105" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="122" y="197" fill="#2563eb">y=0</text><text x="174" y="334" fill="#059669">(e⁻¹,-1)</text><text x="510" y="103" fill="#059669">(e,1)</text><text x="350" y="230" fill="#111827">(1,0)</text><text x="520" y="145" fill="#7c3aed">C_h</text></g></svg><figcaption>تركيب <span class="math">ln(x)</span> يضغط الجهة السالبة من محور <span class="math">C_f</span> نحو المجال <span class="math">]0,1[</span>، والجهة الموجبة نحو <span class="math">]1,+∞[</span>.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب السابع</span><strong>استنتاج دالة مركبة بالأسية</strong></header>
+          <article class="training-exercise graph-transform-seventh-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=x³-3x</div>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">f</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>عيّن إحداثيات نقط تقاطع المنحنى <span class="math">(C_f)</span> مع محوري الإحداثيات.</li>
+              <li>ارسم المنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج الدالة المركبة <span class="math">h</span></h4>
+            <p>تعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">h(x)=e^(3x)-3e^x</div>
+            <ol>
+              <li>تحقق أنه من أجل كل <span class="math">x∈R</span>: <span class="math">h(x)=f(e^x)</span>.</li>
+              <li>استنتج نهايات <span class="math">h</span> عند <span class="math">-∞</span> و <span class="math">+∞</span>.</li>
+              <li>بيّن أن <span class="math">h'(x)=e^x f'(e^x)</span>، ثم استنتج إشارة <span class="math">h'</span> وجدول تغيرات <span class="math">h</span>.</li>
+              <li>استنتج إحداثيات النقطة الحدية للمنحنى <span class="math">(C_h)</span> ثم ارسمه.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتغيرات</h5>
+                  <div class="math-equation">lim(x→-∞)f(x)=-∞, lim(x→+∞)f(x)=+∞</div>
+                  <p>نشتق:</p>
+                  <div class="math-equation">f'(x)=3x²-3=3(x-1)(x+1)</div>
+                  <p>إذن <span class="math">f</span> متزايدة على <span class="math">]-∞,-1]</span>، متناقصة على <span class="math">[-1,1]</span>، ومتزايدة على <span class="math">[1,+∞[</span>.</p>
+                  <div class="math-equation">f(-1)=2, f(1)=-2</div>
+                  <p>نقط تقاطع <span class="math">C_f</span> مع محور الفواصل تحقق:</p>
+                  <div class="math-equation">x³-3x=x(x²-3)=0</div>
+                  <p>إذن الفواصل هي <span class="math">-√3</span> و <span class="math">0</span> و <span class="math">√3</span>. ومع محور التراتيب نحصل على النقطة <span class="math">(0,0)</span>.</p>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>2. رسم <span class="math">C_f</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=x³-3x"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M80 340 C145 285 205 165 260 110 C300 156 320 198 340 210 C360 222 380 264 420 310 C475 255 535 135 600 80" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="260" cy="110" r="6" fill="#059669"></circle><circle cx="420" cy="310" r="6" fill="#059669"></circle><circle cx="340" cy="210" r="6" fill="#111827"></circle><circle cx="220" cy="210" r="5" fill="#111827"></circle><circle cx="460" cy="210" r="5" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="250" y="96" fill="#059669">(-1,2)</text><text x="430" y="330" fill="#059669">(1,-2)</text><text x="348" y="232" fill="#111827">O</text><text x="500" y="118" fill="#dc2626">C_f</text></g></svg><figcaption>منحنى تكعيبي فردي يقطع محور الفواصل في <span class="math">-√3,0,√3</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>استنتاج <span class="math">h=f(e^x)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>3. النهايات والتغيرات</h5>
+                  <p>بما أن <span class="math">e^x&gt;0</span>، فإن <span class="math">h</span> يمثل فرع <span class="math">f</span> الموافق للمدخلات الموجبة فقط.</p>
+                  <div class="math-equation">lim(x→-∞)h(x)=f(0)=0</div>
+                  <div class="math-equation">lim(x→+∞)h(x)=+∞</div>
+                  <p>كما أن:</p>
+                  <div class="math-equation">h'(x)=e^x f'(e^x)</div>
+                  <p>وبما أن <span class="math">e^x&gt;0</span>، فإن إشارة <span class="math">h'</span> هي إشارة <span class="math">f'(e^x)</span>. نحصل على:</p>
+                  <ul class="solution-list"><li><span class="math">h'</span> سالبة إذا <span class="math">e^x&lt;1</span> أي <span class="math">x&lt;0</span>.</li><li><span class="math">h'(0)=0</span>.</li><li><span class="math">h'</span> موجبة إذا <span class="math">x&gt;0</span>.</li></ul>
+                  <p>إذن <span class="math">h</span> متناقصة على <span class="math">]-∞,0]</span> ومتزايدة على <span class="math">[0,+∞[</span>، ولها نقطة حدية صغرى:</p>
+                  <div class="math-equation">h(0)=f(1)=-2</div>
+                </article>
+                <article class="solution-step-card solution-graph-card">
+                  <h5>4. رسم <span class="math">C_h</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=e^(3x)-3e^x"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="210" x2="620" y2="210" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.55"></line><path d="M80 214 C150 220 220 250 285 292 C315 312 335 315 340 310 C355 294 395 230 450 185 C520 130 580 72 620 45" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="310" r="6" fill="#059669"></circle><circle cx="458" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="330" fill="#059669">(0,-2)</text><text x="112" y="198" fill="#2563eb">y=0 عند -∞</text><text x="470" y="232" fill="#111827">ln√3</text><text x="520" y="96" fill="#7c3aed">C_h</text></g></svg><figcaption>منحنى <span class="math">h</span> يقترب من محور الفواصل عند <span class="math">-∞</span>، ثم ينزل إلى <span class="math">(0,-2)</span> ويصعد نحو <span class="math">+∞</span>.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثامن</span><strong>الأسية وقواعد القيمة المطلقة</strong></header>
+          <article class="training-exercise graph-transform-eighth-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R\{-1}</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=(x-1)/(x+1)</div>
+            <ol>
+              <li>احسب نهايات الدالة <span class="math">f</span> عند أطراف مجالات تعريفها، واستنتج المستقيمات المقاربة للمنحنى <span class="math">(C_f)</span>.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>عيّن إحداثيات نقط تقاطع المنحنى <span class="math">(C_f)</span> مع محوري الإحداثيات.</li>
+            </ol>
+            <h4>الجزء الثاني: استنتاج الدالة المركبة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=(e^x-1)/(e^x+1)</div>
+            <ol>
+              <li>تحقق أنه من أجل كل <span class="math">x∈R</span>: <span class="math">g(x)=f(e^x)</span>.</li>
+              <li>بيّن أن <span class="math">g</span> دالة فردية، واستنتج ذلك هندسيا بالنسبة للمنحنى <span class="math">(C_g)</span>.</li>
+              <li>استنتج نهايتي <span class="math">g</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>، وحدد المستقيمات المقاربة الأفقية.</li>
+              <li>استنتج اتجاه تغير <span class="math">g</span> وارسم <span class="math">(C_g)</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: العودة إلى التحويلات النقطية</h4>
+            <p>لتكن الدالتان <span class="math">h</span> و <span class="math">k</span> المعرفتان على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">h(x)=|(e^x-1)/(e^x+1)|</div>
+            <div class="math-equation">k(x)=(e^|x|-1)/(e^|x|+1)</div>
+            <ol>
+              <li>تحقق أن <span class="math">h(x)=|g(x)|</span> وأن <span class="math">k(x)=g(|x|)</span>.</li>
+              <li>بالاعتماد على المنحنى <span class="math">(C_g)</span>، اشرح هندسيا كيف يتم رسم <span class="math">(C_h)</span> و <span class="math">(C_k)</span>، وحدد كيف تتأثر المستقيمات المقاربة في كل حالة.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. المقاربات والتغيرات</h5>
+                  <p>نكتب:</p>
+                  <div class="math-equation">f(x)=1-2/(x+1)</div>
+                  <p>إذن <span class="math">x=-1</span> مقارب عمودي، و <span class="math">y=1</span> مقارب أفقي عند <span class="math">±∞</span>.</p>
+                  <p>كما أن:</p>
+                  <div class="math-equation">f'(x)=2/(x+1)²&gt;0</div>
+                  <p>إذن <span class="math">f</span> متزايدة على كل من <span class="math">]-∞,-1[</span> و <span class="math">]-1,+∞[</span>.</p>
+                  <p>نقط التقاطع: مع محور الفواصل <span class="math">(1,0)</span>، ومع محور التراتيب <span class="math">(0,-1)</span>.</p>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>رسم <span class="math">C_g</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>2. خصائص <span class="math">g</span></h5>
+                  <p>بما أن <span class="math">e^x&gt;0</span> فإن:</p>
+                  <div class="math-equation">g(x)=f(e^x)</div>
+                  <p>نثبت الفردية:</p>
+                  <div class="math-equation">g(-x)=(e^{-x}-1)/(e^{-x}+1)=(1-e^x)/(1+e^x)=-g(x)</div>
+                  <p>إذن <span class="math">C_g</span> متناظر بالنسبة إلى أصل المعلم.</p>
+                  <div class="math-equation">lim(x→-∞)g(x)=-1, lim(x→+∞)g(x)=1</div>
+                  <p>المستقيمان المقاربان الأفقيان هما <span class="math">y=-1</span> و <span class="math">y=1</span>. كما أن <span class="math">g</span> متزايدة على <span class="math">R</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=(e^x-1)/(e^x+1)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="315" x2="620" y2="315"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="105" x2="620" y2="105" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="70" y1="315" x2="620" y2="315" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M70 312 C150 305 230 270 300 230 C325 216 335 214 340 210 C345 206 355 204 380 190 C450 150 530 115 620 108" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="520" y="98" fill="#2563eb">y=1</text><text x="520" y="309" fill="#2563eb">y=-1</text><text x="350" y="230" fill="#111827">O</text><text x="500" y="145" fill="#dc2626">C_g</text></g></svg><figcaption>بيان <span class="math">g</span> متزايد، فردي، ومحصور بين المقاربين <span class="math">y=-1</span> و <span class="math">y=1</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>رسم <span class="math">C_h</span> و <span class="math">C_k</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>3. التحويلات</h5>
+                  <p><span class="math">h=|g|</span>: نقلب الجزء السالب من <span class="math">C_g</span>، أي فرع <span class="math">x&lt;0</span>، فوق محور الفواصل. أما <span class="math">k=g(|x|)</span>: نأخذ الفرع الأيمن من <span class="math">C_g</span> وننسخه بتناظر حول محور التراتيب.</p>
+                  <p>في هذه الحالة الخاصة نحصل على نفس الشكل للمنحنيين <span class="math">C_h</span> و <span class="math">C_k</span> لأن <span class="math">g</span> فردية ومتزايدة وتمر من الأصل.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالتين h و k"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="105" x2="620" y2="105"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="315" x2="620" y2="315"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="105" x2="620" y2="105" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><path d="M340 210 C365 185 415 150 480 126 C535 110 580 106 620 105" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><path d="M340 210 C315 185 265 150 200 126 C145 110 100 106 60 105" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="520" y="98" fill="#2563eb">y=1</text><text x="350" y="230" fill="#111827">O</text><text x="470" y="142" fill="#059669">C_h = C_k</text></g></svg><figcaption>بيانا <span class="math">h</span> و <span class="math">k</span> يتطابقان: كلاهما زوجي وغير سالب، وله المقارب الأفقي <span class="math">y=1</span> عند الطرفين.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب التاسع</span><strong>الدالة العكسية الزائدية والتحويلات</strong></header>
+          <article class="training-exercise graph-transform-ninth-exercise">
+            <h4>الجزء الأول: تفكيك الدالة الداخلية <span class="math">u</span></h4>
+            <p>تعتبر الدالة <span class="math">u</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">u(x)=x+√(x²+1)</div>
+            <ol>
+              <li>احسب <span class="math">lim(x→+∞)u(x)</span>.</li>
+              <li>احسب <span class="math">lim(x→-∞)u(x)</span> باستعمال الضرب في المرافق.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈R</span>: <span class="math">u'(x)=u(x)/√(x²+1)</span>.</li>
+              <li>استنتج إشارة <span class="math">u'</span>، ثم شكل جدول تغيرات <span class="math">u</span>.</li>
+              <li>استنتج أنه من أجل كل <span class="math">x∈R</span>: <span class="math">u(x)&gt;0</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: الدالة المركبة <span class="math">h</span> والعمق التحليلي</h4>
+            <p>تعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">h(x)=ln(x+√(x²+1))</div>
+            <ol>
+              <li>برر لماذا <span class="math">h</span> معرفة على كامل <span class="math">R</span>.</li>
+              <li>بيّن أن <span class="math">h</span> دالة فردية، ثم استنتج التفسير الهندسي.</li>
+              <li>استنتج نهايتي <span class="math">h</span> عند <span class="math">-∞</span> وعند <span class="math">+∞</span>.</li>
+              <li>بيّن أن <span class="math">h'(x)=1/√(x²+1)</span>، ثم شكل جدول تغيراتها.</li>
+              <li>اكتب معادلة المماس <span class="math">T</span> للمنحنى <span class="math">C_h</span> عند المبدأ <span class="math">O</span>.</li>
+              <li>ارسم <span class="math">T</span> و <span class="math">C_h</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: التحويلات النقطية</h4>
+            <p>لتكن الدالتان <span class="math">k</span> و <span class="math">m</span> المعرفتان على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">k(x)=ln(|x|+√(x²+1))</div>
+            <div class="math-equation">m(x)=|ln(x+√(x²+1))|</div>
+            <ol>
+              <li>تحقق أن <span class="math">k(x)=h(|x|)</span> وأن <span class="math">m(x)=|h(x)|</span>.</li>
+              <li>اشرح بالتفصيل كيف يمكن رسم <span class="math">C_k</span> انطلاقا من <span class="math">C_h</span>، مبينا طبيعة الدالة <span class="math">k</span> من حيث الشفعية.</li>
+              <li>اشرح كيف يتم رسم <span class="math">C_m</span> انطلاقا من <span class="math">C_h</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">u</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات</h5>
+                  <p>عند <span class="math">+∞</span> لدينا <span class="math">√(x²+1)≈x</span>، ومنه:</p>
+                  <div class="math-equation">lim(x→+∞)u(x)=lim(x→+∞)(x+√(x²+1))=+∞</div>
+                  <p>عند <span class="math">-∞</span> لا نستعمل التعويض المباشر لأنه يعطي صيغة غير محددة من نوع <span class="math">-∞+∞</span>. نضرب في المرافق:</p>
+                  <div class="math-equation">u(x)=x+√(x²+1)=((x+√(x²+1))(√(x²+1)-x))/(√(x²+1)-x)</div>
+                  <div class="math-equation">u(x)=1/(√(x²+1)-x)</div>
+                  <p>وعندما <span class="math">x→-∞</span> فإن <span class="math">√(x²+1)-x→+∞</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→-∞)u(x)=0</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. المشتقة والتغيرات</h5>
+                  <p>نشتق:</p>
+                  <div class="math-equation">u'(x)=1+x/√(x²+1)=(√(x²+1)+x)/√(x²+1)=u(x)/√(x²+1)</div>
+                  <p>وبما أن <span class="math">√(x²+1)&gt;0</span> و <span class="math">u(x)=1/(√(x²+1)-x)&gt;0</span>، فإن:</p>
+                  <div class="math-equation">u'(x)&gt;0 لكل x∈R</div>
+                  <p>إذن <span class="math">u</span> متزايدة تماما على <span class="math">R</span>، وتنتقل من <span class="math">0</span> إلى <span class="math">+∞</span>. خصوصا <span class="math">u(x)&gt;0</span> لكل <span class="math">x</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة u(x)=x+sqrt(x^2+1)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="310" x2="620" y2="310" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.55"></line><path d="M75 309 C150 308 225 304 290 287 C330 276 355 250 385 216 C435 158 500 92 620 50" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="260" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="102" y="300" fill="#2563eb">y=0 عند -∞</text><text x="350" y="255" fill="#111827">u(0)=1</text><text x="510" y="84" fill="#0f766e">C_u</text></g></svg><figcaption>الدالة <span class="math">u</span> موجبة ومتزايدة، وتقترب من <span class="math">0</span> عندما <span class="math">x→-∞</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>دراسة ورسم <span class="math">h</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>3. التعريف والفردية</h5>
+                  <p>بما أن <span class="math">u(x)&gt;0</span> لكل <span class="math">x∈R</span>، فإن <span class="math">h(x)=ln(u(x))</span> معرفة على كامل <span class="math">R</span>.</p>
+                  <p>نحسب:</p>
+                  <div class="math-equation">u(-x)=-x+√(x²+1)=1/(x+√(x²+1))=1/u(x)</div>
+                  <div class="math-equation">h(-x)=ln(u(-x))=ln(1/u(x))=-ln(u(x))=-h(x)</div>
+                  <p>إذن <span class="math">h</span> فردية، وبيانها متناظر بالنسبة إلى أصل المعلم.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. النهايات والمشتقة</h5>
+                  <p>بما أن <span class="math">u(x)→+∞</span> عندما <span class="math">x→+∞</span>، نحصل على:</p>
+                  <div class="math-equation">lim(x→+∞)h(x)=+∞</div>
+                  <p>وبالفردية أو لأن <span class="math">u(x)→0^+</span> عندما <span class="math">x→-∞</span>:</p>
+                  <div class="math-equation">lim(x→-∞)h(x)=-∞</div>
+                  <p>نشتق مركبة اللوغاريتم:</p>
+                  <div class="math-equation">h'(x)=u'(x)/u(x)=1/√(x²+1)</div>
+                  <p>إذن <span class="math">h'(x)&gt;0</span> لكل <span class="math">x</span>، وبالتالي <span class="math">h</span> متزايدة تماما على <span class="math">R</span>.</p>
+                  <p>عند المبدأ: <span class="math">h(0)=ln(1)=0</span> و <span class="math">h'(0)=1</span>، إذن معادلة المماس:</p>
+                  <div class="math-equation">T: y=x</div>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h(x)=ln(x+sqrt(x^2+1)) والمماس y=x"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="195" y1="350" x2="495" y2="50" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8"></line><path d="M75 318 C150 300 235 262 300 225 C322 212 333 211 340 210 C347 209 358 208 380 195 C445 158 530 120 620 102" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="500" y="82" fill="#2563eb">T:y=x</text><text x="352" y="230" fill="#111827">O</text><text x="500" y="130" fill="#dc2626">C_h</text></g></svg><figcaption>منحنى <span class="math">h</span> متزايد وفردي، والمماس في المبدأ هو <span class="math">y=x</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>رسم <span class="math">C_k</span> و <span class="math">C_m</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>5. التحويلان</h5>
+                  <p>لدينا مباشرة:</p>
+                  <div class="math-equation">k(x)=ln(|x|+√(x²+1))=h(|x|)</div>
+                  <p>إذن نرسم فرع <span class="math">C_h</span> على <span class="math">x≥0</span>، ثم ننسخه بالتناظر حول محور التراتيب. لذلك <span class="math">k</span> زوجية وغير سالبة.</p>
+                  <div class="math-equation">m(x)=|ln(x+√(x²+1))|=|h(x)|</div>
+                  <p>لرسم <span class="math">C_m</span> نترك الجزء الموجود فوق محور الفواصل كما هو، ونقلب الجزء السالب إلى الأعلى. وبما أن <span class="math">h</span> فردية ومتزايدة وتمر من الأصل، فإن <span class="math">C_m</span> يطابق <span class="math">C_k</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالتين k و m"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M340 210 C365 185 415 150 480 126 C535 110 580 104 620 98" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><path d="M340 210 C315 185 265 150 200 126 C145 110 100 104 60 98" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="230" fill="#111827">O</text><text x="470" y="122" fill="#7c3aed">C_k = C_m</text></g></svg><figcaption><span class="math">C_k</span> و <span class="math">C_m</span> متطابقان هنا: شكل زوجي يبدأ من الأصل ويتجه صعودا في الجهتين.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب العاشر</span><strong>القيمة المطلقة واختيار النقطة</strong></header>
+          <article class="training-exercise graph-transform-tenth-exercise">
+            <h4>الجزء الأول: دراسة الدالة المساعدة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=e^x+x-1</div>
+            <ol>
+              <li>احسب <span class="math">lim(x→-∞)g(x)</span> و <span class="math">lim(x→+∞)g(x)</span>.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">g</span>، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">g(0)</span>، ثم استنتج إشارة <span class="math">g(x)</span> من أجل كل <span class="math">x∈R</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: دراسة الدالة الرئيسية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=x+1-xe^{-x}</div>
+            <ol>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span>.</li>
+              <li>بيّن أن <span class="math">lim(x→-∞)f(x)=+∞</span> باستعمال استخراج <span class="math">x</span> كعامل مشترك.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈R</span>: <span class="math">f'(x)=e^{-x}g(x)</span>.</li>
+              <li>استنتج اتجاه تغير <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>بيّن أن المستقيم <span class="math">Δ:y=x+1</span> مقارب مائل للمنحنى <span class="math">C_f</span> بجوار <span class="math">+∞</span>.</li>
+              <li>ادرس الوضع النسبي للمنحنى <span class="math">C_f</span> والمستقيم <span class="math">Δ</span>.</li>
+              <li>ارسم <span class="math">Δ</span> و <span class="math">C_f</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: استنتاج المنحنيات</h4>
+            <p>لتكن الدوال <span class="math">h</span> و <span class="math">k</span> و <span class="math">m</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">h(x)=|x+1-xe^{-x}|</div>
+            <div class="math-equation">k(x)=|x|+1-|x|e^{-|x|}</div>
+            <div class="math-equation">m(x)=-x+1+xe^x</div>
+            <ol>
+              <li>تحقق أن <span class="math">h(x)=|f(x)|</span>، وأن <span class="math">k(x)=f(|x|)</span>، وأن <span class="math">m(x)=f(-x)</span>.</li>
+              <li>اعتمادا على جدول تغيرات <span class="math">f</span>، اشرح لماذا ينطبق المنحنى <span class="math">C_h</span> تماما على <span class="math">C_f</span> دون الحاجة لأي تناظر حول محور الفواصل.</li>
+              <li>اشرح هندسيا كيف يتم رسم المنحنيين <span class="math">C_k</span> و <span class="math">C_m</span> انطلاقا من <span class="math">C_f</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">g</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتغيرات</h5>
+                  <p>عندما <span class="math">x→-∞</span> فإن <span class="math">e^x→0</span> و <span class="math">x-1→-∞</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→-∞)g(x)=-∞</div>
+                  <p>وعندما <span class="math">x→+∞</span> فإن <span class="math">e^x+x-1→+∞</span>، ومنه:</p>
+                  <div class="math-equation">lim(x→+∞)g(x)=+∞</div>
+                  <p>نشتق:</p>
+                  <div class="math-equation">g'(x)=e^x+1&gt;0</div>
+                  <p>إذن <span class="math">g</span> متزايدة تماما على <span class="math">R</span>. وبما أن:</p>
+                  <div class="math-equation">g(0)=1+0-1=0</div>
+                  <p>فإن إشارة <span class="math">g</span> هي: سالبة على <span class="math">]-∞,0[</span>، منعدمة عند <span class="math">0</span>، وموجبة على <span class="math">]0,+∞[</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=e^x+x-1"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M75 340 C150 318 230 276 300 232 C320 219 333 212 340 210 C350 207 365 201 390 182 C450 136 530 82 620 48" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="350" y="230" fill="#111827">O</text><text x="500" y="92" fill="#dc2626">C_g</text><text x="104" y="330" fill="#64748b">g&lt;0</text><text x="445" y="132" fill="#059669">g&gt;0</text></g></svg><figcaption>الدالة <span class="math">g</span> متزايدة وتقطع محور الفواصل في <span class="math">0</span> فقط.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>دراسة ورسم <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>2. النهايات والمشتقة</h5>
+                  <p>عند <span class="math">+∞</span> لدينا <span class="math">xe^{-x}→0</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                  <p>وعند <span class="math">-∞</span> نكتب:</p>
+                  <div class="math-equation">f(x)=x(1-e^{-x})+1</div>
+                  <p>عندما <span class="math">x→-∞</span> يكون <span class="math">x&lt;0</span> و <span class="math">1-e^{-x}→-∞</span>، فيكون جداؤهما موجبا كبيرا، ومنه:</p>
+                  <div class="math-equation">lim(x→-∞)f(x)=+∞</div>
+                  <p>المشتقة:</p>
+                  <div class="math-equation">f'(x)=1-(xe^{-x})'=1-(e^{-x}-xe^{-x})=1-e^{-x}+xe^{-x}</div>
+                  <div class="math-equation">f'(x)=e^{-x}(e^x+x-1)=e^{-x}g(x)</div>
+                  <p>وبما أن <span class="math">e^{-x}&gt;0</span> فإن إشارة <span class="math">f'</span> هي إشارة <span class="math">g</span>. إذن <span class="math">f</span> متناقصة على <span class="math">]-∞,0]</span> ومتزايدة على <span class="math">[0,+∞[</span>، وقيمتها الصغرى:</p>
+                  <div class="math-equation">f(0)=1</div>
+                  <p>إذن <span class="math">f(x)≥1</span> لكل <span class="math">x∈R</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. المقارب والوضع النسبي</h5>
+                  <p>نحسب الفرق بين <span class="math">f</span> والمستقيم <span class="math">Δ:y=x+1</span>:</p>
+                  <div class="math-equation">f(x)-(x+1)=-xe^{-x}</div>
+                  <p>وعندما <span class="math">x→+∞</span> فإن <span class="math">-xe^{-x}→0</span>، لذلك <span class="math">Δ</span> مقارب مائل بجوار <span class="math">+∞</span>.</p>
+                  <p>الوضع النسبي: إذا <span class="math">x&gt;0</span> فـ <span class="math">-xe^{-x}&lt;0</span> فيكون <span class="math">C_f</span> تحت <span class="math">Δ</span>. وإذا <span class="math">x&lt;0</span> فـ <span class="math">-xe^{-x}&gt;0</span> فيكون <span class="math">C_f</span> فوق <span class="math">Δ</span>. ويتقاطعان عند <span class="math">x=0</span> في النقطة <span class="math">(0,1)</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=x+1-xe^-x والمقارب y=x+1"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="360" x2="620" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8"></line><path d="M90 54 C145 105 205 196 270 260 C305 294 330 302 340 300 C350 298 375 280 410 248 C465 198 535 132 620 92" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="300" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="360" y="318" fill="#111827">(0,1)</text><text x="505" y="76" fill="#2563eb">Δ:y=x+1</text><text x="525" y="125" fill="#0f766e">C_f</text></g></svg><figcaption><span class="math">C_f</span> له أصغر قيمة <span class="math">1</span> عند <span class="math">x=0</span>، ويقترب من <span class="math">Δ</span> عند <span class="math">+∞</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>رسم كل التحويلات</h4></header>
+                <article class="solution-step-card">
+                  <h5>4. المنحنى <span class="math">C_h</span></h5>
+                  <p>بما أن <span class="math">f(x)≥1&gt;0</span> لكل <span class="math">x</span>، فإن:</p>
+                  <div class="math-equation">h(x)=|f(x)|=f(x)</div>
+                  <p>لذلك لا نقلب أي جزء حول محور الفواصل، بل نحصل على تطابق تام:</p>
+                  <div class="math-equation">C_h=C_f</div>
+                  <figure class="function-solution-graph" aria-label="رسم الدالتين f و h المتطابقتين"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><path d="M90 54 C145 105 205 196 270 260 C305 294 330 302 340 300 C350 298 375 280 410 248 C465 198 535 132 620 92" fill="none" stroke="#dc2626" stroke-width="6" stroke-linecap="round" opacity="0.55"></path><path d="M90 54 C145 105 205 196 270 260 C305 294 330 302 340 300 C350 298 375 280 410 248 C465 198 535 132 620 92" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round"></path><circle cx="340" cy="300" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="360" y="318" fill="#111827">(0,1)</text><text x="475" y="126" fill="#7c3aed">C_h = C_f</text></g></svg><figcaption>لأن <span class="math">f</span> موجبة دائما، فإن <span class="math">|f|</span> لا يغير الرسم.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>5. المنحنى <span class="math">C_k</span></h5>
+                  <p>لدينا <span class="math">k(x)=f(|x|)</span>. إذن نحتفظ بالفرع الأيمن من <span class="math">C_f</span>، أي الموافق لـ <span class="math">x≥0</span>، ثم ننسخه بتناظر حول محور التراتيب. لذلك <span class="math">k</span> دالة زوجية.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة k(x)=f(|x|)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="300" x2="620" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"></line><line x1="340" y1="300" x2="60" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"></line><path d="M340 300 C355 296 380 278 410 248 C465 198 535 132 620 92" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><path d="M340 300 C325 296 300 278 270 248 C215 198 145 132 60 92" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="300" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="355" y="318" fill="#111827">(0,1)</text><text x="505" y="126" fill="#059669">C_k</text><text x="96" y="126" fill="#059669">تناظر</text></g></svg><figcaption><span class="math">C_k</span> زوجي: الفرع الأيمن من <span class="math">C_f</span> ينسخ إلى اليسار.</figcaption></figure>
+                </article>
+                <article class="solution-step-card">
+                  <h5>6. المنحنى <span class="math">C_m</span></h5>
+                  <p>لدينا <span class="math">m(x)=f(-x)</span>. إذن <span class="math">C_m</span> هو صورة <span class="math">C_f</span> بالتناظر حول محور التراتيب كاملا.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة m(x)=f(-x)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="620" y1="360" x2="70" y2="84" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8"></line><path d="M590 54 C535 105 475 196 410 260 C375 294 350 302 340 300 C330 298 305 280 270 248 C215 198 145 132 60 92" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="300" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="355" y="318" fill="#111827">(0,1)</text><text x="80" y="126" fill="#f59e0b">C_m</text><text x="95" y="75" fill="#2563eb">صورة Δ</text></g></svg><figcaption><span class="math">C_m</span> هو المرآة الكاملة لـ <span class="math">C_f</span> بالنسبة إلى محور التراتيب.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>تدريب سريع</span><strong>اقرأ التحويل قبل الحساب</strong></header>
+          <article class="training-exercise graph-transform-practice">
+            <p>ليكن <span class="math">(C_f)</span> تمثيل الدالة <span class="math">f</span>. صف كيف نحصل على بيانات الدوال التالية:</p>
+            <ol>
+              <li><span class="math">g(x)=f(x)+2</span></li>
+              <li><span class="math">h(x)=f(x-3)</span></li>
+              <li><span class="math">u(x)=|f(x)|</span></li>
+              <li><span class="math">v(x)=f(|x|)</span></li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>الحل</h5>
+                  <ul class="solution-list">
+                    <li><span class="math">g</span>: ننقل <span class="math">(C_f)</span> بوحدتين إلى الأعلى.</li>
+                    <li><span class="math">h</span>: ننقل <span class="math">(C_f)</span> بثلاث وحدات إلى اليمين.</li>
+                    <li><span class="math">u</span>: الجزء الموجب يبقى كما هو، والجزء السالب ينعكس فوق محور الفواصل.</li>
+                    <li><span class="math">v</span>: نرسم فرع <span class="math">x≥0</span> ثم ننسخه بالتناظر بالنسبة إلى محور التراتيب.</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+      </div>
+    </article>
+  `;
+}
+function renderDerivativeCanvasCard() {
+  return `
+    <div class="discussion-canvas-card derivative-canvas-card" data-discussion-card="derivative">
+      <div class="discussion-canvas-head">
+        <strong>كانفا ديناميكي: القاطع يقترب من المماس</strong>
+        <span data-discussion-value>h = 1.60</span>
+      </div>
+      <canvas width="760" height="430" data-discussion-canvas="derivative" aria-label="كانفا ديناميكي يوضح اقتراب معامل توجيه القاطع من معامل توجيه المماس"></canvas>
+      <div class="discussion-controls">
+        <label>
+          <span>حرّك النقطة M نحو A</span>
+          <input type="range" min="0.05" max="2.4" step="0.01" value="1.6" data-discussion-slider="derivative" aria-label="المسافة الأفقية بين A و M" />
+        </label>
+        <div class="discussion-line-actions">
+          <button class="discussion-play-btn derivative-auto-btn" type="button" data-discussion-play data-play-label="تحريك تلقائي" data-stop-label="إيقاف التحريك">تحريك تلقائي</button>
+        </div>
+      </div>
+      <p class="discussion-result" data-discussion-result>كلما اقتربت M من A، اقترب ميل القاطع AM من ميل المماس عند A.</p>
+    </div>
+  `;
+}
+function renderDifferentiabilityDoor() {
+  return `
+    <article class="lesson-block discussion-door differentiability-door is-collapsed" data-discussion-door>
+      <button class="discussion-door-toggle" type="button" data-discussion-door-toggle aria-expanded="false">
+        <span>باب القابلية للاشتقاق و التفسير الهندسي</span>
+        <small>افتح قواعد الاشتقاق</small>
+      </button>
+      <div class="discussion-door-body" data-discussion-door-body hidden>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>الفكرة الأساسية</span><strong>المشتقة هي ميل المماس</strong></header>
+          <div class="method-box">
+            <strong>طريقة العمل:</strong>
+            <p>لدراسة قابلية الاشتقاق عند عدد <span class="math">a</span> لا نكتفي بحساب المشتقة العامة، بل نرجع إلى معدل التغير حول النقطة، ثم نقارن النهاية اليمنى واليسرى.</p>
+          </div>
+          <div class="graph-transform-grid differentiability-grid">
+            <div class="property-box"><strong>قابلية الاشتقاق عند <span class="math">a</span></strong><p>تكون <span class="math">f</span> قابلة للاشتقاق عند <span class="math">a</span> إذا وجدت نهاية <span class="math">(f(x)-f(a))/(x-a)</span> وكانت منتهية.</p></div>
+            <div class="property-box"><strong>يمين ويسار</strong><p>إذا كان <span class="math">f'_d(a)=f'_g(a)</span> فإن الدالة قابلة للاشتقاق عند <span class="math">a</span>. إذا اختلفتا تظهر زاوية أو نقطة انكسار.</p></div>
+            <div class="property-box"><strong>المماس</strong><p>إذا كانت <span class="math">f</span> قابلة للاشتقاق عند <span class="math">a</span>، فمعادلة المماس هي <span class="math">y=f'(a)(x-a)+f(a)</span>.</p></div>
+            <div class="property-box"><strong>مماس أفقي</strong><p>إذا كان <span class="math">f'(a)=0</span> فالمماس أفقي، وغالبا نبحث بعدها عن قيمة حدية أو تغير اتجاه المنحنى.</p></div>
+            <div class="property-box"><strong>مماس عمودي</strong><p>إذا كان معدل التغير يميل إلى <span class="math">±∞</span> عند <span class="math">a</span> فقد يكون للمنحنى مماس عمودي معادلته <span class="math">x=a</span>.</p></div>
+            <div class="property-box"><strong>عدم الاشتقاق</strong><p>أشهر الحالات: زاوية، نقطة حادة، مماس عمودي، أو انقطاع في الدالة عند النقطة.</p></div>
+          </div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التفسير الهندسي</span><strong>من القاطع إلى المماس</strong></header>
+          ${renderDerivativeCanvasCard()}
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>خطة الحل</span><strong>كيف أتعامل مع سؤال القابلية للاشتقاق؟</strong></header>
+          <ol class="solution-list differentiability-steps">
+            <li>أتحقق أولا أن الدالة معرفة ومتصلة عند النقطة المطلوبة <span class="math">a</span>.</li>
+            <li>أحسب <span class="math">f'_d(a)</span> و <span class="math">f'_g(a)</span> باستعمال معدل التغير إذا كانت العبارة تتغير عند <span class="math">a</span>.</li>
+            <li>إذا تساوت القيمتان وكانت منتهيتين أكتب أن الدالة قابلة للاشتقاق، ثم أستخرج معادلة المماس.</li>
+            <li>إذا اختلفتا أفسر هندسيا: زاوية، نقطة حادة، أو نصفا مماسين مختلفين.</li>
+          </ol>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الأول</span><strong>الاشتقاق عند طرف المجال والتحويل الزوجي</strong></header>
+          <article class="training-exercise differentiability-first-exercise">
+            <h4>الجزء الأول: دراسة الدالة المساعدة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=2x-1-ln(x)</div>
+            <ol>
+              <li>احسب نهايتي <span class="math">g</span> عند <span class="math">0</span> بالقيم الكبرى وعند <span class="math">+∞</span>.</li>
+              <li>ادرس اتجاه تغير الدالة <span class="math">g</span>، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">g(1/2)</span>، ثم استنتج أن <span class="math">g(x)&gt;0</span> لكل <span class="math">x∈]0,+∞[</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: الدالة الرئيسية <span class="math">f</span> والانسجام والاشتقاق</h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">[0,+∞[</span> كما يلي:</p>
+            <div class="math-equation">f(x)=x²-xln(x) من أجل x&gt;0</div>
+            <div class="math-equation">f(0)=0</div>
+            <ol>
+              <li>بيّن أن <span class="math">f</span> مستمرة عند الصفر بالقيم الكبرى.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> عند الصفر بالقيم الكبرى، وأعط تفسيرا هندسيا.</li>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span>.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈]0,+∞[</span>: <span class="math">f'(x)=g(x)</span>.</li>
+              <li>استنتج اتجاه تغير <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">f(1)</span>، ثم ارسم نصف المماس عند المبدأ والمنحنى <span class="math">C_f</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: دمج التحويلات النقطية</h4>
+            <p>تعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">h(x)=x²-|x|ln(|x|) من أجل x≠0</div>
+            <div class="math-equation">h(0)=0</div>
+            <ol>
+              <li>تحقق أن <span class="math">h(x)=f(|x|)</span>، ثم استنتج شفعية الدالة <span class="math">h</span>.</li>
+              <li>اشرح كيف يمكن رسم <span class="math">C_h</span> انطلاقا من <span class="math">C_f</span>، ثم أنشئه بخط متقطع.</li>
+              <li>اعتمادا على التفسير الهندسي، هل الدالة <span class="math">h</span> قابلة للاشتقاق عند <span class="math">x=0</span>؟ وما التفسير الهندسي عند المبدأ؟</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">g</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتغيرات</h5>
+                  <p>عند <span class="math">0^+</span> لدينا <span class="math">ln(x)→-∞</span>، ومنه <span class="math">-ln(x)→+∞</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→0+)g(x)=+∞</div>
+                  <p>وعند <span class="math">+∞</span> يغلب الحد الخطي <span class="math">2x</span> على <span class="math">ln(x)</span>، وبالتالي:</p>
+                  <div class="math-equation">lim(x→+∞)g(x)=+∞</div>
+                  <p>نشتق على <span class="math">]0,+∞[</span>:</p>
+                  <div class="math-equation">g'(x)=2-1/x=(2x-1)/x</div>
+                  <p>بما أن <span class="math">x&gt;0</span>، فإن إشارة <span class="math">g'</span> هي إشارة <span class="math">2x-1</span>. إذن <span class="math">g</span> متناقصة على <span class="math">]0,1/2]</span> ومتزايدة على <span class="math">[1/2,+∞[</span>.</p>
+                  <div class="math-equation">g(1/2)=1-1-ln(1/2)=ln2&gt;0</div>
+                  <p>إذن القيمة الصغرى للدالة <span class="math">g</span> موجبة، ومنه:</p>
+                  <div class="math-equation">g(x)&gt;0 لكل x&gt;0</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>2. الاستمرارية والاشتقاق عند الصفر</h5>
+                  <p>نكتب من أجل <span class="math">x&gt;0</span>:</p>
+                  <div class="math-equation">f(x)=x²-xln(x)</div>
+                  <p>ولدينا النتيجة المعروفة <span class="math">lim(x→0+)xln(x)=0</span>، وكذلك <span class="math">x²→0</span>. إذن:</p>
+                  <div class="math-equation">lim(x→0+)f(x)=0=f(0)</div>
+                  <p>فتكون <span class="math">f</span> مستمرة عند <span class="math">0</span> من اليمين.</p>
+                  <p>ندرس معدل التغير عند الصفر من اليمين:</p>
+                  <div class="math-equation">(f(x)-f(0))/(x-0)=f(x)/x=x-ln(x)</div>
+                  <div class="math-equation">lim(x→0+)(x-ln(x))=+∞</div>
+                  <p>إذن لا توجد مشتقة يمينية منتهية عند <span class="math">0</span>. هندسيا: للمنحنى <span class="math">C_f</span> نصف مماس عمودي عند المبدأ معادلته <span class="math">x=0</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. التغيرات والرسم</h5>
+                  <p>عند <span class="math">+∞</span> نكتب:</p>
+                  <div class="math-equation">f(x)=x²(1-ln(x)/x)</div>
+                  <p>وبما أن <span class="math">ln(x)/x→0</span>، فإن:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                  <p>ومن أجل <span class="math">x&gt;0</span>:</p>
+                  <div class="math-equation">f'(x)=2x-(ln(x)+1)=2x-1-ln(x)=g(x)</div>
+                  <p>وبما أن <span class="math">g(x)&gt;0</span>، فإن <span class="math">f</span> متزايدة تماما على <span class="math">]0,+∞[</span>، ومع الاستمرارية عند الصفر تكون متزايدة على <span class="math">[0,+∞[</span>.</p>
+                  <div class="math-equation">f(1)=1²-1ln(1)=1</div>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f ونصف المماس العمودي"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="120" y1="45" x2="120" y2="350"></line><line x1="220" y1="45" x2="220" y2="350"></line><line x1="320" y1="45" x2="320" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="520" y1="45" x2="520" y2="350"></line><line x1="620" y1="45" x2="620" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="120" y1="45" x2="120" y2="350"></line></g><line x1="120" y1="310" x2="120" y2="55" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><path d="M120 310 C124 270 132 238 150 208 C178 160 220 124 270 100 C350 62 455 55 620 45" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="120" cy="310" r="7" fill="#111827"></circle><circle cx="220" cy="154" r="6" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="132" y="330" fill="#111827">O</text><text x="132" y="80" fill="#2563eb">x=0 نصف مماس</text><text x="230" y="146" fill="#059669">(1,1)</text><text x="500" y="72" fill="#dc2626">C_f</text></g></svg><figcaption>ينطلق <span class="math">C_f</span> من المبدأ بنصف مماس عمودي، ثم يتزايد على المجال <span class="math">[0,+∞[</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>الدالة <span class="math">h=f(|x|)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>4. الشفعية والتفسير الهندسي</h5>
+                  <p>إذا كان <span class="math">x≠0</span> فإن <span class="math">|x|&gt;0</span>، ولذلك:</p>
+                  <div class="math-equation">f(|x|)=|x|²-|x|ln(|x|)=x²-|x|ln(|x|)=h(x)</div>
+                  <p>كما أن <span class="math">h(0)=f(0)=0</span>، إذن <span class="math">h(x)=f(|x|)</span> لكل <span class="math">x∈R</span>.</p>
+                  <p>نستنتج أن <span class="math">h</span> زوجية، لأن <span class="math">h(-x)=h(x)</span>. ولرسم <span class="math">C_h</span> نأخذ فرع <span class="math">C_f</span> على يمين محور التراتيب، ثم ننسخه بتناظر حول محور التراتيب.</p>
+                  <p>عند الصفر:</p>
+                  <div class="math-equation">lim(x→0+)h(x)/x=+∞</div>
+                  <div class="math-equation">lim(x→0-)h(x)/x=-∞</div>
+                  <p>إذن <span class="math">h</span> ليست قابلة للاشتقاق عند <span class="math">0</span> بالمعنى العددي، لكن بيانها يملك مماسا عموديا عند المبدأ معادلته <span class="math">x=0</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h الزوجية"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="310" x2="340" y2="55" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><path d="M340 310 C344 270 352 238 370 208 C398 160 440 124 490 100 C545 74 585 58 620 48" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 310 C336 270 328 238 310 208 C282 160 240 124 190 100 C135 74 95 58 60 48" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7"></path><circle cx="340" cy="310" r="7" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="330" fill="#111827">O</text><text x="352" y="80" fill="#2563eb">x=0 مماس عمودي</text><text x="500" y="72" fill="#dc2626">C_h</text><text x="112" y="92" fill="#dc2626">تناظر</text></g></svg><figcaption><span class="math">C_h</span> زوجي: الفرع الأيمن هو <span class="math">C_f</span>، والفرع الأيسر صورته حول محور التراتيب.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثاني</span><strong>نصف المماس والنقطة الزاوية</strong></header>
+          <article class="training-exercise differentiability-second-exercise">
+            <h4>الجزء الأول: الدالة المساعدة <span class="math">g</span></h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">]0,+∞[</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=x+1-ln(x)</div>
+            <ol>
+              <li>احسب <span class="math">lim(x→0+)g(x)</span> و <span class="math">lim(x→+∞)g(x)</span>.</li>
+              <li>ادرس اتجاه تغير <span class="math">g</span>، ثم شكل جدول تغيراتها.</li>
+              <li>احسب <span class="math">g(1)</span>، ثم استنتج إشارة <span class="math">g(x)</span> على <span class="math">]0,+∞[</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: الدالة الرئيسية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">[0,+∞[</span> كما يلي:</p>
+            <div class="math-equation">f(x)=1/2 x²+2x-xln(x) من أجل x&gt;0</div>
+            <div class="math-equation">f(0)=0</div>
+            <ol>
+              <li>بيّن أن <span class="math">f</span> مستمرة عند الصفر بالقيم الكبرى.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> عند الصفر بالقيم الكبرى، وأعط تفسيرا هندسيا.</li>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span>.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x∈]0,+∞[</span>: <span class="math">f'(x)=g(x)</span>.</li>
+              <li>استنتج اتجاه تغير <span class="math">f</span>، ثم شكل جدول تغيراتها.</li>
+              <li>ناقش المعادلة <span class="math">f(x)=5</span> وعيّن موضع حلها تقريبا.</li>
+              <li>احسب <span class="math">f(1)</span>، ثم ارسم نصف المماس عند المبدأ والمنحنى <span class="math">C_f</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: دمج التحويلات النقطية</h4>
+            <p>تعتبر الدالة <span class="math">h</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">h(x)=1/2 x²+2|x|-|x|ln(|x|) من أجل x≠0</div>
+            <div class="math-equation">h(0)=0</div>
+            <ol>
+              <li>تحقق أن <span class="math">h(x)=f(|x|)</span>، ثم استنتج شفعية الدالة <span class="math">h</span>.</li>
+              <li>اشرح كيف يتم رسم <span class="math">C_h</span> انطلاقا من <span class="math">C_f</span>.</li>
+              <li>اعتمادا على شفعية الدالة ونتيجة الاشتقاق من اليمين، احسب <span class="math">lim(x→0-) (h(x)-h(0))/x</span>. ماذا تستنتج حول قابلية اشتقاق <span class="math">h</span> عند <span class="math">0</span>؟ وماذا تسمى النقطة <span class="math">O(0,0)</span> في <span class="math">C_h</span>؟</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">g</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهايات والتغيرات</h5>
+                  <p>عند <span class="math">0^+</span>: <span class="math">ln(x)→-∞</span>، إذن <span class="math">-ln(x)→+∞</span>، ومنه:</p>
+                  <div class="math-equation">lim(x→0+)g(x)=+∞</div>
+                  <p>وعند <span class="math">+∞</span> يغلب <span class="math">x</span> على <span class="math">ln(x)</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→+∞)g(x)=+∞</div>
+                  <p>نشتق:</p>
+                  <div class="math-equation">g'(x)=1-1/x=(x-1)/x</div>
+                  <p>بما أن <span class="math">x&gt;0</span>، فإن <span class="math">g'</span> سالبة على <span class="math">]0,1[</span> وموجبة على <span class="math">]1,+∞[</span>. إذن <span class="math">g</span> تتناقص ثم تتزايد، وقيمتها الصغرى هي:</p>
+                  <div class="math-equation">g(1)=1+1-ln(1)=2&gt;0</div>
+                  <p>لذلك:</p>
+                  <div class="math-equation">g(x)&gt;0 لكل x&gt;0</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>2. الاستمرارية ونصف المماس</h5>
+                  <p>لدينا <span class="math">lim(x→0+)xln(x)=0</span> و <span class="math">x²→0</span> و <span class="math">2x→0</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→0+)f(x)=0=f(0)</div>
+                  <p>إذن <span class="math">f</span> مستمرة عند الصفر من اليمين.</p>
+                  <p>نحسب معدل التغير من اليمين:</p>
+                  <div class="math-equation">(f(x)-f(0))/x = x/2+2-ln(x)</div>
+                  <div class="math-equation">lim(x→0+) (x/2+2-ln(x))=+∞</div>
+                  <p>إذن لا توجد مشتقة يمينية منتهية عند <span class="math">0</span>. هندسيا: للمنحنى <span class="math">C_f</span> نصف مماس عمودي عند المبدأ معادلته <span class="math">x=0</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. التغيرات والمعادلة <span class="math">f(x)=5</span></h5>
+                  <p>عند <span class="math">+∞</span>:</p>
+                  <div class="math-equation">f(x)=x²(1/2+2/x-ln(x)/x)</div>
+                  <p>وبما أن <span class="math">2/x→0</span> و <span class="math">ln(x)/x→0</span>، نحصل على:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                  <p>ومن أجل <span class="math">x&gt;0</span>:</p>
+                  <div class="math-equation">f'(x)=x+2-(ln(x)+1)=x+1-ln(x)=g(x)</div>
+                  <p>وبما أن <span class="math">g(x)&gt;0</span>، فإن <span class="math">f</span> متزايدة تماما على <span class="math">[0,+∞[</span>.</p>
+                  <p>إذن المعادلة <span class="math">f(x)=5</span> تقبل حلا وحيدا لأن <span class="math">f(0)=0</span> و <span class="math">f(x)→+∞</span>. بالحساب التقريبي:</p>
+                  <div class="math-equation">f(2.1)≈4.80 و f(2.2)≈5.09</div>
+                  <p>إذن الحل <span class="math">α</span> يوجد تقريبا بين <span class="math">2.1</span> و <span class="math">2.2</span>.</p>
+                  <div class="method-box"><strong>تنبيه:</strong><p>الصورة تذكر المجال <span class="math">3.1&lt;α&lt;3.2</span>، لكن هذا لا يوافق العبارة المكتوبة للدالة؛ فحسب <span class="math">f(x)=1/2x²+2x-xln(x)</span> يكون الحل قرب <span class="math">2.17</span>.</p></div>
+                  <div class="math-equation">f(1)=1/2+2-ln(1)=2.5</div>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f في التدريب الثاني"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="110" y1="45" x2="110" y2="350"></line><line x1="210" y1="45" x2="210" y2="350"></line><line x1="310" y1="45" x2="310" y2="350"></line><line x1="410" y1="45" x2="410" y2="350"></line><line x1="510" y1="45" x2="510" y2="350"></line><line x1="610" y1="45" x2="610" y2="350"></line><line x1="70" y1="95" x2="620" y2="95"></line><line x1="70" y1="170" x2="620" y2="170"></line><line x1="70" y1="245" x2="620" y2="245"></line><line x1="70" y1="320" x2="620" y2="320"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="320" x2="620" y2="320"></line><line x1="110" y1="45" x2="110" y2="350"></line></g><line x1="110" y1="320" x2="110" y2="60" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><line x1="70" y1="120" x2="620" y2="120" stroke="#059669" stroke-width="3" stroke-dasharray="9 8"></line><path d="M110 320 C114 260 130 220 164 184 C205 140 260 112 325 96 C410 74 505 58 620 48" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="110" cy="320" r="7" fill="#111827"></circle><circle cx="210" cy="170" r="6" fill="#059669"></circle><circle cx="322" cy="120" r="6" fill="#7c3aed"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="122" y="340" fill="#111827">O</text><text x="122" y="82" fill="#2563eb">x=0</text><text x="222" y="163" fill="#059669">(1,2.5)</text><text x="332" y="112" fill="#7c3aed">f(x)=5</text><text x="505" y="76" fill="#dc2626">C_f</text></g></svg><figcaption>المنحنى متزايد، وينطلق من المبدأ بنصف مماس عمودي، ويقطع المستوى <span class="math">y=5</span> مرة واحدة.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>الدالة <span class="math">h=f(|x|)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>4. الشفعية والنقطة الزاوية</h5>
+                  <p>من أجل <span class="math">x≠0</span>:</p>
+                  <div class="math-equation">f(|x|)=1/2|x|²+2|x|-|x|ln(|x|)=1/2x²+2|x|-|x|ln(|x|)=h(x)</div>
+                  <p>ومع <span class="math">h(0)=f(0)=0</span> نحصل على <span class="math">h(x)=f(|x|)</span> لكل <span class="math">x∈R</span>. إذن <span class="math">h</span> زوجية.</p>
+                  <p>لرسم <span class="math">C_h</span>: نأخذ فرع <span class="math">C_f</span> على يمين محور التراتيب وننسخه بتناظر حول هذا المحور.</p>
+                  <p>بما أن <span class="math">h</span> زوجية، فعندما <span class="math">x&lt;0</span> نضع <span class="math">t=-x&gt;0</span> فنجد:</p>
+                  <div class="math-equation">h(x)/x = f(t)/(-t) = - f(t)/t</div>
+                  <p>ومادام <span class="math">lim(t→0+)f(t)/t=+∞</span>، فإن:</p>
+                  <div class="math-equation">lim(x→0-) h(x)/x = -∞</div>
+                  <p>أما يمينا فنجد <span class="math">lim(x→0+)h(x)/x=+∞</span>. إذن <span class="math">h</span> ليست قابلة للاشتقاق عند <span class="math">0</span>. هندسيا النقطة <span class="math">O(0,0)</span> هي نقطة زاوية ذات مماس عمودي مشترك <span class="math">x=0</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة h في التدريب الثاني"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="95" x2="620" y2="95"></line><line x1="70" y1="170" x2="620" y2="170"></line><line x1="70" y1="245" x2="620" y2="245"></line><line x1="70" y1="320" x2="620" y2="320"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="320" x2="620" y2="320"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="320" x2="340" y2="60" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><path d="M340 320 C344 260 360 220 394 184 C435 140 490 112 555 96 C585 88 607 82 620 76" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 320 C336 260 320 220 286 184 C245 140 190 112 125 96 C95 88 73 82 60 76" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7"></path><circle cx="340" cy="320" r="7" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="340" fill="#111827">O</text><text x="352" y="82" fill="#2563eb">مماس عمودي</text><text x="500" y="104" fill="#dc2626">C_h</text><text x="112" y="104" fill="#dc2626">تناظر</text></g></svg><figcaption><span class="math">C_h</span> زوجي، وفي المبدأ نقطة زاوية بمماس عمودي لأن الميلين الجانبيين غير منتهيين ومتعاكسان.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثالث</span><strong>المماس العمودي والنقطة الزاوية</strong></header>
+          <article class="training-exercise differentiability-third-exercise">
+            <h4>الجزء الأول: الاستمرارية والمماس العمودي</h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">[0,+∞[</span> كما يلي:</p>
+            <div class="math-equation">f(x)=x|ln(x)| من أجل x&gt;0</div>
+            <div class="math-equation">f(0)=0</div>
+            <ol>
+              <li>بيّن أن <span class="math">f</span> مستمرة عند المبدأ <span class="math">x=0</span> بالقيم الكبرى.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> عند <span class="math">0</span> بالقيم الكبرى.</li>
+              <li>أعط التفسير الهندسي الدقيق للنتيجة السابقة.</li>
+            </ol>
+            <h4>الجزء الثاني: النقطة الزاوية عند انعدام القيمة المطلقة</h4>
+            <ol>
+              <li>أعد كتابة عبارة <span class="math">f(x)</span> دون رمز القيمة المطلقة على المجال <span class="math">]0,+∞[</span>.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> عند <span class="math">x₀=1</span> بالقيم الصغرى والكبرى.</li>
+              <li>فسّر النتيجة هندسيا بالنسبة إلى المنحنى <span class="math">C_f</span> عند النقطة <span class="math">A(1,0)</span>، واكتب معادلتي نصفي المماس عندها.</li>
+            </ol>
+            <h4>الجزء الثالث: التغيرات والرسم</h4>
+            <ol>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span>.</li>
+              <li>احسب <span class="math">f'(x)</span> على <span class="math">]0,1[</span> ثم على <span class="math">]1,+∞[</span>.</li>
+              <li>ادرس إشارة <span class="math">f'(x)</span> في كل مجال، ثم شكل جدول تغيرات <span class="math">f</span> على <span class="math">[0,+∞[</span>.</li>
+              <li>ارسم أنصاف المماسات، ثم ارسم المنحنى <span class="math">C_f</span>. نأخذ <span class="math">e^{-1}≈0.36</span>.</li>
+            </ol>
+            <h4>الجزء الرابع: استنتاج المنحنيات بالتحويلات</h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">g(x)=|x|·|ln(|x|)| من أجل x≠0</div>
+            <div class="math-equation">g(0)=0</div>
+            <ol>
+              <li>بيّن أن الدالة <span class="math">g</span> زوجية.</li>
+              <li>بالاعتماد على القواعد الهندسية، اشرح كيف يمكن رسم <span class="math">C_g</span> انطلاقا من <span class="math">C_f</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>الاستمرارية والمماس العمودي</h4></header>
+                <article class="solution-step-card">
+                  <h5>1. الاستمرارية عند <span class="math">0</span></h5>
+                  <p>من أجل <span class="math">x&gt;0</span> لدينا:</p>
+                  <div class="math-equation">f(x)=x|ln(x)|</div>
+                  <p>وعند <span class="math">0^+</span> نعلم أن:</p>
+                  <div class="math-equation">lim(x→0+) xln(x)=0</div>
+                  <p>ومنه أيضا:</p>
+                  <div class="math-equation">lim(x→0+) x|ln(x)|=0=f(0)</div>
+                  <p>إذن <span class="math">f</span> مستمرة عند <span class="math">0</span> من اليمين.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. قابلية الاشتقاق من اليمين</h5>
+                  <p>نحسب معدل التغير عند <span class="math">0</span> من اليمين:</p>
+                  <div class="math-equation">(f(x)-f(0))/(x-0)=|ln(x)|</div>
+                  <p>وعندما <span class="math">x→0^+</span> فإن <span class="math">ln(x)→-∞</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→0+) |ln(x)|=+∞</div>
+                  <p>إذن لا توجد مشتقة يمينية منتهية عند <span class="math">0</span>. هندسيا: للمنحنى <span class="math">C_f</span> نصف مماس عمودي عند المبدأ، معادلته <span class="math">x=0</span>.</p>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>النقطة الزاوية عند <span class="math">A(1,0)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>3. إزالة القيمة المطلقة</h5>
+                  <p>إشارة <span class="math">ln(x)</span> تتغير عند <span class="math">x=1</span>:</p>
+                  <div class="math-equation">0&lt;x&lt;1 ⇒ ln(x)&lt;0 ⇒ f(x)=-xln(x)</div>
+                  <div class="math-equation">x&gt;1 ⇒ ln(x)&gt;0 ⇒ f(x)=xln(x)</div>
+                  <p>ندرس الاشتقاق عند <span class="math">1</span>:</p>
+                  <div class="math-equation">f'_g(1)=lim(x→1-) (-(ln(x)+1))=-1</div>
+                  <div class="math-equation">f'_d(1)=lim(x→1+) (ln(x)+1)=1</div>
+                  <p>بما أن المشتقتين الجانبيتين مختلفتان، فإن <span class="math">f</span> غير قابلة للاشتقاق عند <span class="math">1</span>. هندسيا: النقطة <span class="math">A(1,0)</span> نقطة زاوية.</p>
+                  <div class="math-equation">T_g: y=-(x-1)=1-x</div>
+                  <div class="math-equation">T_d: y=x-1</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>التغيرات والرسم</h4></header>
+                <article class="solution-step-card">
+                  <h5>4. التغيرات</h5>
+                  <p>عند <span class="math">+∞</span>:</p>
+                  <div class="math-equation">lim(x→+∞)xln(x)=+∞</div>
+                  <p>المشتقة على المجالين:</p>
+                  <div class="math-equation">0&lt;x&lt;1: f'(x)=-(ln(x)+1)</div>
+                  <div class="math-equation">x&gt;1: f'(x)=ln(x)+1</div>
+                  <p>على <span class="math">]0,1[</span>: <span class="math">f'(x)=0 ⇔ ln(x)=-1 ⇔ x=e^{-1}</span>. إذن <span class="math">f</span> متزايدة على <span class="math">]0,e^{-1}]</span> ثم متناقصة على <span class="math">[e^{-1},1]</span>.</p>
+                  <p>وعلى <span class="math">]1,+∞[</span> لدينا <span class="math">ln(x)+1&gt;0</span>، إذن <span class="math">f</span> متزايدة.</p>
+                  <div class="math-equation">f(e^{-1})=e^{-1}</div>
+                  <div class="math-equation">f(0)=0, f(1)=0, lim(x→+∞)f(x)=+∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>5. رسم <span class="math">C_f</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f(x)=x|ln(x)|"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="110" y1="45" x2="110" y2="350"></line><line x1="210" y1="45" x2="210" y2="350"></line><line x1="310" y1="45" x2="310" y2="350"></line><line x1="410" y1="45" x2="410" y2="350"></line><line x1="510" y1="45" x2="510" y2="350"></line><line x1="610" y1="45" x2="610" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="220" x2="620" y2="220"></line><line x1="70" y1="320" x2="620" y2="320"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="320" x2="620" y2="320"></line><line x1="110" y1="45" x2="110" y2="350"></line></g><line x1="110" y1="320" x2="110" y2="60" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><line x1="210" y1="260" x2="310" y2="320" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><line x1="310" y1="320" x2="410" y2="260" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><path d="M110 320 C116 250 132 210 150 190 C176 162 205 172 235 210 C260 242 286 300 310 320 C345 292 395 230 470 165 C535 110 585 72 620 54" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="110" cy="320" r="7" fill="#111827"></circle><circle cx="150" cy="190" r="6" fill="#059669"></circle><circle cx="310" cy="320" r="7" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="122" y="340" fill="#111827">O</text><text x="122" y="82" fill="#2563eb">x=0</text><text x="157" y="184" fill="#059669">e⁻¹</text><text x="322" y="340" fill="#111827">A(1,0)</text><text x="500" y="96" fill="#dc2626">C_f</text><text x="360" y="286" fill="#7c3aed">نصفا مماس</text></g></svg><figcaption>يظهر نصف المماس العمودي عند <span class="math">O</span>، وتظهر النقطة الزاوية <span class="math">A(1,0)</span> بنصفي مماس مختلفين.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الرابع</span><h4>استنتاج <span class="math">C_g</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>6. التحويل الزوجي</h5>
+                  <p>من أجل <span class="math">x≠0</span>:</p>
+                  <div class="math-equation">g(x)=|x|·|ln(|x|)|=f(|x|)</div>
+                  <p>وبما أن <span class="math">g(0)=f(0)=0</span>، فإن <span class="math">g(x)=f(|x|)</span> لكل <span class="math">x∈R</span>. إذن <span class="math">g</span> زوجية.</p>
+                  <p>لرسم <span class="math">C_g</span> نحتفظ بمنحنى <span class="math">C_f</span> على يمين محور التراتيب، ثم ننسخه بالتناظر حول محور التراتيب.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g(x)=|x||ln(|x|)|"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="120" x2="620" y2="120"></line><line x1="70" y1="220" x2="620" y2="220"></line><line x1="70" y1="320" x2="620" y2="320"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="320" x2="620" y2="320"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="320" x2="340" y2="60" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8"></line><path d="M340 320 C346 250 362 210 380 190 C406 162 435 172 465 210 C490 242 516 300 540 320 C575 292 605 235 620 196" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 320 C334 250 318 210 300 190 C274 162 245 172 215 210 C190 242 164 300 140 320 C105 292 75 235 60 196" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7"></path><circle cx="340" cy="320" r="7" fill="#111827"></circle><circle cx="540" cy="320" r="6" fill="#111827"></circle><circle cx="140" cy="320" r="6" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="340" fill="#111827">O</text><text x="548" y="340" fill="#111827">1</text><text x="122" y="340" fill="#111827">-1</text><text x="500" y="128" fill="#dc2626">C_g</text><text x="96" y="128" fill="#dc2626">تناظر</text></g></svg><figcaption><span class="math">C_g</span> زوجي، وفيه نسختان متناظرتان من فرع <span class="math">C_f</span> على يمين محور التراتيب.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الرابع</span><strong>دالة بفرعين وأنصاف المماسات</strong></header>
+          <article class="training-exercise differentiability-fourth-exercise">
+            <h4>تعريف الدالة</h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> كما يلي:</p>
+            <div class="math-equation">f(x)=e^x-x من أجل x≤0</div>
+            <div class="math-equation">f(x)=1-x+xln(x) من أجل x&gt;0</div>
+            <h4>الجزء الأول: دراسة الفرع الأيسر</h4>
+            <ol>
+              <li>احسب <span class="math">lim(x→-∞)f(x)</span>.</li>
+              <li>بيّن أن المستقيم <span class="math">Δ:y=-x</span> مقارب مائل للمنحنى <span class="math">C_f</span> بجوار <span class="math">-∞</span>.</li>
+              <li>ادرس الوضع النسبي للمنحنى <span class="math">C_f</span> والمستقيم <span class="math">Δ</span> على <span class="math">]-∞,0]</span>.</li>
+              <li>احسب <span class="math">f'(x)</span> من أجل <span class="math">x&lt;0</span>، ثم استنتج اتجاه تغير <span class="math">f</span> على <span class="math">]-∞,0]</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: دراسة الفرع الأيمن</h4>
+            <ol>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span>.</li>
+              <li>احسب <span class="math">f'(x)</span> من أجل <span class="math">x&gt;0</span>، ثم ادرس إشارتها.</li>
+              <li>استنتج اتجاه تغير <span class="math">f</span> على <span class="math">]0,+∞[</span>.</li>
+            </ol>
+            <h4>الجزء الثالث: نقطة الالتقاء</h4>
+            <ol>
+              <li>بيّن أن <span class="math">f</span> مستمرة عند <span class="math">x₀=0</span>.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> على اليسار عند <span class="math">0</span>.</li>
+              <li>ادرس قابلية اشتقاق <span class="math">f</span> على اليمين عند <span class="math">0</span>.</li>
+              <li>هل <span class="math">f</span> قابلة للاشتقاق عند <span class="math">0</span>؟ أعط تفسيرا هندسيا دقيقا.</li>
+            </ol>
+            <h4>الجزء الرابع: الحصيلة والرسم</h4>
+            <ol>
+              <li>شكل جدول تغيرات الدالة <span class="math">f</span> على <span class="math">R</span>.</li>
+              <li>ارسم المستقيم المقارب <span class="math">Δ</span> وأنصاف المماسات عند المبدأ، ثم ارسم المنحنى <span class="math">C_f</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>الفرع الأيسر <span class="math">x≤0</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. النهاية والمقارب</h5>
+                  <p>على <span class="math">]-∞,0]</span> لدينا <span class="math">f(x)=e^x-x</span>. عندما <span class="math">x→-∞</span> فإن <span class="math">e^x→0</span> و <span class="math">-x→+∞</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→-∞)f(x)=+∞</div>
+                  <p>نحسب الفرق مع المستقيم <span class="math">Δ:y=-x</span>:</p>
+                  <div class="math-equation">f(x)-(-x)=e^x</div>
+                  <div class="math-equation">lim(x→-∞)e^x=0</div>
+                  <p>إذن <span class="math">Δ:y=-x</span> مقارب مائل بجوار <span class="math">-∞</span>. وبما أن <span class="math">e^x&gt;0</span> فإن <span class="math">C_f</span> يقع فوق <span class="math">Δ</span> على الفرع الأيسر.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. تغيرات الفرع الأيسر</h5>
+                  <div class="math-equation">f'(x)=e^x-1</div>
+                  <p>إذا <span class="math">x&lt;0</span> فإن <span class="math">0&lt;e^x&lt;1</span>، ومنه <span class="math">f'(x)&lt;0</span>. إذن <span class="math">f</span> متناقصة على <span class="math">]-∞,0]</span>.</p>
+                  <div class="math-equation">f(0)=e^0-0=1</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>الفرع الأيمن <span class="math">x&gt;0</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>3. النهاية والتغيرات</h5>
+                  <p>نكتب:</p>
+                  <div class="math-equation">f(x)=1+x(ln(x)-1)</div>
+                  <p>وعندما <span class="math">x→+∞</span> فإن <span class="math">xln(x)</span> يغلب <span class="math">x</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→+∞)f(x)=+∞</div>
+                  <p>المشتقة:</p>
+                  <div class="math-equation">f'(x)=-1+(ln(x)+1)=ln(x)</div>
+                  <p>إذن <span class="math">f'(x)&lt;0</span> على <span class="math">]0,1[</span>، و <span class="math">f'(1)=0</span>، و <span class="math">f'(x)&gt;0</span> على <span class="math">]1,+∞[</span>. بالتالي <span class="math">f</span> متناقصة على <span class="math">]0,1]</span> ومتزايدة على <span class="math">[1,+∞[</span>.</p>
+                  <div class="math-equation">f(1)=1-1+1ln(1)=0</div>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثالث</span><h4>نقطة الالتقاء عند <span class="math">0</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>4. الاتصال والاشتقاق الجانبي</h5>
+                  <p>من اليسار:</p>
+                  <div class="math-equation">lim(x→0-)f(x)=e^0-0=1</div>
+                  <p>ومن اليمين نستعمل <span class="math">lim(x→0+)xln(x)=0</span>:</p>
+                  <div class="math-equation">lim(x→0+)f(x)=1-0+0=1</div>
+                  <p>كما أن <span class="math">f(0)=1</span> من الفرع الأيسر، إذن <span class="math">f</span> مستمرة عند <span class="math">0</span>.</p>
+                  <p>الاشتقاق على اليسار:</p>
+                  <div class="math-equation">f'_g(0)=lim(x→0-)(e^x-1)=0</div>
+                  <p>الاشتقاق على اليمين باستعمال معدل التغير:</p>
+                  <div class="math-equation">(f(x)-f(0))/x=(1-x+xln(x)-1)/x=-1+ln(x)</div>
+                  <div class="math-equation">lim(x→0+)(-1+ln(x))=-∞</div>
+                  <p>إذن <span class="math">f</span> غير قابلة للاشتقاق عند <span class="math">0</span>. هندسيا: للمنحنى نصف مماس أفقي من اليسار <span class="math">y=1</span> ونصف مماس عمودي من اليمين <span class="math">x=0</span>.</p>
+                </article>
+                <header class="solution-subhead"><span>الجزء الرابع</span><h4>الرسم والحصيلة</h4></header>
+                <article class="solution-step-card">
+                  <h5>5. جدول التغيرات والرسم</h5>
+                  <p>الحصيلة: <span class="math">f</span> متناقصة من <span class="math">+∞</span> إلى <span class="math">1</span> على <span class="math">]-∞,0]</span>، ثم متناقصة من <span class="math">1</span> إلى <span class="math">0</span> على <span class="math">]0,1]</span>، ثم متزايدة من <span class="math">0</span> إلى <span class="math">+∞</span> على <span class="math">[1,+∞[</span>.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة ذات الفرعين وأنصاف المماسات"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="310" x2="620" y2="310"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="70" x2="340" y2="210" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 8"></line><line x1="260" y1="210" x2="420" y2="210" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><line x1="340" y1="210" x2="340" y2="330" stroke="#7c3aed" stroke-width="4" stroke-dasharray="8 7"></line><path d="M70 58 C140 95 210 134 280 178 C315 200 335 210 340 210" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 210 C343 260 365 300 420 310 C470 318 545 245 620 82" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="340" cy="210" r="7" fill="#111827"></circle><circle cx="420" cy="310" r="7" fill="#059669"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="204" fill="#111827">(0,1)</text><text x="428" y="334" fill="#059669">(1,0)</text><text x="85" y="86" fill="#2563eb">Δ:y=-x</text><text x="258" y="198" fill="#7c3aed">y=1</text><text x="352" y="292" fill="#7c3aed">x=0</text><text x="520" y="116" fill="#dc2626">C_f</text></g></svg><figcaption>عند <span class="math">0</span> يلتقي الفرعان باتصال، لكن بنصف مماس أفقي من اليسار ونصف مماس عمودي من اليمين.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الخامس</span><strong>المقارب المائل وقابلية الاشتقاق بعد التحويل</strong></header>
+          <article class="training-exercise differentiability-fifth-exercise">
+            <h4>الجزء الأول: دراسة الدالة الأصلية <span class="math">f</span></h4>
+            <p>تعتبر الدالة <span class="math">f</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">f(x)=ln(e^{2x}-e^x+1)</div>
+            <ol>
+              <li>برر لماذا <span class="math">f</span> معرفة على كامل <span class="math">R</span>.</li>
+              <li>احسب <span class="math">lim(x→-∞)f(x)</span>، وماذا تستنتج هندسيا؟</li>
+              <li>تحقق أنه من أجل كل <span class="math">x∈R</span>: <span class="math">f(x)=2x+ln(1-e^{-x}+e^{-2x})</span>.</li>
+              <li>احسب <span class="math">lim(x→+∞)f(x)</span> واستنتج المقارب المائل <span class="math">Δ</span>.</li>
+              <li>بيّن أن <span class="math">f'(x)=e^x(2e^x-1)/(e^{2x}-e^x+1)</span>.</li>
+              <li>ادرس إشارة <span class="math">f'(x)</span>، ثم شكل جدول تغيرات <span class="math">f</span>.</li>
+              <li>اكتب معادلة المماس <span class="math">T</span> للمنحنى <span class="math">C_f</span> عند النقطة ذات الفاصلة <span class="math">0</span>.</li>
+            </ol>
+            <h4>الجزء الثاني: قابلية الاشتقاق بعد التحويل</h4>
+            <p>تعتبر الدالة <span class="math">g</span> المعرفة على <span class="math">R</span> بالعبارة:</p>
+            <div class="math-equation">g(x)=ln(e^{2|x|}-e^{|x|}+1)</div>
+            <ol>
+              <li>تحقق أن <span class="math">g(x)=f(|x|)</span>، ثم استنتج شفعية الدالة <span class="math">g</span>.</li>
+              <li>اعتمادا على تعريف العدد المشتق، ادرس قابلية اشتقاق <span class="math">g</span> عند الفاصلة <span class="math">0</span>.</li>
+              <li>فسر النتيجة هندسيا: ماذا تمثل النقطة <span class="math">O(0,0)</span> بالنسبة إلى المنحنى <span class="math">C_g</span>؟</li>
+              <li>اشرح باختصار كيف يتم رسم <span class="math">C_g</span> انطلاقا من <span class="math">C_f</span>.</li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <header class="solution-subhead"><span>الجزء الأول</span><h4>دراسة <span class="math">f</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>1. التعريف والنهايات</h5>
+                  <p>نضع <span class="math">t=e^x&gt;0</span>. عندئذ:</p>
+                  <div class="math-equation">e^{2x}-e^x+1=t²-t+1=(t-1/2)²+3/4&gt;0</div>
+                  <p>إذن اللوغاريتم معرف لكل <span class="math">x∈R</span>.</p>
+                  <p>عند <span class="math">-∞</span>: <span class="math">e^x→0</span> و <span class="math">e^{2x}→0</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→-∞)f(x)=ln(1)=0</div>
+                  <p>هندسيا: المستقيم <span class="math">y=0</span> مقارب أفقي بجوار <span class="math">-∞</span>.</p>
+                  <p>من أجل <span class="math">+∞</span> نستخرج <span class="math">e^{2x}</span>:</p>
+                  <div class="math-equation">f(x)=ln(e^{2x}(1-e^{-x}+e^{-2x}))=2x+ln(1-e^{-x}+e^{-2x})</div>
+                  <div class="math-equation">lim(x→+∞)(f(x)-2x)=0</div>
+                  <p>إذن المقارب المائل بجوار <span class="math">+∞</span> هو:</p>
+                  <div class="math-equation">Δ: y=2x</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. المشتقة والتغيرات</h5>
+                  <p>نشتق مركبة اللوغاريتم:</p>
+                  <div class="math-equation">f'(x)=(2e^{2x}-e^x)/(e^{2x}-e^x+1)</div>
+                  <div class="math-equation">f'(x)=e^x(2e^x-1)/(e^{2x}-e^x+1)</div>
+                  <p>المقام موجب و <span class="math">e^x&gt;0</span>، إذن إشارة <span class="math">f'</span> هي إشارة <span class="math">2e^x-1</span>.</p>
+                  <div class="math-equation">2e^x-1=0 ⇔ x=-ln2</div>
+                  <p>إذن <span class="math">f</span> متناقصة على <span class="math">]-∞,-ln2]</span> ومتزايدة على <span class="math">[-ln2,+∞[</span>.</p>
+                  <div class="math-equation">f(-ln2)=ln(1/4-1/2+1)=ln(3/4)</div>
+                  <p>وبما أن <span class="math">ln(0.75)≈-0.28</span>، فالقيمة الصغرى تقريبا <span class="math">-0.28</span>.</p>
+                  <p>عند <span class="math">0</span>:</p>
+                  <div class="math-equation">f(0)=ln(1)=0</div>
+                  <div class="math-equation">f'(0)=1(2-1)/(1-1+1)=1</div>
+                  <p>إذن معادلة المماس:</p>
+                  <div class="math-equation">T: y=x</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. رسم <span class="math">C_f</span></h5>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة f والمقارب y=2x"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="70" y1="210" x2="260" y2="210" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8"></line><line x1="250" y1="350" x2="610" y2="45" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 8"></line><line x1="265" y1="285" x2="420" y2="130" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><path d="M70 210 C150 210 220 220 260 238 C296 254 320 230 340 210 C378 174 442 118 520 76 C565 54 600 48 620 46" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><circle cx="286" cy="238" r="6" fill="#059669"></circle><circle cx="340" cy="210" r="7" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="230" fill="#111827">O</text><text x="120" y="198" fill="#2563eb">y=0</text><text x="520" y="76" fill="#2563eb">Δ:y=2x</text><text x="292" y="258" fill="#059669">ln(3/4)</text><text x="425" y="126" fill="#7c3aed">T:y=x</text><text x="510" y="104" fill="#dc2626">C_f</text></g></svg><figcaption>المنحنى يقترب من <span class="math">y=0</span> عند <span class="math">-∞</span>، ومن <span class="math">y=2x</span> عند <span class="math">+∞</span>، ويمر من الأصل بمماس <span class="math">y=x</span>.</figcaption></figure>
+                </article>
+                <header class="solution-subhead"><span>الجزء الثاني</span><h4>الدالة <span class="math">g=f(|x|)</span></h4></header>
+                <article class="solution-step-card">
+                  <h5>4. الشفعية وقابلية الاشتقاق</h5>
+                  <p>من أجل كل <span class="math">x∈R</span>:</p>
+                  <div class="math-equation">f(|x|)=ln(e^{2|x|}-e^{|x|}+1)=g(x)</div>
+                  <p>إذن <span class="math">g</span> زوجية، لأن <span class="math">g(-x)=g(x)</span>.</p>
+                  <p>ندرس الاشتقاق عند <span class="math">0</span> باستعمال معدل التغير. بما أن <span class="math">g(0)=0</span>:</p>
+                  <div class="math-equation">lim(x→0+) g(x)/x = f'_d(0)=f'(0)=1</div>
+                  <p>ومن اليسار، إذا وضعنا <span class="math">t=-x&gt;0</span>:</p>
+                  <div class="math-equation">g(x)/x=f(t)/(-t)=-f(t)/t</div>
+                  <div class="math-equation">lim(x→0-) g(x)/x=-f'(0)=-1</div>
+                  <p>إذن <span class="math">g</span> ليست قابلة للاشتقاق عند <span class="math">0</span> لأن المشتقتين الجانبيتين مختلفتان. هندسيا: <span class="math">O(0,0)</span> نقطة زاوية على <span class="math">C_g</span>، بنصفي مماس <span class="math">y=x</span> و <span class="math">y=-x</span>.</p>
+                </article>
+                <article class="solution-step-card">
+                  <h5>5. رسم <span class="math">C_g</span></h5>
+                  <p>نرسم فرع <span class="math">C_f</span> الموافق لـ <span class="math">x≥0</span>، ثم ننسخه بالتناظر حول محور التراتيب.</p>
+                  <figure class="function-solution-graph" aria-label="رسم الدالة g=f(|x|)"><svg viewBox="0 0 680 420" role="img"><rect x="0" y="0" width="680" height="420" rx="18" fill="#fffdf4"></rect><g stroke="#e5e7eb"><line x1="100" y1="45" x2="100" y2="350"></line><line x1="180" y1="45" x2="180" y2="350"></line><line x1="260" y1="45" x2="260" y2="350"></line><line x1="340" y1="45" x2="340" y2="350"></line><line x1="420" y1="45" x2="420" y2="350"></line><line x1="500" y1="45" x2="500" y2="350"></line><line x1="580" y1="45" x2="580" y2="350"></line><line x1="70" y1="110" x2="620" y2="110"></line><line x1="70" y1="210" x2="620" y2="210"></line><line x1="70" y1="310" x2="620" y2="310"></line></g><g stroke="#111827" stroke-width="2"><line x1="70" y1="210" x2="620" y2="210"></line><line x1="340" y1="45" x2="340" y2="350"></line></g><line x1="340" y1="210" x2="500" y2="50" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><line x1="340" y1="210" x2="180" y2="50" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line><path d="M340 210 C378 174 442 118 520 76 C565 54 600 48 620 46" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"></path><path d="M340 210 C302 174 238 118 160 76 C115 54 80 48 60 46" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7"></path><circle cx="340" cy="210" r="7" fill="#111827"></circle><g font-family="Tajawal, Arial, sans-serif" font-size="15" font-weight="800"><text x="352" y="230" fill="#111827">O</text><text x="498" y="84" fill="#dc2626">C_g</text><text x="110" y="84" fill="#dc2626">تناظر</text><text x="420" y="72" fill="#7c3aed">y=x</text><text x="190" y="72" fill="#7c3aed">y=-x</text></g></svg><figcaption><span class="math">C_g</span> زوجي، وفي الأصل نقطة زاوية بسبب اختلاف ميلي نصفي المماس.</figcaption></figure>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+      </div>
+    </article>
+  `;
+}
+function renderDerivativeLimitsDoor() {
+  return `
+    <article class="lesson-block discussion-door derivative-limits-door is-collapsed" data-discussion-door>
+      <button class="discussion-door-toggle" type="button" data-discussion-door-toggle aria-expanded="false">
+        <span>باب حساب النهايات باستعمال العدد المشتق</span>
+        <small>افتح قواعد النهايات</small>
+      </button>
+      <div class="discussion-door-body" data-discussion-door-body hidden>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>الفكرة الأساسية</span><strong>حوّل النهاية إلى عدد مشتق</strong></header>
+          <div class="method-box">
+            <strong>القانون المفتاح:</strong>
+            <p>إذا كانت <span class="math">f</span> قابلة للاشتقاق عند <span class="math">a</span>، فإن:</p>
+            <div class="math-equation">lim(x→a) (f(x)-f(a))/(x-a)=f'(a)</div>
+            <p>إذن كل نهاية تشبه خارج فرقين يمكن تحويلها إلى مشتقة دالة مناسبة عند عدد مناسب.</p>
+          </div>
+          <div class="graph-transform-grid derivative-limits-grid">
+            <div class="property-box"><strong>الشكل المباشر</strong><p><span class="math">lim(x→a)(f(x)-f(a))/(x-a)=f'(a)</span>.</p></div>
+            <div class="property-box"><strong>تغيير المتغير</strong><p>إذا ظهرت <span class="math">h→0</span> نستعمل <span class="math">f(a+h)-f(a)</span> فوق <span class="math">h</span>.</p></div>
+            <div class="property-box"><strong>عامل ثابت</strong><p>إذا كان المقام <span class="math">k(x-a)</span> فالنتيجة <span class="math">f'(a)/k</span> بعد ضبط البسط.</p></div>
+            <div class="property-box"><strong>اختيار الدالة</strong><p>نبحث عن الدالة التي مشتقتها معروفة: <span class="math">ln</span>، <span class="math">exp</span>، <span class="math">sin</span>، <span class="math">sqrt</span> أو دالة مركبة.</p></div>
+            <div class="property-box"><strong>التركيب</strong><p>إذا كانت النهاية مثل <span class="math">φ(x)→a</span>، نحولها إلى <span class="math">(f(φ(x))-f(a))/(φ(x)-a)</span>.</p></div>
+            <div class="property-box"><strong>تنبيه</strong><p>لا نستعمل العدد المشتق إلا بعد التأكد من أن النهاية تمثل فعلا معدل تغير حول نفس النقطة.</p></div>
+          </div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>أمثلة سريعة</span><strong>من النهاية إلى المشتقة</strong></header>
+          <article class="training-exercise derivative-limits-examples">
+            <h4>مثال 1</h4>
+            <div class="math-equation">lim(x→1) (ln(x)-ln(1))/(x-1)=1</div>
+            <p>لأنها تساوي مشتقة <span class="math">ln(x)</span> عند <span class="math">1</span>.</p>
+            <h4>مثال 2</h4>
+            <div class="math-equation">lim(h→0) (e^{2+h}-e²)/h=e²</div>
+            <p>لأنها مشتقة <span class="math">e^x</span> عند <span class="math">2</span>.</p>
+            <h4>مثال 3</h4>
+            <div class="math-equation">lim(x→0) (sqrt(1+x)-1)/x=1/2</div>
+            <p>لأنها مشتقة <span class="math">sqrt(t)</span> عند <span class="math">t=1</span>.</p>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>خطة الحل</span><strong>كيف أتعرف على العدد المشتق؟</strong></header>
+          <ol class="solution-list derivative-limits-steps">
+            <li>أحدد النقطة التي يقترب منها المتغير: <span class="math">x→a</span> أو <span class="math">h→0</span>.</li>
+            <li>أبحث عن بسط على شكل فرق: <span class="math">f(x)-f(a)</span> أو <span class="math">f(a+h)-f(a)</span>.</li>
+            <li>أقارن المقام مع فرق المتغير: <span class="math">x-a</span> أو <span class="math">h</span>.</li>
+            <li>أستخرج العوامل الثابتة خارج النهاية.</li>
+            <li>أكتب النتيجة مباشرة بدلالة <span class="math">f'(a)</span>.</li>
+          </ol>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الأول</span><strong>نهاية أسية باستعمال العدد المشتق</strong></header>
+          <article class="training-exercise derivative-limits-first-exercise">
+            <p>احسب النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→0) (e^{3x}-1)/x</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>اختيار الدالة</h5>
+                  <p>نستعمل الدالة <span class="math">f(t)=e^t</span>، وهي قابلة للاشتقاق عند <span class="math">0</span>، ولدينا:</p>
+                  <div class="math-equation">f'(0)=e^0=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>تغيير المتغير</h5>
+                  <p>نضع <span class="math">t=3x</span>. عندما <span class="math">x→0</span> فإن <span class="math">t→0</span>، كما أن <span class="math">x=t/3</span>.</p>
+                  <div class="math-equation">(e^{3x}-1)/x = (e^t-1)/(t/3)</div>
+                  <div class="math-equation">(e^{3x}-1)/x = 3 · (e^t-e^0)/(t-0)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال العدد المشتق</h5>
+                  <div class="math-equation">lim(t→0) (e^t-e^0)/(t-0)=f'(0)=1</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">lim(x→0) (e^{3x}-1)/x = 3</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثاني</span><strong>نهاية لوغارتمية عند e</strong></header>
+          <article class="training-exercise derivative-limits-second-exercise">
+            <p>أوجد قيمة النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→e) (ln(x)-1)/(x-e)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>التعرف على شكل العدد المشتق</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(x)</span>. عند <span class="math">a=e</span> لدينا:</p>
+                  <div class="math-equation">f(e)=ln(e)=1</div>
+                  <p>إذن البسط يكتب:</p>
+                  <div class="math-equation">ln(x)-1=f(x)-f(e)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال تعريف المشتقة</h5>
+                  <div class="math-equation">lim(x→e) (ln(x)-1)/(x-e)=lim(x→e) (f(x)-f(e))/(x-e)</div>
+                  <div class="math-equation">= f'(e)</div>
+                  <p>وبما أن:</p>
+                  <div class="math-equation">f'(x)=1/x</div>
+                  <p>فإن:</p>
+                  <div class="math-equation">f'(e)=1/e</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→e) (ln(x)-1)/(x-e)=1/e</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثالث</span><strong>نهاية لوغارتمية عند الصفر</strong></header>
+          <article class="training-exercise derivative-limits-third-exercise">
+            <p>باستخدام العدد المشتق، احسب:</p>
+            <div class="math-equation">lim(x→0) ln(x+1)/x</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>الطريقة الأولى: اختيار الدالة المركبة</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(1+x)</span>. هذه الدالة قابلة للاشتقاق عند <span class="math">0</span>، ولدينا:</p>
+                  <div class="math-equation">f(0)=ln(1)=0</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">ln(1+x)/x = (f(x)-f(0))/(x-0)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال العدد المشتق</h5>
+                  <div class="math-equation">lim(x→0) (f(x)-f(0))/(x-0)=f'(0)</div>
+                  <p>نحسب المشتقة:</p>
+                  <div class="math-equation">f'(x)=1/(1+x)</div>
+                  <div class="math-equation">f'(0)=1</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">lim(x→0) ln(1+x)/x = 1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>ملاحظة بطريقة ثانية</h5>
+                  <p>يمكن أيضا وضع <span class="math">t=1+x</span>، فنحصل على <span class="math">t→1</span> و <span class="math">x=t-1</span>:</p>
+                  <div class="math-equation">lim(x→0) ln(1+x)/x = lim(t→1) (ln(t)-ln(1))/(t-1)=1</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الرابع</span><strong>نهاية أسية عند 1</strong></header>
+          <article class="training-exercise derivative-limits-fourth-exercise">
+            <p>ما هي نتيجة النهاية التالية؟</p>
+            <div class="math-equation">lim(x→1) (e^x-e)/(x-1)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>التعرف على شكل العدد المشتق</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=e^x</span>. عند <span class="math">a=1</span> نجد:</p>
+                  <div class="math-equation">f(1)=e^1=e</div>
+                  <p>إذن البسط يكتب:</p>
+                  <div class="math-equation">e^x-e=f(x)-f(1)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال تعريف العدد المشتق</h5>
+                  <div class="math-equation">lim(x→1) (e^x-e)/(x-1)=lim(x→1) (f(x)-f(1))/(x-1)</div>
+                  <div class="math-equation">= f'(1)</div>
+                  <p>وبما أن مشتقة الدالة الأسية هي نفسها:</p>
+                  <div class="math-equation">f'(x)=e^x</div>
+                  <div class="math-equation">f'(1)=e</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→1) (e^x-e)/(x-1)=e</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الخامس</span><strong>النهاية الأساسية للدالة الأسية</strong></header>
+          <article class="training-exercise derivative-limits-fifth-exercise">
+            <p>احسب النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→0) (e^x-1)/x</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>التعرف على شكل العدد المشتق</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=e^x</span>. عند <span class="math">0</span> لدينا:</p>
+                  <div class="math-equation">f(0)=e^0=1</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">e^x-1=f(x)-f(0)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>تطبيق التعريف مباشرة</h5>
+                  <div class="math-equation">lim(x→0) (e^x-1)/x = lim(x→0) (f(x)-f(0))/(x-0)</div>
+                  <div class="math-equation">= f'(0)</div>
+                  <p>وبما أن:</p>
+                  <div class="math-equation">f'(x)=e^x</div>
+                  <div class="math-equation">f'(0)=e^0=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→0) (e^x-1)/x = 1</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب السادس</span><strong>نهاية لوغارتمية عند 2</strong></header>
+          <article class="training-exercise derivative-limits-sixth-exercise">
+            <p>أوجد حل النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→2) ln(x-1)/(x-2)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>اختيار الدالة المناسبة</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(x-1)</span>، وهي معرفة وقابلة للاشتقاق بجوار <span class="math">2</span>.</p>
+                  <div class="math-equation">f(2)=ln(2-1)=ln(1)=0</div>
+                  <p>لذلك:</p>
+                  <div class="math-equation">ln(x-1)=f(x)-f(2)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>تحويل النهاية إلى عدد مشتق</h5>
+                  <div class="math-equation">lim(x→2) ln(x-1)/(x-2)=lim(x→2) (f(x)-f(2))/(x-2)</div>
+                  <div class="math-equation">= f'(2)</div>
+                  <p>نحسب المشتقة:</p>
+                  <div class="math-equation">f'(x)=1/(x-1)</div>
+                  <div class="math-equation">f'(2)=1/(2-1)=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→2) ln(x-1)/(x-2)=1</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب السابع</span><strong>نهاية لوغارتمية بمعامل داخلي</strong></header>
+          <article class="training-exercise derivative-limits-seventh-exercise">
+            <p>باستعمال العدد المشتق، احسب:</p>
+            <div class="math-equation">lim(x→0) ln(1+5x)/x</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>اختيار الدالة</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(1+5x)</span>. هذه الدالة قابلة للاشتقاق عند <span class="math">0</span>، ولدينا:</p>
+                  <div class="math-equation">f(0)=ln(1)=0</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">ln(1+5x)/x = (f(x)-f(0))/(x-0)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال العدد المشتق</h5>
+                  <div class="math-equation">lim(x→0) ln(1+5x)/x = f'(0)</div>
+                  <p>نحسب مشتقة الدالة المركبة:</p>
+                  <div class="math-equation">f'(x)=5/(1+5x)</div>
+                  <div class="math-equation">f'(0)=5</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→0) ln(1+5x)/x = 5</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثامن</span><strong>جداء دالتين وعدد مشتق</strong></header>
+          <article class="training-exercise derivative-limits-eighth-exercise">
+            <p>احسب النهاية التالية معتمدا على تعريف المشتقة لجداء دالتين:</p>
+            <div class="math-equation">lim(x→1) x ln(x)/(x-1)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>تفكيك النهاية إلى جداء</h5>
+                  <p>نكتب النهاية على شكل جداء عاملين:</p>
+                  <div class="math-equation">x ln(x)/(x-1) = x · (ln(x)-ln(1))/(x-1)</div>
+                  <p>عندما <span class="math">x→1</span> فإن العامل الأول يقترب من:</p>
+                  <div class="math-equation">lim(x→1) x = 1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>استعمال العدد المشتق</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(x)</span>. عند <span class="math">1</span> لدينا:</p>
+                  <div class="math-equation">f(1)=ln(1)=0</div>
+                  <div class="math-equation">lim(x→1) (ln(x)-ln(1))/(x-1)=f'(1)</div>
+                  <p>وبما أن:</p>
+                  <div class="math-equation">f'(x)=1/x</div>
+                  <div class="math-equation">f'(1)=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→1) x ln(x)/(x-1)=1 · 1 = 1</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب التاسع</span><strong>نهاية أسية مركبة عند 1</strong></header>
+          <article class="training-exercise derivative-limits-ninth-exercise">
+            <p>احسب النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→1) (e^{x^3-1}-1)/(x-1)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>تفكيك ذكي للنهاية</h5>
+                  <p>نضع <span class="math">u=x^3-1</span>. عندما <span class="math">x→1</span> فإن <span class="math">u→0</span>.</p>
+                  <div class="math-equation">(e^{x^3-1}-1)/(x-1) = ((e^u-1)/u) · ((x^3-1)/(x-1))</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>الجزء الأول: عدد مشتق للدالة الأسية</h5>
+                  <p>نستعمل الدالة <span class="math">f(u)=e^u</span> عند <span class="math">0</span>:</p>
+                  <div class="math-equation">lim(u→0) (e^u-1)/u = f'(0)=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>الجزء الثاني: عدد مشتق لدالة القوة</h5>
+                  <p>لدينا:</p>
+                  <div class="math-equation">lim(x→1) (x^3-1)/(x-1)=lim(x→1) (x^3-1^3)/(x-1)</div>
+                  <div class="math-equation">= (x^3)' عند 1 = 3</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→1) (e^{x^3-1}-1)/(x-1)=1 · 3 = 3</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب العاشر</span><strong>نهاية أسية بكسر داخل الأس</strong></header>
+          <article class="training-exercise derivative-limits-tenth-exercise">
+            <p>احسب النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→0) (e^{2x/(x+1)}-1)/x</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>اختيار المتغير الداخلي</h5>
+                  <p>نضع <span class="math">u=2x/(x+1)</span>. عندما <span class="math">x→0</span> فإن <span class="math">u→0</span>.</p>
+                  <div class="math-equation">(e^{2x/(x+1)}-1)/x = ((e^u-1)/u) · (u/x)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النهاية الأسية الأساسية</h5>
+                  <p>باستعمال العدد المشتق للدالة <span class="math">f(u)=e^u</span> عند <span class="math">0</span>:</p>
+                  <div class="math-equation">lim(u→0) (e^u-1)/u = f'(0)=1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>حساب العامل الباقي</h5>
+                  <div class="math-equation">u/x = (2x/(x+1))/x = 2/(x+1)</div>
+                  <div class="math-equation">lim(x→0) 2/(x+1)=2</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→0) (e^{2x/(x+1)}-1)/x = 1 · 2 = 2</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الحادي عشر</span><strong>نهاية لوغارتمية مع الجذر</strong></header>
+          <article class="training-exercise derivative-limits-eleventh-exercise">
+            <p>احسب النهاية التالية باستعمال العدد المشتق:</p>
+            <div class="math-equation">lim(x→4) ln(√x - 1)/(x-4)</div>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>اختيار الدالة</h5>
+                  <p>نأخذ الدالة <span class="math">f(x)=ln(√x - 1)</span>. عند <span class="math">4</span> نجد:</p>
+                  <div class="math-equation">f(4)=ln(√4 - 1)=ln(1)=0</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">ln(√x - 1)=f(x)-f(4)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>تحويل النهاية إلى عدد مشتق</h5>
+                  <div class="math-equation">lim(x→4) ln(√x - 1)/(x-4)=lim(x→4) (f(x)-f(4))/(x-4)</div>
+                  <div class="math-equation">= f'(4)</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>حساب المشتقة</h5>
+                  <p>بما أن <span class="math">f(x)=ln(√x - 1)</span>، فإن:</p>
+                  <div class="math-equation">f'(x)=((√x - 1)')/(√x - 1)</div>
+                  <div class="math-equation">(√x - 1)' = 1/(2√x)</div>
+                  <div class="math-equation">f'(x)=1/(2√x(√x - 1))</div>
+                  <div class="math-equation">f'(4)=1/(2·2·1)=1/4</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>النتيجة</h5>
+                  <div class="math-equation">lim(x→4) ln(√x - 1)/(x-4)=1/4</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+      </div>
+    </article>
+  `;
+}
+function renderFamousLimitsDoor() {
+  return `
+    <article class="lesson-block discussion-door famous-limits-door is-collapsed" data-discussion-door>
+      <button class="discussion-door-toggle" type="button" data-discussion-door-toggle aria-expanded="false">
+        <span>باب حساب النهايات باستعمال النهايات الشهيرة</span>
+        <small>افتح قواعد الأسية واللوغارتم</small>
+      </button>
+      <div class="discussion-door-body" data-discussion-door-body hidden>
+        <section class="unified-door-section famous-limits-intro">
+          <header class="unified-door-head"><span>الفكرة العامة</span><strong>النهايات البسيطة المعروفة فقط</strong></header>
+          <div class="method-box"><strong>قاعدة العمل:</strong><p>هذا الباب مخصص لحفظ واستعمال النهايات المباشرة للدالة الأسية والدالة اللوغارتمية فقط. لا توجد هنا دوال مركبة ولا نسب بمعاملات؛ تلك نتركها للتدريبات.</p></div>
+          <div class="property-box"><strong>متى أستعملها؟</strong><p>استعمل هذه القواعد عندما تظهر لك عبارة أسية أو لوغارتمية بسيطة عند <span class="math">0</span> أو <span class="math">+∞</span> أو <span class="math">-∞</span>، خاصة في المقارنات بين <span class="math">ln(x)</span> و <span class="math">x</span> و <span class="math">e^x</span>.</p></div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>القواعد الأساسية</span><strong>نهايات بسيطة للدوال الأسية واللوغارتمية</strong></header>
+          <div class="famous-limits-grid famous-limits-simple-grid">
+            <article class="famous-limit-card"><span>لوغارتمية</span><div class="math-equation">lim(x→0+) ln(x) = -∞</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>بما أن <span class="math">ln(x)</span> هي الدالة العكسية لـ <span class="math">e^x</span>، ولدينا <span class="math">lim(y→-∞) e^y = 0^+</span>، فإنه بوضع <span class="math">x = e^y</span> نجد أن <span class="math">y = ln(x)</span>. إذن، عندما يؤول <span class="math">x</span> إلى <span class="math">0^+</span>، يجب أن يؤول <span class="math">y</span> إلى <span class="math">-∞</span>.</p></details></article>
+            <article class="famous-limit-card"><span>لوغارتمية</span><div class="math-equation">lim(x→+∞) ln(x) = +∞</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>من خواص الدالة الأسية نعلم أن <span class="math"><span class="lim"><span>lim</span><span>y→+∞</span></span> e^y = +∞</span>. بوضع <span class="math">x = e^y</span> نجد <span class="math">y = ln(x)</span>. ولأن الدالتين متزايدتان تماماً، فإنه عندما يؤول <span class="math">x</span> إلى <span class="math">+∞</span>، فإن <span class="math">y</span> يؤول أيضاً إلى <span class="math">+∞</span>.</p></details></article>
+            <article class="famous-limit-card"><span>أسية</span><div class="math-equation">lim(x→-∞) e^x = 0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>بوضع التبديل <span class="math">X = -x</span>، عندما يؤول <span class="math">x</span> إلى <span class="math">-∞</span> فإن <span class="math">X</span> يؤول إلى <span class="math">+∞</span>. تصبح النهاية <span class="math"><span class="lim"><span>lim</span><span>X→+∞</span></span> e^{-X} = <span class="lim"><span>lim</span><span>X→+∞</span></span> 1/e^X</span>. وبما أن المقام يؤول إلى <span class="math">+∞</span>، فإن النهاية هي 0.</p></details></article>
+            <article class="famous-limit-card"><span>أسية</span><div class="math-equation">lim(x→+∞) e^x = +∞</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>باستعمال متباينة برنولي أو دراسة الدالة <span class="math">f(x) = e^x - x</span>، نثبت أن <span class="math">e^x &gt; x</span> من أجل كل <span class="math">x &gt; 0</span>. وبما أن <span class="math"><span class="lim"><span>lim</span><span>x→+∞</span></span> x = +∞</span>، فإنه بالضرورة <span class="math"><span class="lim"><span>lim</span><span>x→+∞</span></span> e^x = +∞</span> حسب مبرهنة المقارنة.</p></details></article>
+            <article class="famous-limit-card"><span>مقارنة</span><div class="math-equation">lim(x→+∞) ln(x)/x = 0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>تزايد مقارن: بوضع <span class="math">x = e^y</span>، عندما <span class="math">x → +∞</span> فإن <span class="math">y → +∞</span>. النهاية تصبح <span class="math">lim(y→+∞) y/e^y</span>. وبما أن <span class="math">lim(y→+∞) e^y/y = +∞</span>، فإن مقلوبها يؤول إلى 0.</p></details></article>
+            <article class="famous-limit-card"><span>مقارنة</span><div class="math-equation">lim(x→+∞) x/e^x = 0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>نكتب الكسر على الشكل <span class="math">x/e^x = 1 / (e^x/x)</span>. نعلم من نهايات التزايد المقارن أن <span class="math"><span class="lim"><span>lim</span><span>x→+∞</span></span> e^x/x = +∞</span>، وبالتالي مقلوبها يؤول إلى 0.</p></details></article>
+            <article class="famous-limit-card"><span>مقارنة</span><div class="math-equation">lim(x→+∞) ln(x)/e^x = 0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>يمكننا تفكيك النهاية إلى جداء نهايتين شهيرتين: <span class="math">ln(x)/e^x = (ln(x)/x) × (x/e^x)</span>. وبما أن كلا النهايتين تؤولان إلى 0 عندما <span class="math">x → +∞</span>، فإن جداءهما يؤول حتماً إلى <span class="math">0 × 0 = 0</span>.</p></details></article>
+            <article class="famous-limit-card"><span>مقارنة</span><div class="math-equation">lim(x→-∞) x e^x = 0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>بوضع التبديل <span class="math">X = -x</span>، عندما <span class="math">x → -∞</span> فإن <span class="math">X → +∞</span>. نعوض لنجد: <span class="math">x e^x = -X e^{-X} = -X/e^X</span>. وبما أننا برهنا سابقا أن <span class="math"><span class="lim"><span>lim</span><span>X→+∞</span></span> X/e^X = 0</span>، فإن النهاية هي 0.</p></details></article>
+            <article class="famous-limit-card"><span>لوغارتم عند الصفر</span><div class="math-equation">lim(x→0+) x ln(x)=0</div><details class="famous-limit-explain"><summary>كيف جاءت؟</summary><p>نضع <span class="math">x=1/t</span> حيث <span class="math">t→+∞</span>. تصبح العبارة <span class="math">x ln(x)=-(ln(t))/t</span>، وهذه تؤول إلى <span class="math">0</span>.</p></details></article>
+          </div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>قراءات مباشرة</span><strong>أمثلة بسيطة جدا</strong></header>
+          <div class="famous-limits-examples">
+            <article class="solution-step-card">
+              <h5>مثال 1</h5>
+              <div class="math-equation">lim(x→+∞) (ln(x)+5)/x</div>
+              <div class="math-equation">ln(x)/x→0 و 5/x→0</div>
+              <div class="math-equation">النتيجة = 0</div>
+            </article>
+            <article class="solution-step-card">
+              <h5>مثال 2</h5>
+              <div class="math-equation">lim(x→+∞) (x+1)/e^x</div>
+              <div class="math-equation">x/e^x→0 و 1/e^x→0</div>
+              <div class="math-equation">النتيجة = 0</div>
+            </article>
+            <article class="solution-step-card">
+              <h5>مثال 3</h5>
+              <div class="math-equation">lim(x→0+) x ln(x)</div>
+              <div class="math-equation">هذه قاعدة شهيرة مباشرة</div>
+              <div class="math-equation">النتيجة = 0</div>
+            </article>
+          </div>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الأول</span><strong>نهايات باستعمال المقارنة مع اللوغارتم</strong></header>
+          <article class="training-exercise famous-limits-first-exercise">
+            <p>احسب النهايات التالية:</p>
+            <ol class="solution-list famous-limits-training-list">
+              <li><span class="math">lim(x→+∞) (2x² - 3x + 1 - ln(x))</span></li>
+              <li><span class="math">lim(x→-∞) (-x + ln(x² - x + 2))</span></li>
+              <li><span class="math">lim(x→+∞) (3x² - 1 - ln(x³ + 2x² - 1))</span></li>
+              <li><span class="math">lim(x→1-) (x³ + 2x - 1 + ln(1 - x³))</span></li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>قاعدة نحتاجها في هذا التدريب</h5>
+                  <p>عند <span class="math">+∞</span> اللوغارتم أبطأ من كثيرات الحدود. لذلك إذا اجتمع <span class="math">ln(x)</span> مع حد من الدرجة الثانية أو الثالثة، فإن حد كثير الحدود هو الذي يحدد النهاية.</p>
+                  <div class="math-equation">lim(x→+∞) ln(x)/x = 0</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>1. النهاية الأولى</h5>
+                  <p>نكتب العبارة بإخراج <span class="math">x²</span> عاملا مشتركا:</p>
+                  <div class="math-equation">2x² - 3x + 1 - ln(x) = x²(2 - 3/x + 1/x² - ln(x)/x²)</div>
+                  <p>عند <span class="math">+∞</span> نجد <span class="math">ln(x)/x²→0</span>، إذن القوس يؤول إلى <span class="math">2</span> و <span class="math">x²→+∞</span>.</p>
+                  <div class="math-equation">lim(x→+∞) (2x² - 3x + 1 - ln(x)) = +∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. النهاية الثانية</h5>
+                  <p>عندما <span class="math">x→-∞</span> فإن <span class="math">-x→+∞</span>. كذلك <span class="math">x² - x + 2→+∞</span>، ومنه <span class="math">ln(x² - x + 2)→+∞</span>.</p>
+                  <div class="math-equation">lim(x→-∞) (-x + ln(x² - x + 2)) = +∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. النهاية الثالثة</h5>
+                  <p>نريد أولا أن نبرهن بدقة أن اللوغارتم مهمل أمام <span class="math">x²</span>:</p>
+                  <div class="math-equation">lim(x→+∞) ln(x³ + 2x² - 1)/x² = 0</div>
+                  <p>من أجل <span class="math">x≥2</span> لدينا:</p>
+                  <div class="math-equation">0 &lt; x³ + 2x² - 1 ≤ x³ + 2x³ = 3x³ ≤ x⁴</div>
+                  <p>وبما أن <span class="math">ln</span> دالة متزايدة، نحصل على:</p>
+                  <div class="math-equation">ln(x³ + 2x² - 1) ≤ ln(x⁴)=4ln(x)</div>
+                  <p>كما أن <span class="math">ln(x³ + 2x² - 1)&gt;0</span> ابتداء من رتبة معينة، إذن:</p>
+                  <div class="math-equation">0 ≤ ln(x³ + 2x² - 1)/x² ≤ 4ln(x)/x²</div>
+                  <p>وبما أن <span class="math">ln(x)/x²→0</span>، فإن مبرهنة الحصر تعطي:</p>
+                  <div class="math-equation">ln(x³ + 2x² - 1)/x² → 0</div>
+                  <div class="famous-limits-alt-proof">
+                    <h6>حل ثان باستخراج <span class="math">x³</span> من داخل اللوغارتم</h6>
+                    <p>نكتب من أجل <span class="math">x</span> كبير موجب:</p>
+                    <div class="math-equation">x³ + 2x² - 1 = x³(1 + 2/x - 1/x³)</div>
+                    <p>إذن:</p>
+                    <div class="math-equation">ln(x³ + 2x² - 1)=ln(x³)+ln(1 + 2/x - 1/x³)</div>
+                    <div class="math-equation">ln(x³ + 2x² - 1)=3ln(x)+ln(1 + 2/x - 1/x³)</div>
+                    <p>وعندما <span class="math">x→+∞</span> فإن <span class="math">1 + 2/x - 1/x³→1</span>، وبالتالي:</p>
+                    <div class="math-equation">ln(1 + 2/x - 1/x³)→ln(1)=0</div>
+                    <p>لذلك:</p>
+                    <div class="math-equation">ln(x³ + 2x² - 1)/x² = 3ln(x)/x² + ln(1 + 2/x - 1/x³)/x² → 0</div>
+                  </div>
+                  <p>الآن نكتب:</p>
+                  <div class="math-equation">3x² - 1 - ln(x³ + 2x² - 1)=x²(3 - 1/x² - ln(x³ + 2x² - 1)/x²)</div>
+                  <p>القوس يؤول إلى <span class="math">3</span> و <span class="math">x²→+∞</span>، إذن:</p>
+                  <div class="math-equation">lim(x→+∞) (3x² - 1 - ln(x³ + 2x² - 1)) = +∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. النهاية الرابعة</h5>
+                  <p>عندما <span class="math">x→1-</span> يكون <span class="math">1 - x³→0+</span>، لذلك:</p>
+                  <div class="math-equation">ln(1 - x³) → -∞</div>
+                  <p>أما <span class="math">x³ + 2x - 1</span> فيؤول إلى قيمة منتهية هي <span class="math">2</span>. إذن اللوغارتم هو الذي يحدد النهاية.</p>
+                  <div class="math-equation">lim(x→1-) (x³ + 2x - 1 + ln(1 - x³)) = -∞</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثاني</span><strong>نهايات لوغارتمية بسيطة ومتدرجة</strong></header>
+          <article class="training-exercise famous-limits-second-exercise">
+            <p>احسب النهايات التالية:</p>
+            <ol class="solution-list famous-limits-training-list">
+              <li><span class="math">lim(x→+∞) x(ln(x+1)-ln(x))</span></li>
+              <li><span class="math">lim(x→+∞) (x + ln(x² - x + 2)/(x - 1))</span></li>
+              <li><span class="math">lim(x→-∞) (x² - 1 - ln(1 - x³))</span></li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>1. النهاية الأولى</h5>
+                  <p>نستعمل خاصية الفرق بين لوغارتمين:</p>
+                  <div class="math-equation">ln(x+1)-ln(x)=ln((x+1)/x)=ln(1+1/x)</div>
+                  <p>إذن:</p>
+                  <div class="math-equation">x(ln(x+1)-ln(x))=x ln(1+1/x)</div>
+                  <p>نضع <span class="math">t=1/x</span>. عندما <span class="math">x→+∞</span> فإن <span class="math">t→0+</span> و <span class="math">x=1/t</span>، فنحصل على:</p>
+                  <div class="math-equation">x ln(1+1/x)=ln(1+t)/t</div>
+                  <p>وهذه النهاية الشهيرة تساوي <span class="math">1</span>.</p>
+                  <div class="math-equation">lim(x→+∞) x(ln(x+1)-ln(x)) = 1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>2. النهاية الثانية</h5>
+                  <p>نبرهن أولا أن الحد اللوغارتمي المقسوم على <span class="math">x-1</span> يؤول إلى <span class="math">0</span>.</p>
+                  <p>من أجل <span class="math">x</span> كبير موجب:</p>
+                  <div class="math-equation">x² - x + 2 = x²(1 - 1/x + 2/x²)</div>
+                  <div class="math-equation">ln(x² - x + 2)=2ln(x)+ln(1 - 1/x + 2/x²)</div>
+                  <p>وبما أن <span class="math">ln(1 - 1/x + 2/x²)→ln(1)=0</span>، فإن:</p>
+                  <div class="math-equation">ln(x² - x + 2)/(x-1) → 0</div>
+                  <p>إذن العبارة تساوي <span class="math">x</span> زائد حد يؤول إلى <span class="math">0</span>، ومنه:</p>
+                  <div class="math-equation">lim(x→+∞) (x + ln(x² - x + 2)/(x - 1)) = +∞</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. النهاية الثالثة</h5>
+                  <p>عندما <span class="math">x→-∞</span> فإن <span class="math">1-x³→+∞</span>، والعبارة اللوغارتمية معرفة ابتداء من رتبة كافية.</p>
+                  <p>نضع <span class="math">u=-x</span>، عندها <span class="math">u→+∞</span> و <span class="math">1-x³=1+u³</span>، فنكتب:</p>
+                  <div class="math-equation">ln(1-x³)=ln(1+u³)=ln(u³(1+1/u³))</div>
+                  <div class="math-equation">ln(1-x³)=3ln(u)+ln(1+1/u³)</div>
+                  <p>إذن <span class="math">ln(1-x³)</span> ينمو مثل لوغارتم، بينما <span class="math">x²=u²</span> ينمو مثل مربع؛ لذلك:</p>
+                  <div class="math-equation">ln(1-x³)/x² → 0</div>
+                  <p>ثم:</p>
+                  <div class="math-equation">x² - 1 - ln(1-x³)=x²(1 - 1/x² - ln(1-x³)/x²)</div>
+                  <p>القوس يؤول إلى <span class="math">1</span> و <span class="math">x²→+∞</span>، إذن:</p>
+                  <div class="math-equation">lim(x→-∞) (x² - 1 - ln(1 - x³)) = +∞</div>
+                </article>
+              </div>
+            </section>
+          </article>
+        </section>
+        <section class="unified-door-section">
+          <header class="unified-door-head"><span>التدريب الثالث</span><strong>نهايات كسور لوغارتمية</strong></header>
+          <article class="training-exercise famous-limits-third-exercise">
+            <p>احسب النهايات التالية:</p>
+            <ol class="solution-list famous-limits-training-list">
+              <li><span class="math">lim(x→+∞) ln²(x)/x²</span></li>
+              <li><span class="math">lim(x→+∞) (3ln(x)+2)/(x+ln(x))</span></li>
+              <li><span class="math">lim(x→+∞) (1+ln²(x))/(-ln(x)-ln²(x))</span></li>
+              <li><span class="math">lim(x→0+) (3ln(x)+2)/(x+ln(x))</span></li>
+              <li><span class="math">lim(x→+∞) (-x²+ln(x))/(2+ln(x))</span></li>
+            </ol>
+            <section class="training-solution solution-toggle-door is-collapsed" data-discussion-door>
+              <button class="solution-detail-toggle" type="button" data-discussion-door-toggle aria-expanded="false"><span>الحل المفصل</span><small>افتح الحل</small></button>
+              <div class="training-solution-body" data-discussion-door-body hidden>
+                <article class="solution-step-card">
+                  <h5>1. نهاية <span class="math">ln²(x)/x²</span></h5>
+                  <p>نكتب الكسر على شكل مربع:</p>
+                  <div class="math-equation">ln²(x)/x² = (ln(x)/x)²</div>
+                  <p>وبما أن النهاية الشهيرة هي:</p>
+                  <div class="math-equation">lim(x→+∞) ln(x)/x = 0</div>
+                  <p>فإن مربعها يؤول أيضا إلى <span class="math">0</span>.</p>
+                  <div class="math-equation">lim(x→+∞) ln²(x)/x² = 0</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. الكسر الثالث عند <span class="math">+∞</span></h5>
+                  <p>نقسم البسط والمقام على <span class="math">x</span> لأن <span class="math">x</span> هو الحد الغالب في المقام:</p>
+                  <div class="math-equation">(3ln(x)+2)/(x+ln(x)) = (3ln(x)/x + 2/x)/(1 + ln(x)/x)</div>
+                  <p>وبما أن <span class="math">ln(x)/x→0</span> و <span class="math">2/x→0</span>، نحصل على:</p>
+                  <div class="math-equation">lim(x→+∞) (3ln(x)+2)/(x+ln(x)) = 0</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>3. الكسر الثالث عند <span class="math">+∞</span></h5>
+                  <p>نضع <span class="math">L=ln(x)</span>. عندما <span class="math">x→+∞</span> فإن <span class="math">L→+∞</span>.</p>
+                  <div class="math-equation">(1+ln²(x))/(-ln(x)-ln²(x)) = (1+L²)/(-L-L²)</div>
+                  <p>نقسم على <span class="math">L²</span>:</p>
+                  <div class="math-equation">(1/L²+1)/(-1/L-1) → 1/(-1)</div>
+                  <div class="math-equation">lim(x→+∞) (1+ln²(x))/(-ln(x)-ln²(x)) = -1</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>4. الكسر الرابع عند <span class="math">0+</span></h5>
+                  <p>عندما <span class="math">x→0+</span> فإن <span class="math">ln(x)→-∞</span> بينما <span class="math">x→0</span>. إذن الحد الغالب في البسط والمقام هو <span class="math">ln(x)</span>.</p>
+                  <p>نقسم على <span class="math">ln(x)</span>:</p>
+                  <div class="math-equation">(3ln(x)+2)/(x+ln(x)) = (3 + 2/ln(x))/(x/ln(x)+1)</div>
+                  <p>لدينا <span class="math">2/ln(x)→0</span> و <span class="math">x/ln(x)→0</span>، لذلك:</p>
+                  <div class="math-equation">lim(x→0+) (3ln(x)+2)/(x+ln(x)) = 3</div>
+                </article>
+                <article class="solution-step-card">
+                  <h5>5. الكسر الخامس عند <span class="math">+∞</span></h5>
+                  <p>في البسط الحد الغالب هو <span class="math">-x²</span>، وفي المقام <span class="math">ln(x)</span>. نكتب:</p>
+                  <div class="math-equation">(-x²+ln(x))/(2+ln(x)) = (ln(x)-x²)/(ln(x)+2)</div>
+                  <p>وبما أن <span class="math">x²/ln(x)→+∞</span>، فإن البسط يغلب بالسالب والمقام يؤول إلى <span class="math">+∞</span> لكن أبطأ بكثير.</p>
+                  <div class="math-equation">(-x²+ln(x))/(2+ln(x)) = (1 - x²/ln(x))/(1 + 2/ln(x))</div>
+                  <div class="math-equation">lim(x→+∞) (-x²+ln(x))/(2+ln(x)) = -∞</div>
+                </article>
+              </div>
+            </section>
+          </article>        </section>
+      </div>
+    </article>
+  `;
 }
 function renderIdeasDoor() {
   const module = getIdeasModule();
@@ -3870,6 +7153,10 @@ function renderIdeasDoor() {
                   </section>
                 </div>
               </article>
+              ${renderGraphTransformDoor()}
+              ${renderDifferentiabilityDoor()}
+              ${renderDerivativeLimitsDoor()}
+              ${renderFamousLimitsDoor()}
             </section>
           </section>
         `).join("")}
@@ -4446,6 +7733,12 @@ function normalizeMathSource(text) {
     .replace(/sqrt\(([^()]+)\)/g, "\\sqrt{$1}")
     .replace(/⁴√\s*([A-Za-z0-9]+)/g, "\\sqrt[4]{$1}")
     .replace(/√\s*([A-Za-z0-9]+)/g, "\\sqrt{$1}")
+    .replace(/\\to/g, "→")
+    .replace(/\\infty/g, "∞")
+    .replace(/\\lim/g, "lim")
+    .replace(/\\times/g, "×")
+    .replace(/\\left/g, "")
+    .replace(/\\right/g, "")
     .replace(/->/g, "→")
     .replace(/-\s*∞/g, "−∞");
 }
@@ -4840,3 +8133,52 @@ renderAll();
 setViewFromHash();
 window.addEventListener("hashchange", setViewFromHash);
 initIframeResizer();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-.lessons-grid,
+﻿.lessons-grid,
 .teacher-grid,
 .badges-grid,
 .bac-exam-grid {
@@ -504,7 +504,7 @@
 .solved-exercise-statement {
   display: grid;
   gap: 8px;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid rgba(163, 230, 53, 0.42);
   border-radius: 14px;
   background: rgba(163, 230, 53, 0.16);
@@ -537,7 +537,7 @@
 }
 
 .solution-steps {
-  padding: 16px;
+  padding: 14px;
   border: 1px solid rgba(0, 214, 143, 0.22);
   border-radius: 14px;
   background: rgba(0, 214, 143, 0.06);
@@ -589,7 +589,7 @@
   display: grid;
   gap: 12px;
   margin: 18px 0;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid rgba(245, 158, 11, 0.24);
   border-radius: 18px;
   background: rgba(245, 158, 11, 0.055);
@@ -757,7 +757,7 @@
 .solution-panel {
   display: none;
   margin-top: 14px;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid rgba(0, 214, 143, 0.22);
   border-radius: 14px;
   background: rgba(0, 214, 143, 0.06);
@@ -784,7 +784,7 @@
 .exercise-panel {
   display: grid;
   gap: 10px;
-  padding: 16px;
+  padding: 14px;
 }
 
 .exercise-panel .panel-label {
@@ -954,7 +954,7 @@
 .activity-stage,
 .quick-practice,
 .exp-summary-card {
-  padding: 16px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.035);
@@ -1021,7 +1021,7 @@
 
 .curve-builder-section {
   margin-top: 18px;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.035);
@@ -1526,7 +1526,7 @@
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 16px;
+  padding: 14px;
   border-right: 4px solid var(--primary);
 }
 
@@ -2267,7 +2267,7 @@
 }
 
 .exercise-preview-card {
-  padding: 16px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.03);
@@ -2291,7 +2291,7 @@
   .module-card,
   .module-hero,
   .section-card {
-    padding: 16px;
+    padding: 14px;
   }
 
   .nav-actions {
@@ -2377,4 +2377,281 @@
   padding: 0 0.12em;
   border-top: 1.4px solid currentColor;
   line-height: 1.12;
+}
+
+/* Premium layout for the limits lesson page. */
+.limits-masterclass {
+  gap: 22px;
+}
+
+.limits-masterclass .structured-lesson-hero {
+  border-color: rgba(20, 184, 166, 0.45);
+  background:
+    linear-gradient(135deg, rgba(7, 89, 133, 0.28), rgba(6, 95, 70, 0.24)),
+    rgba(12, 18, 16, 0.92);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+.limits-masterclass .structured-lesson-hero h3 {
+  font-size: clamp(1.75rem, 3vw, 2.8rem);
+}
+
+.limits-masterclass .limits-hero-equations {
+  border-color: rgba(132, 204, 22, 0.45);
+  background:
+    linear-gradient(135deg, rgba(132, 204, 22, 0.12), rgba(14, 165, 233, 0.08)),
+    rgba(18, 31, 16, 0.88);
+}
+
+.limits-masterclass .lesson-block,
+.limits-masterclass .method-box,
+.limits-masterclass .property-box {
+  border-radius: 18px;
+}
+
+.limits-masterclass .lesson-block {
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(11, 17, 16, 0.82);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.limits-masterclass .lesson-block h4 {
+  color: #f8fafc;
+}
+
+.limits-masterclass .method-box {
+  background: rgba(30, 41, 59, 0.68);
+  border-color: rgba(125, 211, 252, 0.24);
+}
+
+.limits-masterclass .property-box {
+  background: rgba(6, 78, 59, 0.32);
+  border-color: rgba(45, 212, 191, 0.28);
+}
+
+.limits-masterclass .math-equation {
+  direction: ltr;
+  unicode-bidi: isolate;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 14px 18px;
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.54);
+  color: #f8fafc;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.limits-masterclass .solution-list {
+  display: grid;
+  gap: 10px;
+}
+
+.limits-masterclass .solution-list li {
+  padding: 10px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+@media (max-width: 680px) {
+  .limits-masterclass .math-equation {
+    width: 100%;
+    overflow-x: auto;
+    text-align: center;
+  }
+}
+.limits-masterclass .limit-comparison-proof {
+  border-color: rgba(59, 130, 246, 0.26);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(6, 24, 22, 0.88));
+}
+
+.limits-masterclass .theorem-box {
+  border-color: rgba(34, 197, 94, 0.36);
+}
+
+.limits-masterclass .proof-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.limits-masterclass .proof-card::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(#38bdf8, #34d399);
+}
+
+.limits-masterclass .rich-equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  flex-wrap: wrap;
+  font-family: var(--font-math);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+}
+
+.limits-masterclass .rich-equation .frac {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  place-items: center;
+  line-height: 1.05;
+  vertical-align: middle;
+  min-width: 2.2em;
+}
+
+.limits-masterclass .rich-equation .frac > span:first-child {
+  width: 100%;
+  padding: 0 0.24em 0.16em;
+  border-bottom: 1.5px solid currentColor;
+  text-align: center;
+}
+
+.limits-masterclass .rich-equation .frac > span:last-child {
+  padding: 0.16em 0.24em 0;
+  text-align: center;
+}
+
+.limits-masterclass .power-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+.limits-masterclass .limit-variation-card {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.34);
+}
+
+.limits-masterclass .limit-variation-title {
+  margin-bottom: 12px;
+  color: #bfdbfe;
+  font-weight: 900;
+}
+
+.limits-masterclass .limit-variation-table {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.54);
+}
+
+.limits-masterclass .limit-variation-table th,
+.limits-masterclass .limit-variation-table td {
+  border-color: rgba(148, 163, 184, 0.18);
+  color: #f8fafc;
+  text-align: center;
+}
+
+.limits-masterclass .limit-variation-table th {
+  color: #93c5fd;
+  background: rgba(15, 23, 42, 0.66);
+}
+
+.limits-masterclass .limit-variation-table .minimum-value {
+  color: #34d399;
+  font-weight: 900;
+  font-size: 1.08em;
+}
+
+.limits-masterclass .limit-variation-note {
+  margin: 12px 0 0;
+  color: #dbeafe;
+}
+.limits-masterclass .limit-variation-svg {
+  margin: 0;
+  overflow-x: auto;
+  width: 100%;
+  border-radius: 18px;
+  background: rgba(2, 6, 23, 0.32);
+}
+
+.limits-masterclass .limit-variation-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.limits-masterclass .limit-variation-classic {
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.18);
+  border-radius: 8px;
+}
+
+.limits-masterclass .limit-variation-classic svg {
+  min-width: 480px;
+}
+.exercise-statement {
+  margin: 12px 0 14px;
+}
+
+.exercise-readable-statement {
+  display: grid;
+  gap: 12px;
+  color: var(--muted-text);
+  line-height: 1.9;
+}
+
+.exercise-readable-statement p {
+  margin: 0;
+}
+
+.exercise-readable-statement .math-equation {
+  margin: 2px 0 4px;
+}
+
+.exercise-readable-statement .solution-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.exercise-readable-statement .solution-list li {
+  padding: 8px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.13);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.22);
+}
+.comparison-rule-board .comparison-rule-strip {
+  border-color: rgba(132, 204, 22, 0.46);
+  background: linear-gradient(135deg, rgba(22, 101, 52, 0.28), rgba(8, 47, 73, 0.18));
+}
+
+.comparison-rule-board .comparison-rule-strip .math-equation {
+  display: inline-flex;
+  margin-inline-end: 12px;
+}
+
+.comparison-visual-summary .comparison-growth-svg {
+  margin: 16px 0 0;
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+.comparison-visual-summary .comparison-growth-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .comparison-rule-board .comparison-rule-strip .math-equation {
+    display: flex;
+    width: 100%;
+    margin-inline-end: 0;
+  }
 }
