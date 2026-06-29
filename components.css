@@ -2655,3 +2655,531 @@
     margin-inline-end: 0;
   }
 }
+.equation-exercise-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  direction: ltr;
+  padding: 14px 16px;
+  border: 1px solid rgba(30, 64, 175, 0.14);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.86));
+}
+
+.equation-exercise-card .exercise-number {
+  flex: 0 0 auto;
+  min-width: 34px;
+  color: #1e40af;
+  font-weight: 800;
+  font-family: "Tajawal", sans-serif;
+  text-align: center;
+}
+
+.equation-exercise-card .math-equation {
+  flex: 1;
+  margin: 0;
+  direction: ltr;
+  text-align: center;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.55rem);
+}
+
+.equation-exercise-card-wide {
+  align-items: flex-start;
+  direction: rtl;
+}
+
+.equation-exercise-card-wide > div {
+  flex: 1;
+}
+
+.equation-exercise-card-wide p {
+  margin: 0 0 10px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.equation-exercise-card-wide .exercise-steps {
+  margin: 12px 20px 0 0;
+  padding: 0;
+  color: #111827;
+  line-height: 1.9;
+}
+
+@media (max-width: 520px) {
+  .equation-exercise-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .equation-exercise-card .exercise-number {
+    min-width: 0;
+  }
+}
+.limit-challenge-card {
+  gap: 18px;
+}
+
+.limit-challenge-card .display-limit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  direction: ltr;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 18px 16px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #111827;
+  font-family: "Amiri", "Times New Roman", serif;
+  font-size: clamp(1.35rem, 1.08rem + 1.1vw, 2.15rem);
+  line-height: 1.15;
+  overflow-x: auto;
+}
+
+.display-limit-op {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 56px;
+}
+
+.display-limit-op strong {
+  font-size: 1.05em;
+  line-height: 0.95;
+}
+
+.display-limit-op small {
+  margin-top: 2px;
+  font-family: "Amiri", "Times New Roman", serif;
+  font-size: 0.52em;
+  white-space: nowrap;
+}
+
+.display-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-width: min(260px, 68vw);
+  white-space: nowrap;
+}
+
+.display-frac-top,
+.display-frac-bottom {
+  display: block;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.display-frac-top {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 7px;
+}
+
+.display-frac-bottom {
+  padding-top: 7px;
+}
+
+.display-frac sup {
+  font-size: 0.62em;
+  line-height: 0;
+  vertical-align: 0.58em;
+}
+
+@media (max-width: 520px) {
+  .limit-challenge-card .display-limit {
+    justify-content: flex-start;
+    padding: 16px 12px;
+  }
+
+  .display-frac {
+    min-width: 230px;
+  }
+}
+.cards-grid > .challenge-exercise-panel {
+  grid-column: 1 / -1;
+  width: min(760px, 100%);
+  justify-self: center;
+}
+
+.challenge-exercise-panel .limit-challenge-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.challenge-exercise-panel .limit-challenge-card > div {
+  min-width: 0;
+}
+
+.challenge-exercise-panel .limit-challenge-card .exercise-number {
+  align-self: start;
+}
+
+.challenge-exercise-panel .display-limit {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  background: #f8fafc;
+  opacity: 1;
+}
+
+.challenge-exercise-panel .display-frac {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1 1 auto;
+}
+
+@media (max-width: 680px) {
+  .cards-grid > .challenge-exercise-panel {
+    width: 100%;
+  }
+
+  .challenge-exercise-panel .limit-challenge-card {
+    grid-template-columns: 1fr;
+  }
+
+  .challenge-exercise-panel .limit-challenge-card .exercise-number {
+    justify-self: start;
+  }
+
+  .challenge-exercise-panel .display-limit {
+    font-size: clamp(1.1rem, 0.95rem + 1.3vw, 1.45rem);
+  }
+}
+.integral-equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  direction: ltr;
+  margin: 10px 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.22);
+  color: #f8fafc;
+  font-family: "Amiri", "Times New Roman", serif;
+  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.integral-block {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 42px;
+  margin-inline: 2px;
+  flex: 0 0 auto;
+}
+
+.integral-symbol {
+  font-size: 2.05em;
+  line-height: 1;
+}
+
+.integral-upper,
+.integral-lower {
+  position: absolute;
+  right: -8px;
+  font-family: "Amiri", "Times New Roman", serif;
+  font-size: 0.55em;
+  line-height: 1;
+}
+
+.integral-upper {
+  top: 0;
+}
+
+.integral-lower {
+  bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .integral-equation {
+    justify-content: flex-start;
+  }
+}
+.display-expression {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  padding: 4px 0;
+}
+
+@media (max-width: 520px) {
+  .display-expression {
+    font-size: 0.9em;
+  }
+}
+.challenge-back-btn {
+  width: fit-content;
+  margin: 12px auto 10px;
+}
+.display-power-expression {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.display-power-expression sup {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 0.58em;
+}
+
+.display-paren {
+  font-size: 1.85em;
+  line-height: 1;
+}
+
+.display-frac.compact-frac {
+  min-width: 92px;
+  font-size: 0.92em;
+}
+.challenge-alt-solution {
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+.power-identity-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.exp-power {
+  display: inline-flex;
+  align-items: flex-start;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.exp-power sup {
+  margin-inline-start: 2px;
+  font-size: 0.62em;
+  line-height: 1.1;
+  vertical-align: super;
+  white-space: nowrap;
+}
+
+
+.challenge-list {
+  display: grid;
+  gap: 16px;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.challenge-item {
+  display: grid;
+  gap: 12px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.challenge-item:last-child {
+  border-bottom: 0;
+}
+
+.challenge-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.challenge-item-head span {
+  color: #93c5fd;
+  font-weight: 900;
+  font-size: 15px;
+}
+
+.challenge-statement {
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.challenge-statement .math-equation {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+}
+
+.challenge-item .solution-toggle {
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.challenge-item .solution-toggle:hover {
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.challenge-solution-panel {
+  margin-top: 2px;
+  padding: 14px;
+  text-align: start;
+}
+
+.display-integral {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 1px;
+  vertical-align: middle;
+  margin-inline: 2px;
+}
+
+.integral-symbol {
+  font-size: 1.75em;
+  line-height: 0.9;
+  font-family: "Times New Roman", serif;
+}
+
+.integral-bounds {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  font-size: 0.58em;
+  line-height: 1;
+  transform: translateX(-2px);
+}
+
+.compact-frac {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  min-width: 2.4em;
+  vertical-align: middle;
+  line-height: 1.05;
+}
+
+.compact-frac > span:first-child {
+  width: 100%;
+  padding-inline: 4px;
+  border-bottom: 1px solid currentColor;
+}
+
+.integral-formula {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42em;
+  flex-wrap: wrap;
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+  font-family: "Amiri", "Times New Roman", serif;
+}
+
+.integral-formula > span {
+  direction: ltr;
+  unicode-bidi: isolate;
+  flex: 0 0 auto;
+}
+
+.integral-formula-wide {
+  row-gap: 0.55em;
+}
+
+.pretty-integral {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 0.8em 0.8em;
+  align-items: center;
+  justify-items: start;
+  column-gap: 0.03em;
+  width: 1.35em;
+  height: 1.75em;
+  margin-inline: 0.02em 0.1em;
+  vertical-align: middle;
+}
+
+.pretty-int-symbol {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-family: "Times New Roman", serif;
+  font-size: 2.05em;
+  font-weight: 400;
+  line-height: 0.82;
+  transform: translateY(0.02em);
+}
+
+.pretty-int-upper,
+.pretty-int-lower {
+  grid-column: 2;
+  font-size: 0.58em;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 0.7em;
+  transform: translateX(-0.1em);
+}
+
+.pretty-int-upper {
+  grid-row: 1;
+  align-self: end;
+}
+
+.pretty-int-lower {
+  grid-row: 2;
+  align-self: start;
+}
+
+.pretty-frac {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  min-width: 2.35em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.pretty-frac > span:first-child {
+  width: 100%;
+  padding: 0 0.18em 0.08em;
+  border-bottom: 1.5px solid currentColor;
+  text-align: center;
+}
+
+.pretty-frac > span:last-child {
+  padding-top: 0.08em;
+}
+
+@media (max-width: 520px) {
+  .integral-formula {
+    justify-content: flex-start;
+    gap: 0.34em;
+  }
+
+  .pretty-integral {
+    width: 1.25em;
+  }
+}

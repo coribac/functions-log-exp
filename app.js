@@ -8,7 +8,697 @@ const BAC_BRANCH_LABELS = {
   management: "تسيير واقتصاد",
 };
 
+const LIMIT_CHALLENGE_EXERCISES = [
+  {
+    title: "تحدي 1: نهاية مركبة عند الصفر",
+    statementHtml: `<div class="math-equation">lim(x→0) (x e^x - ln(1+x)) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نفكك البسط بإضافة وطرح <span class="math">x</span> حتى نحصل على نهايتين مرجعيتين في برنامج البكالوريا.</p>
+        </div>
+        <div class="math-equation">(x e^x - ln(1+x))/x² = (x e^x - x + x - ln(1+x))/x²</div>
+        <div class="math-equation">= x(e^x-1)/x² + (x-ln(1+x))/x²</div>
+        <div class="math-equation">= (e^x-1)/x + (x-ln(1+x))/x²</div>
+        <p>بالنسبة للحد الأول نستعمل النهاية الشهيرة:</p>
+        <div class="math-equation">lim(x→0) (e^x-1)/x = 1</div>
+        <p>يبقى حساب النهاية الثانية. نكتب:</p>
+        <div class="math-equation integral-formula"><span>ln(1+x)=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">x</span><span class="pretty-int-lower">0</span></span><span class="pretty-frac"><span>1</span><span>1+t</span></span><span>dt</span></div>
+        <div class="math-equation integral-formula"><span>x=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">x</span><span class="pretty-int-lower">0</span></span><span>1</span><span>dt</span></div>
+        <p>إذن:</p>
+        <div class="math-equation integral-formula integral-formula-wide"><span>x-ln(1+x)=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">x</span><span class="pretty-int-lower">0</span></span><span>(1-</span><span class="pretty-frac"><span>1</span><span>1+t</span></span><span>)dt</span><span>=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">x</span><span class="pretty-int-lower">0</span></span><span class="pretty-frac"><span>t</span><span>1+t</span></span><span>dt</span></div>
+        <p>من أجل <span class="math">x&gt;0</span> وقريب من الصفر، إذا كان <span class="math">0≤t≤x</span> فإن:</p>
+        <div class="math-equation">1/(1+x) ≤ 1/(1+t) ≤ 1</div>
+        <p>وبالضرب في <span class="math">t≥0</span> نحصل على:</p>
+        <div class="math-equation">t/(1+x) ≤ t/(1+t) ≤ t</div>
+        <p>بالتكامل من <span class="math">0</span> إلى <span class="math">x</span>:</p>
+        <div class="math-equation">x²/(2(1+x)) ≤ x-ln(1+x) ≤ x²/2</div>
+        <p>وبالقسمة على <span class="math">x²&gt;0</span>:</p>
+        <div class="math-equation">1/(2(1+x)) ≤ (x-ln(1+x))/x² ≤ 1/2</div>
+        <p>عندما يؤول <span class="math">x</span> إلى <span class="math">0</span> يؤول الطرفان إلى <span class="math">1/2</span>، ومنه حسب مبرهنة الحصر:</p>
+        <div class="math-equation">lim(x→0) (x-ln(1+x))/x² = 1/2</div>
+        <p>نعود إلى التفكيك الأول:</p>
+        <div class="math-equation">lim(x→0) (x e^x - ln(1+x))/x² = 1 + 1/2 = 3/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 2: نهاية لوغارتمية عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) x(1 - x ln(1+1/x))</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل النهاية عند <span class="math">+∞</span> إلى نهاية عند الصفر حتى تظهر النهاية المعروفة المرتبطة بـ <span class="math">ln(1+u)</span>.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">u=1/x</div>
+        <p>عندما <span class="math">x→+∞</span> فإن <span class="math">u→0+</span> و <span class="math">x=1/u</span>. إذن:</p>
+        <div class="math-equation">x(1 - x ln(1+1/x)) = (1/u)(1 - ln(1+u)/u)</div>
+        <div class="math-equation">= (u-ln(1+u))/u²</div>
+        <p>نحسب النهاية:</p>
+        <div class="math-equation">lim(u→0+) (u-ln(1+u))/u²</div>
+        <p>نكتب باستعمال التكامل:</p>
+        <div class="math-equation integral-formula"><span>ln(1+u)=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">u</span><span class="pretty-int-lower">0</span></span><span class="pretty-frac"><span>1</span><span>1+t</span></span><span>dt</span></div>
+        <div class="math-equation integral-formula"><span>u=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">u</span><span class="pretty-int-lower">0</span></span><span>1</span><span>dt</span></div>
+        <p>إذن:</p>
+        <div class="math-equation integral-formula integral-formula-wide"><span>u-ln(1+u)=</span><span class="pretty-integral"><span class="pretty-int-symbol">∫</span><span class="pretty-int-upper">u</span><span class="pretty-int-lower">0</span></span><span class="pretty-frac"><span>t</span><span>1+t</span></span><span>dt</span></div>
+        <p>من أجل <span class="math">u&gt;0</span> وقريب من الصفر، إذا كان <span class="math">0≤t≤u</span> فإن:</p>
+        <div class="math-equation">t/(1+u) ≤ t/(1+t) ≤ t</div>
+        <p>بالتكامل من <span class="math">0</span> إلى <span class="math">u</span> نحصل على:</p>
+        <div class="math-equation">u²/(2(1+u)) ≤ u-ln(1+u) ≤ u²/2</div>
+        <p>وبالقسمة على <span class="math">u²&gt;0</span>:</p>
+        <div class="math-equation">1/(2(1+u)) ≤ (u-ln(1+u))/u² ≤ 1/2</div>
+        <p>عندما <span class="math">u→0+</span> يؤول الطرفان إلى <span class="math">1/2</span>، ومنه حسب مبرهنة الحصر:</p>
+        <div class="math-equation">lim(u→0+) (u-ln(1+u))/u² = 1/2</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">lim(x→+∞) x(1 - x ln(1+1/x)) = 1/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 3: نهاية أسية عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) ((x+1)/(x-1))^x</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>عندما تكون النهاية من الشكل <span class="math">1^∞</span> نستعمل اللوغارتم لتحويل الأس إلى جداء.</p>
+        </div>
+        <p>نفرض أن النهاية هي <span class="math">L</span>. ندرس لوغارتمها:</p>
+        <div class="math-equation">ln(L)=lim(x→+∞) x ln((x+1)/(x-1))</div>
+        <p>نكتب الكسر على شكل قريب من <span class="math">1</span>:</p>
+        <div class="math-equation">(x+1)/(x-1)=1+2/(x-1)</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(L)=lim(x→+∞) x ln(1+2/(x-1))</div>
+        <p>نضع:</p>
+        <div class="math-equation">u=2/(x-1)</div>
+        <p>عندما <span class="math">x→+∞</span> فإن <span class="math">u→0+</span>، ومن العلاقة <span class="math">u=2/(x-1)</span> نجد:</p>
+        <div class="math-equation">x=1+2/u</div>
+        <p>وبالتالي:</p>
+        <div class="math-equation">x ln(1+2/(x-1)) = (1+2/u) ln(1+u)</div>
+        <div class="math-equation">= ln(1+u) + 2 ln(1+u)/u</div>
+        <p>عند <span class="math">u→0+</span> لدينا <span class="math">ln(1+u)→0</span> و النهاية الشهيرة:</p>
+        <div class="math-equation">lim(u→0) ln(1+u)/u = 1</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(L)=0+2×1=2</div>
+        <p>ومنه:</p>
+        <div class="math-equation">L=e²</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">lim(x→+∞) ((x+1)/(x-1))^x = e²</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 4: نهاية لوغارتمية مثلثية",
+    statementHtml: `<div class="math-equation">lim(x→0) ln(cos x) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نجعل داخل اللوغارتم قريبا من <span class="math">1</span>، ثم نستعمل النهاية الشهيرة <span class="math">ln(1+u)/u→1</span>.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">ln(cos x)/x² = [ln(cos x)/(cos x-1)] × [(cos x-1)/x²]</div>
+        <p>بالنسبة للعامل الأول نضع:</p>
+        <div class="math-equation">u=cos x-1</div>
+        <p>عندما <span class="math">x→0</span> فإن <span class="math">u→0</span>، و <span class="math">cos x=1+u</span>، لذلك:</p>
+        <div class="math-equation">ln(cos x)/(cos x-1)=ln(1+u)/u → 1</div>
+        <p>وبالنسبة للعامل الثاني نستعمل النهاية المثلثية الشهيرة:</p>
+        <div class="math-equation">lim(x→0) (cos x-1)/x² = -1/2</div>
+        <p>إذن:</p>
+        <div class="math-equation">lim(x→0) ln(cos x)/x² = 1 × (-1/2)</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">-1/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 5: أسية ومثلثية عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) x(e^(1/x) - cos(1/sqrt(x)))</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل النهاية عند <span class="math">+∞</span> إلى نهاية عند الصفر باختيار متغير يجعل <span class="math">1/x</span> و <span class="math">1/sqrt(x)</span> بسيطين.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">t=1/sqrt(x)</div>
+        <p>عندما <span class="math">x→+∞</span> فإن <span class="math">t→0+</span>، كما أن:</p>
+        <div class="math-equation">x=1/t² و 1/x=t²</div>
+        <p>إذن تصبح النهاية:</p>
+        <div class="math-equation">lim(t→0+) (e^(t²)-cos(t))/t²</div>
+        <p>نفصل البسط بإضافة وطرح <span class="math">1</span>:</p>
+        <div class="math-equation">(e^(t²)-cos(t))/t² = (e^(t²)-1)/t² + (1-cos(t))/t²</div>
+        <p>بالنسبة للحد الأول، نضع <span class="math">u=t²</span>، فنحصل على:</p>
+        <div class="math-equation">lim(t→0+) (e^(t²)-1)/t² = lim(u→0+) (e^u-1)/u = 1</div>
+        <p>وبالنسبة للحد الثاني نستعمل النهاية المثلثية الشهيرة:</p>
+        <div class="math-equation">lim(t→0) (1-cos(t))/t² = 1/2</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 + 1/2 = 3/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 6: أسية على لوغارتم",
+    statementHtml: `<div class="math-equation">lim(x→0) (e^(2x)-1) / ln(1+3x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل البسط والمقام إلى النهايات الشهيرة للدالة الأسية واللوغارتم.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">(e^(2x)-1)/ln(1+3x) = [(e^(2x)-1)/(2x)] × [2x/3x] × [3x/ln(1+3x)]</div>
+        <p>عندما <span class="math">x→0</span> لدينا:</p>
+        <div class="math-equation">lim(x→0) (e^(2x)-1)/(2x) = 1</div>
+        <p>لأننا نضع <span class="math">u=2x</span> فتؤول إلى <span class="math">(e^u-1)/u</span>.</p>
+        <p>وكذلك:</p>
+        <div class="math-equation">lim(x→0) ln(1+3x)/(3x) = 1</div>
+        <p>إذن:</p>
+        <div class="math-equation">lim(x→0) 3x/ln(1+3x) = 1</div>
+        <p>وبالتالي النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 × 2/3 × 1 = 2/3</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 7: نهاية عند الواحد",
+    statementHtml: `<div class="math-equation">lim(x→1) (e^(x-1)-1) / ln(x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل النهاية عند <span class="math">1</span> إلى نهاية عند الصفر باستعمال <span class="math">h=x-1</span>.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">h=x-1</div>
+        <p>عندما <span class="math">x→1</span> فإن <span class="math">h→0</span>، كما أن <span class="math">x=1+h</span>. إذن:</p>
+        <div class="math-equation">(e^(x-1)-1)/ln(x) = (e^h-1)/ln(1+h)</div>
+        <p>نضرب ونقسم على <span class="math">h</span>:</p>
+        <div class="math-equation">(e^h-1)/ln(1+h) = [(e^h-1)/h] × [h/ln(1+h)]</div>
+        <p>لدينا النهايتان الشهيرتان:</p>
+        <div class="math-equation">lim(h→0) (e^h-1)/h = 1</div>
+        <div class="math-equation">lim(h→0) ln(1+h)/h = 1</div>
+        <p>ومنه:</p>
+        <div class="math-equation">lim(h→0) h/ln(1+h) = 1</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 × 1 = 1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 8: لوغارتم أسية عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) ln(1+e^x) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نخرج <span class="math">e^x</span> من داخل اللوغارتم لنرى أن البسط يكبر مثل <span class="math">x</span> فقط.</p>
+        </div>
+        <p>عندما <span class="math">x→+∞</span> نكتب:</p>
+        <div class="math-equation">1+e^x = e^x(1+e^(-x))</div>
+        <p>إذن باستعمال خاصية اللوغارتم:</p>
+        <div class="math-equation">ln(1+e^x)=ln(e^x)+ln(1+e^(-x))</div>
+        <div class="math-equation">ln(1+e^x)=x+ln(1+e^(-x))</div>
+        <p>وبالتالي:</p>
+        <div class="math-equation">ln(1+e^x)/x² = 1/x + ln(1+e^(-x))/x²</div>
+        <p>لدينا <span class="math">e^(-x)→0</span>، ومنه <span class="math">ln(1+e^(-x))→0</span>، لذلك:</p>
+        <div class="math-equation">lim(x→+∞) 1/x = 0</div>
+        <div class="math-equation">lim(x→+∞) ln(1+e^(-x))/x² = 0</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">0</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 9: لوغارتم أسية عند الصفر يمينا",
+    statementHtml: `<div class="math-equation">lim(x→0+) x ln(e^(1/x)-1)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل النهاية عند <span class="math">0+</span> إلى نهاية عند <span class="math">+∞</span> باستعمال <span class="math">t=1/x</span>.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">t=1/x</div>
+        <p>عندما <span class="math">x→0+</span> فإن <span class="math">t→+∞</span>، و <span class="math">x=1/t</span>. إذن:</p>
+        <div class="math-equation">x ln(e^(1/x)-1)=ln(e^t-1)/t</div>
+        <p>نفكك داخل اللوغارتم:</p>
+        <div class="math-equation">e^t-1=e^t(1-e^(-t))</div>
+        <p>ومنه:</p>
+        <div class="math-equation">ln(e^t-1)=ln(e^t)+ln(1-e^(-t))</div>
+        <div class="math-equation">ln(e^t-1)=t+ln(1-e^(-t))</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(e^t-1)/t = 1 + ln(1-e^(-t))/t</div>
+        <p>عندما <span class="math">t→+∞</span> لدينا <span class="math">e^(-t)→0</span>، وبالتالي <span class="math">ln(1-e^(-t))→0</span>. لذلك:</p>
+        <div class="math-equation">lim(t→+∞) ln(1-e^(-t))/t = 0</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 10: لوغارتم عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) x ln((x+2)/x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل الكسر داخل اللوغارتم إلى <span class="math">1+u</span> ثم نستعمل النهاية الشهيرة <span class="math">ln(1+u)/u→1</span>.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">(x+2)/x = 1+2/x</div>
+        <p>نضع <span class="math">u=2/x</span>. عندما <span class="math">x→+∞</span> فإن <span class="math">u→0+</span> و <span class="math">x=2/u</span>.</p>
+        <div class="math-equation">x ln((x+2)/x) = (2/u)ln(1+u)</div>
+        <div class="math-equation">= 2 ln(1+u)/u</div>
+        <p>وبما أن:</p>
+        <div class="math-equation">lim(u→0) ln(1+u)/u = 1</div>
+        <p>فإن النهاية المطلوبة هي:</p>
+        <div class="math-equation">2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 11: أسية ولوغارتم عند الصفر",
+    statementHtml: `<div class="math-equation">lim(x→0) (e^(x²)-1) / (x ln(1+2x))</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نفصل التعبير إلى نهايتين شهيرتين: واحدة للأسية وواحدة للوغارتم.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">(e^(x²)-1)/(x ln(1+2x)) = [(e^(x²)-1)/x²] × [x/ln(1+2x)]</div>
+        <p>بالنسبة للعامل الأول نضع <span class="math">u=x²</span>، فنحصل على:</p>
+        <div class="math-equation">lim(x→0) (e^(x²)-1)/x² = lim(u→0) (e^u-1)/u = 1</div>
+        <p>وبالنسبة للعامل الثاني:</p>
+        <div class="math-equation">lim(x→0) ln(1+2x)/(2x) = 1</div>
+        <p>إذن <span class="math">ln(1+2x)~2x</span>، ومنه:</p>
+        <div class="math-equation">lim(x→0) x/ln(1+2x) = 1/2</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 × 1/2 = 1/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 12: فرق لوغارتمي عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) (x - ln(e^x + x))</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نخرج <span class="math">e^x</span> من داخل اللوغارتم حتى يظهر الفرق مع <span class="math">x</span> مباشرة.</p>
+        </div>
+        <p>عندما <span class="math">x→+∞</span> نكتب:</p>
+        <div class="math-equation">e^x+x=e^x(1+x e^(-x))</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(e^x+x)=ln(e^x)+ln(1+x e^(-x))</div>
+        <div class="math-equation">ln(e^x+x)=x+ln(1+x e^(-x))</div>
+        <p>وبالتالي:</p>
+        <div class="math-equation">x-ln(e^x+x)=-ln(1+x e^(-x))</div>
+        <p>وبما أن <span class="math">x e^(-x)=x/e^x→0</span> حسب التزايد المقارن، فإن:</p>
+        <div class="math-equation">ln(1+x e^(-x))→0</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">0</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 13: نهاية دقيقة عند الواحد",
+    statementHtml: `<div class="math-equation">lim(x→1) (x^x - x) / (1 - x + ln x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>البسط والمقام ينعدمان من الدرجة الأولى عند <span class="math">1</span>، لذلك نحتاج إلى تقريب من الدرجة الثانية.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">h=x-1</div>
+        <p>عندما <span class="math">x→1</span> فإن <span class="math">h→0</span> و <span class="math">x=1+h</span>.</p>
+        <p>نبدأ بالمقام:</p>
+        <div class="math-equation">1-x+ln x = -h+ln(1+h)</div>
+        <p>وباستعمال التقريب المعروف:</p>
+        <div class="math-equation">ln(1+h)=h-h²/2+o(h²)</div>
+        <p>فنحصل على:</p>
+        <div class="math-equation">1-x+ln x = -h²/2+o(h²)</div>
+        <p>أما البسط، فنكتب:</p>
+        <div class="math-equation">x^x=e^(x ln x)=e^((1+h)ln(1+h))</div>
+        <p>ولدينا:</p>
+        <div class="math-equation">(1+h)ln(1+h)=h+h²/2+o(h²)</div>
+        <p>إذن باستعمال <span class="math">e^u=1+u+u²/2+o(u²)</span> عندما <span class="math">u→0</span>:</p>
+        <div class="math-equation">x^x=1+h+h²+o(h²)</div>
+        <p>وبما أن <span class="math">x=1+h</span> فإن:</p>
+        <div class="math-equation">x^x-x=h²+o(h²)</div>
+        <p>إذن:</p>
+        <div class="math-equation">(x^x-x)/(1-x+ln x) = (h²+o(h²))/(-h²/2+o(h²))</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">-2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 14: فرق لوغارتمين عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) x(ln(x²+x+1) - 2ln x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نخرج <span class="math">x²</span> من داخل اللوغارتم، فيختفي <span class="math">2ln x</span> ويبقى لوغارتم كمية قريبة من <span class="math">1</span>.</p>
+        </div>
+        <p>بما أن <span class="math">x→+∞</span> فإن <span class="math">x&gt;0</span>، ونكتب:</p>
+        <div class="math-equation">x²+x+1=x²(1+1/x+1/x²)</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(x²+x+1)=ln(x²)+ln(1+1/x+1/x²)</div>
+        <div class="math-equation">ln(x²+x+1)=2ln x+ln(1+1/x+1/x²)</div>
+        <p>وبالتالي:</p>
+        <div class="math-equation">x(ln(x²+x+1)-2ln x)=x ln(1+1/x+1/x²)</div>
+        <p>نضع:</p>
+        <div class="math-equation">u=1/x+1/x²</div>
+        <p>عندما <span class="math">x→+∞</span> فإن <span class="math">u→0</span>، ولدينا:</p>
+        <div class="math-equation">x ln(1+1/x+1/x²)=x u × ln(1+u)/u</div>
+        <p>نحسب:</p>
+        <div class="math-equation">x u = x(1/x+1/x²)=1+1/x → 1</div>
+        <p>كما أن:</p>
+        <div class="math-equation">lim(u→0) ln(1+u)/u = 1</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 15: حد غالب أسي عند المالانهاية",
+    statementHtml: `<div class="math-equation">lim(x→+∞) (e^(3x) - ln(x²+1)) / (x e^(2x) + e^x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نقسم على <span class="math">e^(2x)</span> لأن هذا العامل ظاهر في المقام، ثم نقارن الحدود الباقية.</p>
+        </div>
+        <p>نقسم البسط والمقام على <span class="math">e^(2x)</span>:</p>
+        <div class="math-equation">(e^(3x)-ln(x²+1))/(x e^(2x)+e^x)</div>
+        <div class="math-equation">= (e^x - ln(x²+1)/e^(2x))/(x + e^(-x))</div>
+        <p>عندما <span class="math">x→+∞</span> لدينا حسب التزايد المقارن:</p>
+        <div class="math-equation">ln(x²+1)/e^(2x) → 0</div>
+        <div class="math-equation">e^(-x) → 0</div>
+        <p>إذن العبارة تكافئ:</p>
+        <div class="math-equation">e^x/x</div>
+        <p>وبما أن الدالة الأسية تغلب كل قوة عند <span class="math">+∞</span>، فإن:</p>
+        <div class="math-equation">lim(x→+∞) e^x/x = +∞</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">+∞</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 16: أسية وجذر عند الصفر",
+    statementHtml: `<div class="math-equation">lim(x→0) (e^(sqrt(x²+1)-1)-1) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نضع الأس كله متغيرا جديدا، ثم نستعمل النهاية الشهيرة للدالة الأسية والمرافق للجذر.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">u=sqrt(x²+1)-1</div>
+        <p>عندما <span class="math">x→0</span> فإن <span class="math">u→0</span>. نكتب:</p>
+        <div class="math-equation">(e^(sqrt(x²+1)-1)-1)/x² = [(e^u-1)/u] × [u/x²]</div>
+        <p>بالنسبة للعامل الأول:</p>
+        <div class="math-equation">lim(u→0) (e^u-1)/u = 1</div>
+        <p>نحسب العامل الثاني باستعمال المرافق:</p>
+        <div class="math-equation">u/x² = (sqrt(x²+1)-1)/x²</div>
+        <div class="math-equation">= 1/(sqrt(x²+1)+1)</div>
+        <p>إذن:</p>
+        <div class="math-equation">lim(x→0) u/x² = 1/2</div>
+        <p>وبالتالي النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 × 1/2 = 1/2</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 17: قوة لوغارتمية عند الصفر يمينا",
+    statementHtml: `<div class="math-equation">lim(x→0+) x^(1/ln(e^x-1))</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نأخذ لوغارتم النهاية لأن المتغير موجود في الأساس والأس معا.</p>
+        </div>
+        <p>نفرض أن النهاية هي <span class="math">L</span>. عندئذ:</p>
+        <div class="math-equation">ln(L)=lim(x→0+) ln(x^(1/ln(e^x-1)))</div>
+        <div class="math-equation">ln(L)=lim(x→0+) ln x / ln(e^x-1)</div>
+        <p>نكتب:</p>
+        <div class="math-equation">e^x-1 = x × (e^x-1)/x</div>
+        <p>وبأخذ اللوغارتم:</p>
+        <div class="math-equation">ln(e^x-1)=ln x + ln((e^x-1)/x)</div>
+        <p>عندما <span class="math">x→0+</span> لدينا النهاية الشهيرة:</p>
+        <div class="math-equation">lim(x→0+) (e^x-1)/x = 1</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln((e^x-1)/x) → ln(1)=0</div>
+        <p>ومن ثم:</p>
+        <div class="math-equation">ln(L)=lim(x→0+) ln x / [ln x + ln((e^x-1)/x)]</div>
+        <p>وبما أن <span class="math">ln x→-∞</span> والحد الثاني يؤول إلى <span class="math">0</span>، نحصل على:</p>
+        <div class="math-equation">ln(L)=1</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">L=e</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 18: لوغارتم داخل لوغارتم",
+    statementHtml: `<div class="math-equation">lim(x→+∞) ln(x+ln x) / ln x</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نستخرج <span class="math">x</span> من داخل اللوغارتم، لأن <span class="math">ln x</span> أصغر بكثير من <span class="math">x</span> عند <span class="math">+∞</span>.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">x+ln x = x(1+ln x/x)</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(x+ln x)=ln x + ln(1+ln x/x)</div>
+        <p>وبالتالي:</p>
+        <div class="math-equation">ln(x+ln x)/ln x = 1 + ln(1+ln x/x)/ln x</div>
+        <p>حسب التزايد المقارن:</p>
+        <div class="math-equation">ln x/x → 0</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(1+ln x/x) → ln(1)=0</div>
+        <p>وبما أن <span class="math">ln x→+∞</span> فإن:</p>
+        <div class="math-equation">ln(1+ln x/x)/ln x → 0</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 19: أسية ولوغارتم مربع",
+    statementHtml: `<div class="math-equation">lim(x→0) (e^((ln(1+x))²)-1) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نضع الأس كله متغيرا جديدا حتى نستعمل النهاية الشهيرة <span class="math">(e^u-1)/u→1</span>.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">u=(ln(1+x))²</div>
+        <p>عندما <span class="math">x→0</span> فإن <span class="math">u→0</span>. إذن:</p>
+        <div class="math-equation">(e^((ln(1+x))²)-1)/x² = [(e^u-1)/u] × [u/x²]</div>
+        <p>العامل الأول نهايته:</p>
+        <div class="math-equation">lim(u→0) (e^u-1)/u = 1</div>
+        <p>أما العامل الثاني:</p>
+        <div class="math-equation">u/x² = (ln(1+x))²/x²</div>
+        <div class="math-equation">= [ln(1+x)/x]²</div>
+        <p>وبما أن:</p>
+        <div class="math-equation">lim(x→0) ln(1+x)/x = 1</div>
+        <p>فإن:</p>
+        <div class="math-equation">lim(x→0) u/x² = 1</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1 × 1 = 1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 20: قوة بلوغارتم عند الواحد",
+    statementHtml: `<div class="math-equation">lim(x→1) (x^(ln x)-1) / (ln x)²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نضع <span class="math">t=ln x</span> حتى تتحول القوة إلى أسية عادية.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">t=ln x</div>
+        <p>عندما <span class="math">x→1</span> فإن <span class="math">t→0</span>، و <span class="math">x=e^t</span>. إذن:</p>
+        <div class="math-equation">x^(ln x)=(e^t)^t=e^(t²)</div>
+        <p>فتصبح النهاية:</p>
+        <div class="math-equation">lim(t→0) (e^(t²)-1)/t²</div>
+        <p>نضع <span class="math">u=t²</span>، فنحصل على:</p>
+        <div class="math-equation">lim(u→0) (e^u-1)/u = 1</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 21: لوغارتم أسي عند الصفر يمينا",
+    statementHtml: `<div class="math-equation">lim(x→0+) x ln(1 + e^(1/x)/x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نحوّل <span class="math">x→0+</span> إلى <span class="math">t→+∞</span> باستعمال <span class="math">t=1/x</span>.</p>
+        </div>
+        <p>نضع:</p>
+        <div class="math-equation">t=1/x</div>
+        <p>عندما <span class="math">x→0+</span> فإن <span class="math">t→+∞</span> و <span class="math">x=1/t</span>. إذن:</p>
+        <div class="math-equation">x ln(1+e^(1/x)/x)=ln(1+t e^t)/t</div>
+        <p>نكتب:</p>
+        <div class="math-equation">1+t e^t=e^t(t+e^(-t))</div>
+        <p>ومنه:</p>
+        <div class="math-equation">ln(1+t e^t)=t+ln(t+e^(-t))</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(1+t e^t)/t=1+ln(t+e^(-t))/t</div>
+        <p>وحسب التزايد المقارن <span class="math">ln(t+e^(-t))/t→0</span>، لذلك النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 22: فرق لوغارتمي أسي",
+    statementHtml: `<div class="math-equation">lim(x→+∞) (ln(e^x+e^(-x)) - x) / e^(-2x)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نخرج <span class="math">e^x</span> من داخل اللوغارتم، فيظهر مباشرة <span class="math">ln(1+e^(-2x))</span>.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">e^x+e^(-x)=e^x(1+e^(-2x))</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln(e^x+e^(-x))=x+ln(1+e^(-2x))</div>
+        <p>فتصبح النهاية:</p>
+        <div class="math-equation">lim(x→+∞) ln(1+e^(-2x))/e^(-2x)</div>
+        <p>نضع <span class="math">u=e^(-2x)</span>. عند <span class="math">x→+∞</span> فإن <span class="math">u→0+</span>، ومنه:</p>
+        <div class="math-equation">lim(u→0+) ln(1+u)/u = 1</div>
+        <p>النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 23: فرق لوغارتمين عند الصفر",
+    statementHtml: `<div class="math-equation">lim(x→0) (ln(1+x e^x)-ln(1+x)) / x²</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نجمع الفرق بين اللوغارتمين في لوغارتم واحد، ثم نستعمل <span class="math">ln(1+u)/u→1</span>.</p>
+        </div>
+        <p>نكتب:</p>
+        <div class="math-equation">ln(1+x e^x)-ln(1+x)=ln((1+x e^x)/(1+x))</div>
+        <p>وبما أن:</p>
+        <div class="math-equation">(1+x e^x)/(1+x)=1 + x(e^x-1)/(1+x)</div>
+        <p>نضع:</p>
+        <div class="math-equation">u=x(e^x-1)/(1+x)</div>
+        <p>عندما <span class="math">x→0</span> فإن <span class="math">u→0</span>، ومنه:</p>
+        <div class="math-equation">[ln(1+x e^x)-ln(1+x)]/x² = [ln(1+u)/u] × [u/x²]</div>
+        <p>العامل الأول يؤول إلى <span class="math">1</span>. أما:</p>
+        <div class="math-equation">u/x² = [(e^x-1)/x] × [1/(1+x)]</div>
+        <p>وباستعمال <span class="math">(e^x-1)/x→1</span> نحصل على:</p>
+        <div class="math-equation">lim(x→0) u/x² = 1</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1</div>
+      </section>
+    `,
+  },
+  {
+    title: "تحدي 24: لوغارتم مركب عند الواحد",
+    statementHtml: `<div class="math-equation">lim(x→1+) (ln(e^x-e)-ln(x-1)-1) / (x-1)</div>`,
+    solutionHtml: `
+      <section class="activity-sheet">
+        <div class="method-box">
+          <strong>الفكرة:</strong>
+          <p>نستعمل خواص اللوغاريتم أولا لتبسيط الشكل غير المعين، ثم نرجع إلى نهاية مرجعية وبرهان بالحصر.</p>
+        </div>
+
+        <h3>الخطوة 1: تحديد المشكلة</h3>
+        <p>لما <span class="math">x→1+</span> نجد:</p>
+        <div class="math-equation">ln(e^x-e)→ln(0)=-∞</div>
+        <div class="math-equation">ln(x-1)→ln(0)=-∞</div>
+        <p>إذن نحن أمام فرق عبارتين غير منتهيتين، ثم قسمة على مقدار يؤول إلى الصفر.</p>
+
+        <h3>الخطوة 2: تجميع اللوغاريتمات</h3>
+        <p>حسب الخاصية <span class="math">ln(A)-ln(B)=ln(A/B)</span>، لدينا:</p>
+        <div class="math-equation">ln(e^x-e)-ln(x-1)=ln((e^x-e)/(x-1))</div>
+        <p>فتصبح النهاية:</p>
+        <div class="math-equation">lim(x→1+) [ln((e^x-e)/(x-1))-1]/(x-1)</div>
+
+        <h3>الخطوة 3: استخراج العامل المشترك</h3>
+        <p>نستخرج <span class="math">e</span> من <span class="math">e^x-e</span>:</p>
+        <div class="math-equation">e^x-e=e(e^(x-1)-1)</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln((e^x-e)/(x-1))=ln(e × (e^(x-1)-1)/(x-1))</div>
+        <div class="math-equation">=ln(e)+ln((e^(x-1)-1)/(x-1))</div>
+        <div class="math-equation">=1+ln((e^(x-1)-1)/(x-1))</div>
+        <p>وهنا يختفي العدد <span class="math">1</span> مع <span class="math">-1</span> الموجود في البسط:</p>
+        <div class="math-equation">ln((e^x-e)/(x-1))-1=ln((e^(x-1)-1)/(x-1))</div>
+
+        <h3>الخطوة 4: تغيير المتغير</h3>
+        <p>نضع:</p>
+        <div class="math-equation">t=x-1</div>
+        <p>عندما <span class="math">x→1+</span> فإن <span class="math">t→0+</span>. تصبح النهاية:</p>
+        <div class="math-equation">lim(t→0+) ln((e^t-1)/t)/t</div>
+
+        <h3>الخطوة 5: تحضير النهاية المرجعية</h3>
+        <p>نعلم أن:</p>
+        <div class="math-equation">lim(t→0+) (e^t-1)/t = 1</div>
+        <p>نكتب ما داخل اللوغاريتم على شكل <span class="math">1+X</span>:</p>
+        <div class="math-equation">(e^t-1)/t = 1 + (e^t-t-1)/t</div>
+        <p>نضع:</p>
+        <div class="math-equation">X=(e^t-t-1)/t</div>
+        <p>وعندما <span class="math">t→0+</span> فإن <span class="math">X→0</span>. إذن:</p>
+        <div class="math-equation">ln((e^t-1)/t)/t = ln(1+X)/t</div>
+        <p>نضرب ونقسم على <span class="math">X</span>:</p>
+        <div class="math-equation">ln(1+X)/t = [ln(1+X)/X] × [X/t]</div>
+        <p>وبتعويض <span class="math">X</span>:</p>
+        <div class="math-equation">X/t = (e^t-t-1)/t²</div>
+        <p>إذن:</p>
+        <div class="math-equation">ln((e^t-1)/t)/t = [ln(1+X)/X] × [(e^t-t-1)/t²]</div>
+
+        <h3>الخطوة 6: حساب النهايتين</h3>
+        <p>النهاية الأولى مرجعية:</p>
+        <div class="math-equation">lim(X→0) ln(1+X)/X = 1</div>
+        <p>نحسب النهاية الثانية بالحصر. من أجل <span class="math">0≤u≤t</span> حيث <span class="math">t&gt;0</span>، لدينا:</p>
+        <div class="math-equation">1≤e^u≤e^t</div>
+        <p>بالتكامل من <span class="math">0</span> إلى <span class="math">u</span>:</p>
+        <div class="math-equation">u≤e^u-1≤u e^t</div>
+        <p>ثم بالتكامل من <span class="math">0</span> إلى <span class="math">t</span>:</p>
+        <div class="math-equation">∫_0^t u du ≤ ∫_0^t (e^u-1) du ≤ ∫_0^t u e^t du</div>
+        <p>أي:</p>
+        <div class="math-equation">t²/2 ≤ e^t-t-1 ≤ e^t t²/2</div>
+        <p>وبالقسمة على <span class="math">t²</span>:</p>
+        <div class="math-equation">1/2 ≤ (e^t-t-1)/t² ≤ e^t/2</div>
+        <p>عندما <span class="math">t→0+</span> يؤول الطرفان إلى <span class="math">1/2</span>، ومنه حسب مبرهنة الحصر:</p>
+        <div class="math-equation">lim(t→0+) (e^t-t-1)/t² = 1/2</div>
+
+        <h3>الخطوة 7: النتيجة النهائية</h3>
+        <p>نضرب نتيجتي الجزأين:</p>
+        <div class="math-equation">lim(x→1+) [ln(e^x-e)-ln(x-1)-1]/(x-1)=1×1/2=1/2</div>
+        <p>إذن النهاية المطلوبة هي:</p>
+        <div class="math-equation">1/2</div>
+      </section>
+    `,
+  }
+];
+
 const bacFilters = {
+  branch: "all",
+  year: "all",
+};
+
+const foreignBacFilters = {
+  country: "all",
   branch: "all",
   year: "all",
 };
@@ -2968,8 +3658,53 @@ function setBacPanel(tabName) {
   container.querySelectorAll("[data-bac-panel]").forEach((panel) => {
     panel.classList.toggle("active", panel.dataset.bacPanel === tabName);
   });
+  if (tabName === "foreign") applyForeignBacFilters();
 }
 
+function applyForeignBacFilters() {
+  const panel = document.querySelector('[data-bac-panel="foreign"]');
+  if (!panel) return;
+
+  panel.querySelectorAll('[data-foreign-filter]').forEach((button) => {
+    const type = button.dataset.foreignFilter;
+    const isActive = foreignBacFilters[type] === button.dataset.foreignValue;
+    button.classList.toggle('active', isActive);
+    if (isActive) button.setAttribute('aria-current', 'true');
+    else button.removeAttribute('aria-current');
+  });
+
+  panel.querySelectorAll('[data-foreign-select]').forEach((select) => {
+    const type = select.dataset.foreignSelect;
+    if (foreignBacFilters[type] !== undefined) select.value = foreignBacFilters[type];
+  });
+
+  let emptyCard = panel.querySelector('[data-foreign-empty]');
+  if (!emptyCard) {
+    emptyCard = document.createElement('article');
+    emptyCard.className = 'action-panel bac-empty-card';
+    emptyCard.dataset.foreignEmpty = 'true';
+    emptyCard.innerHTML = '<h3>لا توجد مواضيع مطابقة</h3><p>غيّر البلد أو الشعبة أو السنة لعرض مواضيع أخرى.</p>';
+    panel.querySelector('.foreign-filter-panel')?.after(emptyCard);
+  }
+
+  let visibleCount = 0;
+  const headings = [...panel.querySelectorAll('.foreign-exam-heading[data-country]')];
+  headings.forEach((heading) => {
+    const countryMatch = foreignBacFilters.country === 'all' || heading.dataset.country === foreignBacFilters.country;
+    const branchMatch = foreignBacFilters.branch === 'all' || heading.dataset.branch === foreignBacFilters.branch;
+    const yearMatch = foreignBacFilters.year === 'all' || String(heading.dataset.year) === String(foreignBacFilters.year);
+    const isVisible = countryMatch && branchMatch && yearMatch;
+    if (isVisible) visibleCount += 1;
+
+    let node = heading;
+    while (node && (node === heading || !node.matches('.foreign-exam-heading[data-country]'))) {
+      node.hidden = !isVisible;
+      node = node.nextElementSibling;
+    }
+  });
+
+  emptyCard.hidden = visibleCount > 0;
+}
 function setMockBacBranch(branchName) {
   document.querySelectorAll("[data-mock-branch]").forEach((button) => {
     const isActive = button.dataset.mockBranch === branchName;
@@ -3022,6 +3757,11 @@ function getModuleBacExercises(module) {
   if (!tags.length) return [];
   return exams.filter((exam) => (exam.tags || []).some((tag) => tags.includes(tag)));
 }
+
+function getModuleChallengeExercises(module) {
+  return module.id === "limits" ? LIMIT_CHALLENGE_EXERCISES : [];
+}
+
 
 function setView(viewName) {
   if (!views[viewName]) return;
@@ -3093,7 +3833,18 @@ function renderModuleDetail() {
   const detail = document.getElementById("moduleDetail");
   const done = state.progress.completed.includes(module.id);
   const tab = state.moduleTab;
+  const challengeExercises = getModuleChallengeExercises(module);
   const bacExercises = getModuleBacExercises(module);
+  const hasChallengeExercises = challengeExercises.length > 0;
+  const bacTabCount = hasChallengeExercises ? challengeExercises.length : bacExercises.length;
+  const bacTabLabel = hasChallengeExercises ? "تمارين للتحدي" : "تمارين البكالوريا";
+  const bacTabMeta = hasChallengeExercises ? `${challengeExercises.length} تحدي` : `${bacExercises.length} موضوع بكالوريا`;
+  const bacTabContentClass = hasChallengeExercises ? "challenge-list" : "cards-grid";
+  const bacTabContent = hasChallengeExercises
+    ? challengeExercises.map((exercise, index) => renderChallengeExerciseItem(module, exercise, index)).join("")
+    : bacExercises.length
+      ? bacExercises.map(renderModuleBacExerciseCard).join("")
+      : renderModuleBacEmptyCard(module);
   detail.innerHTML = `
     <section class="study-hero">
       <div>
@@ -3111,7 +3862,7 @@ function renderModuleDetail() {
       <button class="lesson-section-tab ${tab === "lesson" ? "active" : ""}" type="button" data-module-tab="lesson" ${tab === "lesson" ? "aria-current='true'" : ""}>الدرس</button>
       <button class="lesson-section-tab ${tab === "solved" ? "active" : ""}" type="button" data-module-tab="solved" ${tab === "solved" ? "aria-current='true'" : ""}>تمارين محلولة (${module.solved.length})</button>
       <button class="lesson-section-tab ${tab === "exercises" ? "active" : ""}" type="button" data-module-tab="exercises" ${tab === "exercises" ? "aria-current='true'" : ""}>التمارين (${module.exercises.length})</button>
-      <button class="lesson-section-tab ${tab === "bacExercises" ? "active" : ""}" type="button" data-module-tab="bacExercises" ${tab === "bacExercises" ? "aria-current='true'" : ""}>تمارين البكالوريا (${bacExercises.length})</button>
+      <button class="lesson-section-tab ${tab === "bacExercises" ? "active" : ""}" type="button" data-module-tab="bacExercises" ${tab === "bacExercises" ? "aria-current='true'" : ""}>${bacTabLabel} (${bacTabCount})</button>
     </nav>
 
     <section class="lesson-section-panel ${tab === "activities" ? "active" : ""}">
@@ -3134,9 +3885,9 @@ function renderModuleDetail() {
     </section>
 
     <section class="lesson-section-panel ${tab === "bacExercises" ? "active" : ""}">
-      <div class="section-title"><h2>تمارين البكالوريا</h2><span>${bacExercises.length} موضوع بكالوريا</span></div>
-      <section class="cards-grid">
-        ${bacExercises.length ? bacExercises.map(renderModuleBacExerciseCard).join("") : renderModuleBacEmptyCard(module)}
+      <div class="section-title"><h2>${bacTabLabel}</h2><span>${bacTabMeta}</span></div>
+      <section class="${bacTabContentClass}">
+        ${bacTabContent}
       </section>
     </section>
   `;
@@ -3173,6 +3924,27 @@ function renderModuleBacEmptyCard(module) {
   `;
 }
 
+function renderChallengeExerciseItem(module, exercise, index) {
+  const key = `${module.id}-challenge-${index}`;
+  const isOpen = state.openSolutions[key];
+  const solution = exercise.solutionHtml || `<p>${escapeHtml(exercise.solution)}</p>`;
+  return `
+    <article class="challenge-item">
+      <header class="challenge-item-head">
+        <span>تحدي ${index + 1}</span>
+      </header>
+      <div class="challenge-statement">
+        ${exercise.statementHtml ? exercise.statementHtml : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
+      </div>
+      <button class="solution-toggle challenge-solution-toggle" type="button" data-solution-key="${key}">
+        ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
+      </button>
+      <section class="solution-panel challenge-solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
+        ${solution}
+      </section>
+    </article>
+  `;
+}
 function renderActivityCard(module, activity, index) {
   const key = `${module.id}-activity-${index}`;
   const isOpen = state.openSolutions[key];
@@ -7731,6 +8503,7 @@ function normalizeMathSource(text) {
     .replace(/([A-Za-z]+)\^\(([^()]+)\)/g, "$1^{$2}")
     .replace(/e\^\(([^()]+)\)/g, "e^{$1}")
     .replace(/sqrt\(([^()]+)\)/g, "\\sqrt{$1}")
+    .replace(/√\(([^()]+)\)/g, "\\sqrt{$1}")
     .replace(/⁴√\s*([A-Za-z0-9]+)/g, "\\sqrt[4]{$1}")
     .replace(/√\s*([A-Za-z0-9]+)/g, "\\sqrt{$1}")
     .replace(/\\to/g, "→")
@@ -7917,6 +8690,15 @@ function bindEvents() {
       renderBacArchive();
     }
 
+    const foreignFilter = event.target.closest("[data-foreign-filter]");
+    if (foreignFilter) {
+      const type = foreignFilter.dataset.foreignFilter;
+      if (foreignBacFilters[type] !== undefined) {
+        foreignBacFilters[type] = foreignFilter.dataset.foreignValue;
+        applyForeignBacFilters();
+      }
+      return;
+    }
     const moduleTab = event.target.closest("[data-module-tab]");
     if (moduleTab) {
       state.moduleTab = moduleTab.dataset.moduleTab;
@@ -8041,6 +8823,14 @@ function bindEvents() {
   });
 
   document.addEventListener("change", (event) => {
+    if (event.target.matches("[data-foreign-select]")) {
+      const type = event.target.dataset.foreignSelect;
+      if (foreignBacFilters[type] !== undefined) {
+        foreignBacFilters[type] = event.target.value;
+        applyForeignBacFilters();
+      }
+      return;
+    }
     if (event.target.matches("[data-discussion-preset]")) {
       const card = event.target.closest("[data-discussion-card]");
       const input = card?.querySelector("[data-discussion-function]");
@@ -8122,6 +8912,7 @@ function renderAll() {
   renderIdeasDoor();
   renderSolved();
   renderBacArchive();
+  applyForeignBacFilters();
   renderProgress();
   updateHome();
   enhanceMathTypography();
