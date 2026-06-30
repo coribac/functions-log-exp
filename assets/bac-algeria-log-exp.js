@@ -1,5 +1,73 @@
 window.bacAlgeriaExams = [
   {
+    id: "tunisia-2025-science-normal",
+    title: "موضوع بكالوريا أجنبي - تونس 2025 - علوم تجريبية",
+    branch: "science",
+    year: "2025",
+    date: "2025",
+    source: "inline",
+    file: "",
+    tags: ["exp", "study-functions", "integration", "sequences"],
+    summary: "موضوع بكالوريا تونس 2025 شعبة علوم تجريبية: دراسة دالة أسية، حساب المساحات، المتتاليات العددية.",
+    statement: `
+      <section class="statement-block">
+        <h3>بكالوريا تونس 2025 - شعبة علوم تجريبية (الدورة الرئيسية)</h3>
+        <p><strong>التمرين:</strong></p>
+        <p>
+          لتكن الدالة <span class="math-inline">f</span> المعرفة على <span class="math-inline">]0, +&infin;[</span> بـ:
+          <span class="math-line">f(x) = (x-1)\\frac{e^x}{x^2}</span>.
+        </p>
+        <p>
+          نسمي <span class="math-inline">(C_f)</span> تمثيلها البياني في معلم متعامد ومتجانس <span class="math-inline">(O, i, j)</span>.
+        </p>
+        <p><strong>I/</strong></p>
+        <ol>
+          <li>
+            <strong>(أ)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span>f(x)</span>. فسر النتيجة بيانيا.
+            <br><strong>(ب)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span> و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>\\frac{f(x)}{x}</span>. فسر النتيجة بيانيا.
+          </li>
+          <li>
+            <strong>(أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> من <span class="math-inline">]0, +&infin;[</span>، 
+            <span class="math-line">f'(x) = \\frac{((x-1)^2+1)e^x}{x^3}</span>.
+            <br><strong>(ب)</strong> شكل جدول تغيرات الدالة <span class="math-inline">f</span>.
+          </li>
+          <li>
+             لتكن الدالة <span class="math-inline">F</span> المعرفة على <span class="math-inline">]0, +&infin;[</span> بـ:
+             <span class="math-line">F(x) = \\frac{e^x}{x}</span> و <span class="math-inline">(C_F)</span> تمثيلها البياني في المعلم <span class="math-inline">(O, i, j)</span>.
+             <br><strong>(أ)</strong> ادرس الوضع النسبي للمنحنيين <span class="math-inline">(C_f)</span> و <span class="math-inline">(C_F)</span>.
+             <br><strong>(ب)</strong> بين أن <span class="math-inline">F</span> هي دالة أصلية للدالة <span class="math-inline">f</span> على <span class="math-inline">]0, +&infin;[</span>.
+          </li>
+        </ol>
+        <p><strong>II/</strong></p>
+        <p>في الشكل 2 من الملحق، تم رسم المنحنى <span class="math-inline">(C_F)</span> في المعلم <span class="math-inline">(O, i, j)</span> وتم تعليم عدد حقيقي <span class="math-inline">&alpha; &gt; 1</span> على محور الفواصل.</p>
+        <ol>
+          <li>
+            <strong>(أ)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ النقطتين <span class="math-line">A(2, f(2))</span> و <span class="math-line">B\\left(\\frac{1}{2}, f\\left(\\frac{1}{2}\\right)\\right)</span>.
+            <br><strong>(ب)</strong> ارسم المنحنى <span class="math-inline">(C_f)</span>. (يطلب تحديد النقطة ذات الفاصلة 1).
+          </li>
+          <li>
+            ليكن <span class="math-inline">t \\in ]0, +&infin;[ \\setminus \\{1\\}</span> و <span class="math-inline">S(t)</span> حيز المستوي المحدد بالمنحنى <span class="math-inline">(C_f)</span>، محور الفواصل والمستقيمين اللذين معادلتاهما <span class="math-inline">x=t</span> و <span class="math-inline">x=1</span>. نرمز بـ <span class="math-inline">A(t)</span> لمساحة الحيز <span class="math-inline">S(t)</span>.
+            <br><strong>(أ)</strong> ظلل <span class="math-inline">S(\\alpha)</span>.
+            <br><strong>(ب)</strong> تحقق أن <span class="math-line">A(\\alpha) = F(\\alpha) - e</span>.
+            <br><strong>(ج)</strong> ليكن <span class="math-inline">t \\in ]0, 1[</span>. بين أن <span class="math-line">A(t) = F(t) - e</span>.
+            <br><strong>(د)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ على محور الفواصل العدد الحقيقي <span class="math-inline">t_0 \\in ]0, 1[</span> بحيث <span class="math-line">A(t_0) = A(\\alpha)</span>.
+          </li>
+          <li>
+             لتكن المتتالية <span class="math-inline">U</span> المعرفة بـ: <span class="math-line">U_n = \\int_{\\frac{1}{n+1}}^{\\frac{1}{n}} F(x) dx</span>، من أجل <span class="math-inline">n \\ge 1</span>.
+             <br><strong>(أ)</strong> حدد بيانيا اتجاه تغير <span class="math-inline">F</span> على <span class="math-inline">]0, 1]</span>.
+             <br><strong>(ب)</strong> بين أنه من أجل كل عدد طبيعي <span class="math-inline">n \\ge 1</span>: 
+             <span class="math-line">\\frac{1}{n+1} e^{\\frac{1}{n+1}} \\le U_n \\le \\frac{1}{n} e^{\\frac{1}{n}}</span>.
+             <br><strong>(ج)</strong> بين أن <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> U_n = 0</span> واحسب <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> n U_n</span>.
+          </li>
+        </ol>
+      </section>
+    `,
+    solution: `
+      <h3>الحل التفصيلي غير متوفر بعد</h3>
+      <p>سيتم إضافة الحل قريباً.</p>
+    `
+  },
+  {
     id: "science-2025-log-exp",
     title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الأول",
     branch: "science",

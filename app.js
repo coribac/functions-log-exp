@@ -1,5 +1,283 @@
 ﻿const STORAGE_KEY = "ayla-log-exp-progress-v2";
 
+const LANGUAGE_KEY = "ayla-ui-language";
+
+const UI_TRANSLATIONS = {
+  ar: {
+    "brand.school": "مدرسة إيلا للرياضيات",
+    "brand.title": "الدوال الأسية واللوغارتمية",
+    "brand.level": "السنة الثالثة ثانوي",
+    "language.label": "اللغة",
+    "nav.home": "الرئيسية",
+    "nav.learn": "التعلم",
+    "nav.exercises": "التمارين",
+    "nav.ideas": "الأفكار",
+    "nav.progress": "تقدمي",
+    "nav.bac": "البكالوريا",
+    "nav.mockLocal": "تجريبي محلي",
+    "nav.mockForeign": "تجريبي أجنبي",
+    "nav.more": "المزيد",
+    "home.kicker": "ماذا أفعل الآن؟",
+    "home.title": "لوحة تقدمك في الدوال الأسية واللوغارتمية",
+    "home.subtitle": "تابع مسارك خطوة بخطوة: درس، نشاط، تمرين، ثم بكالوريا.",
+    "home.progressLabel": "تقدمك",
+    "home.nextAction": "الفعل التالي",
+    "home.continueTitle": "ابدأ بأول محور",
+    "home.continueSummary": "سيظهر هنا وصف المحور المقترح لك.",
+    "home.startNow": "ابدأ الآن",
+    "home.modules": "المحاور",
+    "home.exercises": "التمارين",
+    "home.progressPercent": "نسبة التقدم",
+    "home.openLearn": "فتح التعلم",
+    "home.openExercises": "فتح التمارين",
+    "home.openProgress": "عرض التقدم",
+    "learn.title": "محاور التعلم",
+    "learn.back": "العودة إلى المحاور",
+    "ideas.title": "أبواب أفكار البكالوريا",
+    "ideas.subtitle": "رياضي، تقني رياضي، علمي، وتسيير واقتصاد",
+    "exercises.title": "التمارين",
+    "exercises.subtitle": "ثلاثة أبواب منظمة للتدرج من تمارين الكتاب إلى التعمق",
+    "exercises.schoolDoor": "تمارين الكتاب المدرسي",
+    "exercises.deepDoor": "تمارين للتعمق",
+    "exercises.declicDoor": "تمارين كتاب Declic",
+    "exercises.schoolTitle": "تمارين الكتاب المدرسي",
+    "exercises.schoolSubtitle": "التمارين الموجودة سابقا في باب التمارين",
+    "exercises.deepTitle": "تمارين للتعمق",
+    "exercises.deepSubtitle": "مساحة مخصصة لتمارين إضافية أعلى مستوى",
+    "exercises.declicTitle": "تمارين كتاب Declic",
+    "exercises.declicSubtitle": "مساحة مخصصة لتمارين كتاب Declic",
+    "solved.title": "تمارين محلولة",
+    "solved.subtitle": "حلول منهجية قابلة للمراجعة",
+    "bac.title": "البكالوريا",
+    "bac.subtitle": "تدريب موجه لأبواب البكالوريا",
+    "bac.algeria": "بكالوريا الجزائر",
+    "bac.foreign": "بكالوريا أجنبي",
+    "bac.mock": "بكالوريا تجريبي",
+    "progress.title": "تقدمي",
+    "progress.reset": "تصفير التقدم",
+    "ui.reviewModule": "مراجعة المحور",
+    "ui.startModule": "ابدأ هذا المحور",
+    "ui.openModule": "فتح المحور",
+    "ui.completedModule": "✓ محور مكتمل",
+    "ui.markComplete": "تعليم كمكتمل",
+    "ui.activities": "النشاطات",
+    "ui.lesson": "الدرس",
+    "ui.solvedExercises": "تمارين محلولة",
+    "ui.exercises": "التمارين",
+    "ui.moduleExercises": "تمارين المحور",
+    "ui.bacExercises": "تمارين البكالوريا",
+    "ui.challengeExercises": "تمارين للتحدي",
+    "ui.showSolution": "إظهار الحل",
+    "ui.hideSolution": "إخفاء الحل",
+    "ui.activity": "نشاط",
+    "ui.solvedExercise": "تمرين محلول",
+    "ui.noExercises": "لا توجد تمارين حاليا",
+    "ui.noExercisesDesc": "تم تفريغ هذا الباب من التمارين الموجودة سابقا.",
+    "ui.deepLabel": "تعمق",
+    "ui.deepPlaceholderTitle": "تمارين للتعمق",
+    "ui.deepPlaceholderDesc": "سيضاف هنا باب خاص بتمارين أعمق بعد تمارين الكتاب المدرسي.",
+    "ui.declicExercise": "تمرين",
+    "ui.confirmReset": "هل أنت متأكد من تصفير تقدمك؟ لا يمكن التراجع عن هذا الإجراء.",
+    "unit.modules": "محاور",
+    "unit.activity": "نشاط",
+    "unit.exercise": "تمرين",
+    "unit.solvedExercise": "تمرين محلول",
+    "unit.bacTopic": "موضوع بكالوريا",
+    "unit.challenge": "تحدي"
+  },
+  fr: {
+    "brand.school": "École Ayla de Mathématiques",
+    "brand.title": "Fonctions exponentielles et logarithmiques",
+    "brand.level": "Troisième année secondaire",
+    "language.label": "Langue",
+    "nav.home": "Accueil",
+    "nav.learn": "Apprendre",
+    "nav.exercises": "Exercices",
+    "nav.ideas": "Idées",
+    "nav.progress": "Progression",
+    "nav.bac": "Baccalauréat",
+    "nav.mockLocal": "Essai local",
+    "nav.mockForeign": "Essai étranger",
+    "nav.more": "Plus",
+    "home.kicker": "Que faire maintenant ?",
+    "home.title": "Votre progression en exponentielles et logarithmes",
+    "home.subtitle": "Suivez votre parcours pas à pas : cours, activité, exercice, puis bac.",
+    "home.progressLabel": "Progression",
+    "home.nextAction": "Prochaine action",
+    "home.continueTitle": "Commencez par le premier module",
+    "home.continueSummary": "La description du module recommandé apparaîtra ici.",
+    "home.startNow": "Commencer",
+    "home.modules": "Modules",
+    "home.exercises": "Exercices",
+    "home.progressPercent": "Progression",
+    "home.openLearn": "Ouvrir l'apprentissage",
+    "home.openExercises": "Ouvrir les exercices",
+    "home.openProgress": "Voir la progression",
+    "learn.title": "Modules d'apprentissage",
+    "learn.back": "Retour aux modules",
+    "ideas.title": "Idées du baccalauréat",
+    "ideas.subtitle": "Maths, technique maths, sciences et gestion-économie",
+    "exercises.title": "Exercices",
+    "exercises.subtitle": "Trois portes organisées pour progresser du manuel vers l'approfondissement",
+    "exercises.schoolDoor": "Exercices du manuel",
+    "exercises.deepDoor": "Exercices d'approfondissement",
+    "exercises.declicDoor": "Exercices Declic",
+    "exercises.schoolTitle": "Exercices du manuel",
+    "exercises.schoolSubtitle": "Les exercices déjà présents dans l'ancien espace exercices",
+    "exercises.deepTitle": "Exercices d'approfondissement",
+    "exercises.deepSubtitle": "Espace réservé aux exercices de niveau avancé",
+    "exercises.declicTitle": "Exercices du livre Declic",
+    "exercises.declicSubtitle": "Espace réservé aux exercices du livre Declic",
+    "solved.title": "Exercices résolus",
+    "solved.subtitle": "Solutions méthodiques à réviser",
+    "bac.title": "Baccalauréat",
+    "bac.subtitle": "Entraînement ciblé pour les sujets de bac",
+    "bac.algeria": "Bac Algérie",
+    "bac.foreign": "Bac étranger",
+    "bac.mock": "Bac d'essai",
+    "progress.title": "Ma progression",
+    "progress.reset": "Réinitialiser",
+    "ui.reviewModule": "Réviser le module",
+    "ui.startModule": "Commencer ce module",
+    "ui.openModule": "Ouvrir le module",
+    "ui.completedModule": "✓ Module terminé",
+    "ui.markComplete": "Marquer comme terminé",
+    "ui.activities": "Activités",
+    "ui.lesson": "Cours",
+    "ui.solvedExercises": "Exercices résolus",
+    "ui.exercises": "Exercices",
+    "ui.moduleExercises": "Exercices du module",
+    "ui.bacExercises": "Exercices de bac",
+    "ui.challengeExercises": "Exercices défi",
+    "ui.showSolution": "Afficher la solution",
+    "ui.hideSolution": "Masquer la solution",
+    "ui.activity": "Activité",
+    "ui.solvedExercise": "Exercice résolu",
+    "ui.noExercises": "Aucun exercice pour le moment",
+    "ui.noExercisesDesc": "Cette porte ne contient pas encore d'exercices.",
+    "ui.deepLabel": "Approfondissement",
+    "ui.deepPlaceholderTitle": "Exercices d'approfondissement",
+    "ui.deepPlaceholderDesc": "Des exercices plus avancés seront ajoutés ici après ceux du manuel.",
+    "ui.declicExercise": "Exercice",
+    "ui.confirmReset": "Voulez-vous vraiment réinitialiser votre progression ? Cette action est irréversible.",
+    "unit.modules": "modules",
+    "unit.activity": "activité",
+    "unit.exercise": "exercice",
+    "unit.solvedExercise": "exercice résolu",
+    "unit.bacTopic": "sujet de bac",
+    "unit.challenge": "défi"
+  },
+  en: {
+    "brand.school": "Ayla Math School",
+    "brand.title": "Exponential and Logarithmic Functions",
+    "brand.level": "Third year secondary",
+    "language.label": "Language",
+    "nav.home": "Home",
+    "nav.learn": "Learn",
+    "nav.exercises": "Exercises",
+    "nav.ideas": "Ideas",
+    "nav.progress": "Progress",
+    "nav.bac": "Baccalaureate",
+    "nav.mockLocal": "Local mock",
+    "nav.mockForeign": "Foreign mock",
+    "nav.more": "More",
+    "home.kicker": "What now?",
+    "home.title": "Your progress in exponentials and logarithms",
+    "home.subtitle": "Follow your path step by step: lesson, activity, exercise, then bac.",
+    "home.progressLabel": "Progress",
+    "home.nextAction": "Next action",
+    "home.continueTitle": "Start with the first module",
+    "home.continueSummary": "The recommended module description will appear here.",
+    "home.startNow": "Start now",
+    "home.modules": "Modules",
+    "home.exercises": "Exercises",
+    "home.progressPercent": "Progress",
+    "home.openLearn": "Open learning",
+    "home.openExercises": "Open exercises",
+    "home.openProgress": "View progress",
+    "learn.title": "Learning modules",
+    "learn.back": "Back to modules",
+    "ideas.title": "Bac idea doors",
+    "ideas.subtitle": "Math, technical math, science, management and economics",
+    "exercises.title": "Exercises",
+    "exercises.subtitle": "Three organized doors from textbook practice to deeper work",
+    "exercises.schoolDoor": "Textbook exercises",
+    "exercises.deepDoor": "Deep practice",
+    "exercises.declicDoor": "Declic exercises",
+    "exercises.schoolTitle": "Textbook exercises",
+    "exercises.schoolSubtitle": "The exercises that were previously in the exercises area",
+    "exercises.deepTitle": "Deep practice",
+    "exercises.deepSubtitle": "A space for more advanced exercises",
+    "exercises.declicTitle": "Declic book exercises",
+    "exercises.declicSubtitle": "A space for Declic book exercises",
+    "solved.title": "Solved exercises",
+    "solved.subtitle": "Methodical solutions for revision",
+    "bac.title": "Baccalaureate",
+    "bac.subtitle": "Focused practice for bac-style questions",
+    "bac.algeria": "Algeria bac",
+    "bac.foreign": "Foreign bac",
+    "bac.mock": "Mock bac",
+    "progress.title": "My progress",
+    "progress.reset": "Reset progress",
+    "ui.reviewModule": "Review module",
+    "ui.startModule": "Start this module",
+    "ui.openModule": "Open module",
+    "ui.completedModule": "✓ Module completed",
+    "ui.markComplete": "Mark complete",
+    "ui.activities": "Activities",
+    "ui.lesson": "Lesson",
+    "ui.solvedExercises": "Solved exercises",
+    "ui.exercises": "Exercises",
+    "ui.moduleExercises": "Module exercises",
+    "ui.bacExercises": "Bac exercises",
+    "ui.challengeExercises": "Challenge exercises",
+    "ui.showSolution": "Show solution",
+    "ui.hideSolution": "Hide solution",
+    "ui.activity": "Activity",
+    "ui.solvedExercise": "Solved exercise",
+    "ui.noExercises": "No exercises yet",
+    "ui.noExercisesDesc": "This door does not contain exercises yet.",
+    "ui.deepLabel": "Deep practice",
+    "ui.deepPlaceholderTitle": "Deep practice exercises",
+    "ui.deepPlaceholderDesc": "More advanced exercises will be added here after the textbook exercises.",
+    "ui.declicExercise": "Exercise",
+    "ui.confirmReset": "Are you sure you want to reset your progress? This cannot be undone.",
+    "unit.modules": "modules",
+    "unit.activity": "activity",
+    "unit.exercise": "exercise",
+    "unit.solvedExercise": "solved exercise",
+    "unit.bacTopic": "bac topic",
+    "unit.challenge": "challenge"
+  }
+};
+
+function getSavedLanguage() {
+  const requested = new URLSearchParams(window.location.search).get("lang");
+  if (UI_TRANSLATIONS[requested]) return requested;
+  const saved = localStorage.getItem(LANGUAGE_KEY);
+  return UI_TRANSLATIONS[saved] ? saved : "ar";
+}
+
+function t(key) {
+  const lang = state?.language || getSavedLanguage();
+  return UI_TRANSLATIONS[lang]?.[key] || UI_TRANSLATIONS.ar[key] || key;
+}
+
+function setLanguage(language, options = {}) {
+  if (!UI_TRANSLATIONS[language]) return;
+  if (state) state.language = language;
+  localStorage.setItem(LANGUAGE_KEY, language);
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  document.body?.classList.toggle("is-ltr", language !== "ar");
+  const selector = document.getElementById("languageSelect");
+  if (selector) selector.value = language;
+  syncBacFrameLanguage(language);
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+  if (options.render !== false) renderAll();
+}
 const BAC_BRANCH_LABELS = {
   all: "الكل",
   science: "علوم تجريبية",
@@ -3596,7 +3874,380 @@ const modules = [
   },
 ];
 
-const IDEAS_MODULE_ID = "partial-ideas";
+
+const MODULE_TRANSLATIONS = {
+  fr: {
+    "exp-function": {
+      title: "La fonction exponentielle",
+      summary: "Définition de la fonction exponentielle, propriétés algébriques, variations et représentation graphique."
+    },
+    "ln-function": {
+      title: "La fonction logarithme",
+      summary: "Définition de ln comme fonction réciproque de l'exponentielle, domaine, propriétés et variations."
+    },
+    equations: {
+      title: "Équations et inéquations",
+      summary: "Résolution d'équations et d'inéquations exponentielles et logarithmiques avec les conditions de définition."
+    },
+    "study-functions": {
+      title: "Étude de fonctions exponentielles et logarithmiques",
+      summary: "Dérivation, tableau de variations, limites et discussion de la position relative des courbes."
+    },
+    limits: {
+      title: "Les limites",
+      summary: "Un chapitre organisé pour calculer les limites, traiter les formes indéterminées, comparer et interpréter les asymptotes."
+    },
+    "comparative-growth": {
+      title: "Croissances comparées",
+      summary: "Un chapitre pour comparer la croissance du logarithme, des puissances et de l'exponentielle dans le calcul des limites."
+    }
+  },
+  en: {
+    "exp-function": {
+      title: "The exponential function",
+      summary: "Definition of the exponential function, algebraic properties, variations, and graph."
+    },
+    "ln-function": {
+      title: "The logarithm function",
+      summary: "Definition of ln as the inverse of the exponential function, domain, properties, and variations."
+    },
+    equations: {
+      title: "Equations and inequalities",
+      summary: "Solving exponential and logarithmic equations and inequalities with domain conditions."
+    },
+    "study-functions": {
+      title: "Studying exponential and logarithmic functions",
+      summary: "Derivatives, variation tables, limits, and relative positions of curves."
+    },
+    limits: {
+      title: "Limits",
+      summary: "A structured chapter for computing limits, handling indeterminate forms, comparison, and asymptote interpretation."
+    },
+    "comparative-growth": {
+      title: "Comparative growth",
+      summary: "A chapter for comparing the growth of logarithms, powers, and exponentials when computing limits."
+    }
+  }
+};
+
+function getModuleText(module, field) {
+  return MODULE_TRANSLATIONS[state?.language]?.[module.id]?.[field] || module[field];
+}
+
+const CONTENT_HTML_TRANSLATIONS = {
+  fr: {
+    "نشاط 1: بناء خواص الدالة الأسية": "Activité 1 : construire les propriétés de la fonction exponentielle",
+    "نبحث عن دالة f موجبة، مشتقتها تساوي نفسها، وتحقق f(0)=1، ثم نستنتج خواص الدالة الأسية.": "On cherche une fonction f positive, égale à sa dérivée et vérifiant f(0)=1, puis on en déduit les propriétés de la fonction exponentielle.",
+    "نشاط استكشافي": "Activité d'exploration",
+    "لماذا نبحث عن دالة تحقق": "Pourquoi chercher une fonction vérifiant",
+    "؟": " ?",
+    " و <span class=\"math\">f(0)=1</span>.": " et <span class=\"math\">f(0)=1</span>.",
+    "في النمو السكاني، الفوائد المركبة، والتفكك الإشعاعي تظهر كميات يتناسب تغيرها اللحظي مع قيمتها نفسها. نبحث هنا عن النموذج الأبسط: دالة موجبة تحقق": "Dans la croissance démographique, les intérêts composés et la désintégration radioactive, on rencontre des quantités dont la variation instantanée est proportionnelle à leur valeur. On cherche ici le modèle le plus simple : une fonction positive vérifiant",
+    "المرحلة 1": "Étape 1",
+    "استكشاف عددي وبياني": "Exploration numérique et graphique",
+    "ننطلق من التقريب التألفي": "On part de l'approximation affine",
+    "نعوض أولا": "On remplace d'abord",
+    "بـ": "par",
+    "ثم نستخرج": "puis on factorise",
+    "فنحصل على قاعدة أويلر التقريبية.": "pour obtenir la règle approchée d'Euler.",
+    "المعنى البياني لـ": "Interprétation graphique de",
+    "عند كل نقطة": "En chaque point",
+    "من المنحنى،": "de la courbe,",
+    "ميل المماس يساوي ارتفاع النقطة": "la pente de la tangente est égale à l'ordonnée du point",
+    "بمعنى آخر: كلما ارتفع المنحنى، زاد انحداره. لهذا السبب يتسارع نمو الدالة ويكون منحنىها مقعّرا لأعلى.": "Autrement dit : plus la courbe monte, plus sa pente augmente. C'est pourquoi la croissance s'accélère et la courbe est convexe.",
+    "تكبير الرسم البياني": "Agrandir le graphique",
+    "تكبير": "Agrandir",
+    "طريقة أويلر انطلاقا من التقريب التألفي": "Méthode d'Euler à partir de l'approximation affine",
+    "من نقطة x₀ نبني يمينا ويسارا بضرب القيمة في 1+h أو 1-h": "À partir de x₀, on construit à droite et à gauche en multipliant par 1+h ou 1-h",
+    "الفكرة: نستعمل التقريب التألفي. عند نقطة": "Idée : on utilise l'approximation affine. Au point",
+    "صغيرا فإن": "est petit, alors",
+    "جدول أويلر للبناء انطلاقا من": "Table d'Euler pour construire à partir de",
+    "في كل خطوة نضرب القيمة الحالية في": "À chaque étape, on multiplie la valeur actuelle par",
+    "للانتقال يمينا، أو في": "pour avancer vers la droite, ou par",
+    "للانتقال يسارا. ابدأ بخطوة كبيرة لترى الفرق، ثم صغّرها.": "pour avancer vers la gauche. Commence avec un pas assez grand, puis diminue-le.",
+    "قيمة h": "Valeur de h",
+    "الخطوة k": "Pas k",
+    "بناء بياني": "Construction graphique",
+    "من الجدول إلى المنحنى": "Du tableau à la courbe",
+    "النقاط المحسوبة في الجدول تُكوّن مضلّعة تقريبية. أخف المنحنى الحدّي أولا، ثم أظهره بعد أن يتوقع التلاميذ شكل المنحنى.": "Les points calculés dans le tableau forment une ligne polygonale approchée. Cache d'abord la courbe limite, puis affiche-la après l'anticipation de sa forme.",
+    "إظهار المنحنى الحدّي": "Afficher la courbe limite",
+    "بناء منحنى الدالة الأسية بطريقة أويلر": "Construire la courbe exponentielle par la méthode d'Euler",
+    "بناء المنحنى بالتقريب التألفي": "Construction de la courbe par approximation affine",
+    "المضلّعة الزرقاء مبنية فقط من f'=f و f(0)=1": "La ligne bleue est construite uniquement avec f'=f et f(0)=1",
+    "كل نقطة زرقاء تُبنى من السابقة بضربها في": "Chaque point bleu est obtenu à partir du précédent en le multipliant par",
+    "تستقر المضلّعات حول منحنى واحد نسميه لاحقا الدالة الأسية.": "les lignes polygonales se stabilisent autour d'une même courbe : la fonction exponentielle.",
+    "تلميح": "Indice",
+    "تخمين المرحلة:": "Conjecture :",
+    "التقريب المحلي يسمح ببناء تمثيل تقريبي للدالة على": "L'approximation locale permet de construire une représentation approchée de la fonction sur",
+    "انطلاقا من": "à partir de",
+    "نقترب من منحنى واحد هو الدالة الأسية.": "on s'approche d'une courbe unique : la fonction exponentielle.",
+    "المرحلة 2": "Étape 2",
+    "برهان تحليلي وبناء الخواص": "Démonstration analytique et propriétés",
+    "نثبت أن الشروط": "On montre que les conditions",
+    "تقود إلى خواص الأسس المعروفة.": "conduisent aux propriétés usuelles des puissances.",
+    "اشرح لماذا نضرب في <span class=\"math\">1+h</span> للانتقال يمينا، وفي <span class=\"math\">1-h</span> للانتقال يسارا، انطلاقا من <span class=\"math\">f(x<sub>0</sub>+h)≈f(x<sub>0</sub>)+hf'(x<sub>0</sub>)</span>. <span class=\"hint-chip\" data-hint=\"عوّض f'(x0) بـ f(x0) لأن f'=f.\">تلميح</span>": "Expliquer pourquoi on multiplie par <span class=\"math\">1+h</span> pour avancer vers la droite, et par <span class=\"math\">1-h</span> pour avancer vers la gauche, à partir de <span class=\"math\">f(x<sub>0</sub>+h)≈f(x<sub>0</sub>)+hf'(x<sub>0</sub>)</span>. <span class=\"hint-chip\" data-hint=\"Remplacer f'(x0) par f(x0), car f'=f.\">Indice</span>",
+    "في الرسم أعلاه، لماذا يبدأ المنحنى والمضلّعة من النقطة <span class=\"math\">(0,1)</span>؟": "Dans le graphique ci-dessus, pourquoi la courbe et la ligne polygonale commencent-elles au point <span class=\"math\">(0,1)</span> ?",
+    "عند تصغير <span class=\"math\">h</span> في الجدول، ماذا تلاحظ بالنسبة إلى دقة التقريب؟": "Lorsque <span class=\"math\">h</span> diminue dans le tableau, que remarques-tu concernant la précision de l'approximation ?",
+    "بما أن <span class=\"math\">f'(x)=f(x)</span>، كيف يتغير ميل المماس عندما يزداد <span class=\"math\">x</span>؟ ماذا يعني ذلك بيانيًا؟": "Puisque <span class=\"math\">f'(x)=f(x)</span>, comment la pente de la tangente varie-t-elle lorsque <span class=\"math\">x</span> augmente ? Quelle est l'interprétation graphique ?",
+    "هل يمكن أن ينقطع المنحنى أو يلمس محور الفواصل؟ برّر إجابتك باستعمال الإشارة.": "La courbe peut-elle se couper ou toucher l'axe des abscisses ? Justifie ta réponse à l'aide du signe.",
+    "<span>التقريب المحلي يسمح ببناء تمثيل تقريبي للدالة على <span class=\"math\">[-3;3]</span> انطلاقا من <span class=\"math\">f'=f</span> و <span class=\"math\">f(0)=1</span>. عند تصغير <span class=\"math\">h</span> نقترب من منحنى واحد هو الدالة الأسية.</span>": "<span>L'approximation locale permet de construire une représentation approchée de la fonction sur <span class=\"math\">[-3;3]</span> à partir de <span class=\"math\">f'=f</span> et <span class=\"math\">f(0)=1</span>. Lorsque <span class=\"math\">h</span> diminue, on s'approche d'une courbe unique : la fonction exponentielle.</span>",
+    "نثبت أن الشروط <span class=\"math\">f'=f</span> و <span class=\"math\">f(0)=1</span> تقود إلى خواص الأسس المعروفة.": "On montre que les conditions <span class=\"math\">f'=f</span> et <span class=\"math\">f(0)=1</span> conduisent aux propriétés usuelles des puissances.",
+    "ادرس <span class=\"math\">u(x)=f(x)f(-x)</span> واستنتج <span class=\"math\">f(x)f(-x)=1</span>، ثم برهن أن <span class=\"math\">f(x)≠0</span> لكل <span class=\"math\">x</span>. <span class=\"hint-chip\" data-hint=\"اشتق u ولاحظ أنها ثابتة، ثم احسب u(0).\">تلميح</span>": "Étudier <span class=\"math\">u(x)=f(x)f(-x)</span> et en déduire <span class=\"math\">f(x)f(-x)=1</span>, puis montrer que <span class=\"math\">f(x)≠0</span> pour tout <span class=\"math\">x</span>. <span class=\"hint-chip\" data-hint=\"Dériver u, constater qu'elle est constante, puis calculer u(0).\">Indice</span>",
+    "ليكن <span class=\"math\">y</span> ثابتا. لماذا نختار <span class=\"math\">i(x)=f(x+y)/f(x)</span>؟ <span class=\"hint-chip\" data-hint=\"نبحث عن مقدار يربط x+y بـ x. بما أن f(x) غير منعدم، يمكن القسمة عليه.\">تلميح</span>": "Soit <span class=\"math\">y</span> fixé. Pourquoi choisir <span class=\"math\">i(x)=f(x+y)/f(x)</span> ? <span class=\"hint-chip\" data-hint=\"On cherche une quantité qui relie x+y à x. Comme f(x) est non nulle, on peut diviser par f(x).\">Indice</span>",
+    "اشتق <span class=\"math\">i</span>، ثم بين أنها ثابتة واستنتج <span class=\"math\">f(x+y)=f(x)f(y)</span>.": "Dériver <span class=\"math\">i</span>, puis montrer qu'elle est constante et en déduire <span class=\"math\">f(x+y)=f(x)f(y)</span>.",
+    "باستعمال الخاصية السابقة، استنتج <span class=\"math\">f(x-y)=f(x)/f(y)</span>.": "En utilisant la propriété précédente, déduire <span class=\"math\">f(x-y)=f(x)/f(y)</span>.",
+    "ليكن <span class=\"math\">n</span> عددا صحيحا نسبيا. ادرس <span class=\"math\">j(x)=f(nx)/[f(x)]^n</span> واستنتج <span class=\"math\">f(nx)=[f(x)]^n</span>. <span class=\"hint-chip\" data-hint=\"إذا وجدت j'=0 فالدالة j ثابتة. احسب قيمتها عند x=0.\">تلميح</span>": "Soit <span class=\"math\">n</span> un entier relatif. Étudier <span class=\"math\">j(x)=f(nx)/[f(x)]^n</span> et en déduire <span class=\"math\">f(nx)=[f(x)]^n</span>. <span class=\"hint-chip\" data-hint=\"Si j'=0, alors j est constante. Calculer sa valeur en x=0.\">Indice</span>",    "تطبيق مباشر": "Application directe",
+    "ثلاثة استعمالات سريعة للخواص": "Trois utilisations rapides des propriétés",
+    "بسّط:": "Simplifier :",
+    "اكتب على شكل خارج:": "Écrire sous forme de quotient :",
+    "حوّل:": "Transformer :",
+    "الخلاصة المرئية": "Synthèse visuelle",
+    "الدالة الوحيدة التي تحقق": "L'unique fonction vérifiant",
+    "هي": "est",
+    "تعريف": "Définition",
+    "موجبـة": "Positive",
+    "جمع إلى جداء": "Somme vers produit",
+    "فرق إلى خارج": "Différence vers quotient",
+    "قوة": "Puissance",
+    "تعريف:": "Définition :",
+    "تسمى الدالة الوحيدة القابلة للاشتقاق على": "La fonction unique dérivable sur",
+    "التي تحقق": "qui vérifie",
+    "الدالة الأسية، ونرمز لها بالرمز": "s'appelle la fonction exponentielle, notée",
+    "أي:": "c'est-à-dire :",
+    "محور 1": "Chapitre 1",
+    "الدالة الأسية <b>exp</b>": "La fonction exponentielle <b>exp</b>",
+    "الدالة الأسية هي الدالة المعرفة على": "La fonction exponentielle est la fonction définie sur",
+    "حيث": "où",
+    "خواص أساسية:": "Propriétés fondamentales :",
+    "لكل x ∈ R": "pour tout x ∈ R",
+    "دراسة الدالة الأسية": "Étude de la fonction exponentielle",
+    "1. اتجاه تغير الدالة الأسية": "1. Sens de variation de la fonction exponentielle",
+    "خاصية 1:": "Propriété 1 :",
+    "من أجل كل عدد حقيقي": "Pour tout réel",
+    "خاصية 2:": "Propriété 2 :",
+    "الدالة الأسية متزايدة تماما على": "La fonction exponentielle est strictement croissante sur",
+    "ومن ثم إذا كان": "Ainsi, si",
+    "فإن": "alors",
+    "نتائج:": "Conséquences :",
+    "إذا كان": "si",
+    "وإذا كان": "et si",
+    "النهايات": "Limites",
+    "عند": "quand",
+    "2. النهايات": "2. Limites",
+    "lim e^x = 0 عند x→-∞": "lim e^x = 0 quand x→-∞",
+    "lim e^x = +∞ عند x→+∞": "lim e^x = +∞ quand x→+∞",
+    "التمثيل البياني للدالة الأسية": "Représentation graphique de la fonction exponentielle",
+    "المنحنى <span class=\"math\">(C)</span> للدالة الأسية، والمستقيم <span class=\"math\">(Δ): y=x+1</span> مماس للمنحنى عند النقطة <span class=\"math\">(0,1)</span>.": "La courbe <span class=\"math\">(C)</span> représente la fonction exponentielle, et la droite <span class=\"math\">(Δ): y=x+1</span> est tangente à la courbe au point <span class=\"math\">(0,1)</span>.",
+    "3. جدول التغيرات والتمثيل البياني": "3. Tableau de variation et représentation graphique",
+    "لدينا <span class=\"math\">exp(0)=1</span> و <span class=\"math\">exp'(0)=1</span>، إذن يقبل المنحنى <span class=\"math\">(C)</span> عند النقطة ذات الفاصلة <span class=\"math\">0</span> مماسا معادلته:": "On a <span class=\"math\">exp(0)=1</span> et <span class=\"math\">exp'(0)=1</span>, donc au point d'abscisse <span class=\"math\">0</span>, la courbe <span class=\"math\">(C)</span> admet pour tangente :",
+    "ومن تعريف العدد المشتق:": "D'après la définition du nombre dérivé :",
+    "lim [(e^x-1)/x] = 1 عند x→0": "lim [(e^x-1)/x] = 1 quand x→0",
+    "نتيجة:": "Conséquence :",
+    "الدالة <span class=\"math\">exp</span> متزايدة تمامًا على <span class=\"math\">R</span>. ومنه إذا كان <span class=\"math\">a &lt; b</span> فإن <span class=\"math\">e^a &lt; e^b</span>.": "La fonction <span class=\"math\">exp</span> est strictement croissante sur <span class=\"math\">R</span>. Donc, si <span class=\"math\">a &lt; b</span>, alors <span class=\"math\">e^a &lt; e^b</span>.",
+    "lim x→-∞ e^x = 0 ، lim x→+∞ e^x = +∞": "lim x→-∞ e^x = 0, lim x→+∞ e^x = +∞",
+    "الدوال الأسية <span class=\"math\">x ↦ e^{kx}</span>": "Les fonctions exponentielles <span class=\"math\">x ↦ e^{kx}</span>",
+    "1. حلول المعادلة <span class=\"math\">f'=kf</span>": "1. Solutions de l'équation <span class=\"math\">f'=kf</span>",
+    "مبرهنة:": "Théorème :",
+    "ليكن <span class=\"math\">k</span> عددا حقيقيا. توجد دالة وحيدة قابلة للاشتقاق على <span class=\"math\">R</span> بحيث:": "Soit <span class=\"math\">k</span> un réel. Il existe une unique fonction dérivable sur <span class=\"math\">R</span> telle que :",
+    "وهي الدالة:": "C'est la fonction :",
+    "منحنيات الدوال e^{kx}": "Courbes des fonctions e^{kx}",
+    "كل المنحنيات <span class=\"math\">y=e^{kx}</span> تمر من النقطة <span class=\"math\">(0,1)</span>. إذا كان <span class=\"math\">k&gt;0</span> فهي متزايدة، وإذا كان <span class=\"math\">k&lt;0</span> فهي متناقصة.": "Toutes les courbes <span class=\"math\">y=e^{kx}</span> passent par <span class=\"math\">(0,1)</span>. Si <span class=\"math\">k&gt;0</span>, elles sont croissantes ; si <span class=\"math\">k&lt;0</span>, elles sont décroissantes.",
+    "البرهان المختصر:": "Preuve courte :",
+    "إذا أخذنا <span class=\"math\">f(x)=e^{kx}</span> فإن:": "Si l'on prend <span class=\"math\">f(x)=e^{kx}</span>, alors :",
+    "f'(x)=ke^{kx}=kf(x) و f(0)=1": "f'(x)=ke^{kx}=kf(x) et f(0)=1",
+    "وللوحدانية، إذا كانت <span class=\"math\">g</span> دالة أخرى تحقق نفس الشرطين، ندرس:": "Pour l'unicité, si <span class=\"math\">g</span> est une autre fonction vérifiant les deux mêmes conditions, on étudie :",
+    "فنجد <span class=\"math\">h'(x)=0</span>، أي إن <span class=\"math\">h</span> ثابتة، وبما أن <span class=\"math\">h(0)=1</span> نحصل على <span class=\"math\">g=f</span>.": "On obtient <span class=\"math\">h'(x)=0</span>, donc <span class=\"math\">h</span> est constante. Comme <span class=\"math\">h(0)=1</span>, on obtient <span class=\"math\">g=f</span>.",
+    "دوال تحول المجموع إلى جداء": "Fonctions transformant une somme en produit",
+    "الدوال غير المعدومة والقابلة للاشتقاق على <span class=\"math\">R</span> التي تحقق:": "Les fonctions non nulles et dérivables sur <span class=\"math\">R</span> qui vérifient :",
+    "من أجل كل عددين حقيقيين <span class=\"math\">x</span> و <span class=\"math\">y</span>، هي الدوال:": "pour tous réels <span class=\"math\">x</span> et <span class=\"math\">y</span>, sont les fonctions :",
+    "حيث <span class=\"math\">k</span> عدد حقيقي.": "où <span class=\"math\">k</span> est un réel.",
+    "فكرة البرهان:": "Idée de preuve :",
+    "بوضع <span class=\"math\">y=0</span> نحصل على <span class=\"math\">f(0)=1</span>. ثم باشتقاق العلاقة بالنسبة إلى <span class=\"math\">y</span> عند <span class=\"math\">y=0</span> نجد:": "En posant <span class=\"math\">y=0</span>, on obtient <span class=\"math\">f(0)=1</span>. Puis, en dérivant la relation par rapport à <span class=\"math\">y</span> en <span class=\"math\">y=0</span>, on trouve :",
+    "إذا وضعنا <span class=\"math\">k=f'(0)</span> فإن <span class=\"math\">f'=kf</span>، ومن المبرهنة السابقة:": "Si l'on pose <span class=\"math\">k=f'(0)</span>, alors <span class=\"math\">f'=kf</span> ; d'après le théorème précédent :",
+    "طريقة:": "Méthode :",
+    "لحل معادلة أسية نحاول توحيد الأساس أو استعمال اللوغارتم الطبيعي عند الحاجة.": "Pour résoudre une équation exponentielle, on essaie d'unifier la base ou d'utiliser le logarithme népérien si nécessaire.",    "2. النهايات": "2. Limits",
+    "lim e^x = 0 عند x→-∞": "lim e^x = 0 as x→-∞",
+    "lim e^x = +∞ عند x→+∞": "lim e^x = +∞ as x→+∞",
+    "التمثيل البياني للدالة الأسية": "Graph of the exponential function",
+    "المنحنى <span class=\"math\">(C)</span> للدالة الأسية، والمستقيم <span class=\"math\">(Δ): y=x+1</span> مماس للمنحنى عند النقطة <span class=\"math\">(0,1)</span>.": "The curve <span class=\"math\">(C)</span> represents the exponential function, and the line <span class=\"math\">(Δ): y=x+1</span> is tangent to the curve at <span class=\"math\">(0,1)</span>.",
+    "3. جدول التغيرات والتمثيل البياني": "3. Variation table and graph",
+    "لدينا <span class=\"math\">exp(0)=1</span> و <span class=\"math\">exp'(0)=1</span>، إذن يقبل المنحنى <span class=\"math\">(C)</span> عند النقطة ذات الفاصلة <span class=\"math\">0</span> مماسا معادلته:": "We have <span class=\"math\">exp(0)=1</span> and <span class=\"math\">exp'(0)=1</span>, so at the point with abscissa <span class=\"math\">0</span>, the curve <span class=\"math\">(C)</span> has the tangent:",
+    "ومن تعريف العدد المشتق:": "From the definition of the derivative:",
+    "lim [(e^x-1)/x] = 1 عند x→0": "lim [(e^x-1)/x] = 1 as x→0",
+    "نتيجة:": "Consequence:",
+    "الدالة <span class=\"math\">exp</span> متزايدة تمامًا على <span class=\"math\">R</span>. ومنه إذا كان <span class=\"math\">a &lt; b</span> فإن <span class=\"math\">e^a &lt; e^b</span>.": "The function <span class=\"math\">exp</span> is strictly increasing on <span class=\"math\">R</span>. Hence, if <span class=\"math\">a &lt; b</span>, then <span class=\"math\">e^a &lt; e^b</span>.",
+    "lim x→-∞ e^x = 0 ، lim x→+∞ e^x = +∞": "lim x→-∞ e^x = 0, lim x→+∞ e^x = +∞",
+    "الدوال الأسية <span class=\"math\">x ↦ e^{kx}</span>": "Exponential functions <span class=\"math\">x ↦ e^{kx}</span>",
+    "1. حلول المعادلة <span class=\"math\">f'=kf</span>": "1. Solutions of the equation <span class=\"math\">f'=kf</span>",
+    "مبرهنة:": "Theorem:",
+    "ليكن <span class=\"math\">k</span> عددا حقيقيا. توجد دالة وحيدة قابلة للاشتقاق على <span class=\"math\">R</span> بحيث:": "Let <span class=\"math\">k</span> be a real number. There is a unique differentiable function on <span class=\"math\">R</span> such that:",
+    "وهي الدالة:": "It is the function:",
+    "منحنيات الدوال e^{kx}": "Graphs of the functions e^{kx}",
+    "كل المنحنيات <span class=\"math\">y=e^{kx}</span> تمر من النقطة <span class=\"math\">(0,1)</span>. إذا كان <span class=\"math\">k&gt;0</span> فهي متزايدة، وإذا كان <span class=\"math\">k&lt;0</span> فهي متناقصة.": "All curves <span class=\"math\">y=e^{kx}</span> pass through <span class=\"math\">(0,1)</span>. If <span class=\"math\">k&gt;0</span>, they are increasing; if <span class=\"math\">k&lt;0</span>, they are decreasing.",
+    "البرهان المختصر:": "Short proof:",
+    "إذا أخذنا <span class=\"math\">f(x)=e^{kx}</span> فإن:": "If we take <span class=\"math\">f(x)=e^{kx}</span>, then:",
+    "f'(x)=ke^{kx}=kf(x) و f(0)=1": "f'(x)=ke^{kx}=kf(x) and f(0)=1",
+    "وللوحدانية، إذا كانت <span class=\"math\">g</span> دالة أخرى تحقق نفس الشرطين، ندرس:": "For uniqueness, if <span class=\"math\">g</span> is another function satisfying the same two conditions, we study:",
+    "فنجد <span class=\"math\">h'(x)=0</span>، أي إن <span class=\"math\">h</span> ثابتة، وبما أن <span class=\"math\">h(0)=1</span> نحصل على <span class=\"math\">g=f</span>.": "We find <span class=\"math\">h'(x)=0</span>, so <span class=\"math\">h</span> is constant. Since <span class=\"math\">h(0)=1</span>, we get <span class=\"math\">g=f</span>.",
+    "دوال تحول المجموع إلى جداء": "Functions that transform sums into products",
+    "الدوال غير المعدومة والقابلة للاشتقاق على <span class=\"math\">R</span> التي تحقق:": "The nonzero differentiable functions on <span class=\"math\">R</span> that satisfy:",
+    "من أجل كل عددين حقيقيين <span class=\"math\">x</span> و <span class=\"math\">y</span>، هي الدوال:": "for all real numbers <span class=\"math\">x</span> and <span class=\"math\">y</span>, are the functions:",
+    "حيث <span class=\"math\">k</span> عدد حقيقي.": "where <span class=\"math\">k</span> is a real number.",
+    "فكرة البرهان:": "Proof idea:",
+    "بوضع <span class=\"math\">y=0</span> نحصل على <span class=\"math\">f(0)=1</span>. ثم باشتقاق العلاقة بالنسبة إلى <span class=\"math\">y</span> عند <span class=\"math\">y=0</span> نجد:": "By setting <span class=\"math\">y=0</span>, we get <span class=\"math\">f(0)=1</span>. Then, differentiating the relation with respect to <span class=\"math\">y</span> at <span class=\"math\">y=0</span>, we obtain:",
+    "إذا وضعنا <span class=\"math\">k=f'(0)</span> فإن <span class=\"math\">f'=kf</span>، ومن المبرهنة السابقة:": "If we set <span class=\"math\">k=f'(0)</span>, then <span class=\"math\">f'=kf</span>; by the previous theorem:",
+    "طريقة:": "Method:",
+    "لحل معادلة أسية نحاول توحيد الأساس أو استعمال اللوغارتم الطبيعي عند الحاجة.": "To solve an exponential equation, we try to use the same base, or the natural logarithm when needed.",    "التغيرات": "Variations"
+  },
+  en: {
+    "نشاط 1: بناء خواص الدالة الأسية": "Activity 1: building the properties of the exponential function",
+    "نبحث عن دالة f موجبة، مشتقتها تساوي نفسها، وتحقق f(0)=1، ثم نستنتج خواص الدالة الأسية.": "We look for a positive function f whose derivative is itself and which satisfies f(0)=1, then we derive the properties of the exponential function.",
+    "نشاط استكشافي": "Exploration activity",
+    "لماذا نبحث عن دالة تحقق": "Why look for a function satisfying",
+    "؟": "?",
+    " و <span class=\"math\">f(0)=1</span>.": " and <span class=\"math\">f(0)=1</span>.",
+    "في النمو السكاني، الفوائد المركبة، والتفكك الإشعاعي تظهر كميات يتناسب تغيرها اللحظي مع قيمتها نفسها. نبحث هنا عن النموذج الأبسط: دالة موجبة تحقق": "In population growth, compound interest, and radioactive decay, some quantities have an instantaneous variation proportional to their value. Here we look for the simplest model: a positive function satisfying",
+    "المرحلة 1": "Step 1",
+    "استكشاف عددي وبياني": "Numerical and graphical exploration",
+    "ننطلق من التقريب التألفي": "We start from the affine approximation",
+    "نعوض أولا": "First replace",
+    "بـ": "by",
+    "ثم نستخرج": "then factor",
+    "فنحصل على قاعدة أويلر التقريبية.": "to obtain Euler's approximate rule.",
+    "المعنى البياني لـ": "Graphical meaning of",
+    "ميل المماس يساوي ارتفاع النقطة": "the tangent slope equals the point's height",
+    "تكبير الرسم البياني": "Enlarge graph",
+    "تكبير": "Enlarge",
+    "طريقة أويلر انطلاقا من التقريب التألفي": "Euler method from the affine approximation",
+    "قيمة h": "Value of h",
+    "الخطوة k": "Step k",
+    "بناء بياني": "Graphical construction",
+    "من الجدول إلى المنحنى": "From the table to the curve",
+    "إظهار المنحنى الحدّي": "Show the limiting curve",
+    "تلميح": "Hint",
+    "المرحلة 2": "Step 2",
+    "برهان تحليلي وبناء الخواص": "Analytical proof and properties",
+    "اشرح لماذا نضرب في <span class=\"math\">1+h</span> للانتقال يمينا، وفي <span class=\"math\">1-h</span> للانتقال يسارا، انطلاقا من <span class=\"math\">f(x<sub>0</sub>+h)≈f(x<sub>0</sub>)+hf'(x<sub>0</sub>)</span>. <span class=\"hint-chip\" data-hint=\"عوّض f'(x0) بـ f(x0) لأن f'=f.\">تلميح</span>": "Explain why we multiply by <span class=\"math\">1+h</span> to move right, and by <span class=\"math\">1-h</span> to move left, starting from <span class=\"math\">f(x<sub>0</sub>+h)≈f(x<sub>0</sub>)+hf'(x<sub>0</sub>)</span>. <span class=\"hint-chip\" data-hint=\"Replace f'(x0) by f(x0), since f'=f.\">Hint</span>",
+    "في الرسم أعلاه، لماذا يبدأ المنحنى والمضلّعة من النقطة <span class=\"math\">(0,1)</span>؟": "In the graph above, why do the curve and the polygonal line start at <span class=\"math\">(0,1)</span>?",
+    "عند تصغير <span class=\"math\">h</span> في الجدول، ماذا تلاحظ بالنسبة إلى دقة التقريب؟": "When <span class=\"math\">h</span> gets smaller in the table, what do you notice about the accuracy of the approximation?",
+    "بما أن <span class=\"math\">f'(x)=f(x)</span>، كيف يتغير ميل المماس عندما يزداد <span class=\"math\">x</span>؟ ماذا يعني ذلك بيانيًا؟": "Since <span class=\"math\">f'(x)=f(x)</span>, how does the tangent slope change as <span class=\"math\">x</span> increases? What does this mean graphically?",
+    "هل يمكن أن ينقطع المنحنى أو يلمس محور الفواصل؟ برّر إجابتك باستعمال الإشارة.": "Can the curve break or touch the x-axis? Justify your answer using the sign.",
+    "<span>التقريب المحلي يسمح ببناء تمثيل تقريبي للدالة على <span class=\"math\">[-3;3]</span> انطلاقا من <span class=\"math\">f'=f</span> و <span class=\"math\">f(0)=1</span>. عند تصغير <span class=\"math\">h</span> نقترب من منحنى واحد هو الدالة الأسية.</span>": "<span>The local approximation lets us build an approximate graph of the function on <span class=\"math\">[-3;3]</span> from <span class=\"math\">f'=f</span> and <span class=\"math\">f(0)=1</span>. As <span class=\"math\">h</span> gets smaller, we approach one unique curve: the exponential function.</span>",
+    "نثبت أن الشروط <span class=\"math\">f'=f</span> و <span class=\"math\">f(0)=1</span> تقود إلى خواص الأسس المعروفة.": "We show that the conditions <span class=\"math\">f'=f</span> and <span class=\"math\">f(0)=1</span> lead to the usual laws of exponents.",    "تطبيق مباشر": "Direct application",
+    "ثلاثة استعمالات سريعة للخواص": "Three quick uses of the properties",
+    "بسّط:": "Simplify:",
+    "اكتب على شكل خارج:": "Write as a quotient:",
+    "حوّل:": "Transform:",
+    "الخلاصة المرئية": "Visual summary",
+    "تعريف": "Definition",
+    "موجبـة": "Positive",
+    "جمع إلى جداء": "Sum to product",
+    "فرق إلى خارج": "Difference to quotient",
+    "قوة": "Power",
+    "تعريف:": "Definition:",
+    "محور 1": "Chapter 1",
+    "الدالة الأسية <b>exp</b>": "The exponential function <b>exp</b>",
+    "الدالة الأسية هي الدالة المعرفة على": "The exponential function is the function defined on",
+    "حيث": "where",
+    "خواص أساسية:": "Basic properties:",
+    "لكل x ∈ R": "for every x ∈ R",
+    "دراسة الدالة الأسية": "Study of the exponential function",
+    "1. اتجاه تغير الدالة الأسية": "1. Monotonicity of the exponential function",
+    "خاصية 1:": "Property 1:",
+    "من أجل كل عدد حقيقي": "For every real number",
+    "خاصية 2:": "Property 2:",
+    "الدالة الأسية متزايدة تماما على": "The exponential function is strictly increasing on",
+    "ومن ثم إذا كان": "Therefore, if",
+    "فإن": "then",
+    "نتائج:": "Consequences:",
+    "إذا كان": "if",
+    "وإذا كان": "and if",
+    "النهايات": "Limits",
+    "عند": "as",
+    "التغيرات": "Variations"
+  }
+};
+
+function translateContentHtml(html) {
+  const translations = CONTENT_HTML_TRANSLATIONS[state?.language];
+  if (!translations || !html) return html;
+  return Object.entries(translations)
+    .sort((a, b) => b[0].length - a[0].length)
+    .reduce((result, [source, target]) => result.split(source).join(target), html);
+}
+
+const VISIBLE_TEXT_TRANSLATIONS = {
+  en: {
+    "دوال تحول المجموع إلى جداء": "Functions that transform sums into products",
+    "الدوال غير المعدومة والقابلة للاشتقاق على": "The nonzero differentiable functions on",
+    "التي تحقق:": "that satisfy:",
+    "من أجل كل عددين حقيقيين": "For all real numbers",
+    "هي الدوال:": "the functions are:",
+    "حيث": "where",
+    "عدد حقيقي.": "is a real number.",
+    "فكرة البرهان:": "Proof idea:",
+    "بوضع": "By setting",
+    "نحصل على": "we get",
+    "ثم باشتقاق العلاقة بالنسبة إلى": "Then, differentiating the relation with respect to",
+    "نجد:": "we obtain:",
+    "إذا وضعنا": "If we set",
+    "فإن": "then",
+    "ومن المبرهنة السابقة:": "by the previous theorem:",
+    "البرهان المختصر:": "Short proof:",
+    "إذا أخذنا": "If we take",
+    "وللوحدانية، إذا كانت": "For uniqueness, if",
+    "دالة أخرى تحقق نفس الشرطين، ندرس:": "is another function satisfying the same two conditions, we study:",
+    "فنجد": "We find",
+    "أي إن": "so",
+    "ثابتة، وبما أن": "is constant. Since",
+    "نحصل على": "we get",
+    "طريقة:": "Method:",
+    "لحل معادلة أسية نحاول توحيد الأساس أو استعمال اللوغارتم الطبيعي عند الحاجة.": "To solve an exponential equation, we try to use the same base, or the natural logarithm when needed."
+  },
+  fr: {
+    "دوال تحول المجموع إلى جداء": "Fonctions transformant une somme en produit",
+    "الدوال غير المعدومة والقابلة للاشتقاق على": "Les fonctions non nulles et dérivables sur",
+    "التي تحقق:": "qui vérifient :",
+    "من أجل كل عددين حقيقيين": "Pour tous réels",
+    "هي الدوال:": "sont les fonctions :",
+    "حيث": "où",
+    "عدد حقيقي.": "est un réel.",
+    "فكرة البرهان:": "Idée de preuve :",
+    "بوضع": "En posant",
+    "نحصل على": "on obtient",
+    "ثم باشتقاق العلاقة بالنسبة إلى": "Puis, en dérivant la relation par rapport à",
+    "نجد:": "on trouve :",
+    "إذا وضعنا": "Si l'on pose",
+    "فإن": "alors",
+    "ومن المبرهنة السابقة:": "d'après le théorème précédent :",
+    "البرهان المختصر:": "Preuve courte :",
+    "إذا أخذنا": "Si l'on prend",
+    "وللوحدانية، إذا كانت": "Pour l'unicité, si",
+    "دالة أخرى تحقق نفس الشرطين، ندرس:": "est une autre fonction vérifiant les deux mêmes conditions, on étudie :",
+    "فنجد": "On obtient",
+    "أي إن": "donc",
+    "ثابتة، وبما أن": "est constante. Comme",
+    "طريقة:": "Méthode :",
+    "لحل معادلة أسية نحاول توحيد الأساس أو استعمال اللوغارتم الطبيعي عند الحاجة.": "Pour résoudre une équation exponentielle, on essaie d'unifier la base ou d'utiliser le logarithme népérien si nécessaire."
+  }
+};
+
+function translateVisibleText(root) {
+  const translations = VISIBLE_TEXT_TRANSLATIONS[state?.language];
+  if (!translations || !root) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((node) => {
+    let value = node.nodeValue;
+    Object.entries(translations)
+      .sort((a, b) => b[0].length - a[0].length)
+      .forEach(([source, target]) => {
+        value = value.split(source).join(target);
+      });
+    node.nodeValue = value;
+  });
+}const IDEAS_MODULE_ID = "partial-ideas";
 const getLearningModules = () => modules.filter((module) => module.id !== IDEAS_MODULE_ID);
 const getIdeasModule = () => modules.find((module) => module.id === IDEAS_MODULE_ID);
 
@@ -3606,6 +4257,7 @@ const state = {
   progress: loadProgress(),
   moduleTab: "activities",
   openSolutions: {},
+  language: getSavedLanguage(),
 };
 
 const views = {
@@ -3807,7 +4459,7 @@ function markComplete(moduleId) {
 function renderModules() {
   const grid = document.getElementById("moduleGrid");
   const learningModules = getLearningModules();
-  document.getElementById("moduleCountLabel").textContent = `${learningModules.length} محاور`;
+  document.getElementById("moduleCountLabel").textContent = `${learningModules.length} ${t("unit.modules")}`;
   const next = getNextModule();
   grid.innerHTML = learningModules
     .map((module) => {
@@ -3817,10 +4469,10 @@ function renderModules() {
       return `
         <article class="module-card ${done ? "completed" : isNext ? "recommended" : ""}">
           <div class="module-icon">${module.icon}</div>
-          <h3>${module.title}</h3>
-          <p>${module.summary}</p>
+          <h3>${getModuleText(module, "title")}</h3>
+          <p>${getModuleText(module, "summary")}</p>
           <button class="${btnClass}" type="button" data-open-module="${module.id}">
-            ${done ? "مراجعة المحور" : isNext ? "ابدأ هذا المحور" : "فتح المحور"}
+            ${done ? t("ui.reviewModule") : isNext ? t("ui.startModule") : t("ui.openModule")}
           </button>
         </article>
       `;
@@ -3837,8 +4489,8 @@ function renderModuleDetail() {
   const bacExercises = getModuleBacExercises(module);
   const hasChallengeExercises = challengeExercises.length > 0;
   const bacTabCount = hasChallengeExercises ? challengeExercises.length : bacExercises.length;
-  const bacTabLabel = hasChallengeExercises ? "تمارين للتحدي" : "تمارين البكالوريا";
-  const bacTabMeta = hasChallengeExercises ? `${challengeExercises.length} تحدي` : `${bacExercises.length} موضوع بكالوريا`;
+  const bacTabLabel = hasChallengeExercises ? t("ui.challengeExercises") : t("ui.bacExercises");
+  const bacTabMeta = hasChallengeExercises ? `${challengeExercises.length} ${t("unit.challenge")}` : `${bacExercises.length} ${t("unit.bacTopic")}`;
   const bacTabContentClass = hasChallengeExercises ? "challenge-list" : "cards-grid";
   const bacTabContent = hasChallengeExercises
     ? challengeExercises.map((exercise, index) => renderChallengeExerciseItem(module, exercise, index)).join("")
@@ -3848,39 +4500,39 @@ function renderModuleDetail() {
   detail.innerHTML = `
     <section class="study-hero">
       <div>
-        <span class="kicker">المحور / ${module.title}</span>
-        <h2>${module.icon} ${module.title}</h2>
-        <p>${module.summary}</p>
+        <span class="kicker">${t("learn.title")} / ${getModuleText(module, "title")}</span>
+        <h2>${module.icon} ${getModuleText(module, "title")}</h2>
+        <p>${getModuleText(module, "summary")}</p>
       </div>
       <button class="${done ? "secondary-btn" : "primary-btn"}" type="button" data-complete-module="${module.id}" ${done ? "disabled" : ""}>
-        ${done ? "✓ محور مكتمل" : "تعليم كمكتمل"}
+        ${done ? t("ui.completedModule") : t("ui.markComplete")}
       </button>
     </section>
 
-    <nav class="lesson-section-tabs" aria-label="أقسام المحور">
-      <button class="lesson-section-tab ${tab === "activities" ? "active" : ""}" type="button" data-module-tab="activities" ${tab === "activities" ? "aria-current='true'" : ""}>النشاطات (${module.activities.length})</button>
-      <button class="lesson-section-tab ${tab === "lesson" ? "active" : ""}" type="button" data-module-tab="lesson" ${tab === "lesson" ? "aria-current='true'" : ""}>الدرس</button>
-      <button class="lesson-section-tab ${tab === "solved" ? "active" : ""}" type="button" data-module-tab="solved" ${tab === "solved" ? "aria-current='true'" : ""}>تمارين محلولة (${module.solved.length})</button>
-      <button class="lesson-section-tab ${tab === "exercises" ? "active" : ""}" type="button" data-module-tab="exercises" ${tab === "exercises" ? "aria-current='true'" : ""}>التمارين (${module.exercises.length})</button>
+    <nav class="lesson-section-tabs" aria-label="${t("learn.title")}">
+      <button class="lesson-section-tab ${tab === "activities" ? "active" : ""}" type="button" data-module-tab="activities" ${tab === "activities" ? "aria-current='true'" : ""}>${t("ui.activities")} (${module.activities.length})</button>
+      <button class="lesson-section-tab ${tab === "lesson" ? "active" : ""}" type="button" data-module-tab="lesson" ${tab === "lesson" ? "aria-current='true'" : ""}>${t("ui.lesson")}</button>
+      <button class="lesson-section-tab ${tab === "solved" ? "active" : ""}" type="button" data-module-tab="solved" ${tab === "solved" ? "aria-current='true'" : ""}>${t("ui.solvedExercises")} (${module.solved.length})</button>
+      <button class="lesson-section-tab ${tab === "exercises" ? "active" : ""}" type="button" data-module-tab="exercises" ${tab === "exercises" ? "aria-current='true'" : ""}>${t("ui.exercises")} (${module.exercises.length})</button>
       <button class="lesson-section-tab ${tab === "bacExercises" ? "active" : ""}" type="button" data-module-tab="bacExercises" ${tab === "bacExercises" ? "aria-current='true'" : ""}>${bacTabLabel} (${bacTabCount})</button>
     </nav>
 
     <section class="lesson-section-panel ${tab === "activities" ? "active" : ""}">
-      <div class="section-title"><h2>النشاطات</h2><span>${module.activities.length} نشاط</span></div>
+      <div class="section-title"><h2>${t("ui.activities")}</h2><span>${module.activities.length} ${t("unit.activity")}</span></div>
       <section class="cards-grid">${module.activities.map((activity, index) => renderActivityCard(module, activity, index)).join("")}</section>
     </section>
 
     <section class="lesson-section-panel ${tab === "lesson" ? "active" : ""}">
-      <section class="lesson-reader">${module.lesson}</section>
+      <section class="lesson-reader">${translateContentHtml(module.lesson)}</section>
     </section>
 
     <section class="lesson-section-panel ${tab === "solved" ? "active" : ""}">
-      <div class="section-title"><h2>تمارين محلولة</h2><span>${module.solved.length} تمرين محلول</span></div>
+      <div class="section-title"><h2>${t("ui.solvedExercises")}</h2><span>${module.solved.length} ${t("unit.solvedExercise")}</span></div>
       <section class="cards-grid">${module.solved.map((exercise, index) => renderSolvedExerciseCard(module, exercise, index)).join("")}</section>
     </section>
 
     <section class="lesson-section-panel ${tab === "exercises" ? "active" : ""}">
-      <div class="section-title"><h2>تمارين المحور</h2><span>${module.exercises.length} تمرين</span></div>
+      <div class="section-title"><h2>${t("ui.moduleExercises")}</h2><span>${module.exercises.length} ${t("unit.exercise")}</span></div>
       <section class="cards-grid">${module.exercises.length ? module.exercises.map((exercise, index) => renderExerciseCard(module, exercise, index)).join("") : renderEmptyExerciseCard()}</section>
     </section>
 
@@ -3894,6 +4546,7 @@ function renderModuleDetail() {
   updateExpDiscoveryTable(detail);
   updateLnDiscovery(detail);
   enhanceMathTypography(detail);
+  translateVisibleText(detail);
 }
 
 function renderModuleBacExerciseCard(exam) {
@@ -3916,7 +4569,7 @@ function renderModuleBacExerciseCard(exam) {
 function renderModuleBacEmptyCard(module) {
   return `
     <article class="action-panel bac-module-card">
-      <span class="panel-label blue">${escapeHtml(module.title)}</span>
+      <span class="panel-label blue">${escapeHtml(getModuleText(module, "title"))}</span>
       <h3>لا توجد مواضيع بكالوريا مرتبطة بهذا المحور بعد</h3>
       <p>يمكن إضافة مواضيع جديدة في أرشيف البكالوريا وربطها بوسوم المحور.</p>
       <button class="ghost-btn" type="button" data-view-jump="bac">فتح باب البكالوريا</button>
@@ -3937,7 +4590,7 @@ function renderChallengeExerciseItem(module, exercise, index) {
         ${exercise.statementHtml ? exercise.statementHtml : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
       </div>
       <button class="solution-toggle challenge-solution-toggle" type="button" data-solution-key="${key}">
-        ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
       </button>
       <section class="solution-panel challenge-solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
         ${solution}
@@ -3948,15 +4601,16 @@ function renderChallengeExerciseItem(module, exercise, index) {
 function renderActivityCard(module, activity, index) {
   const key = `${module.id}-activity-${index}`;
   const isOpen = state.openSolutions[key];
-  const body = activity.bodyHtml || `<p>${escapeHtml(activity.body)}</p>`;
-  const solution = activity.solutionHtml || `<p>${escapeHtml(activity.solution)}</p>`;
+  const title = translateContentHtml(activity.title);
+  const body = translateContentHtml(activity.bodyHtml || `<p>${escapeHtml(activity.body)}</p>`);
+  const solution = translateContentHtml(activity.solutionHtml || `<p>${escapeHtml(activity.solution)}</p>`);
   return `
     <article class="action-panel activity-panel">
-      <span class="panel-label amber">نشاط</span>
-      <h3>${activity.title}</h3>
+      <span class="panel-label amber">${t("ui.activity")}</span>
+      <h3>${title}</h3>
       <div class="activity-body">${body}</div>
       <button class="solution-toggle" type="button" data-solution-key="${key}">
-        ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
       </button>
       <section class="solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
         ${solution}
@@ -3971,11 +4625,11 @@ function renderExerciseCard(module, exercise, index) {
   const solution = exercise.solutionHtml || `<p>${escapeHtml(exercise.solution)}</p>`;
   return `
     <article class="action-panel exercise-panel">
-      <span class="panel-label blue">${module.title}</span>
+      <span class="panel-label blue">${getModuleText(module, "title")}</span>
       <h3>${exercise.title}</h3>
       ${exercise.statementHtml ? `<div class="exercise-statement">${exercise.statementHtml}</div>` : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
       <button class="solution-toggle" type="button" data-solution-key="${key}">
-        ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
       </button>
       <section class="solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
         ${solution}
@@ -3990,11 +4644,11 @@ function renderSolvedExerciseCard(module, exercise, index) {
   const solution = exercise.solutionHtml || `<p>${escapeHtml(exercise.solution)}</p>`;
   return `
     <article class="action-panel exercise-panel solved-practice-panel">
-      <span class="panel-label amber">تمرين محلول</span>
+      <span class="panel-label amber">${t("ui.solvedExercise")}</span>
       <h3>${exercise.title}</h3>
       ${exercise.statementHtml ? `<div class="exercise-statement">${exercise.statementHtml}</div>` : `<p class="math-rich">${escapeHtml(exercise.statement)}</p>`}
       <button class="solution-toggle" type="button" data-solution-key="${key}">
-        ${isOpen ? "إخفاء الحل" : "إظهار الحل"}
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
       </button>
       <section class="solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
         ${solution}
@@ -4006,21 +4660,131 @@ function renderSolvedExerciseCard(module, exercise, index) {
 function renderEmptyExerciseCard() {
   return `
     <article class="action-panel exercise-panel">
-      <span class="panel-label blue">التمارين</span>
-      <h3>لا توجد تمارين حاليا</h3>
-      <p>تم تفريغ هذا الباب من التمارين الموجودة سابقا.</p>
+      <span class="panel-label blue">${t("ui.exercises")}</span>
+      <h3>${t("ui.noExercises")}</h3>
+      <p>${t("ui.noExercisesDesc")}</p>
+    </article>
+  `;
+}
+
+function renderExerciseDoorPlaceholder(label, title, description) {
+  return `
+    <article class="action-panel exercise-panel">
+      <span class="panel-label blue">${label}</span>
+      <h3>${title}</h3>
+      <p>${description}</p>
+    </article>
+  `;
+}
+const declicExercises = [
+  {
+    title: "Declic 54 - دراسة دالة لوغارتمية",
+    statementHtml: `
+      <p>لتكن الدالة <span class="math">f</span> المعرفة على <span class="math">]0,+∞[</span> بما يلي:</p>
+      <div class="math-equation">f(x)=(x-e)(lnx-1)</div>
+      <ol>
+        <li>حدد نهايات <span class="math">f</span> عند <span class="math">0</span> و <span class="math">e</span> و <span class="math">+∞</span>.</li>
+        <li>حدد الدالة المشتقة <span class="math">f'</span>.</li>
+        <li>
+          <p>لتكن الدالة <span class="math">g</span> المعرفة على <span class="math">]0,+∞[</span> بما يلي:</p>
+          <div class="math-equation">g(x)=lnx-<span class="frac"><span>e</span><span>x</span></span></div>
+          <ol type="a">
+            <li>حدد نهايات <span class="math">g</span> عند حدود مجموعة تعريفها.</li>
+            <li>ادرس تغيرات <span class="math">g</span>.</li>
+            <li>احسب <span class="math">g(e)</span>، ثم استنتج باستعمال السؤال السابق إشارة <span class="math">g</span> على <span class="math">]0,+∞[</span>.</li>
+          </ol>
+        </li>
+        <li>باستعمال نتائج الدالة <span class="math">g</span>، أنشئ تغيرات <span class="math">f</span> وضع جدول تغيراتها.</li>
+        <li>
+          <p>في معلم من المستوي، نرمز بـ <span class="math">D</span> إلى المستقيم ذي المعادلة <span class="math">y=-x+e</span>.</p>
+          <ol type="a">
+            <li>ادرس وضعية المنحنى <span class="math">C</span> الممثل للدالة <span class="math">f</span> بالنسبة إلى <span class="math">D</span>.</li>
+            <li>ارسم المنحنيين <span class="math">C</span> و <span class="math">D</span> في نفس المعلم.</li>
+          </ol>
+        </li>
+      </ol>
+    `,
+    solutionHtml: `
+      <ol>
+        <li>عند <span class="math">0<sup>+</sup></span>: <span class="math">x-e→-e</span> و <span class="math">lnx-1→-∞</span>، إذن <span class="math">f(x)→+∞</span>. وعند <span class="math">e</span>: <span class="math">f(e)=0</span>. وعند <span class="math">+∞</span>: <span class="math">f(x)→+∞</span>.</li>
+        <li><span class="math">f'(x)=lnx-1+<span class="frac"><span>x-e</span><span>x</span></span>=lnx-<span class="frac"><span>e</span><span>x</span></span>=g(x)</span>.</li>
+        <li>لدينا <span class="math">g(x)→-∞</span> عند <span class="math">0<sup>+</sup></span> و <span class="math">g(x)→+∞</span> عند <span class="math">+∞</span>. كما أن <span class="math">g'(x)=<span class="frac"><span>1</span><span>x</span></span>+<span class="frac"><span>e</span><span>x<sup>2</sup></span></span>&gt;0</span>، إذن <span class="math">g</span> متزايدة تماما. وبما أن <span class="math">g(e)=0</span> فإن <span class="math">g&lt;0</span> على <span class="math">]0,e[</span> و <span class="math">g&gt;0</span> على <span class="math">]e,+∞[</span>.</li>
+        <li>بما أن <span class="math">f'=g</span>، فإن <span class="math">f</span> متناقصة على <span class="math">]0,e]</span> ثم متزايدة على <span class="math">[e,+∞[</span>، وقيمتها الصغرى <span class="math">f(e)=0</span>.</li>
+        <li><span class="math">f(x)-(-x+e)=(x-e)lnx</span>. إذن <span class="math">C</span> فوق <span class="math">D</span> على <span class="math">]0,1[∪]e,+∞[</span>، وتحته على <span class="math">]1,e[</span>، ويتقاطعان عند <span class="math">x=1</span> و <span class="math">x=e</span>.</li>
+      </ol>
+    `
+  },
+  {
+    title: "Declic 55 - دالة فردية ومستقيمات مقاربة",
+    statementHtml: `
+      <p>لتكن الدالة <span class="math">f</span> المعرفة على <span class="math">]-2,2[</span> بما يلي:</p>
+      <div class="math-equation">f(x)=<span class="frac"><span>1</span><span>3</span></span>ln(<span class="frac"><span>2+x</span><span>2-x</span></span>)</div>
+      <ol>
+        <li>
+          <ol type="a">
+            <li>بيّن أن <span class="math">f</span> دالة فردية.</li>
+            <li>ادرس تغيرات <span class="math">f</span> على <span class="math">[0,2[</span>.</li>
+            <li>برّر أن المنحنى <span class="math">C</span>، الممثل للدالة <span class="math">f</span> في المستوى المنسوب إلى معلم، يقبل مستقيمين مقاربين.</li>
+          </ol>
+        </li>
+        <li>حل المعادلة <span class="math">f(x)=<span class="frac"><span>1</span><span>3</span></span></span>.</li>
+      </ol>
+    `,
+    solutionHtml: `
+      <ol>
+        <li><span class="math">f(-x)=<span class="frac"><span>1</span><span>3</span></span>ln(<span class="frac"><span>2-x</span><span>2+x</span></span>)=-<span class="frac"><span>1</span><span>3</span></span>ln(<span class="frac"><span>2+x</span><span>2-x</span></span>)=-f(x)</span>. إذن <span class="math">f</span> دالة فردية.</li>
+        <li>من أجل <span class="math">x∈[0,2[</span>، <span class="math">f'(x)=<span class="frac"><span>1</span><span>3</span></span>(<span class="frac"><span>1</span><span>2+x</span></span>+<span class="frac"><span>1</span><span>2-x</span></span>)=<span class="frac"><span>4</span><span>3(4-x<sup>2</sup>)</span></span>&gt;0</span>. إذن <span class="math">f</span> متزايدة تمامًا على <span class="math">[0,2[</span>، مع <span class="math">f(0)=0</span> و <span class="math">lim<sub>x→2<sup>-</sup></sub>f(x)=+∞</span>.</li>
+        <li>بما أن <span class="math">lim<sub>x→2<sup>-</sup></sub>f(x)=+∞</span>، فإن المستقيم <span class="math">x=2</span> مقارب عمودي. وباستعمال فردية الدالة نحصل على <span class="math">lim<sub>x→-2<sup>+</sup></sub>f(x)=-∞</span>، وبالتالي فإن <span class="math">x=-2</span> مقارب عمودي كذلك.</li>
+        <li><span class="math">f(x)=<span class="frac"><span>1</span><span>3</span></span></span> تكافئ <span class="math">ln(<span class="frac"><span>2+x</span><span>2-x</span></span>)=1</span>، إذن <span class="math"><span class="frac"><span>2+x</span><span>2-x</span></span>=e</span>. نحصل على <span class="math">x=<span class="frac"><span>2(e-1)</span><span>e+1</span></span></span>.</li>
+      </ol>
+    `
+  }
+];
+
+function renderDeclicExerciseItem(exercise, index) {
+  const key = `declic-exercise-${index}`;
+  const isOpen = state.openSolutions[key];
+  return `
+    <article class="declic-exercise-item">
+      <header class="declic-exercise-head">
+        <span>${t("ui.declicExercise")} ${index + 1}</span>
+        <h3>${exercise.title}</h3>
+      </header>
+      <div class="exercise-statement declic-exercise-statement">${exercise.statementHtml}</div>
+      <button class="solution-toggle declic-solution-toggle" type="button" data-solution-key="${key}">
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
+      </button>
+      <section class="solution-panel declic-solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
+        ${exercise.solutionHtml}
+      </section>
     </article>
   `;
 }
 
 function renderExercises() {
-  const grid = document.getElementById("exerciseGrid");
+  const schoolGrid = document.getElementById("schoolExerciseGrid") || document.getElementById("exerciseGrid");
+  const deepGrid = document.getElementById("deepExerciseGrid");
+  const declicGrid = document.getElementById("declicExerciseGrid");
   const exerciseCards = getLearningModules().flatMap((module) => module.exercises.map((exercise, index) => renderExerciseCard(module, exercise, index)));
-  grid.innerHTML = exerciseCards.length ? exerciseCards.join("") : renderEmptyExerciseCard();
-  document.getElementById("homeExerciseCount").textContent = `${getLearningModules().reduce((sum, module) => sum + module.exercises.length, 0)} تمارين`;
-  enhanceMathTypography(grid);
-}
 
+  if (schoolGrid) {
+    schoolGrid.innerHTML = exerciseCards.length ? exerciseCards.join("") : renderEmptyExerciseCard();
+    enhanceMathTypography(schoolGrid);
+  }
+
+  if (deepGrid) {
+    deepGrid.innerHTML = renderExerciseDoorPlaceholder(t("ui.deepLabel"), t("ui.deepPlaceholderTitle"), t("ui.deepPlaceholderDesc"));
+  }
+
+  if (declicGrid) {
+    declicGrid.innerHTML = declicExercises.length
+      ? declicExercises.map((exercise, index) => renderDeclicExerciseItem(exercise, index)).join("")
+      : renderExerciseDoorPlaceholder("Declic", "تمارين كتاب Declic", "سيضاف هنا محتوى تمارين كتاب Declic مع نفس طريقة العرض والحلول.");
+    enhanceMathTypography(declicGrid);
+  }
+
+  document.getElementById("homeExerciseCount").textContent = `${getLearningModules().reduce((sum, module) => sum + module.exercises.length, 0)} ${t("ui.exercises")}`;
+}
 
 const discussionTrainingPresets = [
   { label: "التدريب 1: f(x)=ln(x)/x", expression: "ln(x)/x" },
@@ -7945,7 +8709,7 @@ function renderSolved() {
       <article class="structured-lesson">
         <header class="structured-lesson-hero">
           <span>تمارين محلولة</span>
-          <h3>${module.title}</h3>
+          <h3>${getModuleText(module, "title")}</h3>
         </header>
         ${module.solved
           .map((exercise) => `
@@ -8048,7 +8812,7 @@ function renderProgress() {
   const next = getNextModule();
   const isAllComplete = completed === learningModules.length;
 
-  document.getElementById("progressSummary").textContent = `${completed} من ${learningModules.length} محاور مكتملة`;
+  document.getElementById("progressSummary").textContent = state.language === "ar" ? `${completed} من ${learningModules.length} محاور مكتملة` : state.language === "fr" ? `${completed} sur ${learningModules.length} modules terminés` : `${completed} of ${learningModules.length} modules completed`;
   document.getElementById("readinessValue").textContent = `${percent}%`;
 
   const recommendation = isAllComplete
@@ -8097,7 +8861,7 @@ function renderProgress() {
             <h3 style="margin:0;">${module.title}</h3>
             <span class="module-status-badge ${statusClass}">${statusLabel}</span>
           </div>
-          <p>${module.summary}</p>
+          <p>${getModuleText(module, "summary")}</p>
           ${tip}
           <button class="${btnClass}" type="button" data-open-module="${module.id}">${isDone ? "مراجعة" : isNext ? "استكمل" : "فتح"}</button>
         </article>
@@ -8125,14 +8889,14 @@ function updateHome() {
   const isAllComplete = completed === learningModules.length;
 
   const continueBtn = document.getElementById("continueLessonBtn");
-  document.getElementById("continueTitle").textContent = next.title;
-  document.getElementById("continueSummary").textContent = next.summary;
+  document.getElementById("continueTitle").textContent = getModuleText(next, "title");
+  document.getElementById("continueSummary").textContent = getModuleText(next, "summary");
   document.getElementById("readinessValue").textContent = `${percent}%`;
   document.getElementById("homeLessonCount").textContent = String(learningModules.length);
   document.getElementById("homeProgressPercent").textContent = `${percent}%`;
 
   if (continueBtn) {
-    continueBtn.textContent = isAllComplete ? "راجع المسار" : completedIds.has(next.id) ? "واصل التعلم" : "ابدأ الآن";
+    continueBtn.textContent = isAllComplete ? (state.language === "ar" ? "راجع المسار" : state.language === "fr" ? "Réviser le parcours" : "Review path") : completedIds.has(next.id) ? (state.language === "ar" ? "واصل التعلم" : state.language === "fr" ? "Continuer" : "Continue") : t("home.startNow");
     continueBtn.dataset.openModule = next.id;
   }
 }
@@ -8706,6 +9470,21 @@ function bindEvents() {
       setActiveTabs("#moduleView .lesson-section-tabs", moduleTab, "data-module-tab");
     }
 
+    const exerciseDoor = event.target.closest("[data-exercise-door]");
+    if (exerciseDoor) {
+      const door = exerciseDoor.dataset.exerciseDoor;
+      const root = exerciseDoor.closest("#exercisesView") || document;
+      root.querySelectorAll("[data-exercise-door]").forEach((button) => {
+        const isActive = button === exerciseDoor;
+        button.classList.toggle("active", isActive);
+        if (isActive) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      });
+      root.querySelectorAll("[data-exercise-panel]").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.exercisePanel === door);
+      });
+      return;
+    }
     const bacTab = event.target.closest("[data-bac-tab]");
     if (bacTab) {
       setBacPanel(bacTab.dataset.bacTab);
@@ -8801,7 +9580,7 @@ function bindEvents() {
     if (solutionToggle) {
       const key = solutionToggle.dataset.solutionKey;
       state.openSolutions[key] = !state.openSolutions[key];
-      if (solutionToggle.closest("#exerciseGrid")) {
+      if (solutionToggle.closest("#schoolExerciseGrid") || solutionToggle.closest("#declicExerciseGrid") || solutionToggle.closest("#exerciseGrid")) {
         renderExercises();
       } else if (solutionToggle.closest("#solvedList")) {
         renderSolved();
@@ -8864,6 +9643,9 @@ function bindEvents() {
     }
   });
 
+  document.getElementById("languageSelect")?.addEventListener("change", (event) => {
+    setLanguage(event.target.value);
+  });
   document.getElementById("continueLessonBtn").addEventListener("click", (event) => {
     event.stopPropagation();
     const moduleId = document.getElementById("continueLessonBtn").dataset.openModule || state.progress.lastModuleId || modules[0].id;
@@ -8873,7 +9655,7 @@ function bindEvents() {
   document.getElementById("backToModulesBtn").addEventListener("click", () => setView("learn"));
 
   document.getElementById("resetProgressBtn")?.addEventListener("click", () => {
-    if (!confirm("هل أنت متأكد من تصفير تقدمك؟ لا يمكن التراجع عن هذا الإجراء.")) return;
+    if (!confirm(t("ui.confirmReset"))) return;
     state.progress = { completed: [], lastModuleId: modules[0].id };
     saveProgress();
     renderAll();
@@ -8899,9 +9681,19 @@ function initSplash() {
   });
 }
 
+function syncBacFrameLanguage(language = state?.language || getSavedLanguage()) {
+  const frame = document.getElementById("bacFrame");
+  if (!frame) return;
+  const url = new URL(frame.getAttribute("src") || "bac-exercises.html", window.location.href);
+  url.searchParams.set("lang", language);
+  const nextSrc = `${url.pathname.split("/").pop()}?${url.searchParams.toString()}`;
+  if (frame.getAttribute("src") !== nextSrc) frame.setAttribute("src", nextSrc);
+}
+
 function initIframeResizer() {
   const frame = document.getElementById("bacFrame");
   if (!frame) return;
+  syncBacFrameLanguage();
   frame.removeAttribute("height");
 }
 
@@ -8920,6 +9712,7 @@ function renderAll() {
 
 initSplash();
 bindEvents();
+setLanguage(state.language, { render: false });
 renderAll();
 setViewFromHash();
 window.addEventListener("hashchange", setViewFromHash);

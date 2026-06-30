@@ -3183,3 +3183,107 @@
     width: 1.25em;
   }
 }
+
+.declic-exercise-list {
+  display: grid;
+  gap: 0;
+  max-width: 980px;
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  overflow: hidden;
+}
+
+.declic-exercise-item {
+  padding: 18px 20px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.declic-exercise-item:last-child {
+  border-bottom: 0;
+}
+
+.declic-exercise-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.declic-exercise-head span {
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.declic-exercise-head h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.declic-exercise-statement {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.declic-solution-toggle {
+  margin-top: 12px;
+}
+
+.declic-solution-panel {
+  margin-top: 10px;
+}
+
+@media (max-width: 680px) {
+  .declic-exercise-item {
+    padding: 15px 14px 17px;
+  }
+}
+.language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.language-control select {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.language-control option {
+  color: #0f172a;
+}
+
+html[dir="ltr"] body {
+  direction: ltr;
+}
+
+html[dir="ltr"] .brand,
+html[dir="ltr"] .topbar-head,
+html[dir="ltr"] .home-dashboard,
+html[dir="ltr"] .section-title,
+html[dir="ltr"] .declic-exercise-list,
+html[dir="ltr"] .lesson-reader,
+html[dir="ltr"] .activity-body,
+html[dir="ltr"] .activity-questions,
+html[dir="ltr"] .discovery-note,
+html[dir="ltr"] .exercise-statement,
+html[dir="ltr"] .solution-panel {
+  direction: ltr;
+  text-align: left;
+}
