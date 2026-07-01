@@ -37,13 +37,25 @@
       }
 
       html[dir="ltr"] body,
-      html[dir="ltr"] .statement-reader,
-      html[dir="ltr"] .solution-panel,
       html[dir="ltr"] .reader-header,
       html[dir="ltr"] .exercise-card,
-      html[dir="ltr"] .bac-context-card {
+      html[dir="ltr"] .bac-context-card,
+      html[dir="ltr"] .statement-reader,
+      html[dir="ltr"] .solution-panel,
+      html[dir="ltr"] .exercise-card h3,
+      html[dir="ltr"] .exercise-card .hint {
         direction: ltr;
         text-align: left;
+      }
+
+      .exam-copy,
+      .statement-reader,
+      .solution-panel,
+      .exercise-card h3,
+      .exercise-card .hint {
+        direction: rtl;
+        text-align: right;
+        unicode-bidi: plaintext;
       }
 
       body {
@@ -1365,56 +1377,22 @@
       }
 
       function localizeExamText(value) {
-        if (bacLanguage === 'ar' || !value) return value || '';
-        const replacements = bacLanguage === 'fr'
-          ? [
-              ['موضوع بكالوريا الجزائر', 'Sujet du bac Algérie'], ['موضوع بكالوريا أجنبي', 'Sujet de bac étranger'], ['بكالوريا الجزائر', 'Bac Algérie'], ['بكالوريا تونس', 'Bac Tunisie'],
-              ['علوم تجريبية', 'Sciences expérimentales'], ['رياضيات', 'Mathématiques'], ['تقني رياضي', 'Technique mathématiques'], ['تسيير واقتصاد', 'Gestion et économie'],
-              ['الموضوع الأول', 'sujet 1'], ['الموضوع الثاني', 'sujet 2'], ['دورة استثنائية', 'session exceptionnelle'], ['شعبة', 'filière'],
-              ['دراسة دالة أسية', 'étude d’une fonction exponentielle'], ['دراسة دالة لوغارتمية', 'étude d’une fonction logarithmique'], ['دوال لوغارتمية', 'fonctions logarithmiques'], ['دالة مساعدة', 'fonction auxiliaire'],
-              ['مستقيم مقارب', 'asymptote'], ['مقارب مائل', 'asymptote oblique'], ['مماس', 'tangente'], ['جذور', 'racines'], ['نقطة انعطاف', 'point d’inflexion'], ['مناقشة وسيط', 'discussion avec paramètre'], ['مساحة', 'aire'], ['المتتاليات العددية', 'suites numériques'], ['حساب المساحات', 'calcul d’aires'], ['موضوع ', 'Sujet '], ['من بكالوريا', 'du bac'], ['لشعبة', 'pour la filière'], ['لstream', 'pour la filière'], ['إشارة', 'signe'], ['نهايات', 'limites'], ['دراسة تغيرات', 'étude des variations'], ['تقاطعات', 'intersections'], ['قراءة جدول تغيرات', 'lecture d’un tableau de variation'], ['قراءة بيانية', 'lecture graphique'], ['تكامل', 'intégration'], ['دورة', 'session'], ['التمرين', 'exercice'], ['وarea', 'et aire'], ['، و', ', et '], ['،', ',']
-            ]
-          : [
-              ['موضوع بكالوريا الجزائر', 'Algeria bac topic'], ['موضوع بكالوريا أجنبي', 'Foreign bac topic'], ['بكالوريا الجزائر', 'Algeria bac'], ['بكالوريا تونس', 'Tunisia bac'],
-              ['علوم تجريبية', 'Experimental sciences'], ['رياضيات', 'Mathematics'], ['تقني رياضي', 'Technical mathematics'], ['تسيير واقتصاد', 'Management and economics'],
-              ['الموضوع الأول', 'topic 1'], ['الموضوع الثاني', 'topic 2'], ['دورة استثنائية', 'exceptional session'], ['شعبة', 'stream'],
-              ['دراسة دالة أسية', 'study of an exponential function'], ['دراسة دالة لوغارتمية', 'study of a logarithmic function'], ['دوال لوغارتمية', 'logarithmic functions'], ['دالة مساعدة', 'auxiliary function'],
-              ['مستقيم مقارب', 'asymptote'], ['مقارب مائل', 'oblique asymptote'], ['مماس', 'tangent'], ['جذور', 'roots'], ['نقطة انعطاف', 'inflection point'], ['مناقشة وسيط', 'parameter discussion'], ['مساحة', 'area'], ['المتتاليات العددية', 'numerical sequences'], ['حساب المساحات', 'area calculation'], ['موضوع ', 'Topic '], ['من بكالوريا', 'from bac'], ['لشعبة', 'for stream'], ['لstream', 'for stream'], ['إشارة', 'sign'], ['نهايات', 'limits'], ['دراسة تغيرات', 'variation study'], ['تقاطعات', 'intersections'], ['قراءة جدول تغيرات', 'reading a variation table'], ['قراءة بيانية', 'graphical reading'], ['تكامل', 'integration'], ['دورة', 'session'], ['التمرين', 'exercise'], ['وarea', 'and area'], ['، و', ', and '], ['،', ',']
-            ];
-        const bodyReplacements = bacLanguage === 'fr'
-          ? [
-              ['الحل التفصيلي غير متوفر بعد', 'La solution détaillée n’est pas encore disponible'], ['سيتم إضافة الحل قريبًا', 'La solution sera ajoutée prochainement'], ['سيتم إضافة الحل قريبا', 'La solution sera ajoutée prochainement'], ['الحل التفصيلي', 'Solution détaillée'],
-              ['لتكن الدالة', 'Soit la fonction'], ['الدالة المعرفة على', 'la fonction définie sur'], ['المعرفة على', 'définie sur'], ['تمثيلها البياني', 'sa courbe représentative'], ['تمثيله البياني', 'sa courbe représentative'],
-              ['في معلم متعامد ومتجانس', 'dans un repère orthonormé'], ['من أجل كل عدد حقيقي', 'pour tout réel'], ['من أجل كل عدد طبيعي', 'pour tout entier naturel'],
-              ['فسر النتيجة بيانيا', 'Interpréter graphiquement le résultat'], ['فسر بيانيا', 'Interpréter graphiquement'], ['شكل جدول تغيرات', 'Dresser le tableau de variation de'], ['ناقش بيانيا', 'Discuter graphiquement'], ['احسب بالسنتيمتر المربع', 'Calculer en cm²'],
-              ['الوضع النسبي', 'position relative'], ['وضعية', 'position'], ['اتجاه تغير', 'le sens de variation de'], ['يطلب تعيين', 'dont on demande de déterminer'], ['دالة أصلية', 'primitive'], ['محور الفواصل', 'axe des abscisses'], ['الحيز المستوي المحدد ب', 'le domaine plan délimité par'], ['الحيز المستوي المحدد بـ', 'le domaine plan délimité par'], ['الحيز المستوي', 'le domaine plan'],
-              ['بين أنه', 'Montrer que'], ['بين أنّه', 'Montrer que'], ['احسب', 'Calculer'], ['بين أن', 'Montrer que'], ['بيّن أن', 'Montrer que'], ['استنتج', 'En déduire'], ['ادرس', 'Étudier'], ['ارسم', 'Tracer'], ['أرسم', 'Tracer'], ['أنشئ', 'Construire'], ['تحقق أن', 'Vérifier que'],
-              ['عدد حقيقي', 'réel'], ['عدد طبيعي', 'entier naturel'], ['العدد الحقيقي', 'le réel'], ['في المعلم', 'dans le repère'], ['للدالة', 'de la fonction'], ['للمستقيم', 'à la droite'], ['للمنحنى', 'à la courbe'], ['ليكن', 'Soit'], ['باستعمال', 'En utilisant'], ['إحداثييها', 'ses coordonnées'], ['التي معادلاتها', 'd’équations'], ['نافذة', 'fenêtre'], ['من أجل كل', 'pour tout'], ['لدينا', 'On a'], ['ومنه', 'd’où'], ['إذن', 'donc'], ['بما أن', 'comme'], ['عند', 'quand'], ['بحيث', 'tel que'], ['ثم', 'puis'], ['المستقيمات', 'les droites'], ['يقبل مماسا', 'admet une tangente'], ['يقبل مماساً', 'admet une tangente'], ['يقبل نقطة انعطاف', 'admet un point d’inflexion'], ['ذي المعادلة', 'd’équation'], ['ذو المعادلة', 'd’équation'], ['ذا المعادلة', 'd’équation'], ['معادلة له', 'son équation'], ['بالنسبة للمستقيم', 'par rapport à la droite'], ['بالنسبة ل', 'par rapport à '], ['المحدد ب', 'délimité par'], ['المحدد بـ', 'délimité par'], ['على', 'sur'], ['من', 'de'], ['هي', 'est'], ['و', ' et '], ['بـ:', 'par :'], ['بـ', 'par'],
-              ['المنحنى', 'la courbe'], ['منحنى', 'courbe'], ['المستقيم', 'la droite'], ['المماس', 'la tangente'], ['المعادلة', 'l’équation'], ['الدالة', 'la fonction'], ['المجال', 'l’intervalle'], ['المعلم', 'le repère'],
-              ['المشتقة', 'dérivée'], ['النهايات', 'limites'], ['التغيرات', 'variations'], ['الجذور', 'racines'], ['جذر', 'racine'], ['مساحة', 'aire'], ['مقارب', 'asymptote'], ['مائل', 'oblique'], ['موازيا', 'parallèle'], ['موازياً', 'parallèle']
-            ]
-          : [
-              ['الحل التفصيلي غير متوفر بعد', 'The detailed solution is not available yet'], ['سيتم إضافة الحل قريبًا', 'The solution will be added soon'], ['سيتم إضافة الحل قريبا', 'The solution will be added soon'], ['الحل التفصيلي', 'Detailed solution'],
-              ['لتكن الدالة', 'Let the function'], ['الدالة المعرفة على', 'the function defined on'], ['المعرفة على', 'defined on'], ['تمثيلها البياني', 'its graph'], ['تمثيله البياني', 'its graph'],
-              ['في معلم متعامد ومتجانس', 'in an orthonormal coordinate system'], ['من أجل كل عدد حقيقي', 'for every real number'], ['من أجل كل عدد طبيعي', 'for every natural number'],
-              ['فسر النتيجة بيانيا', 'Interpret the result graphically'], ['فسر بيانيا', 'Interpret graphically'], ['شكل جدول تغيرات', 'Draw the variation table of'], ['ناقش بيانيا', 'Discuss graphically'], ['احسب بالسنتيمتر المربع', 'Calculate in cm²'],
-              ['الوضع النسبي', 'relative position'], ['وضعية', 'position'], ['اتجاه تغير', 'the direction of variation of'], ['يطلب تعيين', 'to be determined'], ['دالة أصلية', 'antiderivative'], ['محور الفواصل', 'x-axis'], ['الحيز المستوي المحدد ب', 'the plane region bounded by'], ['الحيز المستوي المحدد بـ', 'the plane region bounded by'], ['الحيز المستوي', 'the plane region'],
-              ['بين أنه', 'Show that'], ['بين أنّه', 'Show that'], ['احسب', 'Calculate'], ['بين أن', 'Show that'], ['بيّن أن', 'Show that'], ['استنتج', 'Deduce'], ['ادرس', 'Study'], ['ارسم', 'Draw'], ['أرسم', 'Draw'], ['أنشئ', 'Construct'], ['تحقق أن', 'Verify that'],
-              ['عدد حقيقي', 'real number'], ['عدد طبيعي', 'natural number'], ['العدد الحقيقي', 'the real number'], ['في المعلم', 'in the coordinate system'], ['للدالة', 'of the function'], ['للمستقيم', 'to the line'], ['للمنحنى', 'to the curve'], ['ليكن', 'Let'], ['باستعمال', 'Using'], ['إحداثييها', 'its coordinates'], ['التي معادلاتها', 'with equations'], ['نافذة', 'window'], ['من أجل كل', 'for every'], ['لدينا', 'We have'], ['ومنه', 'hence'], ['إذن', 'therefore'], ['بما أن', 'since'], ['عند', 'as'], ['بحيث', 'such that'], ['ثم', 'then'], ['المستقيمات', 'the lines'], ['يقبل مماسا', 'admits a tangent'], ['يقبل مماساً', 'admits a tangent'], ['يقبل نقطة انعطاف', 'admits an inflection point'], ['ذي المعادلة', 'with equation'], ['ذو المعادلة', 'with equation'], ['ذا المعادلة', 'with equation'], ['معادلة له', 'its equation'], ['بالنسبة للمستقيم', 'with respect to the line'], ['بالنسبة ل', 'with respect to '], ['المحدد ب', 'bounded by'], ['المحدد بـ', 'bounded by'], ['على', 'on'], ['من', 'from'], ['هي', 'is'], ['و', ' and '], ['بـ:', 'by:'], ['بـ', 'by'],
-              ['المنحنى', 'the curve'], ['منحنى', 'curve'], ['المستقيم', 'the line'], ['المماس', 'the tangent'], ['المعادلة', 'the equation'], ['الدالة', 'the function'], ['المجال', 'the interval'], ['المعلم', 'the coordinate system'],
-              ['المشتقة', 'derivative'], ['النهايات', 'limits'], ['التغيرات', 'variations'], ['الجذور', 'roots'], ['جذر', 'root'], ['مساحة', 'area'], ['مقارب', 'asymptote'], ['مائل', 'oblique'], ['موازيا', 'parallel'], ['موازياً', 'parallel']
-            ];
-        const localized = [...bodyReplacements, ...replacements]
-          .sort((a, b) => b[0].length - a[0].length)
-          .reduce((text, [source, target]) => text.split(source).join(target), String(value));
-        const cleanup = bacLanguage === 'fr'
-          ? [['prochainementً', 'prochainement'], ['parla', 'par la'], ['droiteات', 'droites'], ['courbeات', 'courbes'], ['  ', ' ']]
-          : [['soonً', 'soon'], ['bythe', 'by the'], ['lineات', 'lines'], ['curveات', 'curves'], ['  ', ' ']];
-        return cleanup.reduce((text, [source, target]) => text.split(source).join(target), localized);
+        if (value && typeof value === "object") {
+          return value[bacLanguage] || value.ar || "";
+        }
+        return value || "";
       }
+
+      function isTranslated(item) {
+        if (bacLanguage === "ar") return true;
+        if (item.title && typeof item.title === "object" && item.title[bacLanguage]) return true;
+        return false;
+      }
+
       const allowedBranches = new Set(["science", "math", "tech", "management"]);
       const exercises = (window.bacAlgeriaExams || [])
         .filter((item) => allowedBranches.has(item.branch))
+        .filter(isTranslated)
         .map((item, index) => ({
           id: item.id || `bac-${index + 1}`,
           title: localizeExamText(item.title),
@@ -1556,7 +1534,7 @@
           if (filters.status !== "all" && getStatus(exercise.id) !== filters.status) return false;
           if (filters.search) {
             const query = filters.search.toLowerCase();
-            const text = `${exercise.title} ${exercise.subtitle} ${exercise.text}`.toLowerCase();
+            const text = `${exercise.title || ""} ${exercise.subtitle || ""} ${exercise.summary || exercise.text || ""}`.toLowerCase();
             if (!text.includes(query)) return false;
           }
           return true;
@@ -1636,8 +1614,8 @@
                   ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
                   ${statusBadge}
                 </div>
-                <h3>${escapeHtml(exercise.title)}</h3>
-                <p class="hint">${escapeHtml(exercise.text)}</p>
+                <h3 >${escapeHtml(exercise.title)}</h3>
+                <p class="hint exam-copy">${escapeHtml(exercise.summary || exercise.text || "")}</p>
               </button>
             `;
           })
@@ -1696,7 +1674,7 @@
       function renderExerciseArticle(exercise) {
         const statementFallback = getStatementFallback(exercise);
         const resourceView = exercise.statement
-          ? `<article class="statement-reader">${statementFallback}${exercise.statement}</article>`
+          ? `<article class="statement-reader">${statementFallback}${exercise.statement.replace(/class="math-(inline|line)"/g, 'class="math-$1" dir="ltr"')}</article>`
           : `<article class="statement-reader"><p>${L.noStatement}</p></article>`;
         const resourceActions = exercise.file
           ? `
@@ -1719,7 +1697,7 @@
             ? `<div class="solution-expander ${solutionIsOpen ? "open" : ""}">
                 <div class="solution-expander-inner">
                   <section class="solution-panel" data-solution-panel="${escapeHtml(exercise.id)}">
-                    ${exercise.solution}
+                    ${exercise.solution.replace(/class="math-(inline|line)"/g, 'class="math-$1" dir="ltr"')}
                   </section>
                 </div>
               </div>`
@@ -1738,8 +1716,8 @@
                 <span class="badge blue">${escapeHtml(exercise.year)}</span>
                 ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
               </div>
-              <h2>${escapeHtml(exercise.title)}</h2>
-              <p class="hint">${escapeHtml(exercise.text)}</p>
+              <h2 class="exam-copy">${escapeHtml(exercise.title)}</h2>
+              <p class="hint exam-copy">${escapeHtml(exercise.summary || exercise.text || "")}</p>
               ${headerSolutionInfo}
             </section>
             <div class="reader-actions">

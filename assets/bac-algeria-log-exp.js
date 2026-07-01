@@ -1,21 +1,30 @@
 window.bacAlgeriaExams = [
   {
     id: "tunisia-2025-science-normal",
-    title: "موضوع بكالوريا أجنبي - تونس 2025 - علوم تجريبية",
+    title: {
+      ar: "موضوع بكالوريا أجنبي - تونس 2025 - علوم تجريبية",
+      fr: "Sujet de baccalauréat étranger - Tunisie 2025 - Sciences expérimentales",
+      en: "Foreign baccalaureate topic - Tunisia 2025 - Experimental sciences"
+    },
     branch: "science",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "integration", "sequences"],
-    summary: "موضوع بكالوريا تونس 2025 شعبة علوم تجريبية: دراسة دالة أسية، حساب المساحات، المتتاليات العددية.",
-    statement: `
+    summary: {
+      ar: "موضوع بكالوريا تونس 2025 شعبة علوم تجريبية: دراسة دالة أسية، حساب المساحات، المتتاليات العددية.",
+      fr: "Sujet du baccalauréat de Tunisie 2025 filière sciences expérimentales : étude d'une fonction exponentielle, calcul d'aires, suites numériques.",
+      en: "Tunisia 2025 baccalaureate topic, experimental sciences stream: study of an exponential function, area calculation, numerical sequences."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا تونس 2025 - شعبة علوم تجريبية (الدورة الرئيسية)</h3>
         <p><strong>التمرين:</strong></p>
         <p>
           لتكن الدالة <span class="math-inline">f</span> المعرفة على <span class="math-inline">]0, +&infin;[</span> بـ:
-          <span class="math-line">f(x) = (x-1)\\frac{e^x}{x^2}</span>.
+          <span class="math-line">f(x) = (x-1)\frac{e^x}{x^2}</span>.
         </p>
         <p>
           نسمي <span class="math-inline">(C_f)</span> تمثيلها البياني في معلم متعامد ومتجانس <span class="math-inline">(O, i, j)</span>.
@@ -24,16 +33,16 @@ window.bacAlgeriaExams = [
         <ol>
           <li>
             <strong>(أ)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span>f(x)</span>. فسر النتيجة بيانيا.
-            <br><strong>(ب)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span> و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>\\frac{f(x)}{x}</span>. فسر النتيجة بيانيا.
+            <br><strong>(ب)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span> و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>\frac{f(x)}{x}</span>. فسر النتيجة بيانيا.
           </li>
           <li>
             <strong>(أ)</strong> بين أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> من <span class="math-inline">]0, +&infin;[</span>، 
-            <span class="math-line">f'(x) = \\frac{((x-1)^2+1)e^x}{x^3}</span>.
+            <span class="math-line">f'(x) = \frac{((x-1)^2+1)e^x}{x^3}</span>.
             <br><strong>(ب)</strong> شكل جدول تغيرات الدالة <span class="math-inline">f</span>.
           </li>
           <li>
              لتكن الدالة <span class="math-inline">F</span> المعرفة على <span class="math-inline">]0, +&infin;[</span> بـ:
-             <span class="math-line">F(x) = \\frac{e^x}{x}</span> و <span class="math-inline">(C_F)</span> تمثيلها البياني في المعلم <span class="math-inline">(O, i, j)</span>.
+             <span class="math-line">F(x) = \frac{e^x}{x}</span> و <span class="math-inline">(C_F)</span> تمثيلها البياني في المعلم <span class="math-inline">(O, i, j)</span>.
              <br><strong>(أ)</strong> ادرس الوضع النسبي للمنحنيين <span class="math-inline">(C_f)</span> و <span class="math-inline">(C_F)</span>.
              <br><strong>(ب)</strong> بين أن <span class="math-inline">F</span> هي دالة أصلية للدالة <span class="math-inline">f</span> على <span class="math-inline">]0, +&infin;[</span>.
           </li>
@@ -42,42 +51,168 @@ window.bacAlgeriaExams = [
         <p>في الشكل 2 من الملحق، تم رسم المنحنى <span class="math-inline">(C_F)</span> في المعلم <span class="math-inline">(O, i, j)</span> وتم تعليم عدد حقيقي <span class="math-inline">&alpha; &gt; 1</span> على محور الفواصل.</p>
         <ol>
           <li>
-            <strong>(أ)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ النقطتين <span class="math-line">A(2, f(2))</span> و <span class="math-line">B\\left(\\frac{1}{2}, f\\left(\\frac{1}{2}\\right)\\right)</span>.
+            <strong>(أ)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ النقطتين <span class="math-line">A(2, f(2))</span> و <span class="math-line">B\left(\frac{1}{2}, f\left(\frac{1}{2}\right)\right)</span>.
             <br><strong>(ب)</strong> ارسم المنحنى <span class="math-inline">(C_f)</span>. (يطلب تحديد النقطة ذات الفاصلة 1).
           </li>
           <li>
-            ليكن <span class="math-inline">t \\in ]0, +&infin;[ \\setminus \\{1\\}</span> و <span class="math-inline">S(t)</span> حيز المستوي المحدد بالمنحنى <span class="math-inline">(C_f)</span>، محور الفواصل والمستقيمين اللذين معادلتاهما <span class="math-inline">x=t</span> و <span class="math-inline">x=1</span>. نرمز بـ <span class="math-inline">A(t)</span> لمساحة الحيز <span class="math-inline">S(t)</span>.
-            <br><strong>(أ)</strong> ظلل <span class="math-inline">S(\\alpha)</span>.
-            <br><strong>(ب)</strong> تحقق أن <span class="math-line">A(\\alpha) = F(\\alpha) - e</span>.
-            <br><strong>(ج)</strong> ليكن <span class="math-inline">t \\in ]0, 1[</span>. بين أن <span class="math-line">A(t) = F(t) - e</span>.
-            <br><strong>(د)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ على محور الفواصل العدد الحقيقي <span class="math-inline">t_0 \\in ]0, 1[</span> بحيث <span class="math-line">A(t_0) = A(\\alpha)</span>.
+            ليكن <span class="math-inline">t \in ]0, +&infin;[ \setminus \{1\}</span> و <span class="math-inline">S(t)</span> حيز المستوي المحدد بالمنحنى <span class="math-inline">(C_f)</span>، محور الفواصل والمستقيمين اللذين معادلتاهما <span class="math-inline">x=t</span> و <span class="math-inline">x=1</span>. نرمز بـ <span class="math-inline">A(t)</span> لمساحة الحيز <span class="math-inline">S(t)</span>.
+            <br><strong>(أ)</strong> ظلل <span class="math-inline">S(\alpha)</span>.
+            <br><strong>(ب)</strong> تحقق أن <span class="math-line">A(\alpha) = F(\alpha) - e</span>.
+            <br><strong>(ج)</strong> ليكن <span class="math-inline">t \in ]0, 1[</span>. بين أن <span class="math-line">A(t) = F(t) - e</span>.
+            <br><strong>(د)</strong> باستعمال <span class="math-inline">(C_F)</span>، أنشئ على محور الفواصل العدد الحقيقي <span class="math-inline">t_0 \in ]0, 1[</span> بحيث <span class="math-line">A(t_0) = A(\alpha)</span>.
           </li>
           <li>
-             لتكن المتتالية <span class="math-inline">U</span> المعرفة بـ: <span class="math-line">U_n = \\int_{\\frac{1}{n+1}}^{\\frac{1}{n}} F(x) dx</span>، من أجل <span class="math-inline">n \\ge 1</span>.
+             لتكن المتتالية <span class="math-inline">U</span> المعرفة بـ: <span class="math-line">U_n = \int_{\frac{1}{n+1}}^{\frac{1}{n}} F(x) dx</span>، من أجل <span class="math-inline">n \ge 1</span>.
              <br><strong>(أ)</strong> حدد بيانيا اتجاه تغير <span class="math-inline">F</span> على <span class="math-inline">]0, 1]</span>.
-             <br><strong>(ب)</strong> بين أنه من أجل كل عدد طبيعي <span class="math-inline">n \\ge 1</span>: 
-             <span class="math-line">\\frac{1}{n+1} e^{\\frac{1}{n+1}} \\le U_n \\le \\frac{1}{n} e^{\\frac{1}{n}}</span>.
+             <br><strong>(ب)</strong> بين أنه من أجل كل عدد طبيعي <span class="math-inline">n \ge 1</span>: 
+             <span class="math-line">\frac{1}{n+1} e^{\frac{1}{n+1}} \le U_n \le \frac{1}{n} e^{\frac{1}{n}}</span>.
              <br><strong>(ج)</strong> بين أن <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> U_n = 0</span> واحسب <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> n U_n</span>.
           </li>
         </ol>
       </section>
-    `,
-    solution: `
+      `,
+      fr: `
+      <section class="statement-block">
+        <h3>Baccalauréat Tunisie 2025 - Filière Sciences Expérimentales (Session Principale)</h3>
+        <p><strong>Exercice :</strong></p>
+        <p>
+          Soit la fonction <span class="math-inline">f</span> définie sur <span class="math-inline">]0, +&infin;[</span> par :
+          <span class="math-line">f(x) = (x-1)\frac{e^x}{x^2}</span>.
+        </p>
+        <p>
+          On note <span class="math-inline">(C_f)</span> sa courbe représentative dans un repère orthonormé <span class="math-inline">(O, i, j)</span>.
+        </p>
+        <p><strong>I/</strong></p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Calculer <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span>f(x)</span>. Interpréter graphiquement le résultat.
+            <br><strong>(b)</strong> Calculer <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span> et <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>\frac{f(x)}{x}</span>. Interpréter graphiquement le résultat.
+          </li>
+          <li>
+            <strong>(a)</strong> Montrer que pour tout réel <span class="math-inline">x</span> de <span class="math-inline">]0, +&infin;[</span>, 
+            <span class="math-line">f'(x) = \frac{((x-1)^2+1)e^x}{x^3}</span>.
+            <br><strong>(b)</strong> Dresser le tableau de variations de la fonction <span class="math-inline">f</span>.
+          </li>
+          <li>
+             Soit la fonction <span class="math-inline">F</span> définie sur <span class="math-inline">]0, +&infin;[</span> par :
+             <span class="math-line">F(x) = \frac{e^x}{x}</span> et <span class="math-inline">(C_F)</span> sa courbe représentative dans le repère <span class="math-inline">(O, i, j)</span>.
+             <br><strong>(a)</strong> Étudier la position relative des courbes <span class="math-inline">(C_f)</span> et <span class="math-inline">(C_F)</span>.
+             <br><strong>(b)</strong> Montrer que <span class="math-inline">F</span> est une primitive de la fonction <span class="math-inline">f</span> sur <span class="math-inline">]0, +&infin;[</span>.
+          </li>
+        </ol>
+        <p><strong>II/</strong></p>
+        <p>Dans la figure 2 de l'annexe, on a tracé la courbe <span class="math-inline">(C_F)</span> dans le repère <span class="math-inline">(O, i, j)</span> et placé un nombre réel <span class="math-inline">&alpha; &gt; 1</span> sur l'axe des abscisses.</p>
+        <ol>
+          <li>
+            <strong>(a)</strong> À l'aide de <span class="math-inline">(C_F)</span>, construire les points <span class="math-line">A(2, f(2))</span> et <span class="math-line">B\left(\frac{1}{2}, f\left(\frac{1}{2}\right)\right)</span>.
+            <br><strong>(b)</strong> Tracer la courbe <span class="math-inline">(C_f)</span>. (Il est demandé de préciser le point d'abscisse 1).
+          </li>
+          <li>
+            Soit <span class="math-inline">t \in ]0, +&infin;[ \setminus \{1\}</span> et <span class="math-inline">S(t)</span> le domaine du plan limité par la courbe <span class="math-inline">(C_f)</span>, l'axe des abscisses et les droites d'équations <span class="math-inline">x=t</span> et <span class="math-inline">x=1</span>. On note <span class="math-inline">A(t)</span> l'aire du domaine <span class="math-inline">S(t)</span>.
+            <br><strong>(a)</strong> Hachurer <span class="math-inline">S(\alpha)</span>.
+            <br><strong>(b)</strong> Vérifier que <span class="math-line">A(\alpha) = F(\alpha) - e</span>.
+            <br><strong>(c)</strong> Soit <span class="math-inline">t \in ]0, 1[</span>. Montrer que <span class="math-line">A(t) = F(t) - e</span>.
+            <br><strong>(d)</strong> À l'aide de <span class="math-inline">(C_F)</span>, construire sur l'axe des abscisses le réel <span class="math-inline">t_0 \in ]0, 1[</span> tel que <span class="math-line">A(t_0) = A(\alpha)</span>.
+          </li>
+          <li>
+             Soit la suite <span class="math-inline">U</span> définie par : <span class="math-line">U_n = \int_{\frac{1}{n+1}}^{\frac{1}{n}} F(x) dx</span>, pour <span class="math-inline">n \ge 1</span>.
+             <br><strong>(a)</strong> Déterminer graphiquement le sens de variation de <span class="math-inline">F</span> sur <span class="math-inline">]0, 1]</span>.
+             <br><strong>(b)</strong> Montrer que pour tout entier naturel <span class="math-inline">n \ge 1</span> : 
+             <span class="math-line">\frac{1}{n+1} e^{\frac{1}{n+1}} \le U_n \le \frac{1}{n} e^{\frac{1}{n}}</span>.
+             <br><strong>(c)</strong> Montrer que <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> U_n = 0</span> et calculer <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> n U_n</span>.
+          </li>
+        </ol>
+      </section>
+      `,
+      en: `
+      <section class="statement-block">
+        <h3>Tunisia Baccalaureate 2025 - Experimental Sciences Stream (Main Session)</h3>
+        <p><strong>Exercise:</strong></p>
+        <p>
+          Let <span class="math-inline">f</span> be the function defined on <span class="math-inline">]0, +&infin;[</span> by:
+          <span class="math-line">f(x) = (x-1)\frac{e^x}{x^2}</span>.
+        </p>
+        <p>
+          Let <span class="math-inline">(C_f)</span> be its representative curve in an orthonormal coordinate system <span class="math-inline">(O, i, j)</span>.
+        </p>
+        <p><strong>I/</strong></p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Calculate <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span>f(x)</span>. Interpret the result graphically.
+            <br><strong>(b)</strong> Calculate <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)</span> and <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>\frac{f(x)}{x}</span>. Interpret the result graphically.
+          </li>
+          <li>
+            <strong>(a)</strong> Show that for any real number <span class="math-inline">x</span> in <span class="math-inline">]0, +&infin;[</span>, 
+            <span class="math-line">f'(x) = \frac{((x-1)^2+1)e^x}{x^3}</span>.
+            <br><strong>(b)</strong> Construct the variation table of the function <span class="math-inline">f</span>.
+          </li>
+          <li>
+             Let <span class="math-inline">F</span> be the function defined on <span class="math-inline">]0, +&infin;[</span> by:
+             <span class="math-line">F(x) = \frac{e^x}{x}</span> and <span class="math-inline">(C_F)</span> its representative curve in the coordinate system <span class="math-inline">(O, i, j)</span>.
+             <br><strong>(a)</strong> Study the relative position of the curves <span class="math-inline">(C_f)</span> and <span class="math-inline">(C_F)</span>.
+             <br><strong>(b)</strong> Show that <span class="math-inline">F</span> is an antiderivative of the function <span class="math-inline">f</span> on <span class="math-inline">]0, +&infin;[</span>.
+          </li>
+        </ol>
+        <p><strong>II/</strong></p>
+        <p>In figure 2 of the appendix, the curve <span class="math-inline">(C_F)</span> has been plotted in the coordinate system <span class="math-inline">(O, i, j)</span> and a real number <span class="math-inline">&alpha; &gt; 1</span> has been placed on the x-axis.</p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Using <span class="math-inline">(C_F)</span>, construct the points <span class="math-line">A(2, f(2))</span> and <span class="math-line">B\left(\frac{1}{2}, f\left(\frac{1}{2}\right)\right)</span>.
+            <br><strong>(b)</strong> Plot the curve <span class="math-inline">(C_f)</span>. (You must specify the point with x-coordinate 1).
+          </li>
+          <li>
+            Let <span class="math-inline">t \in ]0, +&infin;[ \setminus \{1\}</span> and <span class="math-inline">S(t)</span> be the domain of the plane bounded by the curve <span class="math-inline">(C_f)</span>, the x-axis and the lines with equations <span class="math-inline">x=t</span> and <span class="math-inline">x=1</span>. Let <span class="math-inline">A(t)</span> be the area of the domain <span class="math-inline">S(t)</span>.
+            <br><strong>(a)</strong> Shade <span class="math-inline">S(\alpha)</span>.
+            <br><strong>(b)</strong> Verify that <span class="math-line">A(\alpha) = F(\alpha) - e</span>.
+            <br><strong>(c)</strong> Let <span class="math-inline">t \in ]0, 1[</span>. Show that <span class="math-line">A(t) = F(t) - e</span>.
+            <br><strong>(d)</strong> Using <span class="math-inline">(C_F)</span>, construct on the x-axis the real number <span class="math-inline">t_0 \in ]0, 1[</span> such that <span class="math-line">A(t_0) = A(\alpha)</span>.
+          </li>
+          <li>
+             Let the sequence <span class="math-inline">U</span> be defined by: <span class="math-line">U_n = \int_{\frac{1}{n+1}}^{\frac{1}{n}} F(x) dx</span>, for <span class="math-inline">n \ge 1</span>.
+             <br><strong>(a)</strong> Graphically determine the direction of variation of <span class="math-inline">F</span> on <span class="math-inline">]0, 1]</span>.
+             <br><strong>(b)</strong> Show that for any natural number <span class="math-inline">n \ge 1</span>: 
+             <span class="math-line">\frac{1}{n+1} e^{\frac{1}{n+1}} \le U_n \le \frac{1}{n} e^{\frac{1}{n}}</span>.
+             <br><strong>(c)</strong> Show that <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> U_n = 0</span> and calculate <span class="math-line"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span> n U_n</span>.
+          </li>
+        </ol>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي غير متوفر بعد</h3>
       <p>سيتم إضافة الحل قريباً.</p>
-    `
+      `,
+      fr: `
+      <h3>La solution détaillée n'est pas encore disponible</h3>
+      <p>La solution sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution not available yet</h3>
+      <p>The solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2025-log-exp",
-    title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الأول",
+      fr: "Sujet de baccalauréat Algérie 2025 - Sciences expérimentales Sujet 1",
+      en: "Algeria baccalaureate topic 2025 - Experimental sciences Topic 1"
+    },
     branch: "science",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "equations"],
-    summary: "الموضوع الأول من بكالوريا 2025 لشعبة علوم تجريبية: دراسة دالة أسية، مستقيم مقارب، مماس، جذور، نقطة انعطاف، مناقشة وسيط، ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا 2025 لشعبة علوم تجريبية: دراسة دالة أسية، مستقيم مقارب، مماس، جذور، نقطة انعطاف، مناقشة وسيط، ومساحة.",
+      fr: "Le premier sujet du baccalauréat 2025 pour la filière sciences expérimentales : étude d'une fonction exponentielle, asymptote, tangente, racines, point d'inflexion, discussion de paramètre et aire.",
+      en: "The first topic of the 2025 baccalaureate for the experimental sciences stream: study of an exponential function, asymptote, tangent, roots, inflection point, parameter discussion, and area."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا 2025 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <p><strong>الجزء الأول (I):</strong></p>
@@ -122,8 +257,102 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `,
-    solution: `
+      `,
+      fr: `
+      <section class="statement-block">
+        <h3>Baccalauréat 2025 - Filière Sciences Expérimentales - Sujet 1</h3>
+        <p><strong>Partie I :</strong></p>
+        <p>
+          <span class="math-inline">f</span> est la fonction définie sur <span class="math-inline">R</span> par :
+          <span class="math-line">f(x)=e<sup>2x</sup>-e<sup>x</sup>-x-2</span>,
+          et <span class="math-inline">(C<sub>f</sub>)</span> sa courbe représentative dans un plan muni d'un repère orthonormé
+          <span class="math-inline">(O; i, j)</span> (unité graphique <span class="math-inline">2cm</span>).
+        </p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Calculer <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-&infin;</small></span>f(x)</span>
+            et montrer que : <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)=+&infin;</span>.
+            <br><strong>(b)</strong> Montrer que la droite <span class="math-inline">(&Delta;)</span> d'équation :
+            <span class="math-inline">y=-x-2</span> est une asymptote oblique à la courbe <span class="math-inline">(C<sub>f</sub>)</span> en <span class="math-inline">-&infin;</span>.
+            <br><strong>(c)</strong> Étudier la position relative de la courbe <span class="math-inline">(C<sub>f</sub>)</span> et de la droite <span class="math-inline">(&Delta;)</span>.
+          </li>
+          <li>
+            <strong>(a)</strong> Montrer que pour tout réel <span class="math-inline">x</span> :
+            <span class="math-line">f&prime;(x)=(e<sup>x</sup>-1)(2e<sup>x</sup>+1)</span>.
+            <br><strong>(b)</strong> Déduire le sens de variation de la fonction <span class="math-inline">f</span> puis dresser son tableau de variations.
+          </li>
+          <li>
+            Montrer que la courbe <span class="math-inline">(C<sub>f</sub>)</span> admet une tangente <span class="math-inline">(T)</span> parallèle à la droite <span class="math-inline">(&Delta;)</span>, dont on déterminera une équation.
+          </li>
+          <li>
+            Prouver que l'équation <span class="math-inline">f(x)=0</span> admet exactement deux solutions <span class="math-inline">&alpha;</span> et <span class="math-inline">&beta;</span> vérifiant :
+            <span class="math-line">-2.2&lt;&alpha;&lt;-2.1</span> et <span class="math-line">0.8&lt;&beta;&lt;0.9</span>.
+          </li>
+          <li>
+            Montrer que la courbe <span class="math-inline">(C<sub>f</sub>)</span> admet un point d'inflexion dont on déterminera les coordonnées.
+          </li>
+          <li>
+            <strong>(a)</strong> Tracer <span class="math-inline">(&Delta;)</span>, <span class="math-inline">(T)</span> et <span class="math-inline">(C<sub>f</sub>)</span>.
+            <br><strong>(b)</strong> Discuter graphiquement, suivant les valeurs du paramètre réel <span class="math-inline">m</span>, le nombre de solutions de l'équation :
+            <span class="math-line">e<sup>2x</sup>-e<sup>x</sup>-m-2=0</span>.
+          </li>
+          <li>
+            Calculer, en centimètres carrés, l'aire du domaine plan délimité par la courbe <span class="math-inline">(C<sub>f</sub>)</span>
+            et les droites d'équations :
+            <span class="math-line">y=-x-2</span>, <span class="math-line">x=-1</span> et <span class="math-line">x=0</span>.
+          </li>
+        </ol>
+      </section>
+      `,
+      en: `
+      <section class="statement-block">
+        <h3>Baccalaureate 2025 - Experimental Sciences Stream - Topic 1</h3>
+        <p><strong>Part One (I):</strong></p>
+        <p>
+          <span class="math-inline">f</span> is the function defined on <span class="math-inline">R</span> by:
+          <span class="math-line">f(x)=e<sup>2x</sup>-e<sup>x</sup>-x-2</span>,
+          and <span class="math-inline">(C<sub>f</sub>)</span> its representative curve in a plane provided with an orthonormal coordinate system
+          <span class="math-inline">(O; i, j)</span> (unit length <span class="math-inline">2cm</span>).
+        </p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Calculate <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;-&infin;</small></span>f(x)</span>
+            and show that: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)=+&infin;</span>.
+            <br><strong>(b)</strong> Show that the line <span class="math-inline">(&Delta;)</span> with equation:
+            <span class="math-inline">y=-x-2</span> is an oblique asymptote to the curve <span class="math-inline">(C<sub>f</sub>)</span> at <span class="math-inline">-&infin;</span>.
+            <br><strong>(c)</strong> Study the relative position of the curve <span class="math-inline">(C<sub>f</sub>)</span> and the line <span class="math-inline">(&Delta;)</span>.
+          </li>
+          <li>
+            <strong>(a)</strong> Show that for any real number <span class="math-inline">x</span>:
+            <span class="math-line">f&prime;(x)=(e<sup>x</sup>-1)(2e<sup>x</sup>+1)</span>.
+            <br><strong>(b)</strong> Deduce the direction of variation of the function <span class="math-inline">f</span> then construct its variation table.
+          </li>
+          <li>
+            Show that the curve <span class="math-inline">(C<sub>f</sub>)</span> admits a tangent <span class="math-inline">(T)</span> parallel to the line <span class="math-inline">(&Delta;)</span>, whose equation is to be determined.
+          </li>
+          <li>
+            Prove that the equation <span class="math-inline">f(x)=0</span> admits exactly two solutions <span class="math-inline">&alpha;</span> and <span class="math-inline">&beta;</span> satisfying:
+            <span class="math-line">-2.2&lt;&alpha;&lt;-2.1</span> and <span class="math-line">0.8&lt;&beta;&lt;0.9</span>.
+          </li>
+          <li>
+            Show that the curve <span class="math-inline">(C<sub>f</sub>)</span> admits an inflection point whose coordinates are to be determined.
+          </li>
+          <li>
+            <strong>(a)</strong> Plot <span class="math-inline">(&Delta;)</span>, <span class="math-inline">(T)</span> and <span class="math-inline">(C<sub>f</sub>)</span>.
+            <br><strong>(b)</strong> Discuss graphically, according to the values of the real parameter <span class="math-inline">m</span>, the number of solutions of the equation:
+            <span class="math-line">e<sup>2x</sup>-e<sup>x</sup>-m-2=0</span>.
+          </li>
+          <li>
+            Calculate, in square centimeters, the area of the plane domain bounded by the curve <span class="math-inline">(C<sub>f</sub>)</span>
+            and the lines with equations:
+            <span class="math-line">y=-x-2</span>, <span class="math-line">x=-1</span> and <span class="math-line">x=0</span>.
+          </li>
+        </ol>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - النهايات والمقارب</h4>
@@ -217,11 +446,11 @@ window.bacAlgeriaExams = [
           <span class="math-inline">f(x)=0</span> حلين فقط:
           <span class="math-inline">&alpha&lt;0</span> و <span class="math-inline">&beta&gt;0</span>.
           وبالتعويض نجد:
-          <span class="math-line">f(-2.2)&gt;0,\ f(-2.1)&lt;0</span>
+          <span class="math-line">f(-2.2)&gt;0, f(-2.1)&lt;0</span>
           و
-          <span class="math-line">f(0.8)&lt;0,\ f(0.9)&gt;0</span>،
+          <span class="math-line">f(0.8)&lt;0, f(0.9)&gt;0</span>،
           ومنه:
-          <span class="math-line">-2.2&lt;&alpha;&lt;-2.1,\quad 0.8&lt;&beta;&lt;0.9</span>.
+          <span class="math-line">-2.2&lt;&alpha;&lt;-2.1,quad 0.8&lt;&beta;&lt;0.9</span>.
         </li>
         <li>
           نحسب:
@@ -230,7 +459,7 @@ window.bacAlgeriaExams = [
           <span class="math-inline">e<sup>x</sup>=1/4</span> أي:
           <span class="math-line">x=-ln4</span>.
           إذن نقطة الانعطاف هي:
-          <span class="math-line">I(-ln4,\ ln4-35/16)</span>.
+          <span class="math-line">I(-ln4, ln4-35/16)</span>.
         </li>
       </ol>
 
@@ -317,24 +546,42 @@ window.bacAlgeriaExams = [
           ومنه:
           <span class="math-line">A=4&int;<sub>-1</sub><sup>0</sup>(e<sup>x</sup>-e<sup>2x</sup>)dx</span>.
           إذن:
-          <span class="math-line">A=4[\,e<sup>x</sup>-<span style="display:inline-block;vertical-align:middle;text-align:center;"><span>e<sup>2x</sup></span><span style="display:block;border-top:1px solid #fff;">2</span></span>\,]<sub>-1</sub><sup>0</sup></span>
+          <span class="math-line">A=4[,e<sup>x</sup>-<span style="display:inline-block;vertical-align:middle;text-align:center;"><span>e<sup>2x</sup></span><span style="display:block;border-top:1px solid #fff;">2</span></span>,]<sub>-1</sub><sup>0</sup></span>
           وبالتالي:
           <span class="math-line">A=2-4/e+2/e<sup>2</sup>=2(1-1/e)<sup>2</sup> cm<sup>2</sup></span>.
         </li>
       </ol>
-    `
+      `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2025-log-exp-topic2",
-    title: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "equations", "area"],
-    summary: "الموضوع الثاني من بكالوريا 2025 لشعبة علوم تجريبية: دوال لوغارتمية، إشارة، نهايات، دراسة تغيرات، تقاطعات، مناقشة بيانية، ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2025 لشعبة علوم تجريبية: دوال لوغارتمية، إشارة، نهايات، دراسة تغيرات، تقاطعات، مناقشة بيانية، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا 2025 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <p><strong>الجزء الأول (I):</strong></p>
@@ -393,19 +640,51 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2024-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2024 لشعبة علوم تجريبية: قراءة جدول تغيرات g، دراسة f(x)=-2x+3-xe^(-x+1)، مقارب مائل، مماس مواز، مناقشة وسيط، وتكامل مساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2024 لشعبة علوم تجريبية: قراءة جدول تغيرات g، دراسة f(x)=-2x+3-xe^(-x+1)، مقارب مائل، مماس مواز، مناقشة وسيط، وتكامل مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2024 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <div><span>التمرين الرابع</span></div><div><span>الجزء الأول (I):</span></div>
@@ -452,19 +731,41 @@ window.bacAlgeriaExams = [
                                     <li>أ) باستعمال المكاملة بالتجزئة، بيّن أن: <span class="math-inline">&int;<sub>0</sub><sup>1</sup>xe<sup>-x+1</sup>dx=e-2</span>.<br>ب) استنتج بالسنتيمتر المربع مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(&Delta;)</span> والمستقيمين اللذين معادلتاهما <span class="math-inline">x=0</span> و <span class="math-inline">x=1</span>.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2024-topic-2-ln-area",
-    title: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2024 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "discussion", "area"],
-    summary: "الموضوع الثاني من بكالوريا 2024 لشعبة علوم تجريبية: دالة لوغارتمية على ]0,+∞[، قراءة بيانية لإشارة دالة مساعدة، نهايات، اشتقاق، مقارب مائل، مماس، مناقشة بيانية، ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2024 لشعبة علوم تجريبية: دالة لوغارتمية على ]0,+∞[، قراءة بيانية لإشارة دالة مساعدة، نهايات، اشتقاق، مقارب مائل، مماس، مناقشة بيانية، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2024 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>الجزء الأول (I):</span></div>
@@ -546,23 +847,55 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2023-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية - دورة 2023 - التمرين 17",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية - دورة 2023 - التمرين 17",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "تمرين من دورة 2023 - التمرين 17 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
-    statement: `
+    summary: {
+      ar: "تمرين من دورة 2023 - التمرين 17 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2023 - شعبة علوم تجريبية - دورة 2023 - التمرين 17</h3>
         <div><span>الجزء الأول (I):</span></div>
-                                <p>التمثيل البياني للدالة <span class="math-inline">x \mapsto 2x - 1</span> و <span class="math-inline">(D)</span> المستقيم ذو المعادلة <span class="math-inline">y=1</span>.</p>
+                                <p>التمثيل البياني للدالة <span class="math-inline">x mapsto 2x - 1</span> و <span class="math-inline">(D)</span> المستقيم ذو المعادلة <span class="math-inline">y=1</span>.</p>
                                 <p><span class="math-inline">&alpha;</span> هي فاصلة نقطة تقاطع <span class="math-inline">(&Gamma;)</span> و <span class="math-inline">(D)</span>.</p>
                                 <svg viewBox="0 0 360 260" role="img" aria-label="بيان المنحنى Gamma والمستقيم D في موضوع 2023 علوم تجريبية" style="width:min(360px,100%);height:auto;background:#fff;border:1px solid #111;border-radius:8px;direction:ltr;">
                                   <defs>
@@ -606,23 +939,45 @@ window.bacAlgeriaExams = [
                                     <li>ب) استنتج أن <span class="math-inline">f</span> متناقصة تماما على <span class="math-inline">]-&infin;, &alpha;]</span> ومتزايدة تماما على <span class="math-inline">[&alpha;, +&infin;[</span> ، ثم شكل جدول تغيراتها.</li>
                                     <li>ج) بين أن <span class="math-inline">(C<sub>f</sub>)</span> يقبل مماساً <span class="math-inline">(T)</span> موازياً للمستقيم <span class="math-inline">(&Delta;)</span> يطلب تعيين معادلة له.</li>
                                     <li>أ) عين نقط تقاطع <span class="math-inline">(C<sub>f</sub>)</span> مع محور الفواصل.</li>
-                                    <li>ب) أرسم <span class="math-inline">(T)</span> و <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(C<sub>f</sub>)</span> (نأخذ <span class="math-inline">f(1.4) \approx 6.2</span> و <span class="math-inline">f(&alpha;) \approx -0.9</span>).</li>
+                                    <li>ب) أرسم <span class="math-inline">(T)</span> و <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(C<sub>f</sub>)</span> (نأخذ <span class="math-inline">f(1.4) approx 6.2</span> و <span class="math-inline">f(&alpha;) approx -0.9</span>).</li>
                                     <li>ج) ناقش بيانيا، وحسب قيم الوسيط الحقيقي <span class="math-inline">m</span> عدد حلول المعادلة <span class="math-inline">f(x) = -x + m</span>.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2023-topic-2-ln-area",
-    title: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2023 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area"],
-    summary: "الموضوع الثاني من بكالوريا 2023 لشعبة علوم تجريبية: دراسة دالة لوغارتمية على ]0,+∞[، نهايات، اشتقاق، مماس، تقاطع، دالة أصلية، مساحة، وتحويل منحنى.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2023 لشعبة علوم تجريبية: دراسة دالة لوغارتمية على ]0,+∞[، نهايات، اشتقاق، مماس، تقاطع، دالة أصلية، مساحة، وتحويل منحنى.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2023 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <p>
@@ -693,19 +1048,51 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2022-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2022",
     date: "2022",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "الموضوع الأول من بكالوريا 2022 لشعبة علوم تجريبية: قراءة بيانية لدالة أسية، مماس، مناقشة f(x)=x+m، تحديد وسيطين، وإنشاء منحنى دالة زوجية مرتبطة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا 2022 لشعبة علوم تجريبية: قراءة بيانية لدالة أسية، مماس، مناقشة f(x)=x+m، تحديد وسيطين، وإنشاء منحنى دالة زوجية مرتبطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2022 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <div><span>التمرين الرابع</span></div>
@@ -744,19 +1131,41 @@ window.bacAlgeriaExams = [
                                     </li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2022-topic-2-ln-abs",
-    title: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2022 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2022",
     date: "2022",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "discussion", "absolute-value"],
-    summary: "الموضوع الثاني من بكالوريا 2022 لشعبة علوم تجريبية: دالة لوغارتمية، قراءة بيانية، مماس، تحديد وسيط، مناقشة معادلة، ودالة بالقيمة المطلقة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2022 لشعبة علوم تجريبية: دالة لوغارتمية، قراءة بيانية، مماس، تحديد وسيط، مناقشة معادلة، ودالة بالقيمة المطلقة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2022 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -815,19 +1224,51 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2021-topic-2-exp-rational",
-    title: "موضوع بكالوريا الجزائر 2021 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2021 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2021",
     date: "2021",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "الموضوع الثاني من بكالوريا 2021 لشعبة علوم تجريبية: قراءة بيانية للمقارنة بين e^x و x، دراسة دالة كسرية أسية، المماس عند 0، الوضع النسبي، الجذور، والمناقشة البيانية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2021 لشعبة علوم تجريبية: قراءة بيانية للمقارنة بين e^x و x، دراسة دالة كسرية أسية، المماس عند 0، الوضع النسبي، الجذور، والمناقشة البيانية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2021 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>الجزء الأول (I):</span></div>
@@ -896,24 +1337,46 @@ window.bacAlgeriaExams = [
           <li>ناقش بيانيا، وحسب قيم الوسيط الحقيقي <span class="math-inline">m</span>، عدد حلول المعادلة <span class="math-inline">f(x)=m</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2020-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2020 - علوم تجريبية - دورة 2020 - التمرين 21",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2020 - علوم تجريبية - دورة 2020 - التمرين 21",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2020",
     date: "2020",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "تمرين من دورة 2020 - التمرين 21 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
-    statement: `
+    summary: {
+      ar: "تمرين من دورة 2020 - التمرين 21 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2020 - شعبة علوم تجريبية - دورة 2020 - التمرين 21</h3>
         <div><span>الجزء الأول (I):</span></div>
                                 <p>المنحنى <span class="math-inline">(&Gamma;)</span> الممثل للدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> بـ: <span class="math-inline">g(x) = 2x<sup>2</sup> + 2x - 2xe<sup>x</sup></span>.</p>
-                                <p>المستقيم <span class="math-inline">(&Delta;)</span> ذو المعادلة: <span class="math-inline">y = x</span> و <span class="math-inline">(&gamma;)</span> المنحنى الممثل للدالة: <span class="math-inline">x \mapsto e<sup>x</sup></span>.</p>
+                                <p>المستقيم <span class="math-inline">(&Delta;)</span> ذو المعادلة: <span class="math-inline">y = x</span> و <span class="math-inline">(&gamma;)</span> المنحنى الممثل للدالة: <span class="math-inline">x mapsto e<sup>x</sup></span>.</p>
                                 <ol>
                                     <li>بقراءة بيانية، برر أنه من أجل عدد حقيقي <span class="math-inline">x</span>: <span class="math-inline">e<sup>x</sup> - x > 0</span>.</li>
                                     <li>حدد تبعا لقيم العدد الحقيقي <span class="math-inline">x</span> إشارة <span class="math-inline">g(x)</span> علما ان : <span class="math-inline">g(&alpha;) = 0</span>.</li>
@@ -938,19 +1401,41 @@ window.bacAlgeriaExams = [
                                     <li>أنشئ المماس <span class="math-inline">(T)</span> والمستقيمين المقاربين ثم المنحنى <span class="math-inline">(C<sub>f</sub>)</span>.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2019-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2019 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2019 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2019",
     date: "2019",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "الموضوع الثاني من بكالوريا 2019 لشعبة علوم تجريبية: دراسة الدالتين f وg، المقارنة بين المنحنيين، الرسم على [0,2]، ودالة زوجية مرتبطة بالمنحنى.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2019 لشعبة علوم تجريبية: دراسة الدالتين f وg، المقارنة بين المنحنيين، الرسم على [0,2]، ودالة زوجية مرتبطة بالمنحنى.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2019 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1002,23 +1487,45 @@ window.bacAlgeriaExams = [
                                     <li>أدرس اتجاه تغير الدالة <span class="math-inline">f</span>.</li>
                                     <li>احسب كلا من <span class="math-inline">lim<sub>x &rarr; -&infin;</sub> f(x)</span> و <span class="math-inline">lim<sub>x &rarr; +&infin;</sub> f(x)</span> ، ثم شكل جدول تغيرات <span class="math-inline">f</span>.</li>
                                     <li>أدرس الوضع النسبي للمنحنيين <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>g</sub>)</span> على <span class="math-inline">R</span>.</li>
-                                    <li>أرسم على المجال <span class="math-inline">[0, 2]</span> المنحنيين <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>g</sub>)</span> في نفس المعلم (تعطى <span class="math-inline">e<sup>2</sup> - 2e \approx 2</span>).</li>
-                                    <li><span class="math-inline">h</span> دالة معرفة على المجال <span class="math-inline">[-2, 2]</span> بـ: <span class="math-inline">h(x) = <span class="frac"><span class="num">1</span><span class="den">2</span></span>ex<sup>2</sup> - e<sup>|x|</sup></span> و <span class="math-inline">(&Gamma;)</span> تمثيلها البياني في المعلم السابق.<br>أ) بين أن الدالة <span class="math-inline">h</span> زوجية.<br>ب) من اجل <span class="math-inline">x \in [0, 2]</span> احسب <span class="math-inline">h(x) + f(x)</span> واستنتج كيفية رسم <span class="math-inline">(&Gamma;)</span> إنطلاقا من <span class="math-inline">(C<sub>f</sub>)</span> ثم أرسمه.</li>
+                                    <li>أرسم على المجال <span class="math-inline">[0, 2]</span> المنحنيين <span class="math-inline">(C<sub>f</sub>)</span> و <span class="math-inline">(C<sub>g</sub>)</span> في نفس المعلم (تعطى <span class="math-inline">e<sup>2</sup> - 2e approx 2</span>).</li>
+                                    <li><span class="math-inline">h</span> دالة معرفة على المجال <span class="math-inline">[-2, 2]</span> بـ: <span class="math-inline">h(x) = <span class="frac"><span class="num">1</span><span class="den">2</span></span>ex<sup>2</sup> - e<sup>|x|</sup></span> و <span class="math-inline">(&Gamma;)</span> تمثيلها البياني في المعلم السابق.<br>أ) بين أن الدالة <span class="math-inline">h</span> زوجية.<br>ب) من اجل <span class="math-inline">x in [0, 2]</span> احسب <span class="math-inline">h(x) + f(x)</span> واستنتج كيفية رسم <span class="math-inline">(&Gamma;)</span> إنطلاقا من <span class="math-inline">(C<sub>f</sub>)</span> ثم أرسمه.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2018-topic-2-ln-exp",
-    title: "موضوع بكالوريا الجزائر 2018 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2018 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2018",
     date: "2018",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area", "sequences"],
-    summary: "الموضوع الثاني من بكالوريا 2018 لشعبة علوم تجريبية: قراءة بيانية لدالة لوغارتمية مساعدة، دراسة دالة f على ]0,+∞[، مماس، معادلة وسيط، ومساحة متتالية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2018 لشعبة علوم تجريبية: قراءة بيانية لدالة لوغارتمية مساعدة، دراسة دالة f على ]0,+∞[، مماس، معادلة وسيط، ومساحة متتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2018 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1092,19 +1599,41 @@ window.bacAlgeriaExams = [
           <li>ادرس اتجاه تغير المتتالية <span class="math-inline">(I<sub>n</sub>)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2017-topic-1-ln-asymptotes",
-    title: "بكالوريا الجزائر 2017 - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2017",
     date: "2017",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "equations", "discussion"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2017 لشعبة علوم تجريبية، دورة عادية: دراسة دالة لوغارتمية على مجال منفصل، نهايات ومقاربان موازيان لمحور التراتيب، جدول تغيرات، جذر وحيد، ومناقشة بيانية لمعادلة وسيطية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2017 لشعبة علوم تجريبية، دورة عادية: دراسة دالة لوغارتمية على مجال منفصل، نهايات ومقاربان موازيان لمحور التراتيب، جدول تغيرات، جذر وحيد، ومناقشة بيانية لمعادلة وسيطية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <div><span>دورة عادية - التمرين الرابع</span></div>
@@ -1140,19 +1669,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2017-special-topic-1-exp",
-    title: "بكالوريا الجزائر 2017 - دورة استثنائية - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - دورة استثنائية - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2017",
     date: "2017-special",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area", "discussion"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2017 - الدورة الاستثنائية لشعبة علوم تجريبية: قراءة بيانية لدالة g، دراسة دالة أسية f، مقارب منحني، تغيرات، تمثيل بياني، ومساحات متتالية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2017 - الدورة الاستثنائية لشعبة علوم تجريبية: قراءة بيانية لدالة g، دراسة دالة أسية f، مقارب منحني، تغيرات، تمثيل بياني، ومساحات متتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - دورة استثنائية - شعبة علوم تجريبية - الموضوع الأول</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1220,19 +1771,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2017-special-topic-2-ln-integral",
-    title: "بكالوريا الجزائر 2017 - دورة استثنائية - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - دورة استثنائية - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2017",
     date: "2017-special",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "equations", "area", "sequences"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2017 - الدورة الاستثنائية لشعبة علوم تجريبية: دراسة دالة لوغارتمية كسرية، معادلة وحيدة، مماس، دالة مساعدة، وتكامل متتالية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2017 - الدورة الاستثنائية لشعبة علوم تجريبية: دراسة دالة لوغارتمية كسرية، معادلة وحيدة، مماس، دالة مساعدة، وتكامل متتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - دورة استثنائية - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع: (07 نقاط)</span></div>
@@ -1267,19 +1840,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2017-topic-2-exp-area",
-    title: "بكالوريا الجزائر 2017 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2017",
     date: "2017",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2017 لشعبة علوم تجريبية، دورة عادية: دراسة f(x)=2-x²e^(1-x)، مماس عند الصفر، وضعية نسبية، جذر وحيد، ثم دالة أصلية ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2017 لشعبة علوم تجريبية، دورة عادية: دراسة f(x)=2-x²e^(1-x)، مماس عند الصفر، وضعية نسبية، جذر وحيد، ثم دالة أصلية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>دورة عادية - التمرين الرابع</span></div>
@@ -1306,19 +1901,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
-        id: "science-2016-topic-1-exp-asymptote",
-    title: "بكالوريا الجزائر 2016 - علوم تجريبية الموضوع الأول",
+    id: "science-2016-topic-1-exp-asymptote",
+    title: {
+      ar: "بكالوريا الجزائر 2016 - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2016",
     date: "2016",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area", "discussion"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2016 لشعبة علوم تجريبية: دالة مساعدة g، دراسة f(x)=-x+(x²+3x+2)e^-x، مقارب مائل، وضعية نسبية، مناقشة بيانية، ودالة أصلية ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2016 لشعبة علوم تجريبية: دالة مساعدة g، دراسة f(x)=-x+(x²+3x+2)e^-x، مقارب مائل، وضعية نسبية، مناقشة بيانية، ودالة أصلية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2016 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1355,19 +1972,41 @@ window.bacAlgeriaExams = [
           <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x=0</span> و <span class="math-inline">x=1</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2016-topic-2-exp-rational",
-    title: "بكالوريا الجزائر 2016 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2016 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2016",
     date: "2016",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "equations", "asymptotes"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2016 لشعبة علوم تجريبية: دراسة دالة g(x)=2e^x-x²-x، ثم دالة f(x)=x²e^x/(e^x-x)، تغيرات، جذر وحيد، مقارب، ورسم المنحنى.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2016 لشعبة علوم تجريبية: دراسة دالة g(x)=2e^x-x²-x، ثم دالة f(x)=x²e^x/(e^x-x)، تغيرات، جذر وحيد، مقارب، ورسم المنحنى.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2016 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1396,19 +2035,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2015-topic-2-exp-asymptote",
-    title: "بكالوريا الجزائر 2015 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2015 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2015",
     date: "2015",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area", "discussion"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2015 لشعبة علوم تجريبية: دالة مساعدة g، دراسة f(x)=-x+(x²+3x+2)e^-x، مقارب مائل، وضعية نسبية، مناقشة بيانية، ودالة أصلية ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2015 لشعبة علوم تجريبية: دالة مساعدة g، دراسة f(x)=-x+(x²+3x+2)e^-x، مقارب مائل، وضعية نسبية، مناقشة بيانية، ودالة أصلية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2015 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1445,19 +2106,41 @@ window.bacAlgeriaExams = [
           <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x=0</span> و <span class="math-inline">x=1</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2014-topic-2-rational-poly",
-    title: "بكالوريا الجزائر 2014 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2014 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2014",
     date: "2014",
     source: "inline",
     file: "",
     tags: ["study-functions", "rational", "asymptotes", "discussion"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2014 لشعبة علوم تجريبية: دالة مساعدة كثيرة حدود، دراسة دالة كسرية، مقارب مائل، وضعية نسبية، معادلة، وتحويل منحنى.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2014 لشعبة علوم تجريبية: دالة مساعدة كثيرة حدود، دراسة دالة كسرية، مقارب مائل، وضعية نسبية، معادلة، وتحويل منحنى.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2014 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1493,19 +2176,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2013-exp-function-cycle",
-    title: "موضوع بكالوريا الجزائر 2013 - علوم تجريبية - دورة 2013",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2013 - علوم تجريبية - دورة 2013",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2013",
     date: "2013",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "تمرين من دورة 2013 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
-    statement: `
+    summary: {
+      ar: "تمرين من دورة 2013 لشعبة علوم تجريبية من باب الدالة الأسية، منقول من باب التعلم إلى أرشيف بكالوريا الجزائر حسب الدورة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2013 - شعبة علوم تجريبية - دورة 2013</h3>
         <div><span>الجزء الأول (I):</span></div>
@@ -1524,19 +2229,41 @@ window.bacAlgeriaExams = [
                                     <li>أنشئ <span class="math-inline">(C<sub>f</sub>)</span>.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2012-topic-2-exp-asymptote",
-    title: "بكالوريا الجزائر 2012 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2012 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2012",
     date: "2012",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "equations"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2012 لشعبة علوم تجريبية: دراسة g(x)=1-xe^x، ثم f(x)=(x-1)e^x-x-1 على ]-∞,2]، مقارب مائل، جذران، ودالة أصلية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2012 لشعبة علوم تجريبية: دراسة g(x)=1-xe^x، ثم f(x)=(x-1)e^x-x-1 على ]-∞,2]، مقارب مائل، جذران، ودالة أصلية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2012 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1568,19 +2295,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2011-topic-2-exp-area",
-    title: "بكالوريا الجزائر 2011 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2011 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2011",
     date: "2011",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "tangents", "area", "equations"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2011 لشعبة علوم تجريبية: دراسة f(x)=e^x-x-1، مماس عند الصفر، جذر وحيد، ومجال مساحة بدلالة ألفا.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2011 لشعبة علوم تجريبية: دراسة f(x)=e^x-x-1، مماس عند الصفر، جذر وحيد، ومجال مساحة بدلالة ألفا.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2011 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1605,19 +2354,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2010-topic-2-exp-asymptotes",
-    title: "بكالوريا الجزائر 2010 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2010 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2010",
     date: "2010",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "symmetry", "discussion"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2010 لشعبة علوم تجريبية: دراسة f(x)=x-1/(e^x-1) على R*، مقاربان مائلان، مركز تناظر، جذران، ومناقشة وسيطية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2010 لشعبة علوم تجريبية: دراسة f(x)=x-1/(e^x-1) على R*، مقاربان مائلان، مركز تناظر، جذران، ومناقشة وسيطية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2010 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع: (07 نقاط)</span></div>
@@ -1642,19 +2413,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2009-topic-2-ln-area",
-    title: "بكالوريا الجزائر 2009 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2009 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2009",
     date: "2009",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "area", "equations"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2009 لشعبة علوم تجريبية: دراسة h(x)=x²+2x+ln(x+1)، ثم f(x)=x-1-ln(x+1)/(x+1)، مقارب مائل، تقاطع مع y=2، ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2009 لشعبة علوم تجريبية: دراسة h(x)=x²+2x+ln(x+1)، ثم f(x)=x-1-ln(x+1)/(x+1)، مقارب مائل، تقاطع مع y=2، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2009 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <div><span>التمرين الرابع</span></div>
@@ -1684,23 +2477,45 @@ window.bacAlgeriaExams = [
           <li>بيّن أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقطع المستقيم ذا المعادلة <span class="math-inline">y=2</span> في نقطة فاصلتها محصورة بين <span class="math-inline">3.3</span> و <span class="math-inline">3.4</span>.</li>
           <li>ارسم <span class="math-inline">(C<sub>f</sub>)</span>.</li>
           <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات التي معادلاتها:
-            <span class="math-line">y=x-1,\quad x=0,\quad x=1</span>
+            <span class="math-line">y=x-1,quad x=0,quad x=1</span>
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "management-2025-topic-1-ln",
-    title: "بكالوريا الجزائر 2025 - تسيير واقتصاد الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2025 - تسيير واقتصاد الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area", "discussion", "parity"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2025 لشعبة تسيير واقتصاد: دراسة دالة لوغارتمية، المشتقة والتغيرات، نقطة انعطاف، مماس، مناقشة عدد حلول، دالة أصلية، مساحة، ودالة زوجية مرتبطة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2025 لشعبة تسيير واقتصاد: دراسة دالة لوغارتمية، المشتقة والتغيرات، نقطة انعطاف، مماس، مناقشة عدد حلول، دالة أصلية، مساحة، ودالة زوجية مرتبطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2025 - شعبة تسيير واقتصاد - الموضوع الأول</h3>
         <p>
@@ -1743,7 +2558,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
       <h4>1 - النهاية عند +∞</h4>
       <p>عند <span class="math-inline">x&rarr;+&infin;</span> لدينا <span class="math-inline">x<sup>2</sup>&rarr;+&infin;</span> و <span class="math-inline">2lnx-3&rarr;+&infin;</span>، ومنه <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span>f(x)=+&infin;</span>.</p>
@@ -1775,18 +2604,37 @@ window.bacAlgeriaExams = [
       </ol>
       <h4>6 - الدالة الزوجية g</h4>
       <p>من أجل كل <span class="math-inline">x≠0</span>: <span class="math-inline">|-x|=|x|</span> و <span class="math-inline">(-x)<sup>2</sup>=x<sup>2</sup></span>، إذن <span class="math-line">g(-x)=g(x)</span>. لذلك يرسم <span class="math-inline">(C<sub>g</sub>)</span> بأخذ الجزء الأيمن من <span class="math-inline">(C<sub>f</sub>)</span> ثم عكسه بتناظر بالنسبة إلى محور التراتيب.</p>
-    `
-  },  {
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "management-2025-topic-2-exp",
-    title: "بكالوريا الجزائر 2025 - تسيير واقتصاد الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2025 - تسيير واقتصاد الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "tangents", "area"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2025 لشعبة تسيير واقتصاد: دالة f(x)=e^x-x-1، إشارة الدالة من جدول التغيرات، متراجحة e^x≥x+1، تفسير بياني بالمماس، ودالة أصلية لحساب القيمة المتوسطة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2025 لشعبة تسيير واقتصاد: دالة f(x)=e^x-x-1، إشارة الدالة من جدول التغيرات، متراجحة e^x≥x+1، تفسير بياني بالمماس، ودالة أصلية لحساب القيمة المتوسطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2025 - شعبة تسيير واقتصاد - الموضوع الثاني</h3>
         <p><strong>التمرين الثاني: (04 نقاط)</strong></p>
@@ -1852,7 +2700,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
       <h4>1 - إشارة f والمتراجحة الأساسية</h4>
       <ol>
@@ -1899,18 +2761,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">m=e-<span class="frac"><span class="num">5</span><span class="den">2</span></span></span>
         </li>
       </ol>
-    `
-  },  {
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "management-2024-topic-1-ln",
-    title: "بكالوريا الجزائر 2024 - تسيير واقتصاد الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2024 - تسيير واقتصاد الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "area"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2024 لشعبة تسيير واقتصاد: دراسة f(x)=1+(1+2lnx)/x²، النهايات، المقارب الأفقي، المشتقة والتغيرات، جذر وحيد، ودالة أصلية لحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2024 لشعبة تسيير واقتصاد: دراسة f(x)=1+(1+2lnx)/x²، النهايات، المقارب الأفقي، المشتقة والتغيرات، جذر وحيد، ودالة أصلية لحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2024 - شعبة تسيير واقتصاد - الموضوع الأول</h3>
         <p>
@@ -1949,7 +2830,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
       <h4>1 - النهايات والتفسير الهندسي</h4>
       <ol>
@@ -2011,18 +2906,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A=3-<span class="frac"><span class="num">5</span><span class="den">e</span></span> وحدة مساحة</span>
         </li>
       </ol>
-    `
-  },  {
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "management-2024-topic-2-exp-study",
-    title: "بكالوريا الجزائر 2024 - تسيير واقتصاد الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2024 - تسيير واقتصاد الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "الموضوع الثاني من بكالوريا الجزائر 2024 لشعبة تسيير واقتصاد: دالة مساعدة g(x)=1-(x+1)e^-x، دراسة f(x)=x+(x+2)e^-x، مماس، مقارب مائل y=x، جذر وحيد، ومساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا الجزائر 2024 لشعبة تسيير واقتصاد: دالة مساعدة g(x)=1-(x+1)e^-x، دراسة f(x)=x+(x+2)e^-x، مماس، مقارب مائل y=x، جذر وحيد، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2024 - شعبة تسيير واقتصاد - الموضوع الثاني</h3>
         <p><strong>I)</strong> الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> بـ:</p>
@@ -2063,7 +2977,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
       <h4>I - دراسة الدالة g</h4>
       <ol>
@@ -2123,18 +3051,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A=-5e<sup>-2</sup>-(-3)=3-<span class="frac"><span class="num">5</span><span class="den">e<sup>2</sup></span></span> وحدة مساحة</span>
         </li>
       </ol>
-    `
-  },  {
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "management-2023-topic-1-exp-study",
-    title: "بكالوريا الجزائر 2023 - تسيير واقتصاد الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2023 - تسيير واقتصاد الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area"],
-    summary: "الموضوع الأول من بكالوريا الجزائر 2023 لشعبة تسيير واقتصاد: دراسة f(x)=x+1-3/(e^x+1)، مقارب مائل y=x+1، وضع نسبي، تزايد، جذر وحيد، ودالة أصلية لحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا الجزائر 2023 لشعبة تسيير واقتصاد: دراسة f(x)=x+1-3/(e^x+1)، مقارب مائل y=x+1، وضع نسبي، تزايد، جذر وحيد، ودالة أصلية لحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2023 - شعبة تسيير واقتصاد - الموضوع الأول</h3>
         <p>
@@ -2168,7 +3115,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
       <h4>1 - النهاية</h4>
       <p>
@@ -2197,7 +3158,7 @@ window.bacAlgeriaExams = [
       <ol>
         <li>
           نشتق:
-          <span class="math-line">f&prime;(x)=1-3\left(<span class="frac"><span class="num">1</span><span class="den">e<sup>x</sup>+1</span></span>\right)&prime;=1+<span class="frac"><span class="num">3e<sup>x</sup></span><span class="den">(e<sup>x</sup>+1)<sup>2</sup></span></span></span>
+          <span class="math-line">f&prime;(x)=1-3left(<span class="frac"><span class="num">1</span><span class="den">e<sup>x</sup>+1</span></span>ight)&prime;=1+<span class="frac"><span class="num">3e<sup>x</sup></span><span class="den">(e<sup>x</sup>+1)<sup>2</sup></span></span></span>
         </li>
         <li>
           بما أن <span class="math-inline"><span class="frac"><span class="num">3e<sup>x</sup></span><span class="den">(e<sup>x</sup>+1)<sup>2</sup></span></span>&gt;0</span>، فإن <span class="math-inline">f&prime;(x)&gt;0</span> لكل <span class="math-inline">x&ge;0</span>.
@@ -2235,18 +3196,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A=4(6ln2-3ln3)=12ln<span class="frac"><span class="num">4</span><span class="den">3</span></span> cm<sup>2</sup></span>
         </li>
       </ol>
-    `
-  },  {
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2024-topic-1-exp",
-    title: "بكالوريا 2024 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2024 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area", "sequences", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2024 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة f(x)=(e^x+4x)/(e^x+4)، مقارب y=x، مناقشة بيانية، مساحة، ومتتالية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2024 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة f(x)=(e^x+4x)/(e^x+4)، مقارب y=x، مناقشة بيانية، مساحة، ومتتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2024 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2351,19 +3331,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "math-2024-topic-2-ln",
-    title: "بكالوريا 2024 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2024 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "area", "sequences", "discussion", "tangents"],
-    summary: "التمرين الرابع من بكالوريا 2024 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة f(x)=x/(1+x²lnx)، مماس عند الأصل، مناقشة وسيط، مساحة، ومتتالية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2024 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة f(x)=x/(1+x²lnx)، مماس عند الأصل، مناقشة وسيط، مساحة، ومتتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2024 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2423,19 +3435,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "math-2023-topic-1-exp",
-    title: "بكالوريا 2023 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2023 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2023 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=x+1-3xe^(2x)، مقارب، مماس، مناقشة وسيط، تكامل ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2023 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=x+1-3xe^(2x)، مقارب، مماس، مناقشة وسيط، تكامل ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2023 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2477,18 +3521,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2023-topic-2-ln",
-    title: "بكالوريا 2023 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2023 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area", "discussion", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2023 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة f(x)=(x-3lnx)lnx، مماسات، مناقشة وسيط، دالة أصلية ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2023 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة f(x)=(x-3lnx)lnx، مماسات، مناقشة وسيط، دالة أصلية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2023 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2541,18 +3618,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2022-topic-1-exp",
-    title: "بكالوريا 2022 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2022 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2022",
     date: "2022",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion", "absolute-value"],
-    summary: "التمرين الرابع من بكالوريا 2022 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=(e^x-x²)/(x-1) على ]-∞,1[، مقارب، مماس، مناقشة وسيط، ودالة بالقيمة المطلقة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2022 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=(e^x-x²)/(x-1) على ]-∞,1[، مقارب، مماس، مناقشة وسيط، ودالة بالقيمة المطلقة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2022 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2595,18 +3705,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2022-topic-2-ln",
-    title: "بكالوريا 2022 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2022 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2022",
     date: "2022",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "composition", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2022 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة h(x)=x+lnx، دراسة f، مماس، دالة مساعدة g، ودالة مركبة k.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2022 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة h(x)=x+lnx، دراسة f، مماس، دالة مساعدة g، ودالة مركبة k.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2022 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -2660,18 +3803,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2021-topic-1-exp",
-    title: "بكالوريا 2021 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2021 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2021",
     date: "2021",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion", "composition"],
-    summary: "التمرين الرابع من بكالوريا 2021 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة f(x)=3x+1+(x²-2x-1)e^x، مقارب، مماسات، مناقشة، ودالة مركبة h(x)=f(lnx).",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2021 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة f(x)=3x+1+(x²-2x-1)e^x، مقارب، مماسات، مناقشة، ودالة مركبة h(x)=f(lnx).",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2021 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2727,18 +3903,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2021-topic-2-ln",
-    title: "بكالوريا 2021 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2021 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2021",
     date: "2021",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "symmetry", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2021 لشعبة رياضيات، الموضوع الثاني: قراءة بيانية، دالة مساعدة g، دراسة f(x)=ln(1+x)/(1+x²)، مماس، وحالة زوجية h(x)=f(|x|).",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2021 لشعبة رياضيات، الموضوع الثاني: قراءة بيانية، دالة مساعدة g، دراسة f(x)=ln(1+x)/(1+x²)، مماس، وحالة زوجية h(x)=f(|x|).",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2021 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2792,18 +4001,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2014-topic-1-exp",
-    title: "بكالوريا 2014 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2014 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2014",
     date: "2014",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "area", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2014 لشعبة رياضيات، الموضوع الأول: دالة مساعدة g(x)=(2-x)e^x-1، دراسة f(x)=(e^x-1)/(e^x-x)، حصر قيم ومساحة ونهاية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2014 لشعبة رياضيات، الموضوع الأول: دالة مساعدة g(x)=(2-x)e^x-1، دراسة f(x)=(e^x-1)/(e^x-x)، حصر قيم ومساحة ونهاية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2014 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2840,18 +4082,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2014-topic-2-ln",
-    title: "بكالوريا 2014 رياضيات - الموضوع الثاني: دراسة دوال لوغارتمية",
+    title: {
+      ar: "بكالوريا 2014 رياضيات - الموضوع الثاني: دراسة دوال لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2014",
     date: "2014",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area", "relative-position"],
-    summary: "التمرين الرابع من بكالوريا 2014 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=(1+2lnx)(-1+lnx)، مماس، نقاط تقاطع، دراسة g(x)=1-lnx، وضع نسبي، ودالة أصلية ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2014 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=(1+2lnx)(-1+lnx)، مماس، نقاط تقاطع، دراسة g(x)=1-lnx، وضع نسبي، ودالة أصلية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2014 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2889,18 +4164,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2010-topic-2-ln",
-    title: "بكالوريا 2010 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2010 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2010",
     date: "2010",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2010 لشعبة رياضيات، الموضوع الثاني: دراسة g(x)=x-1-2lnx، ثم f(x)=-x²+x+x²lnx مع تمديد عند الصفر، تغيرات ورسم.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2010 لشعبة رياضيات، الموضوع الثاني: دراسة g(x)=x-1-2lnx، ثم f(x)=-x²+x+x²lnx مع تمديد عند الصفر، تغيرات ورسم.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2010 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -2942,18 +4250,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2015-topic-1-ln",
-    title: "بكالوريا 2015 رياضيات - الموضوع الأول: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2015 رياضيات - الموضوع الأول: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2015",
     date: "2015",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "area", "symmetry", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2015 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=1-x²lnx مع تمديد عند الصفر، جذر وحيد، دالة زوجية، تكامل، ودالة F.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2015 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=1-x²lnx مع تمديد عند الصفر، جذر وحيد، دالة زوجية، تكامل، ودالة F.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2015 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع</strong></p>
@@ -3004,18 +4345,51 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: ""
-  },  {
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: "",
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
+  },
+  {
     id: "math-2025-log-exp",
-    title: "بكالوريا 2025 رياضيات - الموضوع الأول: دراسة دالة أسية",
+    title: {
+      ar: "بكالوريا 2025 رياضيات - الموضوع الأول: دراسة دالة أسية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "equations"],
-    summary: "التمرين الرابع (07 نقاط) من بكالوريا 2025 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية، النهايات، المقاربات، المشتقة، المماس، المساحة، ودالة مركبة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع (07 نقاط) من بكالوريا 2025 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية، النهايات، المقاربات، المشتقة، المماس، المساحة، ودالة مركبة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2025 رياضيات - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -3076,7 +4450,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - دراسة الدالتين g و h</h4>
@@ -3246,19 +4634,37 @@ window.bacAlgeriaExams = [
           </ol>
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "math-2025-topic2-ln",
-    title: "بكالوريا 2025 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+    title: {
+      ar: "بكالوريا 2025 رياضيات - الموضوع الثاني: دراسة دالة لوغارتمية",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "equations"],
-    summary: "التمرين الرابع (07 نقاط) من بكالوريا 2025 لشعبة رياضيات، الموضوع الثاني: دراسة دالة لوغارتمية، النهايات، المماسان، نقطة الانعطاف، التكامل، والمساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع (07 نقاط) من بكالوريا 2025 لشعبة رياضيات، الموضوع الثاني: دراسة دالة لوغارتمية، النهايات، المماسان، نقطة الانعطاف، التكامل، والمساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2025 رياضيات - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -3321,7 +4727,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - دراسة الدالتين المساعدتين</h4>
@@ -3474,19 +4894,37 @@ window.bacAlgeriaExams = [
           </ol>
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2025-ex34",
-    title: "بكالوريا الجزائر 2025 - تقني رياضي",
+    title: {
+      ar: "بكالوريا الجزائر 2025 - تقني رياضي",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2025",
     date: "2025",
     source: "bac-algeria",
     file: "",
     tags: ["exp", "study-functions", "equations"],
-    summary: "موضوع من بكالوريا الجزائر 2025 لشعبة تقني رياضي: التمرين 34 حول دراسة دالتين تتضمنان الدالة الأسية، النهايات، المشتقة، المماس، والمستقيم المقارب.",
-    statement: `
+    summary: {
+      ar: "موضوع من بكالوريا الجزائر 2025 لشعبة تقني رياضي: التمرين 34 حول دراسة دالتين تتضمنان الدالة الأسية، النهايات، المشتقة، المماس، والمستقيم المقارب.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2025 تقني رياضي الموضوع الأول</h3>
 
@@ -3558,7 +4996,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - دراسة الدالة g</h4>
@@ -3785,19 +5237,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A = 12 - 24/e cm<sup>2</sup></span>.
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2025-topic-2-ln",
-    title: "بكالوريا الجزائر 2025 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2025 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2025",
     date: "2025",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2025 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالتين لوغارتميتين، النهايات، المشتقات، المماس، نقطة الانعطاف، المناقشة البيانية، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2025 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالتين لوغارتميتين، النهايات، المشتقات، المماس، نقطة الانعطاف، المناقشة البيانية، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2025 تقني رياضي الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -3871,7 +5341,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - دراسة الدالة g</h4>
@@ -4032,19 +5516,37 @@ window.bacAlgeriaExams = [
           المساحة تساوي <span class="math-inline">2</span> وحدة مساحة.
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2023-topic-1-ln",
-    title: "بكالوريا الجزائر 2023 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2023 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "integrals", "area"],
-    summary: "التمرين الرابع من بكالوريا 2023 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية لدالة لوغارتمية، دراسة دالة، جدول تغيرات، رسم المنحنى، دالة أصلية، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2023 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية لدالة لوغارتمية، دراسة دالة، جدول تغيرات، رسم المنحنى، دالة أصلية، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا الجزائر 2023 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4148,19 +5650,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </div>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2023-topic-2-exp",
-    title: "بكالوريا الجزائر 2023 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2023 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2023",
     date: "2023",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2023 لشعبة تقني رياضي، الموضوع الثاني: جدول تغيرات دالة أسية، دراسة دالة، مقارب مائل، مماس مواز، مناقشة بيانية، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2023 لشعبة تقني رياضي، الموضوع الثاني: جدول تغيرات دالة أسية، دراسة دالة، مقارب مائل، مماس مواز، مناقشة بيانية، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2023 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4210,19 +5734,41 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">F</span> الدالة المعرفة على <span class="math-inline">R</span> بـ: <span class="math-line">F(x)=(-2x+5)e<sup>x</sup></span><br>أ) بين أن <span class="math-inline">F</span> دالة أصلية للدالة <span class="math-inline">x &mapsto; (3-2x)e<sup>x</sup></span> على <span class="math-inline">R</span>.<br>ب) استنتج، بالسنتيمتر المربع، مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x=0</span> و <span class="math-inline">x=1</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2022-topic-1-ln",
-    title: "بكالوريا الجزائر 2022 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2022 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2022",
     date: "2022",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2022 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، نهايات، مشتقة، مماس، مساحة، ودالة مركبة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2022 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، نهايات، مشتقة، مماس، مساحة، ودالة مركبة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2022 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4240,19 +5786,41 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">g</span> الدالة المعرفة على <span class="math-inline">]0; +&infin;[</span> بـ: <span class="math-line">g(x)=f(x<sup>2</sup>)</span><br>أ) تحقق أن <span class="math-inline">g(x)=1+2(x<sup>2</sup>-1)lnx</span>.<br>ب) ادرس شفعية الدالة <span class="math-inline">g</span>، ثم استنتج كيفية إنشاء <span class="math-inline">(C<sub>g</sub>)</span> انطلاقا من <span class="math-inline">(C<sub>f</sub>)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2021-topic-1-exp",
-    title: "بكالوريا الجزائر 2021 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2021 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2021",
     date: "2021",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2021 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية، معادلة وحيدة، مقارب مائل، مماس مواز، ودالة مرتبطة بتناظر.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2021 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية، معادلة وحيدة، مقارب مائل، مماس مواز، ودالة مرتبطة بتناظر.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2021 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4277,19 +5845,41 @@ window.bacAlgeriaExams = [
                                     <li><span class="math-inline">h</span> الدالة العددية معرفة على المجال <span class="math-inline">]-&infin;, 0]</span> بـ: <span class="math-inline">h(x) = -x + 1 + (-x<sup>2</sup> + 2x + 3)e<sup>1+x</sup></span><br>أ) تحقق أنه من أجل كل عدد حقيقي <span class="math-inline">x</span> من المجال <span class="math-inline">]-&infin;, 0]</span>: <span class="math-inline">h(x)=f(-x)</span>.<br>ب) اشرح كيفية إنشاء المنحنى <span class="math-inline">(C<sub>h</sub>)</span> انطلاقا من المنحنى <span class="math-inline">(C<sub>f</sub>)</span>.</li>
                                 </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2021-topic-2-ln",
-    title: "بكالوريا الجزائر 2021 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2021 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2021",
     date: "2021",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "graphs"],
-    summary: "التمرين الرابع من بكالوريا 2021 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة لوغارتمية، معادلة وحيدة، مشتقة، مقارب، مماس، ودالة مرتبطة بتناظر.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2021 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة لوغارتمية، معادلة وحيدة، مشتقة، مقارب، مماس، ودالة مرتبطة بتناظر.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2021 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4310,19 +5900,41 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">h</span> الدالة المعرفة على <span class="math-inline">]-&infin;;0[</span> بـ: <span class="math-line">h(x)=|x|-2+<span class="frac"><span class="num">3+2ln|x|</span><span class="den">|x|</span></span></span><br>أ) تحقق أنه من أجل كل <span class="math-inline">x&lt;0</span>: <span class="math-inline">h(x)=f(-x)</span>.<br>ب) اشرح كيفية إنشاء منحنى <span class="math-inline">(C<sub>h</sub>)</span> انطلاقا من <span class="math-inline">(C<sub>f</sub>)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2020-topic-1-ln",
-    title: "بكالوريا الجزائر 2020 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2020 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2020",
     date: "2020",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2020 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، إشارة، نهايات، جدول تغيرات، مقارب ومماس.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2020 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، إشارة، نهايات، جدول تغيرات، مقارب ومماس.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2020 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4347,19 +5959,41 @@ window.bacAlgeriaExams = [
           <li>أنشئ <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات المساعدة.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2020-topic-2-exp",
-    title: "بكالوريا الجزائر 2020 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2020 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2020",
     date: "2020",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2020 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مشتقة، جدول تغيرات، مقارب مائل، مماس ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2020 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مشتقة، جدول تغيرات، مقارب مائل، مماس ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2020 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4374,19 +6008,41 @@ window.bacAlgeriaExams = [
           <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين ذوي المعادلتين <span class="math-inline">x=0</span> و <span class="math-inline">x=1</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2019-topic-1-exp",
-    title: "بكالوريا الجزائر 2019 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2019 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2019",
     date: "2019",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "graphs"],
-    summary: "التمرين الرابع من بكالوريا 2019 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية لدالة أسية، دراسة دالة، مقارب، مماس أفقي، مناقشة بيانية، ودالة مرتبطة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2019 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية لدالة أسية، دراسة دالة، مقارب، مماس أفقي، مناقشة بيانية، ودالة مرتبطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2019 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4444,19 +6100,41 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">h</span> الدالة المعرفة على <span class="math-inline">R</span> كما يلي: <span class="math-line">h(x)=|x|(e<sup>|x|-2</sup>-1)+1</span><br>أ) بين أن <span class="math-inline">h</span> دالة زوجية.<br>ب) تأكد أنه من أجل كل <span class="math-inline">x</span> من المجال <span class="math-inline">[0; +&infin;[</span>: <span class="math-inline">h(x)=f(x-2)+1</span>.<br>ج) اشرح كيف يمكن إنشاء منحنى <span class="math-inline">(C<sub>h</sub>)</span> انطلاقا من <span class="math-inline">(C<sub>f</sub>)</span> على المجال <span class="math-inline">[-3;3]</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2019-topic-2-ln",
-    title: "بكالوريا الجزائر 2019 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2019 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2019",
     date: "2019",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2019 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة، دراسة دالة لوغارتمية، مشتقة، تغيرات، مماس، وتقاطع مع محور الفواصل.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2019 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة، دراسة دالة لوغارتمية، مشتقة، تغيرات، مماس، وتقاطع مع محور الفواصل.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2019 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4474,19 +6152,41 @@ window.bacAlgeriaExams = [
           <li>أ) بين أن المنحنى <span class="math-inline">(C<sub>f</sub>)</span> يقطع محور الفواصل في نقطة وحيدة <span class="math-inline">A</span> فاصلتها <span class="math-inline">&alpha;</span>.<br>ب) تحقق أن <span class="math-inline">0.7&lt;&alpha;&lt;0.8</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2018-topic-1-exp",
-    title: "بكالوريا الجزائر 2018 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2018 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2018",
     date: "2018",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "integrals", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2018 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية كسرية، نهايات، مشتقة، مقارب، مماس، تكامل ومناقشة وسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2018 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية كسرية، نهايات، مشتقة، مقارب، مماس، تكامل ومناقشة وسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2018 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4503,19 +6203,41 @@ window.bacAlgeriaExams = [
           <li>ناقش بيانيا وحسب قيم الوسيط الحقيقي <span class="math-inline">m</span> حلول المعادلة <span class="math-inline">f(x)=mx</span> حيث <span class="math-inline">x&isin;[-2;1[</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2018-topic-2-ln",
-    title: "بكالوريا الجزائر 2018 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2018 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2018",
     date: "2018",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2018 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة كسرية لوغارتمية، تغيرات، مستقيم مقارب، ومناقشة وسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2018 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة كسرية لوغارتمية، تغيرات، مستقيم مقارب، ومناقشة وسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2018 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4535,11 +6257,28 @@ window.bacAlgeriaExams = [
           <li>عين بيانيا قيم الوسيط الحقيقي <span class="math-inline">m</span> التي من أجلها تقبل المعادلة <span class="math-inline">|f(x)|=m</span> حلين متميزين.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2017-regular-topic-1-ln",
-    title: "بكالوريا الجزائر 2017 - تقني رياضي الدورة العادية الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - تقني رياضي الدورة العادية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2017",
     date: "2017",
@@ -4548,8 +6287,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "symmetry", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2017 الدورة العادية لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، نهايات، مشتقة، تناظر مركزي، حل معادلة، مقارب مائل ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2017 الدورة العادية لشعبة تقني رياضي، الموضوع الأول: دراسة دالة لوغارتمية، نهايات، مشتقة، تناظر مركزي، حل معادلة، مقارب مائل ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2017 - شعبة تقني رياضي - الدورة العادية - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4566,11 +6310,28 @@ window.bacAlgeriaExams = [
           <li>بين أن الدالة <span class="math-inline">h</span> المعرفة على <span class="math-inline">]2;+&infin;[</span> بـ: <span class="math-line">h(x)=(x-1)ln(x-1)-(x-2)ln(x-2)</span> دالة أصلية للدالة <span class="math-inline">x &mapsto; ln(<span class="frac"><span class="num">x-1</span><span class="den">x-2</span></span>)</span>.<br>استنتج، بالسنتيمتر المربع، مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات ذات المعادلات <span class="math-inline">y=-2x+3</span> و <span class="math-inline">x=&beta;</span> و <span class="math-inline">x=3</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2017-regular-topic-2-rational",
-    title: "بكالوريا الجزائر 2017 - تقني رياضي الدورة العادية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - تقني رياضي الدورة العادية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2017",
     date: "2017",
@@ -4579,8 +6340,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["study-functions", "rational-functions", "asymptotes", "area", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2017 الدورة العادية لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة تكعيبية، دراسة دالة كسرية، مقارب مائل، حصر مساحة ومتراجحات.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2017 الدورة العادية لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة تكعيبية، دراسة دالة كسرية، مقارب مائل، حصر مساحة ومتراجحات.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2017 - شعبة تقني رياضي - الدورة العادية - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4600,10 +6366,28 @@ window.bacAlgeriaExams = [
           <li>نرمز بـ <span class="math-inline">S</span> إلى مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات <span class="math-inline">x=&alpha;</span> و <span class="math-inline">x=0</span> و <span class="math-inline">y=0</span>. أثبت أنه من أجل كل <span class="math-inline">x&isin;[&alpha; ; 0]</span>: <span class="math-inline">f(x)&le;f(&alpha;)</span>، ثم بين أن <span class="math-line">-<span class="frac"><span class="num">3</span><span class="den">2</span></span>&alpha;<sup>2</sup>&le;S&le;-3&alpha;</span>.</li>
         </ol>
       </section>
-    `
-  },  {
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
+  },
+  {
     id: "bac-algeria-tech-2017-special-topic-1-ln",
-    title: "بكالوريا الجزائر 2017 - تقني رياضي الدورة الاستثنائية الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - تقني رياضي الدورة الاستثنائية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2017",
     date: "2017",
@@ -4612,8 +6396,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "area", "exceptional-session"],
-    summary: "التمرين الرابع من بكالوريا 2017 الدورة الاستثنائية لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، جذور، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2017 الدورة الاستثنائية لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، جذور، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2017 - شعبة تقني رياضي - الدورة الاستثنائية - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4638,11 +6427,28 @@ window.bacAlgeriaExams = [
           <li>ليكن <span class="math-inline">A(&lambda;)</span> مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين اللذين معادلتاهما <span class="math-inline">x=1</span> و <span class="math-inline">x=&lambda;</span> حيث <span class="math-inline">&lambda;&gt;1</span>.<br>أ) احسب <span class="math-inline">A(&lambda;)</span> بدلالة <span class="math-inline">&lambda;</span>.<br>ب) عين قيمة <span class="math-inline">&lambda;</span> حيث <span class="math-inline">A(&lambda;)=<span class="frac"><span class="num">1</span><span class="den">2</span></span>cm<sup>2</sup></span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2017-special-topic-2-exp",
-    title: "بكالوريا الجزائر 2017 - تقني رياضي الدورة الاستثنائية الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2017 - تقني رياضي الدورة الاستثنائية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2017",
     date: "2017",
@@ -4651,8 +6457,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "area", "exceptional-session"],
-    summary: "التمرين الرابع من بكالوريا 2017 الدورة الاستثنائية لشعبة تقني رياضي، الموضوع الثاني: دالة أسية، تغيرات، مقارب مائل، مماس، مناقشة وسيط، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2017 الدورة الاستثنائية لشعبة تقني رياضي، الموضوع الثاني: دالة أسية، تغيرات، مقارب مائل، مماس، مناقشة وسيط، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2017 - شعبة تقني رياضي - الدورة الاستثنائية - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4672,11 +6483,28 @@ window.bacAlgeriaExams = [
           <li>ليكن <span class="math-inline">&alpha;</span> عددا حقيقيا موجبا، ونرمز بـ <span class="math-inline">A(&alpha;)</span> إلى مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمات ذات المعادلات <span class="math-inline">x=-1</span> و <span class="math-inline">x=&alpha;</span> و <span class="math-inline">y=x+1</span>.<br>أ) احسب <span class="math-inline">A(&alpha;)</span> بدلالة <span class="math-inline">&alpha;</span>.<br>ب) احسب <span class="math-inline"><span class="lim"><strong>lim</strong><small>&alpha;&rarr;+&infin;</small></span>A(&alpha;)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2016-topic-1-ln",
-    title: "بكالوريا الجزائر 2016 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2016 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2016",
     date: "2016",
@@ -4684,8 +6512,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area", "primitive"],
-    summary: "التمرين الرابع من بكالوريا 2016 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مماس، وضعية نسبية، ودالة أصلية وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2016 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مماس، وضعية نسبية، ودالة أصلية وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2016 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4705,11 +6538,28 @@ window.bacAlgeriaExams = [
           <li>نعتبر الدالة <span class="math-inline">H</span> المعرفة على المجال <span class="math-inline">]-1; +&infin;[</span> بـ: <span class="math-line">H(x)=<span class="frac"><span class="num">1</span><span class="den">2</span></span>(x<sup>2</sup>-2x-3)ln(x+1)-<span class="frac"><span class="num">1</span><span class="den">4</span></span>x<sup>2</sup>+<span class="frac"><span class="num">3</span><span class="den">2</span></span>x</span><br>أ) بين أن <span class="math-inline">H</span> دالة أصلية للدالة <span class="math-inline">x &mapsto; (x-1)ln(x+1)</span>.<br>ب) احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C)</span> والمستقيمات <span class="math-inline">x=0</span> و <span class="math-inline">x=2</span> و <span class="math-inline">y=1</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2016-topic-2-ln",
-    title: "بكالوريا الجزائر 2016 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2016 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2016",
     date: "2016",
@@ -4717,8 +6567,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "equations", "symmetry"],
-    summary: "التمرين الرابع من بكالوريا 2016 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة، مقارب، مماس، معادلة وسيط، ودالة زوجية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2016 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة، مقارب، مماس، معادلة وسيط، ودالة زوجية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2016 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4744,11 +6599,28 @@ window.bacAlgeriaExams = [
           <li>لتكن الدالة <span class="math-inline">h</span> المعرفة على <span class="math-inline">R<sup>*</sup></span> بـ: <span class="math-line">h(x)=<span class="frac"><span class="num">ln|x|</span><span class="den">|x|+1</span></span></span><br>أ) بين أن <span class="math-inline">h</span> دالة زوجية.<br>ب) اشرح كيف يمكن رسم منحنى <span class="math-inline">(C<sub>h</sub>)</span> انطلاقا من منحنى <span class="math-inline">(C<sub>f</sub>)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2015-topic-1-ln",
-    title: "بكالوريا الجزائر 2015 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2015 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2015",
     date: "2015",
@@ -4756,8 +6628,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area", "symmetry"],
-    summary: "التمرين الرابع من بكالوريا 2015 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، مماس، مساحة، ودالة مرتبطة بتناظر.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2015 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، مماس، مساحة، ودالة مرتبطة بتناظر.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2015 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07.5 نقطة)</strong></p>
@@ -4790,11 +6667,28 @@ window.bacAlgeriaExams = [
           <li>ارسم المنحنى <span class="math-inline">(C<sub>g</sub>)</span> انطلاقا من المنحنى <span class="math-inline">(C<sub>f</sub>)</span> في نفس المعلم السابق.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2015-topic-2-exp",
-    title: "بكالوريا الجزائر 2015 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2015 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2015",
     date: "2015",
@@ -4802,8 +6696,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "area", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2015 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة أسية، دراسة دالة، مقارب مائل، جذور، ورقم مساحة باستعمال دالة أصلية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2015 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة أسية، دراسة دالة، مقارب مائل، جذور، ورقم مساحة باستعمال دالة أصلية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2015 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4828,11 +6727,28 @@ window.bacAlgeriaExams = [
           <li>أ) بين أن الدالة <span class="math-inline">x &mapsto; xe<sup>x</sup></span> هي دالة أصلية للدالة <span class="math-inline">x &mapsto; (x+1)e<sup>x</sup></span> على <span class="math-inline">R</span>.<br>ب) احسب <span class="math-inline">A</span> مساحة الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيم <span class="math-inline">(&Delta;)</span> والمستقيمين اللذين معادلتاهما <span class="math-inline">x=0</span> و <span class="math-inline">x=&alpha;</span>، حيث <span class="math-inline">&alpha;</span> هي القيمة المعرفة في السؤال 3.<br>ج) جد حصرا للعدد <span class="math-inline">A</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2014-topic-1-ln",
-    title: "بكالوريا الجزائر 2014 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2014 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2014",
     date: "2014",
@@ -4840,8 +6756,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "graphs", "trigonometric-functions", "asymptotes"],
-    summary: "التمرين الرابع من بكالوريا 2014 لشعبة تقني رياضي، الموضوع الأول: قراءة ودراسة دالة xlnx+x، دالة بقيمة مطلقة، ودالة مثلثية لوغارتمية مع مقارب.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2014 لشعبة تقني رياضي، الموضوع الأول: قراءة ودراسة دالة xlnx+x، دالة بقيمة مطلقة، ودالة مثلثية لوغارتمية مع مقارب.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2014 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4877,11 +6798,28 @@ window.bacAlgeriaExams = [
         <p><span class="math-line">h(x)=(2-cosx)ln(cosx)</span></p>
         <ol><li>بين أن المستقيم <span class="math-inline">(&Delta;)</span> ذو المعادلة <span class="math-inline">x=<span class="frac"><span class="num">&pi;</span><span class="den">2</span></span></span> مقارب للمنحنى <span class="math-inline">(C<sub>h</sub>)</span>.</li><li>ادرس اتجاه تغير الدالة <span class="math-inline">h</span> ثم شكل جدول تغيراتها وارسم <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(C<sub>h</sub>)</span>.</li></ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2014-topic-2-exp",
-    title: "بكالوريا الجزائر 2014 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2014 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2014",
     date: "2014",
@@ -4889,8 +6827,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "tangents", "equations", "symmetry", "primitive"],
-    summary: "التمرين الرابع من بكالوريا 2014 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مماس، معادلة بوسيط، دالة زوجية، ودالة أصلية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2014 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مماس، معادلة بوسيط، دالة زوجية، ودالة أصلية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2014 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4906,11 +6849,28 @@ window.bacAlgeriaExams = [
           <li><span class="math-inline">g</span> دالة معرفة على <span class="math-inline">R</span> بـ: <span class="math-inline">g(x)=(ax+b)e<sup>x</sup></span>، حيث <span class="math-inline">a</span> و <span class="math-inline">b</span> عددان حقيقيان. عين <span class="math-inline">a</span> و <span class="math-inline">b</span> حتى يكون من أجل كل <span class="math-inline">x</span> من <span class="math-inline">R</span>: <span class="math-inline">g&prime;(x)=f(x)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2013-topic-1-ln",
-    title: "بكالوريا الجزائر 2013 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2013 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2013",
     date: "2013",
@@ -4918,8 +6878,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2013 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة، دراسة دالة لوغارتمية، مقارب، مماس، ودالة أصلية وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2013 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة، دراسة دالة لوغارتمية، مقارب، مماس، ودالة أصلية وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2013 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4949,11 +6914,28 @@ window.bacAlgeriaExams = [
           <li>استنتج النتيجة الهندسية المطلوبة.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2013-topic-2-exp-ln",
-    title: "بكالوريا الجزائر 2013 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2013 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2013",
     date: "2013",
@@ -4961,8 +6943,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "ln", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2013 لشعبة تقني رياضي، الموضوع الثاني: دراسة دوال، نهايات، مشتقات، تغيرات، إنشاء بياني، ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2013 لشعبة تقني رياضي، الموضوع الثاني: دراسة دوال، نهايات، مشتقات، تغيرات، إنشاء بياني، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2013 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -4997,11 +6984,28 @@ window.bacAlgeriaExams = [
           <li>أ) تحقق أنه من أجل كل <span class="math-inline">x</span> من <span class="math-inline">]0;1]</span>: <span class="math-line"><span class="frac"><span class="num">e<sup>x</sup>-1</span><span class="den">x</span></span>&le;e-1</span>.<br>ب) استنتج أنه من أجل كل عدد طبيعي <span class="math-inline">n&ge;1</span>: <span class="math-line">ln(&alpha;<sub>n</sub>)&ge;<span class="frac"><span class="num">1-e</span><span class="den">n</span></span></span>، ثم <span class="math-inline">&alpha;<sub>n</sub>&ge;e<sup><span class="frac"><span class="num">1-e</span><span class="den">n</span></span></sup></span>.<br>ج) عين نهاية المتتالية <span class="math-inline">(&alpha;<sub>n</sub>)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2012-topic-1-exp",
-    title: "بكالوريا الجزائر 2012 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2012 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2012",
     date: "2012",
@@ -5009,8 +7013,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "equations", "composite-functions"],
-    summary: "التمرين الرابع من بكالوريا 2012 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة أسية، دراسة دالة كسرية أسية، مقاربات، معادلة بوسيط ودالة مركبة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2012 لشعبة تقني رياضي، الموضوع الأول: دالة مساعدة أسية، دراسة دالة كسرية أسية، مقاربات، معادلة بوسيط ودالة مركبة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2012 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5036,11 +7045,28 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">h</span> الدالة المعرفة على <span class="math-inline">R</span> كما يلي: <span class="math-line">h(x)=[f(x)]<sup>2</sup></span><br>أ) احسب <span class="math-inline">h&prime;(x)</span> بدلالة <span class="math-inline">f(x)</span> و <span class="math-inline">f&prime;(x)</span>، ثم استنتج إشارة <span class="math-inline">h&prime;(x)</span>.<br>ب) شكل جدول تغيرات الدالة <span class="math-inline">h</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2012-topic-2-ln",
-    title: "بكالوريا الجزائر 2012 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2012 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2012",
     date: "2012",
@@ -5048,8 +7074,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2012 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، مماس، وحلول معادلة بوسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2012 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة، مقارب مائل، مماس، وحلول معادلة بوسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2012 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5073,11 +7104,28 @@ window.bacAlgeriaExams = [
           <li>ناقش بيانيا حسب قيم الوسيط الحقيقي <span class="math-inline">m</span> عدد حلول المعادلة: <span class="math-line">(m+2)x+2lnx=0</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2011-topic-1-ln",
-    title: "بكالوريا الجزائر 2011 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2011 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2011",
     date: "2011",
@@ -5085,8 +7133,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "tangents", "primitive"],
-    summary: "التمرين الرابع من بكالوريا 2011 لشعبة تقني رياضي، الموضوع الأول: تعيين وسيطين، دراسة دالة لوغارتمية، حلول معادلة، وإنشاء دالة أصلية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2011 لشعبة تقني رياضي، الموضوع الأول: تعيين وسيطين، دراسة دالة لوغارتمية، حلول معادلة، وإنشاء دالة أصلية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2011 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (06 نقاط)</strong></p>
@@ -5099,11 +7152,28 @@ window.bacAlgeriaExams = [
           <li>أ) الدالة <span class="math-inline">h</span> معرفة على <span class="math-inline">]0; +&infin;[</span> كما يلي: <span class="math-line">h(x)=<span class="frac"><span class="num">1+ln(2x)</span><span class="den">2x</span></span></span>. احسب <span class="math-inline">h&prime;(x)</span>.<br>ب) تحقق أن: <span class="math-line">g(x)=<span class="frac"><span class="num">1</span><span class="den">4x<sup>2</sup></span></span>+<span class="frac"><span class="num">ln(2x)</span><span class="den">2x<sup>2</sup></span></span></span>، ثم استنتج دالة أصلية للدالة <span class="math-inline">g</span> على المجال <span class="math-inline">]0; +&infin;[</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2011-topic-2-exp-sequence",
-    title: "بكالوريا الجزائر 2011 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2011 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2011",
     date: "2011",
@@ -5111,8 +7181,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "sequences", "fixed-point"],
-    summary: "التمرين الرابع من بكالوريا 2011 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مستقيمات مقاربة، نقطة انعطاف، معادلة، ومتتالية معرفة بالتراجع.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2011 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة أسية، مستقيمات مقاربة، نقطة انعطاف، معادلة، ومتتالية معرفة بالتراجع.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2011 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (06 نقاط)</strong></p>
@@ -5134,11 +7209,28 @@ window.bacAlgeriaExams = [
           <li>استنتج أن <span class="math-inline">(U<sub>n</sub>)</span> متقاربة، وبين أن <span class="math-inline"><span class="lim"><strong>lim</strong><small>n&rarr;+&infin;</small></span>U<sub>n</sub>=&alpha;</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2010-topic-1-rational-exp",
-    title: "بكالوريا الجزائر 2010 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2010 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2010",
     date: "2010",
@@ -5146,8 +7238,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "equations", "symmetry"],
-    summary: "التمرين الرابع من بكالوريا 2010 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة كسرية أسية، مقاربات، جذور، تناظر، ومناقشة بيانية بوسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2010 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة كسرية أسية، مقاربات، جذور، تناظر، ومناقشة بيانية بوسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2010 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5162,11 +7259,28 @@ window.bacAlgeriaExams = [
           <li>نعتبر الدالة <span class="math-inline">g</span> المعرفة على المجال <span class="math-inline">]0; +&infin;[</span> كما يلي: <span class="math-inline">g(x)=|f(x)|</span>. ادرس تغيرات الدالة <span class="math-inline">g</span> ودون حساب <span class="math-inline">g(x)</span> بدلالة <span class="math-inline">x</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2010-topic-2-sqrt",
-    title: "بكالوريا الجزائر 2010 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2010 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2010",
     date: "2010",
@@ -5174,8 +7288,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["study-functions", "radicals", "asymptotes", "tangents", "symmetry"],
-    summary: "التمرين الرابع من بكالوريا 2010 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة بجذر، مماس، مقاربات، ودالة مرتبطة بتناظر.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2010 لشعبة تقني رياضي، الموضوع الثاني: دراسة دالة بجذر، مماس، مقاربات، ودالة مرتبطة بتناظر.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2010 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5188,11 +7307,28 @@ window.bacAlgeriaExams = [
           <li>الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> كما يلي: <span class="math-line">g(x)=|x|(1+<span class="frac"><span class="num">1</span><span class="den">&radic;<span class="radicand">x<sup>2</sup>+1</span></span></span>)</span><br>أ) بين أن الدالة <span class="math-inline">g</span> زوجية.<br>ب) ارسم منحنى الدالة <span class="math-inline">g</span> انطلاقا من <span class="math-inline">(C<sub>f</sub>)</span> في نفس المعلم السابق.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2009-topic-1-exp",
-    title: "بكالوريا الجزائر 2009 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2009 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2009",
     date: "2009",
@@ -5200,8 +7336,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "symmetry", "area", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2009 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية، تناظر، مقارب مائل، جذور، ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2009 لشعبة تقني رياضي، الموضوع الأول: دراسة دالة أسية، تناظر، مقارب مائل، جذور، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2009 - شعبة تقني رياضي - الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5218,11 +7359,28 @@ window.bacAlgeriaExams = [
           <li>احسب مساحة <span class="math-inline">A(&alpha;)</span> الحيز المستوي المحدد بالمنحنى <span class="math-inline">(C<sub>f</sub>)</span> والمستقيمات ذات المعادلات <span class="math-inline">y=x+2</span> و <span class="math-inline">y=0</span> و <span class="math-inline">x=&alpha;</span> و <span class="math-inline">x=0</span>.<br>بين أن <span class="math-inline">A(&alpha;)=2ln(-&alpha;)</span> ثم استنتج حصرا للعدد <span class="math-inline">A(&alpha;)</span>.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2009-topic-2-ln",
-    title: "بكالوريا الجزائر 2009 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2009 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2009",
     date: "2009",
@@ -5230,8 +7388,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "equations", "composition"],
-    summary: "التمرين الرابع من بكالوريا 2009 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة كسرية لوغارتمية، مستقيم مقارب، مماس، ومعادلة بوسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2009 لشعبة تقني رياضي، الموضوع الثاني: دالة مساعدة لوغارتمية، دراسة دالة كسرية لوغارتمية، مستقيم مقارب، مماس، ومعادلة بوسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block official-exam">
         <h3>بكالوريا الجزائر 2009 - شعبة تقني رياضي - الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5264,18 +7427,41 @@ window.bacAlgeriaExams = [
           <li>استنتج كلا من <span class="math-inline">(&Delta;)</span> و <span class="math-inline">(&Delta;<sub>2</sub>)</span> و <span class="math-inline">(C<sub>h</sub>)</span> في نفس المعلم السابق.</li>
         </ol>
       </section>
-    `
-  },{
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
+  },
+  {
     id: "bac-algeria-tech-2024-topic-1-exp",
-    title: "بكالوريا الجزائر 2024 - تقني رياضي الموضوع الأول",
+    title: {
+      ar: "بكالوريا الجزائر 2024 - تقني رياضي الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2024 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية، دراسة دالة أسية، مستقيم مقارب، مماس، مناقشة وسيط، وحساب مساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2024 لشعبة تقني رياضي، الموضوع الأول: قراءة بيانية، دراسة دالة أسية، مستقيم مقارب، مماس، مناقشة وسيط، وحساب مساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2024 تقني رياضي الموضوع الأول</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5406,7 +7592,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - القراءة البيانية وإشارة g</h4>
@@ -5545,19 +7745,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A=4/e cm<sup>2</sup></span>.
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "bac-algeria-tech-2024-topic-2-ln",
-    title: "بكالوريا الجزائر 2024 - تقني رياضي الموضوع الثاني",
+    title: {
+      ar: "بكالوريا الجزائر 2024 - تقني رياضي الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "tech",
     year: "2024",
     date: "2024",
     source: "inline",
     file: "",
     tags: ["ln", "study-functions", "equations"],
-    summary: "التمرين الرابع من بكالوريا 2024 لشعبة تقني رياضي، الموضوع الثاني: جدول تغيرات، دراسة دالة لوغارتمية، منحنى مقارب، مناقشة بيانية، ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2024 لشعبة تقني رياضي، الموضوع الثاني: جدول تغيرات، دراسة دالة لوغارتمية، منحنى مقارب، مناقشة بيانية، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <div class="official-exam">
         <h3>بكالوريا 2024 تقني رياضي الموضوع الثاني</h3>
         <p class="part"><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -5699,7 +7917,21 @@ window.bacAlgeriaExams = [
         </ol>
       </div>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <h3>الحل التفصيلي</h3>
 
       <h4>I - دراسة g</h4>
@@ -5719,7 +7951,7 @@ window.bacAlgeriaExams = [
           بما أن <span class="math-inline">g</span> متزايدة وتعدم عند
           <span class="math-inline">&alpha;</span>، فإن:
           <span class="math-line">g(x)&lt;0</span> إذا <span class="math-inline">-2&lt;x&lt;&alpha;</span>،
-          <span class="math-line">g(\alpha)=0</span>،
+          <span class="math-line">g(alpha)=0</span>،
           و
           <span class="math-line">g(x)&gt;0</span> إذا <span class="math-inline">x&gt;&alpha;</span>.
         </li>
@@ -5747,8 +7979,8 @@ window.bacAlgeriaExams = [
           بما أن <span class="math-inline">(x+2)<sup>2</sup>&gt;0</span>، فإن إشارة
           <span class="math-inline">f&prime;</span> هي إشارة <span class="math-inline">g</span>.
           إذن <span class="math-inline">f</span> متناقصة على
-          <span class="math-inline">]-2,\alpha]</span> ومتزايدة على
-          <span class="math-inline">[\alpha,+&infin;[</span>.
+          <span class="math-inline">]-2,alpha]</span> ومتزايدة على
+          <span class="math-inline">[alpha,+&infin;[</span>.
           <table class="variation-table" aria-label="جدول تغيرات الدالة f">
             <tr>
               <th>x</th>
@@ -5799,11 +8031,11 @@ window.bacAlgeriaExams = [
         </li>
         <li>
           بما أن <span class="math-inline">f</span> لها قيمة صغرى
-          <span class="math-inline">f(\alpha)&asymp;-0.2</span>، فإن عدد حلول
+          <span class="math-inline">f(alpha)&asymp;-0.2</span>، فإن عدد حلول
           <span class="math-inline">f(x)=m</span> هو:
-          <span class="math-line">m&lt;f(\alpha)</span>: لا حل؛
-          <span class="math-line">m=f(\alpha)</span>: حل وحيد؛
-          <span class="math-line">m&gt;f(\alpha)</span>: حلان.
+          <span class="math-line">m&lt;f(alpha)</span>: لا حل؛
+          <span class="math-line">m=f(alpha)</span>: حل وحيد؛
+          <span class="math-line">m&gt;f(alpha)</span>: حلان.
           وبالتقريب:
           <span class="math-line">m&lt;-0.2</span>: لا حل،
           <span class="math-line">m=-0.2</span>: حل وحيد،
@@ -5835,19 +8067,37 @@ window.bacAlgeriaExams = [
           <span class="math-line">A=2 cm<sup>2</sup></span>.
         </li>
       </ol>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "math-2020-topic-2-ln-asymptote",
-    title: "موضوع بكالوريا الجزائر 2020 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2020 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2020",
     date: "2020",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2020 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=ln(sqrt(9x^2+1)+3x)، الوضع النسبي مع y=x، دالة k(x)=ln(6x)، وتناظر الدالة f.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2020 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=ln(sqrt(9x^2+1)+3x)، الوضع النسبي مع y=x، دالة k(x)=ln(6x)، وتناظر الدالة f.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2020 - شعبة رياضيات - الموضوع الثاني</h3>
         <p>
@@ -5949,19 +8199,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2019-topic-1-ln-area",
-    title: "موضوع بكالوريا الجزائر 2019 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2019 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2019",
     date: "2019",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "tangents", "area", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2019 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=x-x^2lnx على [0,+∞[، نصف مماس عند مبدأ المعلم، وضعية نسبية، مماسات، مناقشة بيانية، وحساب مساحة بالتكامل.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2019 لشعبة رياضيات، الموضوع الأول: دراسة f(x)=x-x^2lnx على [0,+∞[، نصف مماس عند مبدأ المعلم، وضعية نسبية، مماسات، مناقشة بيانية، وحساب مساحة بالتكامل.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2019 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -6067,19 +8339,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2019-topic-2-exp-family",
-    title: "موضوع بكالوريا الجزائر 2019 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2019 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2019",
     date: "2019",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "area", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2019 لشعبة رياضيات، الموضوع الثاني: عائلة الدوال f_k(x)=(x+1)^2e^(-kx)، نهايات وتغيرات حسب الوسيط، ثم دراسة الحالة k=2 ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2019 لشعبة رياضيات، الموضوع الثاني: عائلة الدوال f_k(x)=(x+1)^2e^(-kx)، نهايات وتغيرات حسب الوسيط، ثم دراسة الحالة k=2 ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2019 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع</strong></p>
@@ -6181,19 +8475,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2020-topic-1-exp-parabola",
-    title: "موضوع بكالوريا الجزائر 2020 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2020 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2020",
     date: "2020",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "discussion"],
-    summary: "التمرين الرابع من بكالوريا 2020 لشعبة رياضيات، الموضوع الأول: دراسة إشارات دالتين مساعدتين، ثم دراسة f(x)=(x-3)e^x+1/2 x^2 على ]-∞;0]، وضعية نسبية مع قطع مكافئ، ومناقشة بيانية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2020 لشعبة رياضيات، الموضوع الأول: دراسة إشارات دالتين مساعدتين، ثم دراسة f(x)=(x-3)e^x+1/2 x^2 على ]-∞;0]، وضعية نسبية مع قطع مكافئ، ومناقشة بيانية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2020 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -6278,19 +8594,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2018-topic-2-exp",
-    title: "موضوع بكالوريا الجزائر 2018 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2018 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2018",
     date: "2018",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "sequences"],
-    summary: "التمرين الرابع من بكالوريا 2018 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة أسية، دراسة f(x)=1/x+(1+x)e^(-1/x)، مقارب بجوار +∞، وضعية نسبية، ومتتالية مرتبطة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2018 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة أسية، دراسة f(x)=1/x+(1+x)e^(-1/x)، مقارب بجوار +∞، وضعية نسبية، ومتتالية مرتبطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2018 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -6406,19 +8744,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2018-ln-study",
-    title: "موضوع بكالوريا الجزائر 2018 - رياضيات",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2018 - رياضيات",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2018",
     date: "2018",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area"],
-    summary: "التمرين الرابع من بكالوريا 2018 لشعبة رياضيات: دراسة دالة تتضمن 1/lnx، استمرارية واشتقاق عند الصفر، مقارب مائل، مماس، وضعية نسبية ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2018 لشعبة رياضيات: دراسة دالة تتضمن 1/lnx، استمرارية واشتقاق عند الصفر، مقارب مائل، مماس، وضعية نسبية ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2018 - شعبة رياضيات</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -6515,19 +8875,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2017-special-topic-2-exp-area",
-    title: "دورة استثنائية 2017 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "دورة استثنائية 2017 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2017",
     date: "2017",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "area"],
-    summary: "التمرين الرابع من الدورة الاستثنائية 2017 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=(x+1)^2e^-x، نقطة انعطاف، عائلة دوال f_m، منحنى ثابت، وضع نسبي ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من الدورة الاستثنائية 2017 لشعبة رياضيات، الموضوع الثاني: دراسة f(x)=(x+1)^2e^-x، نقطة انعطاف، عائلة دوال f_m، منحنى ثابت، وضع نسبي ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - دورة استثنائية - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -6613,19 +8995,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2017-special-topic-1-ln",
-    title: "دورة استثنائية 2017 - رياضيات الموضوع الأول",
+    title: {
+      ar: "دورة استثنائية 2017 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2017",
     date: "2017",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "tangents", "area", "discussion"],
-    summary: "التمرين الرابع من الدورة الاستثنائية 2017 لشعبة رياضيات، الموضوع الأول: دالة مساعدة g، دراسة دالة f على R*، تناظر، مقارب مائل، مماسان، مناقشة وسيط، ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من الدورة الاستثنائية 2017 لشعبة رياضيات، الموضوع الأول: دالة مساعدة g، دراسة دالة f على R*، تناظر، مقارب مائل، مماسان، مناقشة وسيط، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - دورة استثنائية - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع</strong></p>
@@ -6716,19 +9120,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2017-topic-2-ln-integral",
-    title: "موضوع بكالوريا الجزائر 2017 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2017 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2017",
     date: "2017",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "area"],
-    summary: "تمرين من بكالوريا 2017 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة g(x)=1/x-lnx، دراسة دالة f(x)=(x+1)/(x-lnx)، وضعية بالنسبة إلى y=1، ودالة تكاملية F.",
-    statement: `
+    summary: {
+      ar: "تمرين من بكالوريا 2017 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة g(x)=1/x-lnx، دراسة دالة f(x)=(x+1)/(x-lnx)، وضعية بالنسبة إلى y=1، ودالة تكاملية F.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - شعبة رياضيات - الموضوع الثاني</h3>
 
@@ -6816,19 +9242,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2017-topic-1-exp-discussion",
-    title: "موضوع بكالوريا الجزائر 2017 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2017 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2017",
     date: "2017",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "tangents", "discussion"],
-    summary: "تمرين من بكالوريا 2017 لشعبة رياضيات، الموضوع الأول: دراسة الدالة f(x)=(-x^3+2x^2)e^(-x+1)، مماس، وضعية نسبية، مناقشة بيانية، ودالة مركبة g(x)=f(1/x).",
-    statement: `
+    summary: {
+      ar: "تمرين من بكالوريا 2017 لشعبة رياضيات، الموضوع الأول: دراسة الدالة f(x)=(-x^3+2x^2)e^(-x+1)، مماس، وضعية نسبية، مناقشة بيانية، ودالة مركبة g(x)=f(1/x).",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2017 - شعبة رياضيات - الموضوع الأول</h3>
         <p>
@@ -6893,19 +9341,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2016-topic-2-exp-sequence",
-    title: "موضوع بكالوريا الجزائر 2016 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2016 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2016",
     date: "2016",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "tangents", "area", "sequences"],
-    summary: "التمرين الرابع من بكالوريا 2016 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة أسية، دراسة دالتين f وg، مماس، وضع نسبي ومساحة، مشتقات متتابعة ومتتالية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2016 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة أسية، دراسة دالتين f وg، مماس، وضع نسبي ومساحة، مشتقات متتابعة ومتتالية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2016 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -7019,19 +9489,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2016-topic-1-ln-sequence",
-    title: "موضوع بكالوريا الجزائر 2016 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2016 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2016",
     date: "2016",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "asymptotes", "sequences"],
-    summary: "التمرين الرابع من بكالوريا 2016 لشعبة رياضيات، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة f(x)=-x+(3+2lnx)/x، مقارب ومماس، مناقشة وسيط، ومتتالية تكاملية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2016 لشعبة رياضيات، الموضوع الأول: دالة مساعدة لوغارتمية، دراسة دالة f(x)=-x+(3+2lnx)/x، مقارب ومماس، مناقشة وسيط، ومتتالية تكاملية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2016 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (06,5 نقطة)</strong></p>
@@ -7127,19 +9619,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2015-topic-2-exp-sequence",
-    title: "موضوع بكالوريا الجزائر 2015 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2015 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2015",
     date: "2015",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "sequences"],
-    summary: "التمرين الرابع من بكالوريا 2015 لشعبة رياضيات، الموضوع الثاني: دراسة الدالة f(x)=(x-1)e^(1/x) مع تمديد عند الصفر، مقارب، دالة مساعدة، متتالية راجعة، ومعادلة وسيط.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2015 لشعبة رياضيات، الموضوع الثاني: دراسة الدالة f(x)=(x-1)e^(1/x) مع تمديد عند الصفر، مقارب، دالة مساعدة، متتالية راجعة، ومعادلة وسيط.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2015 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -7191,19 +9705,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2013-topic-2-ln",
-    title: "موضوع بكالوريا الجزائر 2013 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2013 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2013",
     date: "2013",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "tangents"],
-    summary: "التمرين الرابع من بكالوريا 2013 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية على ]-1;3]، دراسة دالة معرفة بالتجزئة، مماسات، وضعية نسبية، ومناقشة بيانية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2013 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية على ]-1;3]، دراسة دالة معرفة بالتجزئة، مماسات، وضعية نسبية، ومناقشة بيانية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2013 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (08 نقاط)</strong></p>
@@ -7305,7 +9841,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <section class="solution-block">
         <h3>الحل التفصيلي</h3>
 
@@ -7498,19 +10048,37 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "math-2013-topic-1-exp-ln",
-    title: "موضوع بكالوريا الجزائر 2013 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2013 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2013",
     date: "2013",
     source: "user-image",
     file: "",
     tags: ["exp", "ln", "study-functions", "area"],
-    summary: "التمرين الرابع من بكالوريا 2013 لشعبة رياضيات، الموضوع الأول: دوال مساعدة أسية ولوغارتمية، متراجحات، دراسة دالة f(x)=e^x-ex+lnx/x، ورسم ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2013 لشعبة رياضيات، الموضوع الأول: دوال مساعدة أسية ولوغارتمية، متراجحات، دراسة دالة f(x)=e^x-ex+lnx/x، ورسم ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2013 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع</strong></p>
@@ -7597,19 +10165,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2012-topic-2-ln",
-    title: "موضوع بكالوريا الجزائر 2012 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2012 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2012",
     date: "2012",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions", "tangents"],
-    summary: "التمرين الرابع من بكالوريا 2012 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية على ]-1;3]، دراسة دالة معرفة بالتجزئة، مماسات، وضعية نسبية، ومناقشة بيانية.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2012 لشعبة رياضيات، الموضوع الثاني: دالة مساعدة لوغارتمية على ]-1;3]، دراسة دالة معرفة بالتجزئة، مماسات، وضعية نسبية، ومناقشة بيانية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2012 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (08 نقاط)</strong></p>
@@ -7673,7 +10263,7 @@ window.bacAlgeriaExams = [
           </li>
           <li>
             <strong>ب)</strong> بيّن أن:
-            <span class="math-line">f(&alpha;)=2&alpha;(\alpha+1)</span>
+            <span class="math-line">f(&alpha;)=2&alpha;(alpha+1)</span>
             ثم عيّن حصرا لـ <span class="math-inline">f(&alpha;)</span>.
           </li>
           <li>
@@ -7710,19 +10300,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2012-topic-1-exp",
-    title: "موضوع بكالوريا الجزائر 2012 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2012 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2012",
     date: "2012",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "sequences"],
-    summary: "التمرين الرابع من بكالوريا 2012 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة دالة كسرية تتضمن e^x، مقاربات، مناقشة بيانية، ومتتالية راجعة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2012 لشعبة رياضيات، الموضوع الأول: دالة مساعدة أسية، دراسة دالة كسرية تتضمن e^x، مقاربات، مناقشة بيانية، ومتتالية راجعة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2012 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (08 نقاط)</strong></p>
@@ -7827,19 +10439,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2011-topic-2-ln",
-    title: "موضوع بكالوريا الجزائر 2011 - رياضيات الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2011 - رياضيات الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2011",
     date: "2011",
     source: "user-image",
     file: "",
     tags: ["ln", "study-functions"],
-    summary: "التمرين الرابع من بكالوريا 2011 لشعبة رياضيات، الموضوع الثاني: دراسة دالة لوغارتمية، دالة مساعدة، وضعية نسبية مع منحنى ln، تكامل بالتجزئة، ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2011 لشعبة رياضيات، الموضوع الثاني: دراسة دالة لوغارتمية، دالة مساعدة، وضعية نسبية مع منحنى ln، تكامل بالتجزئة، ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2011 - شعبة رياضيات - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -7930,19 +10564,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2011-topic-1-exp",
-    title: "موضوع بكالوريا الجزائر 2011 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2011 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2011",
     date: "2011",
     source: "user-image",
     file: "",
     tags: ["exp", "study-functions", "asymptotes"],
-    summary: "التمرين الرابع من بكالوريا 2011 لشعبة رياضيات، الموضوع الأول: دراسة الدالة f(x)=(3x+4)e^x، المشتقات المتتابعة، معادلة تفاضلية، مماس، نقطة انعطاف، ورسم ومساحة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2011 لشعبة رياضيات، الموضوع الأول: دراسة الدالة f(x)=(3x+4)e^x، المشتقات المتتابعة، معادلة تفاضلية، مماس، نقطة انعطاف، ورسم ومساحة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2011 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -8004,19 +10660,41 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2010-topic-1-exp",
-    title: "موضوع بكالوريا الجزائر 2010 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2010 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2010",
     date: "2010",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes"],
-    summary: "التمرين الرابع من بكالوريا 2010 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية مساعدة، دالة معرفة بالتجزئة، الاشتقاق عند الصفر، جدول تغيرات، ووضعية نسبية مع منحنى دالة كثيرة حدود.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2010 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية مساعدة، دالة معرفة بالتجزئة، الاشتقاق عند الصفر، جدول تغيرات، ووضعية نسبية مع منحنى دالة كثيرة حدود.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2010 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -8078,7 +10756,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <section class="solution-block">
         <h3>الحل التفصيلي</h3>
 
@@ -8205,11 +10897,24 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "science-2008-topic-1-rational-cubic",
-    title: "موضوع بكالوريا الجزائر 2008 - علوم تجريبية الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2008 - علوم تجريبية الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2008",
     date: "2008",
@@ -8218,8 +10923,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["study-functions", "rational-functions", "asymptotes", "derivatives", "graph-reading", "integrals"],
-    summary: "الموضوع الأول من بكالوريا 2008 لشعبة علوم تجريبية: قراءة بيان الدالة g، دراسة f(x)=(x³+3x²+3x+2)/(x+1)²، المشتقة، المقارب المائل، الجذر α، الرسم، ودالة أصلية.",
-    statement: `
+    summary: {
+      ar: "الموضوع الأول من بكالوريا 2008 لشعبة علوم تجريبية: قراءة بيان الدالة g، دراسة f(x)=(x³+3x²+3x+2)/(x+1)²، المشتقة، المقارب المائل، الجذر α، الرسم، ودالة أصلية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2008 - شعبة علوم تجريبية - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -8282,11 +10992,28 @@ window.bacAlgeriaExams = [
         <p><span class="math-line">F(x)=x+a+<span class="frac"><span class="num">b</span><span class="den">(x+1)<sup>2</sup></span></span></span></p>
         <p>حيث <span class="math-inline">a</span> و <span class="math-inline">b</span> عددان حقيقيان. عين <span class="math-inline">a</span> و <span class="math-inline">b</span> حتى تكون <span class="math-inline">F</span> دالة أصلية للدالة <span class="math-inline">f</span> وتحقق <span class="math-inline">F(1)=2</span>.</p>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "science-2008-topic-2-exp-cycle",
-    title: "موضوع بكالوريا الجزائر 2008 - علوم تجريبية الموضوع الثاني",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2008 - علوم تجريبية الموضوع الثاني",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "science",
     year: "2008",
     date: "2008",
@@ -8295,8 +11022,13 @@ window.bacAlgeriaExams = [
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes", "tangents", "integrals", "composite-functions"],
-    summary: "الموضوع الثاني من بكالوريا 2008 لشعبة علوم تجريبية: تعيين وسيطين في دالة أسية، دراسة g(x)=(-x-1)e^{-x}+1، مقارب أفقي، مماس، حساب بدائية وتغيرات دالة مركبة.",
-    statement: `
+    summary: {
+      ar: "الموضوع الثاني من بكالوريا 2008 لشعبة علوم تجريبية: تعيين وسيطين في دالة أسية، دراسة g(x)=(-x-1)e^{-x}+1، مقارب أفقي، مماس، حساب بدائية وتغيرات دالة مركبة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2008 - شعبة علوم تجريبية - الموضوع الثاني</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -8326,19 +11058,41 @@ window.bacAlgeriaExams = [
           <li>لتكن <span class="math-inline">k</span> الدالة المعرفة على المجال <span class="math-inline">[-2,+&infin;[</span> كما يلي: <span class="math-line">k(x)=g(x<sup>2</sup>)</span>. باستعمال مشتقة دالة مركبة، عين اتجاه تغير الدالة <span class="math-inline">k</span>، ثم شكل جدول تغيراتها.</li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
   },
   {
     id: "math-2008-topic-1-exp",
-    title: "موضوع بكالوريا الجزائر 2008 - رياضيات الموضوع الأول",
+    title: {
+      ar: "موضوع بكالوريا الجزائر 2008 - رياضيات الموضوع الأول",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "math",
     year: "2008",
     date: "2008",
     source: "inline",
     file: "",
     tags: ["exp", "study-functions", "asymptotes"],
-    summary: "التمرين الرابع من بكالوريا 2008 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية، نقطة انعطاف، مركز تناظر، مستقيمان مقاربان، وجذر وحيد ثم إنشاء منحنى دالة مرتبطة.",
-    statement: `
+    summary: {
+      ar: "التمرين الرابع من بكالوريا 2008 لشعبة رياضيات، الموضوع الأول: دراسة دالة أسية، نقطة انعطاف، مركز تناظر، مستقيمان مقاربان، وجذر وحيد ثم إنشاء منحنى دالة مرتبطة.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>بكالوريا الجزائر 2008 - شعبة رياضيات - الموضوع الأول</h3>
         <p><strong>التمرين الرابع: (07 نقاط)</strong></p>
@@ -8388,7 +11142,21 @@ window.bacAlgeriaExams = [
         </ol>
       </section>
     `,
-    solution: `
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
       <section class="solution-block">
         <h3>الحل التفصيلي</h3>
 
@@ -8458,19 +11226,37 @@ window.bacAlgeriaExams = [
           </li>
         </ol>
       </section>
-    `
+    `,
+      fr: `
+      <h3>La solution détaillée en français n'est pas encore disponible</h3>
+      <p>La solution complète sera ajoutée prochainement.</p>
+      `,
+      en: `
+      <h3>Detailed solution in English not available yet</h3>
+      <p>The complete solution will be added soon.</p>
+      `
+    }
   },
   {
     id: "management-2019-equations-ln",
-    title: "تمرين مراجعة 2019 - التسيير والاقتصاد",
+    title: {
+      ar: "تمرين مراجعة 2019 - التسيير والاقتصاد",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
     branch: "management",
     year: "2019",
     date: "2019",
     source: "inline",
     file: "",
     tags: ["ln", "equations"],
-    summary: "تمرين مركز على شروط تعريف اللوغارتم، حل معادلات بسيطة، وقراءة نتائج مرتبطة بوضعية اقتصادية.",
-    statement: `
+    summary: {
+      ar: "تمرين مركز على شروط تعريف اللوغارتم، حل معادلات بسيطة، وقراءة نتائج مرتبطة بوضعية اقتصادية.",
+      fr: "Traduction en cours...",
+      en: "Translation in progress..."
+    },
+    statement: {
+      ar: `
       <section class="statement-block">
         <h3>تمرين في الدالة اللوغارتمية</h3>
         <p>نعتبر الدالة المعرفة على المجال المناسب بالعبارة:</p>
@@ -8482,6 +11268,19 @@ window.bacAlgeriaExams = [
           <li>فسر النتيجة في سياق مقارنة كميتين اقتصاديتين تتغيران حسب x.</li>
         </ol>
       </section>
-    `
-  }];
-
+    `,
+      fr: `
+      <section class='statement-block'>
+        <h3>La traduction en français n'est pas encore disponible</h3>
+        <p>Le contenu sera ajouté prochainement.</p>
+      </section>
+      `,
+      en: `
+      <section class='statement-block'>
+        <h3>English translation not available yet</h3>
+        <p>The content will be added soon.</p>
+      </section>
+      `
+    }
+  }
+];
