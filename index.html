@@ -4641,14 +4641,67 @@
                 <button class="solution-heading-btn" type="button" data-toggle-mock-solution aria-expanded="false">حل بكالوريا المغرب 2012 استدراكية</button>
                 <div class="mock-solution-body">
                   <article>
-                    <h4>أفكار الحل المختصرة</h4>
-                    <p>لدينا <span class="math">f(-x)=-f(x)</span>، ومنه <span class="math">O</span> مركز تناظر. كما أن:</p>
-                    <div class="math-equation">f(x)=x+1-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span></div>
-                    <p>وبالاشتقاق نحصل على <span class="math">f'(x)=1+<span class="frac"><span>2e<sup>x</sup></span><span>(e<sup>x</sup>+1)<sup>2</sup></span></span>&gt;0</span>، لذلك <span class="math">f</span> متزايدة، ومع <span class="math">f(0)=0</span> و <span class="math">f'(0)=3/2</span> يكون المماس:</p>
-                    <div class="math-equation">T: y=<span class="frac"><span>3</span><span>2</span></span>x</div>
-                    <p>كذلك <span class="math">f(x)-(x+1)=-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>→0</span> عند <span class="math">+∞</span>، إذن <span class="math">D:y=x+1</span> مقارب مائل و <span class="math">(C)</span> أسفله.</p>
-                    <p>للمساحة بين <span class="math">C</span> و <span class="math">D</span> على <span class="math">[0,ln2]</span> نحسب:</p>
-                    <div class="math-equation">A=∫<sub>0</sub><sup>ln2</sup><span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>dx=2(ln4-ln3)</div>
+                    <h4>الحل المفصل</h4>
+                    <ol>
+                      <li>
+                        <strong>إثبات التناظر:</strong>
+                        <p>لدينا لكل <span class="math">x∈R</span>:</p>
+                        <div class="math-equation">f(-x)=-x+<span class="frac"><span>e<sup>-x</sup>-1</span><span>e<sup>-x</sup>+1</span></span></div>
+                        <p>نضرب بسط ومقام الكسر في <span class="math">e<sup>x</sup></span> فنحصل على:</p>
+                        <div class="math-equation"><span class="frac"><span>e<sup>-x</sup>-1</span><span>e<sup>-x</sup>+1</span></span>=<span class="frac"><span>1-e<sup>x</sup></span><span>1+e<sup>x</sup></span></span>=-<span class="frac"><span>e<sup>x</sup>-1</span><span>e<sup>x</sup>+1</span></span></div>
+                        <div class="math-equation">f(-x)=-x-<span class="frac"><span>e<sup>x</sup>-1</span><span>e<sup>x</sup>+1</span></span>=-f(x)</div>
+                        <p>إذن <span class="math">f</span> دالة فردية، ومنه يكون أصل المعلم <span class="math">O</span> مركز تناظر للمنحنى <span class="math">(C)</span>.</p>
+                      </li>
+                      <li>
+                        <strong>الكتابة الثانية للدالة:</strong>
+                        <div class="math-equation"><span class="frac"><span>e<sup>x</sup>-1</span><span>e<sup>x</sup>+1</span></span>=<span class="frac"><span>e<sup>x</sup>+1-2</span><span>e<sup>x</sup>+1</span></span>=1-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span></div>
+                        <p>وبالتالي:</p>
+                        <div class="math-equation">f(x)=x+1-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span></div>
+                      </li>
+                      <li>
+                        <strong>المشتقة والتغيرات والمماس:</strong>
+                        <p>باستعمال مشتقة خارج القسمة:</p>
+                        <div class="math-equation"><span class="frac"><span>d</span><span>dx</span></span>(<span class="frac"><span>e<sup>x</sup>-1</span><span>e<sup>x</sup>+1</span></span>)=<span class="frac"><span>e<sup>x</sup>(e<sup>x</sup>+1)-e<sup>x</sup>(e<sup>x</sup>-1)</span><span>(e<sup>x</sup>+1)<sup>2</sup></span></span>=<span class="frac"><span>2e<sup>x</sup></span><span>(e<sup>x</sup>+1)<sup>2</sup></span></span></div>
+                        <div class="math-equation">f'(x)=1+<span class="frac"><span>2e<sup>x</sup></span><span>(e<sup>x</sup>+1)<sup>2</sup></span></span></div>
+                        <p>وعند <span class="math">x=0</span>:</p>
+                        <div class="math-equation">f'(0)=1+<span class="frac"><span>2</span><span>4</span></span>=<span class="frac"><span>3</span><span>2</span></span></div>
+                        <p>وبما أن <span class="math">e<sup>x</sup>&gt;0</span> فإن <span class="math">f'(x)&gt;0</span> لكل <span class="math">x∈R</span>، إذن <span class="math">f</span> متزايدة على <span class="math">R</span>.</p>
+                        <p>كما أن <span class="math">f(0)=0</span>، لذلك معادلة المماس عند <span class="math">O</span> هي:</p>
+                        <div class="math-equation">T: y=f'(0)x+f(0)=<span class="frac"><span>3</span><span>2</span></span>x</div>
+                      </li>
+                      <li>
+                        <strong>النهاية والمقارب والوضع النسبي:</strong>
+                        <p>من الكتابة:</p>
+                        <div class="math-equation">f(x)=x+1-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span></div>
+                        <p>عندما <span class="math">x→+∞</span> نجد <span class="math">x+1→+∞</span> و <span class="math"><span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>→0</span>، إذن:</p>
+                        <div class="math-equation">lim<sub>x→+∞</sub>f(x)=+∞</div>
+                        <p>كما أن:</p>
+                        <div class="math-equation">f(x)-(x+1)=-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>→0</div>
+                        <p>إذن المستقيم <span class="math">D:y=x+1</span> مقارب مائل للمنحنى <span class="math">(C)</span> بجوار <span class="math">+∞</span>.</p>
+                        <p>ولأن <span class="math">-<span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>&lt;0</span> لكل <span class="math">x</span>، فإن:</p>
+                        <div class="math-equation">f(x)&lt;x+1</div>
+                        <p>أي إن المنحنى <span class="math">(C)</span> يقع أسفل المستقيم <span class="math">(D)</span>.</p>
+                      </li>
+                      <li>
+                        <strong>الإنشاء البياني:</strong>
+                        <p>نرسم أولا المستقيم <span class="math">D:y=x+1</span> والمماس <span class="math">T:y=<span class="frac"><span>3</span><span>2</span></span>x</span>. وبما أن <span class="math">O</span> مركز تناظر و <span class="math">f</span> متزايدة، فإننا نرسم الفرع عند <span class="math">+∞</span> أسفل المقارب <span class="math">D</span>، ثم نحصل على الفرع الآخر بالتناظر المركزي حول <span class="math">O</span>.</p>
+                      </li>
+                      <li>
+                        <strong>الدالة الأصلية والتكامل والمساحة:</strong>
+                        <p>نشتق الدالة <span class="math">H(x)=x-ln(e<sup>x</sup>+1)</span>:</p>
+                        <div class="math-equation">H'(x)=1-<span class="frac"><span>e<sup>x</sup></span><span>e<sup>x</sup>+1</span></span>=<span class="frac"><span>1</span><span>e<sup>x</sup>+1</span></span></div>
+                        <p>إذن <span class="math">H</span> دالة أصلية للدالة <span class="math">h(x)=<span class="frac"><span>1</span><span>e<sup>x</sup>+1</span></span></span>.</p>
+                        <p>نحسب:</p>
+                        <div class="math-equation">∫<sub>0</sub><sup>ln2</sup><span class="frac"><span>dx</span><span>e<sup>x</sup>+1</span></span>=H(ln2)-H(0)</div>
+                        <div class="math-equation">H(ln2)=ln2-ln3 ، H(0)=0-ln2=-ln2</div>
+                        <div class="math-equation">∫<sub>0</sub><sup>ln2</sup><span class="frac"><span>dx</span><span>e<sup>x</sup>+1</span></span>=ln2-ln3+ln2=ln4-ln3</div>
+                        <p>وبما أن <span class="math">(C)</span> أسفل <span class="math">D</span>، فإن المساحة بينهما من <span class="math">0</span> إلى <span class="math">ln2</span> هي:</p>
+                        <div class="math-equation">A=∫<sub>0</sub><sup>ln2</sup>[(x+1)-f(x)]dx</div>
+                        <div class="math-equation">A=∫<sub>0</sub><sup>ln2</sup><span class="frac"><span>2</span><span>e<sup>x</sup>+1</span></span>dx=2(ln4-ln3)</div>
+                        <p>إذن المساحة بالسنتيمتر المربع هي:</p>
+                        <div class="math-equation">A=2(ln4-ln3) cm<sup>2</sup></div>
+                      </li>
+                    </ol>
                   </article>
                 </div>
               </section>
