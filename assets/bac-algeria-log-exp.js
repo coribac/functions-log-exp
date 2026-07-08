@@ -194,6 +194,398 @@ window.bacAlgeriaExams = [
     }
   },
   {
+    id: "morocco-2012-science-normal",
+    title: {
+      ar: "موضوع بكالوريا أجنبي - المغرب 2012 - علوم تجريبية (الدورة العادية)",
+      fr: "Sujet de baccalauréat étranger - Maroc 2012 - Sciences expérimentales (Session normale)",
+      en: "Foreign baccalaureate topic - Morocco 2012 - Experimental sciences (Normal session)"
+    },
+    branch: "science",
+    year: "2012",
+    date: "2012",
+    source: "inline",
+    file: "",
+    tags: ["ln", "study-functions", "integration", "area"],
+    summary: {
+      ar: "دراسة دالة مساعدة، دراسة دالة لوغاريتمية وتحديد مقارباتها ومنحاها البياني، حساب تكامل بالتجزئة وحساب مساحة حيز مستوي.",
+      fr: "Étude d'une fonction auxiliaire, étude d'une fonction logarithme, détermination de ses asymptotes et sa courbe, intégration par parties et calcul d'aire.",
+      en: "Study of an auxiliary function, study of a logarithmic function, determination of its asymptotes and curve, integration by parts, and area calculation."
+    },
+    statement: {
+      ar: `
+      <section class="statement-block">
+        <h3>بكالوريا المغرب 2012 - شعبة علوم تجريبية (الدورة العادية)</h3>
+        <p><strong>التمرين:</strong></p>
+        <p><strong>I/</strong></p>
+        <p>نعتبر الدالة العددية <span class="math-inline">g</span> المعرفة على المجال <span class="math-inline">I = ]0, +&infin;[</span> بما يلي:</p>
+        <div class="math-line">g(x) = x<sup>2</sup> - 1 + 2x<sup>2</sup> \\\\ln x</div>
+        <ol>
+          <li>بيّن أن <span class="math-inline">x<sup>2</sup> - 1</span> و <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> لهما نفس الإشارة على المجال <span class="math-inline">]0, 1[</span>، ثم استنتج أن <span class="math-inline">g(x) \\\\le 0</span> لكل <span class="math-inline">x</span> من المجال <span class="math-inline">]0, 1]</span>.</li>
+          <li>بيّن أن <span class="math-inline">x<sup>2</sup> - 1</span> و <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> لهما نفس الإشارة على المجال <span class="math-inline">]1, +&infin;[</span>، ثم استنتج أن <span class="math-inline">g(x) \\\\ge 0</span> لكل <span class="math-inline">x</span> من المجال <span class="math-inline">[1, +&infin;[</span>.</li>
+        </ol>
+        <p><strong>II/</strong></p>
+        <p>نعتبر الدالة العددية <span class="math-inline">f</span> المعرفة على المجال <span class="math-inline">I</span> بما يلي:</p>
+        <div class="math-line">f(x) = (x<sup>2</sup> - 1) \\\\ln x</div>
+        <p>وليكن <span class="math-inline">(C)</span> منحاها الممثل في معلم متعامد ومتجانس <span class="math-inline">(O,\\\\vec{i},\\\\vec{j})</span> (نأخذ وحدة القياس <span class="math-inline">3\\\\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <strong>(أ)</strong> بيّن أن <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span> ثم فسر النتيجة هندسياً.
+            <br><strong>(ب)</strong> احسب <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x)</span>، ثم بيّن أن <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = +&infin;</span> (يمكن كتابة <span class="math-line"><span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = ( <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> ) \\\\ln x</span>) واستنتج أن المنحنى <span class="math-inline">(C)</span> يقبل فرعاً شلجمياً بجوار <span class="math-inline">+&infin;</span> يتم تحديد اتجاهه.
+          </li>
+          <li>
+            <strong>(أ)</strong> بيّن أن <span class="math-line">f'(x) = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></span> لكل <span class="math-inline">x</span> من المجال <span class="math-inline">]0, +&infin;[</span> ثم فسر هندسياً النتيجة <span class="math-line">f'(1) = 0</span>.
+            <br><strong>(ب)</strong> بيّن أن الدالة <span class="math-inline">f</span> متناقصة على المجال <span class="math-inline">]0, 1]</span> ومتزايدة على المجال <span class="math-inline">[1, +&infin;[</span>.
+            <br><strong>(جـ)</strong> ضع جدول تغيرات الدالة <span class="math-inline">f</span> على المجال <span class="math-inline">]0, +&infin;[</span>، ثم بيّن أن <span class="math-inline">f(x) \\\\ge 0</span> لكل <span class="math-inline">x</span> من المجال <span class="math-inline">]0, +&infin;[</span>.
+          </li>
+          <li>أنشئ المنحنى <span class="math-inline">(C)</span>.</li>
+          <li>
+            <strong>(أ)</strong> بيّن أن الدالة <span class="math-line">u : x \\\\rightarrow <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span> هي دالة أصلية للدالة <span class="math-line">x \\\\rightarrow x<sup>2</sup> - 1</span> على <span class="math-inline">\\mathbb{R}</span>.
+            <br><strong>(ب)</strong> بيّن، باستعمال تكامل بالتجزئة، أن:
+            <div class="math-line">\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = <span class="frac"><span class="num">2</span><span class="den">9</span></span>(1 + 3 \\\\ln 2)</div>
+            <strong>(جـ)</strong> احسب بـ <span class="math-inline">\\\\text{cm}<sup>2</sup></span> مساحة الحيز المستوي المحصور بين المنحنى <span class="math-inline">(C)</span> ومحور الأفاصيل والمستقيمين اللذين معادلتاهما <span class="math-inline">x = 1</span> و <span class="math-inline">x = 2</span>.
+          </li>
+        </ol>
+      </section>
+      `,
+      fr: `
+      <section class="statement-block">
+        <h3>Baccalauréat Maroc 2012 - Filière Sciences Expérimentales (Session normale)</h3>
+        <p><strong>Exercice :</strong></p>
+        <p><strong>Partie I</strong></p>
+        <p>On considère la fonction numérique <span class="math-inline">g</span> définie sur l'intervalle <span class="math-inline">I = ]0, +&infin;[</span> par :</p>
+        <div class="math-line">g(x) = x<sup>2</sup> - 1 + 2x<sup>2</sup> \\\\ln x</div>
+        <ol>
+          <li>Montrer que <span class="math-inline">x<sup>2</sup> - 1</span> et <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> ont le même signe sur l'intervalle <span class="math-inline">]0, 1[</span>, puis en déduire que <span class="math-inline">g(x) \\\\le 0</span> pour tout <span class="math-inline">x \\\\in ]0, 1]</span>.</li>
+          <li>Montrer que <span class="math-inline">x<sup>2</sup> - 1</span> et <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> ont le même signe sur l'intervalle <span class="math-inline">]1, +&infin;[</span>, puis en déduire que <span class="math-inline">g(x) \\\\ge 0</span> pour tout <span class="math-inline">x \\\\in [1, +&infin;[</span>.</li>
+        </ol>
+        <p><strong>Partie II</strong></p>
+        <p>On considère la fonction numérique <span class="math-inline">f</span> définie sur l'intervalle <span class="math-inline">I</span> par :</p>
+        <div class="math-line">f(x) = (x<sup>2</sup> - 1) \\\\ln x</div>
+        <p>Soit <span class="math-inline">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math-inline">(O,\\\\vec{i},\\\\vec{j})</span> (unité graphique : <span class="math-inline">3\\\\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Montrer que <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span> et interpréter le résultat géométriquement.
+            <br><strong>(b)</strong> Calculer <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x)</span>, puis montrer que <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = +&infin;</span> (remarquer que <span class="math-line"><span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = ( <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> ) \\\\ln x</span>) et en déduire que la courbe <span class="math-inline">(C)</span> admet une branche parabolique au voisinage de <span class="math-inline">+&infin;</span> dont on précisera la direction.
+          </li>
+          <li>
+            <strong>(a)</strong> Montrer que pour tout <span class="math-inline">x \\\\in ]0, +&infin;[</span> : <span class="math-line">f'(x) = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></span>, puis interpréter géométriquement le résultat <span class="math-line">f'(1) = 0</span>.
+            <br><strong>(b)</strong> Montrer que la fonction <span class="math-inline">f</span> est décroissante sur l'intervalle <span class="math-inline">]0, 1]</span> et croissante sur l'intervalle <span class="math-inline">[1, +&infin;[</span>.
+            <br><strong>(c)</strong> Dresser le tableau de variations de la fonction <span class="math-inline">f</span> sur <span class="math-inline">]0, +&infin;[</span>, puis en déduire que <span class="math-inline">f(x) \\\\ge 0</span> pour tout <span class="math-inline">x \\\\in ]0, +&infin;[</span>.
+          </li>
+          <li>Construire la courbe <span class="math-inline">(C)</span>.</li>
+          <li>
+            <strong>(a)</strong> Montrer que la fonction <span class="math-line">u : x \\\\rightarrow <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span> est une primitive de la fonction <span class="math-line">x \\\\rightarrow x<sup>2</sup> - 1</span> sur <span class="math-inline">\\mathbb{R}</span>.
+            <br><strong>(b)</strong> En utilisant une intégration par parties, montrer que :
+            <div class="math-line">\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = <span class="frac"><span class="num">2</span><span class="den">9</span></span>(1 + 3 \\\\ln 2)</div>
+            <strong>(c)</strong> Calculer en <span class="math-inline">\\\\text{cm}<sup>2</sup></span> l'aire du domaine plan limité par la courbe <span class="math-inline">(C)</span>, l'axe des abscisses et les droites d'équations <span class="math-inline">x = 1</span> et <span class="math-inline">x = 2</span>.
+          </li>
+        </ol>
+      </section>
+      `,
+      en: `
+      <section class="statement-block">
+        <h3>Morocco Baccalaureate 2012 - Experimental Sciences Stream (Normal session)</h3>
+        <p><strong>Exercise:</strong></p>
+        <p><strong>Part I</strong></p>
+        <p>Let <span class="math-inline">g</span> be the numerical function defined on the interval <span class="math-inline">I = ]0, +&infin;[</span> by:</p>
+        <div class="math-line">g(x) = x<sup>2</sup> - 1 + 2x<sup>2</sup> \\\\ln x</div>
+        <ol>
+          <li>Show that <span class="math-inline">x<sup>2</sup> - 1</span> and <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> have the same sign on the interval <span class="math-inline">]0, 1[</span>, then deduce that <span class="math-inline">g(x) \\\\le 0</span> for all <span class="math-inline">x \\\\in ]0, 1]</span>.</li>
+          <li>Show that <span class="math-inline">x<sup>2</sup> - 1</span> and <span class="math-inline">2x<sup>2</sup> \\\\ln x</span> have the same sign on the interval <span class="math-inline">]1, +&infin;[</span>, then deduce that <span class="math-inline">g(x) \\\\ge 0</span> for all <span class="math-inline">x \\\\in [1, +&infin;[</span>.</li>
+        </ol>
+        <p><strong>Part II</strong></p>
+        <p>Let <span class="math-inline">f</span> be the numerical function defined on the interval <span class="math-inline">I</span> by:</p>
+        <div class="math-line">f(x) = (x<sup>2</sup> - 1) \\\\ln x</div>
+        <p>Let <span class="math-inline">(C)</span> be its representative curve in an orthonormal coordinate system <span class="math-inline">(O,\\\\vec{i},\\\\vec{j})</span> (scale: <span class="math-inline">3\\\\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <strong>(a)</strong> Show that <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span> and interpret the result geometrically.
+            <br><strong>(b)</strong> Calculate <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x)</span>, then show that <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = +&infin;</span> (note that <span class="math-line"><span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = ( <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> ) \\\\ln x</span>) and deduce that the curve <span class="math-inline">(C)</span> has a parabolic branch near <span class="math-inline">+&infin;</span> whose direction is to be specified.
+          </li>
+          <li>
+            <strong>(a)</strong> Show that for all <span class="math-inline">x \\\\in ]0, +&infin;[</span>: <span class="math-line">f'(x) = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></span>, then geometrically interpret the result <span class="math-line">f'(1) = 0</span>.
+            <br><strong>(b)</strong> Show that the function <span class="math-inline">f</span> is decreasing on the interval <span class="math-inline">]0, 1]</span> and increasing on the interval <span class="math-inline">[1, +&infin;[</span>.
+            <br><strong>(c)</strong> Construct the variation table of <span class="math-inline">f</span> on <span class="math-inline">]0, +&infin;[</span>, then deduce that <span class="math-inline">f(x) \\\\ge 0</span> for all <span class="math-inline">x \\\\in ]0, +&infin;[</span>.
+          </li>
+          <li>Plot the curve <span class="math-inline">(C)</span>.</li>
+          <li>
+            <strong>(a)</strong> Show that the function <span class="math-line">u : x \\\\rightarrow <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span> is an antiderivative of the function <span class="math-line">x \\\\rightarrow x<sup>2</sup> - 1</span> on <span class="math-inline">\\mathbb{R}</span>.
+            <br><strong>(b)</strong> Using integration by parts, show that:
+            <div class="math-line">\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = <span class="frac"><span class="num">2</span><span class="den">9</span></span>(1 + 3 \\\\ln 2)</div>
+            <strong>(c)</strong> Calculate in <span class="math-inline">\\\\text{cm}<sup>2</sup></span> the area of the plane region bounded by the curve <span class="math-inline">(C)</span>, the x-axis, and the lines with equations <span class="math-inline">x = 1</span> and <span class="math-inline">x = 2</span>.
+          </li>
+        </ol>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
+      <h3>الحل التفصيلي</h3>
+      <h4>حل الجزء الأول</h4>
+      <ol>
+        <li>
+          <strong>دراسة الإشارة على المجال <span class="math-inline">]0, 1[</span>:</strong>
+          <br>• لدينا <span class="math-inline">x &lt; 1 \\\\implies x<sup>2</sup> &lt; 1 \\\\implies x<sup>2</sup> - 1 &lt; 0</span>.
+          <br>• ولدينا <span class="math-inline">x &lt; 1 \\\\implies \\\\ln x &lt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &lt; 0</span>.
+          <br>بما أن كلا الحدين سالبين تماماً على المجال <span class="math-inline">]0, 1[</span>، فإن مجموعهما سالب تماماً. وبما أن <span class="math-inline">g(1) = 0</span>، فإن <span class="math-inline">g(x) \\\\le 0</span> لكل <span class="math-inline">x \\\\in ]0, 1]</span>.
+        </li>
+        <li>
+          <strong>دراسة الإشارة على المجال <span class="math-inline">]1, +&infin;[</span>:</strong>
+          <br>• لدينا <span class="math-inline">x &gt; 1 \\\\implies x<sup>2</sup> &gt; 1 \\\\implies x<sup>2</sup> - 1 &gt; 0</span>.
+          <br>• ولدينا <span class="math-inline">x &gt; 1 \\\\implies \\\\ln x &gt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &gt; 0</span>.
+          <br>بما أن كلا الحدين موجبان تماماً على المجال <span class="math-inline">]1, +&infin;[</span>، فإن مجموعهما موجب تماماً. وبما أن <span class="math-inline">g(1) = 0</span>، فإن <span class="math-inline">g(x) \\\\ge 0</span> لكل <span class="math-inline">x \\\\in [1, +&infin;[</span>.
+        </li>
+      </ol>
+
+      <h4>حل الجزء الثاني</h4>
+      <ol>
+        <li>
+          <strong>(أ) النهاية عند <span class="math-inline">0<sup>+</sup></span> والتفسير الهندسي:</strong>
+          <br>لدينا <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> (x<sup>2</sup> - 1) = -1</span> و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> \\\\ln x = -&infin;</span>.
+          <br>بالجداء نحصل على: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span>.
+          <br><strong>التفسير الهندسي:</strong> يقبل المنحنى <span class="math-inline">(C)</span> مقارباً عمودياً معادلته <span class="math-inline">x = 0</span> (محور الأراتيب).
+          <br><br>
+          <strong>(ب) النهاية عند <span class="math-inline">+&infin;</span> والفرع اللانهائي:</strong>
+          <br>لدينا <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> (x<sup>2</sup> - 1) = +&infin;</span> و <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> \\\\ln x = +&infin;</span>، إذن بالجداء: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x) = +&infin;</span>.
+          <br>دراسة الفرع اللانهائي:
+          <div class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = <span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> ( x - <span class="frac"><span class="num">1</span><span class="den">x</span></span> ) \\\\ln x = +&infin;</span></div>
+          بما أن النهاية الكسرية هي <span class="math-inline">+&infin;</span>، فإن المنحنى <span class="math-inline">(C)</span> يقبل فرعاً شلجمياً بجوار <span class="math-inline">+&infin;</span> اتجاهه هو محور الأراتيب.
+        </li>
+        <li>
+          <strong>(أ) حساب المشتقة وتفسير <span class="math-inline">f'(1) = 0</span>:</strong>
+          <br>باستعمال مشتقة الجداء:
+          <div class="math-line">f'(x) = (x<sup>2</sup> - 1)' \\\\ln x + (x<sup>2</sup> - 1)(\\\\ln x)' = 2x \\\\ln x + <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">2x<sup>2</sup> \\\\ln x + x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></div>
+          بما أن <span class="math-inline">g(1) = 0</span>، فإن <span class="math-inline">f'(1) = 0</span>.
+          <br><strong>التفسير الهندسي:</strong> يقبل المنحنى مماسًا أفقيًا عند النقطة ذات الإحداثيات <span class="math-inline">(1, 0)</span>.
+          <br><br>
+          <strong>(ب) اتجاه تغير الدالة <span class="math-inline">f</span>:</strong>
+          <br>بما أن <span class="math-inline">x &gt; 0</span>، فإن إشارة المشتقة <span class="math-inline">f'(x) = \\\\frac{g(x)}{x}</span> هي نفس إشارة الدالة المساعدة <span class="math-inline">g(x)</span>:
+          <br>• على المجال <span class="math-inline">]0, 1]</span>، لدينا <span class="math-inline">g(x) \\\\le 0 \\\\implies f'(x) \\\\le 0</span>، إذن الدالة <span class="math-inline">f</span> متناقصة.
+          <br>• على المجال <span class="math-inline">[1, +&infin;[</span>، لدينا <span class="math-inline">g(x) \\\\ge 0 \\\\implies f'(x) \\\\ge 0</span>، إذن الدالة <span class="math-inline">f</span> متزايدة.
+          <br><br>
+          <strong>(جـ) جدول التغيرات وإشارة <span class="math-inline">f</span>:</strong>
+          <table class="variation-table" aria-label="جدول تغيرات الدالة f">
+            <tr>
+              <th>x</th>
+              <td class="interval">0</td>
+              <td class="interval">1</td>
+              <td class="interval">+&infin;</td>
+            </tr>
+            <tr>
+              <th>f'(x)</th>
+              <td>-</td>
+              <td>0</td>
+              <td>+</td>
+            </tr>
+            <tr>
+              <th>f(x)</th>
+              <td>+&infin;</td>
+              <td><span class="var-arrow">↘</span> 0 <span class="var-arrow">↗</span></td>
+              <td>+&infin;</td>
+            </tr>
+          </table>
+          بما أن القيمة الدنيا المطلقة للدالة هي <span class="math-inline">f(1) = 0</span>، فإن لكل <span class="math-inline">x &gt; 0</span> لدينا: <span class="math-inline">f(x) \\\\ge f(1) = 0</span>.
+        </li>
+        <li>
+          <strong>الإنشاء الهندسي:</strong>
+          <br>نرسم المماس الأفقي عند النقطة <span class="math-inline">(1, 0)</span>، المقارب العمودي <span class="math-inline">x = 0</span>، والفرع الشلجمي باتجاه محور الأراتيب بجوار <span class="math-inline">+&infin;</span>.
+        </li>
+        <li>
+          <strong>(أ) إثبات الدالة الأصلية:</strong>
+          <br>لدينا <span class="math-line">u'(x) = \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right)' = 3 \\\\cdot <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 = x<sup>2</sup> - 1</span>.
+          <br>إذن <span class="math-inline">u</span> هي دالة أصلية للدالة <span class="math-inline">x \\\\rightarrow x<sup>2</sup> - 1</span> على <span class="math-inline">\\\\mathbb{R}</span>.
+          <br><br>
+          <strong>(ب) التكامل بالتجزئة:</strong>
+          <br>نضع <span class="math-inline">w(x) = \\\\ln x \\\\implies w'(x) = <span class="frac"><span class="num">1</span><span class="den">x</span></span></span>
+          <br>ونضع <span class="math-inline">v'(x) = x<sup>2</sup> - 1 \\\\implies v(x) = <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span>
+          <div class="math-line">\\\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = \\\\left[ \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right) \\\\ln x \\\\right]_{1}^{2} - \\\\int_{1}^{2} \\\\left( <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 \\\\right) dx</div>
+          <div class="math-line">= \\\\left( \\\\frac{2}{3} \\\\ln 2 - 0 \\\\right) - \\\\left[ \\\\frac{x<sup>3</sup>}{9} - x \\\\right]_{1}^{2} = \\\\frac{2}{3} \\\\ln 2 - \\\\left( \\\\left( \\\\frac{8}{9} - 2 \\\\right) - \\\\left( \\\\frac{1}{9} - 1 \\\\right) \\\\right) = \\\\frac{2}{3} \\\\ln 2 + \\\\frac{2}{9} = \\\\frac{2}{9}(1 + 3 \\\\ln 2)</div>
+          <br>
+          <strong>(جـ) حساب المساحة:</strong>
+          <br>بما أن المنحنى يقع فوق محور الأفاصيل على المجال <span class="math-inline">[1, 2]</span>، وبما أن وحدة الأطوال هي <span class="math-inline">3\\\\text{ cm}</span> (وحدة المساحة هي <span class="math-inline">9\\\\text{ cm}<sup>2</sup></span>), فإن المساحة هي:
+          <div class="math-line">\\\\mathcal{A} = 9 \\\\times \\\\int_{1}^{2} f(x) dx = 9 \\\\times \\\\frac{2}{9}(1 + 3 \\\\ln 2) = 2(1 + 3 \\\\ln 2)\\\\text{ cm}<sup>2</sup></div>
+        </li>
+      </ol>
+      `,
+      fr: `
+      <h3>Solution Détaillée</h3>
+      <h4>Partie I</h4>
+      <ol>
+        <li>
+          <strong>Étude du signe sur <span class="math-inline">]0, 1[</span> :</strong>
+          <br>• Pour <span class="math-inline">x &lt; 1</span>, on a <span class="math-inline">x<sup>2</sup> &lt; 1 \\\\implies x<sup>2</sup> - 1 &lt; 0</span>.
+          <br>• Pour <span class="math-inline">x &lt; 1</span>, on a <span class="math-inline">\\\\ln x &lt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &lt; 0</span>.
+          <br>Puisque les deux termes sont strictement négatifs sur <span class="math-inline">]0, 1[</span>, leur somme est strictement négative. Comme <span class="math-inline">g(1) = 0</span>, on en déduit que <span class="math-inline">g(x) \\\\le 0</span> pour tout <span class="math-inline">x \\\\in ]0, 1]</span>.
+        </li>
+        <li>
+          <strong>Étude du signe sur <span class="math-inline">]1, +&infin;[</span> :</strong>
+          <br>• Pour <span class="math-inline">x &gt; 1</span>, on a <span class="math-inline">x<sup>2</sup> &gt; 1 \\\\implies x<sup>2</sup> - 1 &gt; 0</span>.
+          <br>• Pour <span class="math-inline">x &gt; 1</span>, on a <span class="math-inline">\\\\ln x &gt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &gt; 0</span>.
+          <br>Puisque les deux termes sont strictement positifs sur <span class="math-inline">]1, +&infin;[</span>, leur somme est strictement positive. Comme <span class="math-inline">g(1) = 0</span>, on en déduit que <span class="math-inline">g(x) \\\\ge 0</span> pour tout <span class="math-inline">x \\\\in [1, +&infin;[</span>.
+        </li>
+      </ol>
+
+      <h4>Partie II</h4>
+      <ol>
+        <li>
+          <strong>(a) Limite en <span class="math-inline">0<sup>+</sup></span> et interprétation géométrique :</strong>
+          <br>On a <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> (x<sup>2</sup> - 1) = -1</span> et <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> \\\\ln x = -&infin;</span>.
+          <br>Par produit, on obtient : <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span>.
+          <br><strong>Interprétation géométrique :</strong> La courbe <span class="math-inline">(C)</span> admet une asymptote verticale d'équation <span class="math-inline">x = 0</span> (l'axe des ordonnées).
+          <br><br>
+          <strong>(b) Limite en <span class="math-inline">+&infin;</span> et branche parabolique :</strong>
+          <br>On a <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> (x<sup>2</sup> - 1) = +&infin;</span> et <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> \\\\ln x = +&infin;</span>, donc par produit : <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x) = +&infin;</span>.
+          <br>Étude de la branche infinie :
+          <div class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = <span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> ( x - <span class="frac"><span class="num">1</span><span class="den">x</span></span> ) \\\\ln x = +&infin;</span></div>
+          Comme la limite du taux d'accroissement est <span class="math-inline">+&infin;</span>, la courbe <span class="math-inline">(C)</span> admet une branche parabolique de direction l'axe des ordonnées au voisinage de <span class="math-inline">+&infin;</span>.
+        </li>
+        <li>
+          <strong>(a) Dérivée de <span class="math-inline">f</span> et interprétation de <span class="math-inline">f'(1) = 0</span> :</strong>
+          <br>En utilisant la formule de dérivation d'un produit :
+          <div class="math-line">f'(x) = (x<sup>2</sup> - 1)' \\\\ln x + (x<sup>2</sup> - 1)(\\\\ln x)' = 2x \\\\ln x + <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">2x<sup>2</sup> \\\\ln x + x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></div>
+          Puisque <span class="math-inline">g(1) = 0</span>, on a <span class="math-inline">f'(1) = 0</span>.
+          <br><strong>Interprétation géométrique :</strong> La courbe admet une tangente horizontale au point de coordonnées <span class="math-inline">(1, 0)</span>.
+          <br><br>
+          <strong>(b) Variations de la fonction <span class="math-inline">f</span> :</strong>
+          <br>Comme <span class="math-inline">x &gt; 0</span>, le signe de la dérivée <span class="math-inline">f'(x) = \\\\frac{g(x)}{x}</span> est celui de la fonction auxiliaire <span class="math-inline">g(x)</span> :
+          <br>• Sur <span class="math-inline">]0, 1]</span>, on a <span class="math-inline">g(x) \\\\le 0 \\\\implies f'(x) \\\\le 0</span>, donc la fonction <span class="math-inline">f</span> est décroissante.
+          <br>• Sur <span class="math-inline">[1, +&infin;[</span>, on a <span class="math-inline">g(x) \\\\ge 0 \\\\implies f'(x) \\\\ge 0</span>, donc la fonction <span class="math-inline">f</span> est croissante.
+          <br><br>
+          <strong>(c) Tableau de variations et signe de <span class="math-inline">f</span> :</strong>
+          <table class="variation-table" aria-label="Tableau de variations de f">
+            <tr>
+              <th>x</th>
+              <td class="interval">0</td>
+              <td class="interval">1</td>
+              <td class="interval">+&infin;</td>
+            </tr>
+            <tr>
+              <th>f'(x)</th>
+              <td>-</td>
+              <td>0</td>
+              <td>+</td>
+            </tr>
+            <tr>
+              <th>f(x)</th>
+              <td>+&infin;</td>
+              <td><span class="var-arrow">↘</span> 0 <span class="var-arrow">↗</span></td>
+              <td>+&infin;</td>
+            </tr>
+          </table>
+          Le minimum absolu de la fonction est atteint en 1 avec <span class="math-inline">f(1) = 0</span>. Par conséquent, pour tout <span class="math-inline">x &gt; 0</span>, on a : <span class="math-inline">f(x) \\\\ge f(1) = 0</span>.
+        </li>
+        <li>
+          <strong>Tracé de la courbe :</strong>
+          <br>Tracer la tangente horizontale en <span class="math-inline">(1, 0)</span>, l'asymptote verticale <span class="math-inline">x = 0</span>, et la branche parabolique vers l'axe des ordonnées en <span class="math-inline">+&infin;</span>.
+        </li>
+        <li>
+          <strong>(a) Primitive :</strong>
+          <br>On a <span class="math-line">u'(x) = \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right)' = 3 \\\\cdot <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 = x<sup>2</sup> - 1</span>.
+          <br>Donc <span class="math-inline">u</span> est bien une primitive de la fonction <span class="math-inline">x \\\\rightarrow x<sup>2</sup> - 1</span> sur <span class="math-inline">\\\\right\\mathbb{R}</span>? Non, \\mathbb{R}.
+          <br><br>
+          <strong>(b) Intégration par parties :</strong>
+          <br>Posons <span class="math-inline">w(x) = \\\\ln x \\\\implies w'(x) = <span class="frac"><span class="num">1</span><span class="den">x</span></span></span>
+          <br>et <span class="math-inline">v'(x) = x<sup>2</sup> - 1 \\\\implies v(x) = <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span>.
+          <div class="math-line">\\\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = \\\\left[ \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right) \\\\ln x \\\\right]_{1}^{2} - \\\\int_{1}^{2} \\\\left( <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 \\\\right) dx</div>
+          <div class="math-line">= \\\\left( \\\\frac{2}{3} \\\\ln 2 - 0 \\\\right) - \\\\left[ \\\\frac{x<sup>3</sup>}{9} - x \\\\right]_{1}^{2} = \\\\frac{2}{3} \\\\ln 2 - \\\\left( \\\\left( \\\\frac{8}{9} - 2 \\\\right) - \\\\left( \\\\frac{1}{9} - 1 \\\\right) \\\\right) = \\\\frac{2}{3} \\\\ln 2 + \\\\frac{2}{9} = \\\\frac{2}{9}(1 + 3 \\\\ln 2)</div>
+          <br>
+          <strong>(c) Calcul d'aire :</strong>
+          <br>Comme la courbe <span class="math-inline">(C)</span> est au-dessus de l'axe des abscisses sur <span class="math-inline">[1, 2]</span> (car <span class="math-inline">f(x) \\\\ge 0</span>), et l'unité graphique est de <span class="math-inline">3\\\\text{ cm}</span> (ce qui donne une unité d'aire de <span class="math-inline">9\\\\text{ cm}<sup>2</sup></span>), l'aire du domaine est :
+          <div class="math-line">\\\\mathcal{A} = 9 \\\\times \\\\int_{1}^{2} f(x) dx = 9 \\\\times \\\\frac{2}{9}(1 + 3 \\\\ln 2) = 2(1 + 3 \\\\ln 2)\\\\text{ cm}<sup>2</sup></div>
+        </li>
+      </ol>
+      `,
+      en: `
+      <h3>Detailed Solution</h3>
+      <h4>Part I</h4>
+      <ol>
+        <li>
+          <strong>Study of the sign on the interval <span class="math-inline">]0, 1[</span>:</strong>
+          <br>• For <span class="math-inline">x &lt; 1</span>, we have <span class="math-inline">x<sup>2</sup> &lt; 1 \\\\implies x<sup>2</sup> - 1 &lt; 0</span>.
+          <br>• For <span class="math-inline">x &lt; 1</span>, we have <span class="math-inline">\\\\ln x &lt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &lt; 0</span>.
+          <br>Since both terms are strictly negative on <span class="math-inline">]0, 1[</span>, their sum is strictly negative. Since <span class="math-inline">g(1) = 0</span>, we deduce that <span class="math-inline">g(x) \\\\le 0</span> for all <span class="math-inline">x \\\\in ]0, 1]</span>.
+        </li>
+        <li>
+          <strong>Study of the sign on the interval <span class="math-inline">]1, +&infin;[</span>:</strong>
+          <br>• For <span class="math-inline">x &gt; 1</span>, we have <span class="math-inline">x<sup>2</sup> &gt; 1 \\\\implies x<sup>2</sup> - 1 &gt; 0</span>.
+          <br>• For <span class="math-inline">x &gt; 1</span>, we have <span class="math-inline">\\\\ln x &gt; 0 \\\\implies 2x<sup>2</sup> \\\\ln x &gt; 0</span>.
+          <br>Since both terms are strictly positive on <span class="math-inline">]1, +&infin;[</span>, their sum is strictly positive. Since <span class="math-inline">g(1) = 0</span>, we deduce that <span class="math-inline">g(x) \\\\ge 0</span> for all <span class="math-inline">x \\\\in [1, +&infin;[</span>.
+        </li>
+      </ol>
+
+      <h4>Part II</h4>
+      <ol>
+        <li>
+          <strong>(a) Limit at <span class="math-inline">0<sup>+</sup></span> and geometrical interpretation:</strong>
+          <br>We have <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> (x<sup>2</sup> - 1) = -1</span> and <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> \\\\ln x = -&infin;</span>.
+          <br>By product, we obtain: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;0<sup>+</sup></small></span> f(x) = +&infin;</span>.
+          <br><strong>Geometrical interpretation:</strong> The curve <span class="math-inline">(C)</span> admits a vertical asymptote with equation <span class="math-inline">x = 0</span> (the y-axis).
+          <br><br>
+          <strong>(b) Limit at <span class="math-inline">+&infin;</span> and parabolic branch:</strong>
+          <br>We have <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> (x<sup>2</sup> - 1) = +&infin;</span> and <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> \\\\ln x = +&infin;</span>, so by product: <span class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> f(x) = +&infin;</span>.
+          <br>Study of the infinite branch:
+          <div class="math-line"><span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> <span class="frac"><span class="num">f(x)</span><span class="den">x</span></span> = <span class="lim"><strong>lim</strong><small>x&rarr;+&infin;</small></span> ( x - <span class="frac"><span class="num">1</span><span class="den">x</span></span> ) \\\\ln x = +&infin;</span></div>
+          Since the limit of the ratio is <span class="math-inline">+&infin;</span>, the curve <span class="math-inline">(C)</span> has a parabolic branch in the direction of the y-axis near <span class="math-inline">+&infin;</span>.
+        </li>
+        <li>
+          <strong>(a) Derivative of <span class="math-inline">f</span> and interpretation of <span class="math-inline">f'(1) = 0</span>:</strong>
+          <br>Using the derivative of a product:
+          <div class="math-line">f'(x) = (x<sup>2</sup> - 1)' \\\\ln x + (x<sup>2</sup> - 1)(\\\\ln x)' = 2x \\\\ln x + <span class="frac"><span class="num">x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">2x<sup>2</sup> \\\\ln x + x<sup>2</sup> - 1</span><span class="den">x</span></span> = <span class="frac"><span class="num">g(x)</span><span class="den">x</span></span></div>
+          Since <span class="math-inline">g(1) = 0</span>, we have <span class="math-inline">f'(1) = 0</span>.
+          <br><strong>Geometrical interpretation:</strong> The curve admits a horizontal tangent at the point with coordinates <span class="math-inline">(1, 0)</span>.
+          <br><br>
+          <strong>(b) Variations of the function <span class="math-inline">f</span>:</strong>
+          <br>Since <span class="math-inline">x &gt; 0</span>, the sign of the derivative <span class="math-inline">f'(x) = \\\\frac{g(x)}{x}</span> is the same as the auxiliary function <span class="math-inline">g(x)</span>:
+          <br>• On <span class="math-inline">]0, 1]</span>, we have <span class="math-inline">g(x) \\\\le 0 \\\\implies f'(x) \\\\le 0</span>, so the function <span class="math-inline">f</span> is decreasing.
+          <br>• On <span class="math-inline">[1, +&infin;[</span>, we have <span class="math-inline">g(x) \\\\ge 0 \\\\implies f'(x) \\\\ge 0</span>, so the function <span class="math-inline">f</span> is increasing.
+          <br><br>
+          <strong>(c) Variation table and sign of <span class="math-inline">f</span>:</strong>
+          <table class="variation-table" aria-label="Variation table of f">
+            <tr>
+              <th>x</th>
+              <td class="interval">0</td>
+              <td class="interval">1</td>
+              <td class="interval">+&infin;</td>
+            </tr>
+            <tr>
+              <th>f'(x)</th>
+              <td>-</td>
+              <td>0</td>
+              <td>+</td>
+            </tr>
+            <tr>
+              <th>f(x)</th>
+              <td>+&infin;</td>
+              <td><span class="var-arrow">↘</span> 0 <span class="var-arrow">↗</span></td>
+              <td>+&infin;</td>
+            </tr>
+          </table>
+          The absolute minimum of the function is reached at 1 with <span class="math-inline">f(1) = 0</span>. Therefore, for all <span class="math-inline">x &gt; 0</span>, we have: <span class="math-inline">f(x) \\\\ge f(1) = 0</span>.
+        </li>
+        <li>
+          <strong>Plot of the curve:</strong>
+          <br>Plot the horizontal tangent at <span class="math-inline">(1, 0)</span>, the vertical asymptote <span class="math-inline">x = 0</span>, and the parabolic branch in the direction of the y-axis near <span class="math-inline">+&infin;</span>.
+        </li>
+        <li>
+          <strong>(a) Antiderivative:</strong>
+          <br>We have <span class="math-line">u'(x) = \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right)' = 3 \\\\cdot <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 = x<sup>2</sup> - 1</span>.
+          <br>So <span class="math-inline">u</span> is an antiderivative of the function <span class="math-inline">x \\\\rightarrow x<sup>2</sup> - 1</span> on <span class="math-inline">\\\\mathbb{R}</span>.
+          <br><br>
+          <strong>(b) Integration by parts:</strong>
+          <br>Let <span class="math-inline">w(x) = \\\\ln x \\\\implies w'(x) = <span class="frac"><span class="num">1</span><span class="den">x</span></span></span>
+          <br>and <span class="math-inline">v'(x) = x<sup>2</sup> - 1 \\\\implies v(x) = <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x</span>.
+          <div class="math-line">\\\\int_{1}^{2} (x<sup>2</sup> - 1) \\\\ln x dx = \\\\left[ \\\\left( <span class="frac"><span class="num">x<sup>3</sup></span><span class="den">3</span></span> - x \\\\right) \\\\ln x \\\\right]_{1}^{2} - \\\\int_{1}^{2} \\\\left( <span class="frac"><span class="num">x<sup>2</sup></span><span class="den">3</span></span> - 1 \\\\right) dx</div>
+          <div class="math-line">= \\\\left( \\\\frac{2}{3} \\\\ln 2 - 0 \\\\right) - \\\\left[ \\\\frac{x<sup>3</sup>}{9} - x \\\\right]_{1}^{2} = \\\\frac{2}{3} \\\\ln 2 - \\\\left( \\\\left( \\\\frac{8}{9} - 2 \\\\right) - \\\\left( \\\\frac{1}{9} - 1 \\\\right) \\\\right) = \\\\frac{2}{3} \\\\ln 2 + \\\\frac{2}{9} = \\\\frac{2}{9}(1 + 3 \\\\ln 2)</div>
+          <br>
+          <strong>(c) Area calculation:</strong>
+          <br>Since the curve <span class="math-inline">(C)</span> lies above the x-axis on <span class="math-inline">[1, 2]</span> (as <span class="math-inline">f(x) \\\\ge 0</span>), and the unit length is <span class="math-inline">3\\\\text{ cm}</span> (which gives an area unit of <span class="math-inline">9\\\\text{ cm}<sup>2</sup></span>), the area of the domain is:
+          <div class="math-line">\\\\mathcal{A} = 9 \\\\times \\\\int_{1}^{2} f(x) dx = 9 \\\\times \\\\frac{2}{9}(1 + 3 \\\\ln 2) = 2(1 + 3 \\\\ln 2)\\\\text{ cm}<sup>2</sup></div>
+        </li>
+      </ol>
+      `
+    }
+  },
+  {
     id: "science-2025-log-exp",
     title: {
       ar: "موضوع بكالوريا الجزائر 2025 - علوم تجريبية الموضوع الأول",

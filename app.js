@@ -53,6 +53,35 @@ const UI_TRANSLATIONS = {
     "bac.algeria": "بكالوريا الجزائر",
     "bac.foreign": "بكالوريا أجنبي",
     "bac.mock": "بكالوريا تجريبي",
+    "bac.mockForeignTitle": "بكالوريا تجريبي أجنبي",
+    "bac.mockForeignDesc": "باب مستقل للمواضيع التجريبية الأجنبية في الدوال الأسية واللوغارتمية، مع تركيز على صيغ طرح مختلفة ومستويات تدريب أوسع.",
+    "bac.openLearn": "فتح محاور التعلم",
+    "bac.mockForeignModels": "نماذج أجنبية",
+    "bac.mockForeignTopics": "مواضيع تجريبية خارجية",
+    "bac.mockForeignTopicsDesc": "سيضاف هنا محتوى البكالوريا التجريبية الأجنبية مع تنظيم خاص حسب نوع الموضوع والمحور.",
+    "bac.methodology": "منهجية",
+    "bac.solutionComparison": "مقارنة طرق الحل",
+    "bac.solutionComparisonDesc": "مساحة لربط أسئلة النماذج الأجنبية بطريقة حل مناسبة لتلميذ البكالوريا.",
+    "bac.challenge": "تحدي",
+    "bac.advancedTraining": "تدريب متقدم",
+    "bac.advancedTrainingDesc": "تمارين تجريبية بمستوى أعلى بعد إتقان أساسيات الدوال والنهايات والاشتقاق.",
+    "bac.foreignHeroTitle": "بكالوريا أجنبي",
+    "bac.foreignHeroDesc": "تدريب على نماذج وأسئلة خارجية قريبة من محور الدوال الأسية واللوغارتمية مع مقارنة طرق الحل.",
+    "bac.filter.country": "البلد",
+    "bac.filter.allCountries": "كل البلدان",
+    "bac.filter.france": "فرنسا",
+    "bac.filter.lebanon": "لبنان",
+    "bac.filter.morocco": "المغرب",
+    "bac.filter.tunisia": "تونس",
+    "bac.filter.branch": "الشعبة",
+    "bac.filter.allBranches": "كل الشعب",
+    "bac.filter.math": "رياضيات",
+    "bac.filter.science": "علمي",
+    "bac.filter.year": "السنة",
+    "bac.filter.allYears": "كل السنوات",
+    "bac.noMatch": "لا توجد مواضيع مطابقة",
+    "bac.changeFilters": "غيّر البلد أو الشعبة أو السنة لعرض مواضيع أخرى.",
+    "bac.availableBranches": "المواضيع لهذه السنة متوفرة في:",
     "progress.title": "تقدمي",
     "progress.reset": "تصفير التقدم",
     "ui.reviewModule": "مراجعة المحور",
@@ -135,6 +164,35 @@ const UI_TRANSLATIONS = {
     "bac.algeria": "Bac Algérie",
     "bac.foreign": "Bac étranger",
     "bac.mock": "Bac d'essai",
+    "bac.mockForeignTitle": "Bac d'essai étranger",
+    "bac.mockForeignDesc": "Espace réservé aux sujets d'essai étrangers sur les fonctions exponentielles et logarithmiques.",
+    "bac.openLearn": "Ouvrir les modules",
+    "bac.mockForeignModels": "Modèles étrangers",
+    "bac.mockForeignTopics": "Sujets d'essai étrangers",
+    "bac.mockForeignTopicsDesc": "Le contenu des bacs d'essai étrangers sera organisé ici par type de sujet et par thème.",
+    "bac.methodology": "Méthode",
+    "bac.solutionComparison": "Comparer les méthodes",
+    "bac.solutionComparisonDesc": "Un espace pour relier les questions étrangères à une méthode adaptée aux élèves du bac.",
+    "bac.challenge": "Défi",
+    "bac.advancedTraining": "Entraînement avancé",
+    "bac.advancedTrainingDesc": "Exercices d'essai plus exigeants après les bases des fonctions, limites et dérivées.",
+    "bac.foreignHeroTitle": "Bac étranger",
+    "bac.foreignHeroDesc": "Entraînement sur des sujets étrangers proches du chapitre des exponentielles et logarithmes.",
+    "bac.filter.country": "Pays",
+    "bac.filter.allCountries": "Tous les pays",
+    "bac.filter.france": "France",
+    "bac.filter.lebanon": "Liban",
+    "bac.filter.morocco": "Maroc",
+    "bac.filter.tunisia": "Tunisie",
+    "bac.filter.branch": "Filière",
+    "bac.filter.allBranches": "Toutes les filières",
+    "bac.filter.math": "Mathématiques",
+    "bac.filter.science": "Sciences",
+    "bac.filter.year": "Année",
+    "bac.filter.allYears": "Toutes les années",
+    "bac.noMatch": "Aucun sujet correspondant",
+    "bac.changeFilters": "Changez le pays, la filière ou l'année pour afficher d'autres sujets.",
+    "bac.availableBranches": "Les sujets de cette année sont disponibles en :",
     "progress.title": "Ma progression",
     "progress.reset": "Réinitialiser",
     "ui.reviewModule": "Réviser le module",
@@ -217,6 +275,35 @@ const UI_TRANSLATIONS = {
     "bac.algeria": "Algeria bac",
     "bac.foreign": "Foreign bac",
     "bac.mock": "Mock bac",
+    "bac.mockForeignTitle": "Foreign mock bac",
+    "bac.mockForeignDesc": "A separate area for foreign mock topics on exponential and logarithmic functions.",
+    "bac.openLearn": "Open learning modules",
+    "bac.mockForeignModels": "Foreign models",
+    "bac.mockForeignTopics": "Foreign mock topics",
+    "bac.mockForeignTopicsDesc": "Foreign mock bac content will be organized here by topic type and theme.",
+    "bac.methodology": "Methodology",
+    "bac.solutionComparison": "Compare solution methods",
+    "bac.solutionComparisonDesc": "A space to connect foreign questions with a method suitable for bac students.",
+    "bac.challenge": "Challenge",
+    "bac.advancedTraining": "Advanced practice",
+    "bac.advancedTrainingDesc": "Higher-level mock exercises after mastering functions, limits, and derivatives.",
+    "bac.foreignHeroTitle": "Foreign bac",
+    "bac.foreignHeroDesc": "Practice with foreign topics close to exponential and logarithmic functions.",
+    "bac.filter.country": "Country",
+    "bac.filter.allCountries": "All countries",
+    "bac.filter.france": "France",
+    "bac.filter.lebanon": "Lebanon",
+    "bac.filter.morocco": "Morocco",
+    "bac.filter.tunisia": "Tunisia",
+    "bac.filter.branch": "Stream",
+    "bac.filter.allBranches": "All streams",
+    "bac.filter.math": "Mathematics",
+    "bac.filter.science": "Science",
+    "bac.filter.year": "Year",
+    "bac.filter.allYears": "All years",
+    "bac.noMatch": "No matching topics",
+    "bac.changeFilters": "Change the country, stream, or year to show other topics.",
+    "bac.availableBranches": "Topics for this year are available in:",
     "progress.title": "My progress",
     "progress.reset": "Reset progress",
     "ui.reviewModule": "Review module",
@@ -263,6 +350,12 @@ function t(key) {
   return UI_TRANSLATIONS[lang]?.[key] || UI_TRANSLATIONS.ar[key] || key;
 }
 
+function applyUiTranslations(root = document) {
+  root.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+}
+
 function setLanguage(language, options = {}) {
   if (!UI_TRANSLATIONS[language]) return;
   if (state) state.language = language;
@@ -273,10 +366,9 @@ function setLanguage(language, options = {}) {
   const selector = document.getElementById("languageSelect");
   if (selector) selector.value = language;
   syncBacFrameLanguage(language);
-  document.querySelectorAll("[data-i18n]").forEach((node) => {
-    node.textContent = t(node.dataset.i18n);
-  });
   if (options.render !== false) renderAll();
+  applyUiTranslations();
+  applyForeignBacFilters();
 }
 const BAC_BRANCH_LABELS = {
   all: "الكل",
@@ -4313,49 +4405,214 @@ function setBacPanel(tabName) {
   if (tabName === "foreign") applyForeignBacFilters();
 }
 
-function applyForeignBacFilters() {
-  const panel = document.querySelector('[data-bac-panel="foreign"]');
+function updateForeignBacFilterFromSelect(select) {
+  if (!select?.matches?.("[data-foreign-select]")) return false;
+  const type = select.dataset.foreignSelect;
+  if (foreignBacFilters[type] === undefined) return false;
+  foreignBacFilters[type] = select.value;
+  return true;
+}
+
+function syncForeignBacFiltersFromControls(panel) {
+  panel.querySelectorAll("[data-foreign-select]").forEach((select) => {
+    updateForeignBacFilterFromSelect(select);
+  });
+}
+
+function wireForeignBacSelectControls(panel) {
+  panel.querySelectorAll("[data-foreign-select]").forEach((select) => {
+    if (select.dataset.foreignSelectBound === "true") return;
+    select.dataset.foreignSelectBound = "true";
+    const sync = () => {
+      if (updateForeignBacFilterFromSelect(select)) applyForeignBacFilters();
+    };
+    select.addEventListener("change", sync);
+    select.addEventListener("input", sync);
+  });
+}
+
+function normalizeForeignBacFilterControls(panel) {
   if (!panel) return;
+  const filterLabels = {
+    country: "bac.filter.country",
+    branch: "bac.filter.branch",
+  };
 
-  panel.querySelectorAll('[data-foreign-filter]').forEach((button) => {
-    const type = button.dataset.foreignFilter;
-    const isActive = foreignBacFilters[type] === button.dataset.foreignValue;
-    button.classList.toggle('active', isActive);
-    if (isActive) button.setAttribute('aria-current', 'true');
-    else button.removeAttribute('aria-current');
+  Object.entries(filterLabels).forEach(([type, labelKey]) => {
+    if (panel.querySelector('[data-foreign-select="' + type + '"]')) return;
+    const buttons = [...panel.querySelectorAll('[data-foreign-filter="' + type + '"]')];
+    if (!buttons.length) return;
+    const group = buttons[0].closest(".bac-filter-group");
+    const buttonWrap = buttons[0].closest(".bac-filter-buttons");
+    if (!group || !buttonWrap) return;
+
+    const select = document.createElement("select");
+    select.className = "foreign-year-select";
+    select.dataset.foreignSelect = type;
+    select.setAttribute("aria-label", t(labelKey));
+
+    buttons.forEach((button) => {
+      const option = document.createElement("option");
+      option.value = button.dataset.foreignValue || "all";
+      option.textContent = button.textContent.trim();
+      if (button.dataset.i18n) option.dataset.i18n = button.dataset.i18n;
+      select.appendChild(option);
+    });
+
+    select.value = foreignBacFilters[type] || "all";
+    buttonWrap.replaceWith(select);
   });
+}
 
-  panel.querySelectorAll('[data-foreign-select]').forEach((select) => {
-    const type = select.dataset.foreignSelect;
-    if (foreignBacFilters[type] !== undefined) select.value = foreignBacFilters[type];
-  });
+let foreignBacArchive = null;
 
-  let emptyCard = panel.querySelector('[data-foreign-empty]');
-  if (!emptyCard) {
-    emptyCard = document.createElement('article');
-    emptyCard.className = 'action-panel bac-empty-card';
-    emptyCard.dataset.foreignEmpty = 'true';
-    emptyCard.innerHTML = '<h3>لا توجد مواضيع مطابقة</h3><p>غيّر البلد أو الشعبة أو السنة لعرض مواضيع أخرى.</p>';
-    panel.querySelector('.foreign-filter-panel')?.after(emptyCard);
+function getForeignBacResultsHost(panel) {
+  let host = panel.querySelector('[data-foreign-results]');
+  if (!host) {
+    host = document.createElement('div');
+    host.className = 'foreign-results';
+    host.dataset.foreignResults = 'true';
+    panel.querySelector('.foreign-filter-panel')?.after(host);
   }
+  return host;
+}
 
-  let visibleCount = 0;
+function buildForeignBacArchive(panel) {
+  const host = getForeignBacResultsHost(panel);
+  if (foreignBacArchive?.panel === panel) return foreignBacArchive;
+
+  const groupedNodes = new Set();
   const headings = [...panel.querySelectorAll('.foreign-exam-heading[data-country]')];
-  headings.forEach((heading) => {
-    const countryMatch = foreignBacFilters.country === 'all' || heading.dataset.country === foreignBacFilters.country;
-    const branchMatch = foreignBacFilters.branch === 'all' || heading.dataset.branch === foreignBacFilters.branch;
-    const yearMatch = foreignBacFilters.year === 'all' || String(heading.dataset.year) === String(foreignBacFilters.year);
-    const isVisible = countryMatch && branchMatch && yearMatch;
-    if (isVisible) visibleCount += 1;
-
+  const groups = headings.map((heading) => {
+    const nodes = [];
     let node = heading;
-    while (node && (node === heading || !node.matches('.foreign-exam-heading[data-country]'))) {
-      node.hidden = !isVisible;
+    while (node && node !== host && (node === heading || !node.matches('.foreign-exam-heading[data-country]'))) {
+      nodes.push(node);
+      groupedNodes.add(node);
       node = node.nextElementSibling;
     }
+    return { heading, nodes };
   });
 
-  emptyCard.hidden = visibleCount > 0;
+  panel.querySelectorAll('.foreign-exam-heading[data-country], .mock-exam-paper, .mock-exam-solution').forEach((node) => {
+    if (!groupedNodes.has(node)) node.remove();
+  });
+
+  groups.forEach((group) => {
+    group.nodes.forEach((node) => {
+      setForeignBacNodeVisible(node, false);
+      host.appendChild(node);
+    });
+  });
+
+  foreignBacArchive = { panel, host, groups };
+  return foreignBacArchive;
+}
+
+function setForeignBacNodeVisible(node, visible) {
+  node.hidden = !visible;
+  node.classList.toggle("foreign-filter-hidden", !visible);
+}
+
+function applyForeignBacFilters() {
+  try {
+    const panel = document.querySelector('[data-bac-panel="foreign"]');
+    if (!panel) return;
+
+    // Move orphaned mock exams back into the foreign panel if HTML closed early
+    const parent = panel.parentNode;
+    if (parent) {
+      const orphans = parent.querySelectorAll(':scope > .foreign-exam-heading, :scope > .mock-exam-paper, :scope > .mock-exam-solution');
+      orphans.forEach((node) => {
+        panel.appendChild(node);
+      });
+    }
+
+    // Clean up corrupted leftover text accidentally appended after Morocco 2012.
+    const m12Heading = document.querySelector('.foreign-exam-heading[data-country="morocco"][data-year="2012"][data-branch="science"]');
+    if (m12Heading) {
+      let seenSolution = false;
+      let node = m12Heading.nextSibling;
+      while (node) {
+        if (node.nodeType === Node.ELEMENT_NODE && node.matches('.foreign-exam-heading')) break;
+        const next = node.nextSibling;
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const isExpectedExamNode = node.matches('.mock-exam-paper, .mock-exam-solution');
+          if (node.matches('.mock-exam-solution')) seenSolution = true;
+          if (seenSolution && !isExpectedExamNode) node.remove();
+        } else if (seenSolution && node.textContent.trim()) {
+          node.remove();
+        }
+        node = next;
+      }
+    }
+
+    normalizeForeignBacFilterControls(panel);
+    wireForeignBacSelectControls(panel);
+    syncForeignBacFiltersFromControls(panel);
+
+    panel.querySelectorAll('[data-foreign-filter]').forEach((button) => {
+      const type = button.dataset.foreignFilter;
+      const isActive = foreignBacFilters[type] === button.dataset.foreignValue;
+      button.classList.toggle('active', isActive);
+      if (isActive) button.setAttribute('aria-current', 'true');
+      else button.removeAttribute('aria-current');
+    });
+
+    panel.querySelectorAll('[data-foreign-select]').forEach((select) => {
+      const type = select.dataset.foreignSelect;
+      if (foreignBacFilters[type] !== undefined) select.value = foreignBacFilters[type];
+    });
+
+    const { host, groups } = buildForeignBacArchive(panel);
+
+    let emptyCard = panel.querySelector('[data-foreign-empty]');
+    if (!emptyCard) {
+      emptyCard = document.createElement('article');
+      emptyCard.className = 'action-panel bac-empty-card';
+      emptyCard.dataset.foreignEmpty = 'true';
+      emptyCard.innerHTML = `<h3>${t("bac.noMatch")}</h3><p>${t("bac.changeFilters")}</p>`;
+      host.before(emptyCard);
+    }
+    emptyCard.hidden = true;
+    emptyCard.classList.add('foreign-filter-hidden');
+
+    host.replaceChildren();
+
+    let visibleCount = 0;
+    groups.forEach(({ heading, nodes }) => {
+      const countryMatch = foreignBacFilters.country === 'all' || heading.dataset.country === foreignBacFilters.country;
+      const branchMatch = foreignBacFilters.branch === 'all' || heading.dataset.branch === foreignBacFilters.branch;
+      const yearMatch = foreignBacFilters.year === 'all' || String(heading.dataset.year) === String(foreignBacFilters.year);
+      const isVisible = countryMatch && branchMatch && yearMatch;
+      if (!isVisible) return;
+      visibleCount += 1;
+      nodes.forEach((node) => {
+        setForeignBacNodeVisible(node, true);
+        host.appendChild(node);
+      });
+    });
+
+    if (visibleCount === 0) {
+      emptyCard.hidden = false;
+      emptyCard.classList.remove('foreign-filter-hidden');
+    }
+  } catch (err) {
+    const errDiv = document.createElement('div');
+    errDiv.style.position = 'fixed';
+    errDiv.style.top = '0';
+    errDiv.style.left = '0';
+    errDiv.style.width = '100%';
+    errDiv.style.backgroundColor = 'red';
+    errDiv.style.color = 'white';
+    errDiv.style.zIndex = '99999';
+    errDiv.style.padding = '20px';
+    errDiv.style.fontSize = '16px';
+    errDiv.style.fontFamily = 'monospace';
+    errDiv.innerHTML = '<strong>Error in applyForeignBacFilters:</strong> ' + err.message + '<br><pre>' + err.stack + '</pre>';
+    document.body.appendChild(errDiv);
+    throw err;
+  }
 }
 function setMockBacBranch(branchName) {
   document.querySelectorAll("[data-mock-branch]").forEach((button) => {
@@ -9603,11 +9860,7 @@ function bindEvents() {
 
   document.addEventListener("change", (event) => {
     if (event.target.matches("[data-foreign-select]")) {
-      const type = event.target.dataset.foreignSelect;
-      if (foreignBacFilters[type] !== undefined) {
-        foreignBacFilters[type] = event.target.value;
-        applyForeignBacFilters();
-      }
+      if (updateForeignBacFilterFromSelect(event.target)) applyForeignBacFilters();
       return;
     }
     if (event.target.matches("[data-discussion-preset]")) {
@@ -9665,26 +9918,28 @@ function bindEvents() {
 function initSplash() {
   const splash = document.getElementById("splashScreen");
   if (!splash) return;
+  let hidden = false;
+  const hideSplash = () => {
+    if (hidden) return;
+    hidden = true;
+    splash.classList.add("is-hidden");
+    splash.setAttribute("aria-hidden", "true");
+    sessionStorage.setItem("aylaSplashSeen", "1");
+  };
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasSeen = sessionStorage.getItem("aylaSplashSeen");
   if (prefersReduced || hasSeen) {
-    splash.classList.add("is-hidden");
-    splash.setAttribute("aria-hidden", "true");
+    hideSplash();
     return;
   }
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      splash.classList.add("is-hidden");
-      splash.setAttribute("aria-hidden", "true");
-      sessionStorage.setItem("aylaSplashSeen", "1");
-    }, 400);
-  });
+  window.setTimeout(hideSplash, 900);
+  window.addEventListener("load", () => window.setTimeout(hideSplash, 400), { once: true });
 }
 
 function syncBacFrameLanguage(language = state?.language || getSavedLanguage()) {
   const frame = document.getElementById("bacFrame");
   if (!frame) return;
-  const url = new URL(frame.getAttribute("src") || "bac-exercises.html", window.location.href);
+  const url = new URL("bac-exercises.html?embed=1&v=22", window.location.href);
   url.searchParams.set("lang", language);
   const nextSrc = `${url.pathname.split("/").pop()}?${url.searchParams.toString()}`;
   if (frame.getAttribute("src") !== nextSrc) frame.setAttribute("src", nextSrc);
@@ -9695,6 +9950,15 @@ function initIframeResizer() {
   if (!frame) return;
   syncBacFrameLanguage();
   frame.removeAttribute("height");
+  window.addEventListener("message", (event) => {
+    if (event.source !== frame.contentWindow) return;
+    if (event.data?.type !== "ayla-iframe-height") return;
+    const height = Math.ceil(Number(event.data.height));
+    if (!Number.isFinite(height) || height < 320) return;
+    const nextHeight = `${Math.min(Math.max(height, 620), 1800)}px`;
+    frame.style.height = nextHeight;
+    frame.parentElement?.style.setProperty("height", nextHeight);
+  });
 }
 
 function renderAll() {
@@ -9707,6 +9971,7 @@ function renderAll() {
   applyForeignBacFilters();
   renderProgress();
   updateHome();
+  applyUiTranslations();
   enhanceMathTypography();
 }
 

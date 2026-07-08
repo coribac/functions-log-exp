@@ -19,6 +19,24 @@ const mimeTypes = {
 
 const server = http.createServer((req, res) => {
   const urlPath = new URL(req.url, `http://${req.headers.host}`).pathname;
+  
+  if (urlPath === '/git-object') {
+    const hash = new URL(req.url, `http://${req.headers.host}`).searchParams.get('hash');
+    const folder = hash.substring(0, 2);
+    const file = hash.substring(2);
+    const objectPath = path.join(__dirname, '.git', 'objects', folder, file);
+    try {
+      const data = fs.readFileSync(objectPath);
+      const decompressed = require('zlib').inflateSync(data);
+      res.writeHead(200, { 'Content-Type': 'application/octet-stream' });
+      res.end(decompressed);
+    } catch (e) {
+      res.writeHead(500);
+      res.end('Error: ' + e.message);
+    }
+    return;
+  }
+
   let filePath = '.' + urlPath;
   if (filePath === './') filePath = './index.html';
 

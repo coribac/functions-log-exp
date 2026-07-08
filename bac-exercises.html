@@ -554,34 +554,6 @@
         direction: rtl;
       }
 
-      .list-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 10px;
-      }
-
-      .list-head h2 {
-        font-size: 18px;
-      }
-
-      .exercise-list {
-        display: grid;
-        gap: 10px;
-      }
-
-      .exercise-list-panel {
-        max-height: 360px;
-        overflow-y: auto;
-      }
-
-      .exercise-list-panel > .hint {
-        text-align: center;
-        padding: 12px 0;
-        margin: 0;
-      }
-
       .exercise-card {
         width: 100%;
         min-height: 142px;
@@ -1210,15 +1182,6 @@
             <p id="bacContextText">تعرض الشعب العلمية فقط: رياضيات، تقني رياضي، وعلوم تجريبية.</p>
           </section>
 
-          <section class="card exercise-list-panel" id="exerciseListPanel">
-            <div class="list-head">
-              <h2>قائمة المواضيع</h2>
-            </div>
-            <div class="exercise-list" id="exerciseList">
-              <p class="hint">${L.chooseBranch}</p>
-            </div>
-          </section>
-
           <section class="topic-page">
             <div class="topic-toolbar">
               <div>
@@ -1366,7 +1329,6 @@
         document.getElementById('globalResetFilters').textContent = L.resetFilters;
         searchInput.placeholder = L.searchPlaceholder;
         document.getElementById('bacContextBadge').textContent = L.bacAlgeria;
-        document.querySelector('.list-head h2').textContent = L.listTitle;
         document.querySelector('.topic-toolbar h2').textContent = L.topicTitle;
         document.querySelectorAll('.stat > span')[0].textContent = L.completedStats;
         document.querySelectorAll('.stat > span')[1].textContent = L.masteryRate;
@@ -1421,7 +1383,6 @@
 
       const readerAreaEl = document.getElementById("readerArea");
       const resultsCountEl = document.getElementById("resultsCount");
-      const exerciseListEl = document.getElementById("exerciseList");
       const branchSelect = document.getElementById("branchSelect");
       const yearSelect = document.getElementById("yearSelect");
       const topicFiltersEl = document.getElementById("topicFilters");
@@ -1582,56 +1543,11 @@
           : L.topicCount(0, yearText);
       }
 
-      function renderExerciseList() {
+      function renderExerciseSelection() {
         const filtered = getFilteredExercises();
         ensureSelectedExercise(filtered);
         renderTopicPager(filtered);
         touchSelectedExercise();
-
-        if (!hasRequiredSelection()) {
-          exerciseListEl.innerHTML = `<p class="hint">${L.chooseBranch}</p>`;
-          return;
-        }
-        if (!filtered.length) {
-          exerciseListEl.innerHTML = `<p class="hint">${L.noMatch}.</p>`;
-          return;
-        }
-
-        exerciseListEl.innerHTML = filtered
-          .map((exercise) => {
-            const isActive = exercise.id === selectedExercise?.id;
-            const status = getStatus(exercise.id);
-            const statusBadge =
-              status === "completed"
-                ? `<span class="badge green">${L.statusLabels.completed}</span>`
-                : status === "tried"
-                ? `<span class="badge amber">${L.statusLabels.tried}</span>`
-                : "";
-            return `
-              <button class="exercise-card ${isActive ? "active" : ""}" type="button" data-exercise-id="${exercise.id}" aria-current="${isActive}">
-                <div class="chip-row">
-                  <span class="badge blue">${escapeHtml(exercise.year)}</span>
-                  ${exercise.topics.map((topic) => `<span class="badge">${escapeHtml(topicLabels[topic] || topic)}</span>`).join("")}
-                  ${statusBadge}
-                </div>
-                <h3 >${escapeHtml(exercise.title)}</h3>
-                <p class="hint exam-copy">${escapeHtml(exercise.summary || exercise.text || "")}</p>
-              </button>
-            `;
-          })
-          .join("");
-
-        exerciseListEl.querySelectorAll("[data-exercise-id]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const exercise = exercises.find((item) => item.id === button.dataset.exerciseId);
-            if (!exercise) return;
-            selectedExercise = exercise;
-            openSolutionId = null;
-            render();
-            const target = readerAreaEl.querySelector(`[data-reader-exercise-id="${CSS.escape(exercise.id)}"]`);
-            (target || readerAreaEl).scrollIntoView({ behavior: "smooth", block: "start" });
-          });
-        });
       }
 
       function getStatementFallback(exercise) {
@@ -1818,7 +1734,7 @@
 
       function render() {
         renderFilters();
-        renderExerciseList();
+        renderExerciseSelection();
         renderReader();
         renderStats();
         notifyHeight();

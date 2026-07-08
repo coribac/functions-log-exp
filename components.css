@@ -1,4 +1,4 @@
-﻿.lessons-grid,
+.lessons-grid,
 .teacher-grid,
 .badges-grid,
 .bac-exam-grid {
@@ -3287,3 +3287,7 @@ html[dir="ltr"] .solution-panel {
   direction: ltr;
   text-align: left;
 }
+
+html[lang="ar"] .lang-fr, html[lang="ar"] .lang-en { display: none !important; }
+html[lang="fr"] .lang-ar, html[lang="fr"] .lang-en { display: none !important; }
+html[lang="en"] .lang-ar, html[lang="en"] .lang-fr { display: none !important; }
