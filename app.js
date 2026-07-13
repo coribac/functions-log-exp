@@ -1,4 +1,4 @@
-﻿const STORAGE_KEY = "ayla-log-exp-progress-v2";
+const STORAGE_KEY = "ayla-log-exp-progress-v2";
 
 const LANGUAGE_KEY = "ayla-ui-language";
 
@@ -106,6 +106,7 @@ const UI_TRANSLATIONS = {
     "ui.deepPlaceholderTitle": "تمارين للتعمق",
     "ui.deepPlaceholderDesc": "سيضاف هنا باب خاص بتمارين أعمق بعد تمارين الكتاب المدرسي.",
     "ui.declicExercise": "تمرين",
+    "ui.deepExercise": "تمرين تعمق",
     "ui.confirmReset": "هل أنت متأكد من تصفير تقدمك؟ لا يمكن التراجع عن هذا الإجراء.",
     "unit.modules": "محاور",
     "unit.activity": "نشاط",
@@ -217,6 +218,7 @@ const UI_TRANSLATIONS = {
     "ui.deepPlaceholderTitle": "Exercices d'approfondissement",
     "ui.deepPlaceholderDesc": "Des exercices plus avancés seront ajoutés ici après ceux du manuel.",
     "ui.declicExercise": "Exercice",
+    "ui.deepExercise": "Exercice d'approfondissement",
     "ui.confirmReset": "Voulez-vous vraiment réinitialiser votre progression ? Cette action est irréversible.",
     "unit.modules": "modules",
     "unit.activity": "activité",
@@ -328,6 +330,7 @@ const UI_TRANSLATIONS = {
     "ui.deepPlaceholderTitle": "Deep practice exercises",
     "ui.deepPlaceholderDesc": "More advanced exercises will be added here after the textbook exercises.",
     "ui.declicExercise": "Exercise",
+    "ui.deepExercise": "Deep exercise",
     "ui.confirmReset": "Are you sure you want to reset your progress? This cannot be undone.",
     "unit.modules": "modules",
     "unit.activity": "activity",
@@ -356,6 +359,16 @@ function applyUiTranslations(root = document) {
   });
 }
 
+function applyLanguageVisibility(root = document) {
+  const lang = state?.language || getSavedLanguage();
+  const activeClass = `lang-${lang}`;
+  root.querySelectorAll(".lang-ar, .lang-fr, .lang-en").forEach((node) => {
+    const isActive = node.classList.contains(activeClass);
+    node.hidden = !isActive;
+    node.classList.toggle("foreign-filter-hidden", !isActive);
+  });
+}
+
 function setLanguage(language, options = {}) {
   if (!UI_TRANSLATIONS[language]) return;
   if (state) state.language = language;
@@ -369,6 +382,7 @@ function setLanguage(language, options = {}) {
   if (options.render !== false) renderAll();
   applyUiTranslations();
   applyForeignBacFilters();
+  applyLanguageVisibility();
 }
 const BAC_BRANCH_LABELS = {
   all: "الكل",
@@ -4026,6 +4040,33 @@ function getModuleText(module, field) {
   return MODULE_TRANSLATIONS[state?.language]?.[module.id]?.[field] || module[field];
 }
 
+function setMockBacBranch(branchName) {
+  document.querySelectorAll("[data-mock-branch]").forEach((button) => {
+    const isActive = button.dataset.mockBranch === branchName;
+    button.classList.toggle("active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "true");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+  document.querySelectorAll("[data-mock-panel]").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.mockPanel === branchName);
+  });
+}
+
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { completed: [], lastModuleId: modules[0]?.id };
+  } catch {
+    return { completed: [], lastModuleId: modules[0]?.id };
+  }
+}
+
+function saveProgress() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+}
+
 const CONTENT_HTML_TRANSLATIONS = {
   fr: {
     "نشاط 1: بناء خواص الدالة الأسية": "Activité 1 : construire les propriétés de la fonction exponentielle",
@@ -4477,12 +4518,37 @@ function getForeignBacResultsHost(panel) {
   return host;
 }
 
+function collectForeignBacOrphans(panel) {
+  let moved = false;
+  document.querySelectorAll('.foreign-exam-heading[data-country]').forEach((heading) => {
+    if (panel.contains(heading)) return;
+    let node = heading;
+    while (node && !panel.contains(node)) {
+      if (node !== heading && node.matches?.('.foreign-exam-heading[data-country]')) break;
+      const next = node.nextElementSibling;
+      if (node.matches?.('.foreign-exam-heading[data-country], .mock-exam-paper, .mock-exam-solution')) {
+        panel.appendChild(node);
+        moved = true;
+      }
+      node = next;
+      if (node?.matches?.('.foreign-exam-heading[data-country]')) break;
+    }
+  });
+  if (moved) foreignBacArchive = null;
+}
+
 function buildForeignBacArchive(panel) {
   const host = getForeignBacResultsHost(panel);
   if (foreignBacArchive?.panel === panel) return foreignBacArchive;
 
   const groupedNodes = new Set();
-  const headings = [...panel.querySelectorAll('.foreign-exam-heading[data-country]')];
+  const seenHeadingKeys = new Set();
+  const headings = [...panel.querySelectorAll('.foreign-exam-heading[data-country]')].filter((heading) => {
+    const key = [heading.dataset.country || '', heading.dataset.branch || '', heading.dataset.year || '', heading.textContent.trim()].join('|');
+    if (seenHeadingKeys.has(key)) return false;
+    seenHeadingKeys.add(key);
+    return true;
+  });
   const groups = headings.map((heading) => {
     const nodes = [];
     let node = heading;
@@ -4527,6 +4593,8 @@ function applyForeignBacFilters() {
         panel.appendChild(node);
       });
     }
+
+    collectForeignBacOrphans(panel);
 
     // Clean up corrupted leftover text accidentally appended after Morocco 2012.
     const m12Heading = document.querySelector('.foreign-exam-heading[data-country="morocco"][data-year="2012"][data-branch="science"]');
@@ -4614,7 +4682,7 @@ function applyForeignBacFilters() {
     throw err;
   }
 }
-function setMockBacBranch(branchName) {
+function setMockBacBranch_duplicate(branchName) {
   document.querySelectorAll("[data-mock-branch]").forEach((button) => {
     const isActive = button.dataset.mockBranch === branchName;
     button.classList.toggle("active", isActive);
@@ -4624,21 +4692,6 @@ function setMockBacBranch(branchName) {
       button.removeAttribute("aria-current");
     }
   });
-  document.querySelectorAll("[data-mock-panel]").forEach((panel) => {
-    panel.classList.toggle("active", panel.dataset.mockPanel === branchName);
-  });
-}
-
-function loadProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { completed: [], lastModuleId: modules[0]?.id };
-  } catch {
-    return { completed: [], lastModuleId: modules[0]?.id };
-  }
-}
-
-function saveProgress() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
 }
 
 function escapeHtml(value) {
@@ -4998,6 +5051,5448 @@ const declicExercises = [
   }
 ];
 
+const deepExercises = [
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية وحساب مساحات",
+      fr: "Problème d'approfondissement : Étude de fonction, primitive et aires",
+      en: "Deepening Problem: Function Study, Antiderivative and Area Calculation"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة على <span class="math">R<sup>*</sup></span> كما يلي:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>x - 1</span><span>x<sup>2</sup></span></span> + ln|x|</div>
+        <p>وليكن <span class="math">(C_f)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهاية للمنحنى <span class="math">(C_f)</span>.</li>
+          <li>اكتب معادلتي المماسين لـ <span class="math">(C_f)</span> في النقطتين اللتين فاصلتاهما <span class="math">-1</span> و <span class="math">1</span> وأرسمهما.</li>
+          <li>
+            <ol type="a">
+              <li>احسب: <span class="math">f(-4)</span>، <span class="math">f(-3)</span>، <span class="math">f(-2)</span>، <span class="math">f(2)</span>، <span class="math">f(3)</span>، <span class="math">f(4)</span>.</li>
+              <li>بيّن وجود عدد حقيقي وحيد <span class="math">x<sub>0</sub></span> بحيث: <span class="math">-3 &lt; x<sub>0</sub> &lt; -2</span> و <span class="math">f(x<sub>0</sub>) = 0</span>.</li>
+              <li>ارسم المنحنى <span class="math">(C_f)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>بيّن أن الدالة العددية <span class="math">x ↦ x ln|x| - x</span> أصلية للدالة العددية <span class="math">x ↦ ln|x|</span> على <span class="math">R<sup>*</sup></span>.</li>
+              <li>جد دالة أصلية للدالة <span class="math">f</span> على المجال <span class="math">]0, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>ليكن <span class="math">λ</span> عدداً حقيقياً بحيث <span class="math">λ &gt; 1</span>.
+            <ol type="a">
+              <li>احسب المساحة <span class="math">S(λ)</span> للحيز المستوي المحدد بالمنحنى <span class="math">(C_f)</span> والمستقيمات التي معادلاتها: <span class="math">y = 0</span>، <span class="math">x = 1</span>، <span class="math">x = λ</span>.</li>
+              <li>عيّن قيمة <span class="math">λ</span> بحيث يكون: <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie sur <span class="math">R<sup>*</sup></span> par :</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>x - 1</span><span>x<sup>2</sup></span></span> + ln|x|</div>
+        <p>Soit <span class="math">(C_f)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span> et les branches infinies de la courbe <span class="math">(C_f)</span>.</li>
+          <li>Écrire les équations des deux tangentes à la courbe <span class="math">(C_f)</span> aux points d'abscisses <span class="math">-1</span> et <span class="math">1</span>, puis les tracer.</li>
+          <li>
+            <ol type="a">
+              <li>Calculer les valeurs approchées de : <span class="math">f(-4)</span>, <span class="math">f(-3)</span>, <span class="math">f(-2)</span>, <span class="math">f(2)</span>, <span class="math">f(3)</span>, <span class="math">f(4)</span>.</li>
+              <li>Montrer qu'il existe un unique réel <span class="math">x<sub>0</sub></span> tel que <span class="math">-3 &lt; x<sub>0</sub> &lt; -2</span> et <span class="math">f(x<sub>0</sub>) = 0</span>.</li>
+              <li>Tracer la courbe <span class="math">(C_f)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Montrer que la fonction <span class="math">x ↦ x ln|x| - x</span> est une primitive de <span class="math">x ↦ ln|x|</span> sur <span class="math">R<sup>*</sup></span>.</li>
+              <li>Déterminer une primitive de la fonction <span class="math">f</span> sur l'intervalle <span class="math">]0, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>Soit <span class="math">λ</span> un réel tel que <span class="math">λ &gt; 1</span>.
+            <ol type="a">
+              <li>Calculer l'aire <span class="math">S(λ)</span> du domaine délimité par la courbe <span class="math">(C_f)</span> et les droites d'équations : <span class="math">y = 0</span>, <span class="math">x = 1</span>, <span class="math">x = λ</span>.</li>
+              <li>Déterminer <span class="math">λ</span> tel que : <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined on <span class="math">R<sup>*</sup></span> by:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>x - 1</span><span>x<sup>2</sup></span></span> + ln|x|</div>
+        <p>Let <span class="math">(C_f)</span> be its representative curve in an orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C_f)</span>.</li>
+          <li>Write down the equations of the two tangents to the curve <span class="math">(C_f)</span> at points with abscissas <span class="math">-1</span> and <span class="math">1</span>, and draw them.</li>
+          <li>
+            <ol type="a">
+              <li>Compute the approximate values of: <span class="math">f(-4)</span>, <span class="math">f(-3)</span>, <span class="math">f(-2)</span>, <span class="math">f(2)</span>, <span class="math">f(3)</span>, <span class="math">f(4)</span>.</li>
+              <li>Show that there exists a unique real number <span class="math">x<sub>0</sub></span> such that <span class="math">-3 &lt; x<sub>0</sub> &lt; -2</span> and <span class="math">f(x<sub>0</sub>) = 0</span>.</li>
+              <li>Draw the curve <span class="math">(C_f)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Show that the function <span class="math">x ↦ x ln|x| - x</span> is an antiderivative of the function <span class="math">x ↦ ln|x|</span> on <span class="math">R<sup>*</sup></span>.</li>
+              <li>Find an antiderivative of the function <span class="math">f</span> on the interval <span class="math">]0, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>Let <span class="math">λ</span> be a real number such that <span class="math">λ &gt; 1</span>.
+            <ol type="a">
+              <li>Calculate the area <span class="math">S(λ)</span> of the plane region bounded by the curve <span class="math">(C_f)</span> and the lines with equations: <span class="math">y = 0</span>, <span class="math">x = 1</span>, <span class="math">x = λ</span>.</li>
+              <li>Find the value of <span class="math">λ</span> such that: <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <strong>دراسة التغيرات والفروع اللانهائية:</strong>
+            <ul>
+              <li><strong>مجموعة التعريف:</strong> <span class="math">D<sub>f</sub> = ]-∞, 0[ ∪ ]0, +∞[</span>.</li>
+              <li><strong>النهايات:</strong>
+                <br />عند <span class="math">-∞</span>: <span class="math">lim<sub>x→-∞</sub> f(x) = +∞</span> لأن <span class="math">lim<sub>x→-∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> و <span class="math">lim<sub>x→-∞</sub> ln|x| = +∞</span>.
+                <br />عند <span class="math">0</span>: <span class="math">lim<sub>x→0</sub> f(x) = -∞</span> لأن <span class="math">lim<sub>x→0</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = -∞</span> و <span class="math">lim<sub>x→0</sub> ln|x| = -∞</span>.
+                <br />عند <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> لأن <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> و <span class="math">lim<sub>x→+∞</sub> ln|x| = +∞</span>.
+              </li>
+              <li><strong>المشتقة وإشارتها:</strong> من أجل كل <span class="math">x ≠ 0</span>:
+                <div class="math-equation">f'(x) = <span class="frac"><span>x<sup>2</sup> - x + 2</span><span>x<sup>3</sup></span></span></div>
+                بما أن البسط <span class="math">x<sup>2</sup> - x + 2</span> موجب تماماً دوماً (المميز <span class="math">Δ = -7 &lt; 0</span>)، فإن إشارة المشتقة هي إشارة المقام <span class="math">x<sup>3</sup></span> (أي نفس إشارة <span class="math">x</span>):
+                <br />- على المجال <span class="math">]-∞, 0[</span>: <span class="math">f'(x) &lt; 0</span>، فالدالة متناقصة تماماً.
+                <br />- على المجال <span class="math">]0, +∞[</span>: <span class="math">f'(x) &gt; 0</span>، فالدالة متزايدة تماماً.
+              </li>
+              <li><strong>الفروع اللانهائية:</strong>
+                <br />- المستقيم <span class="math">x = 0</span> مقارب عمودي للمنحنى.
+                <br />- بما أن <span class="math">lim<sub>x→±∞</sub> <span class="frac"><span>f(x)</span><span>x</span></span> = 0</span>، فإن المنحنى يقبل فرعاً مكافئاً باتجاه محور الفواصل بجوار <span class="math">±∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>معادلتا المماسين:</strong>
+            <ul>
+              <li>عند <span class="math">x = 1</span>: لدينا <span class="math">f(1) = 0</span> و <span class="math">f'(1) = 2</span>، ومنه معادلة المماس <span class="math">(T<sub>1</sub>)</span> هي: <span class="math">y = 2x - 2</span>.</li>
+              <li>عند <span class="math">x = -1</span>: لدينا <span class="math">f(-1) = -2</span> و <span class="math">f'(-1) = -4</span>، ومنه معادلة المماس <span class="math">(T<sub>-1</sub>)</span> هي: <span class="math">y = -4x - 6</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- القيم المقربة:</strong>
+                <span class="math">f(-4) ≈ 1.08</span>، <span class="math">f(-3) ≈ 0.66</span>، <span class="math">f(-2) ≈ -0.06</span>، <span class="math">f(2) ≈ 0.94</span>، <span class="math">f(3) ≈ 1.32</span>، <span class="math">f(4) ≈ 1.58</span>.
+              </li>
+              <li><strong>ب- مبرهنة القيم المتوسطة:</strong> الدالة مستمرة ورتيبة تماماً (متناقصة) على المجال <span class="math">[-3, -2]</span>، ولدينا <span class="math">f(-3) &gt; 0</span> و <span class="math">f(-2) &lt; 0</span>. إذن، حسب مبرهنة القيم المتوسطة، تقبل المعادلة <span class="math">f(x) = 0</span> حلاً وحيداً <span class="math">x<sub>0</sub></span> في هذا المجال.</li>
+              <li><strong>ج- الرسم:</strong> يرسم المنحنى بفرعيه الأيمن والأيسر مع إظهار المماسات والتقاطعات والمقاربات.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- إثبات الدالة الأصلية:</strong> مشتقة <span class="math">x ↦ x ln|x| - x</span> هي <span class="math">1·ln|x| + x·(<span class="frac"><span>1</span><span>x</span></span>) - 1 = ln|x|</span>. إذن هي دالة أصلية لها.</li>
+              <li><strong>ب- دالة أصلية للدالة f على المجال ]0, +∞[:</strong>
+                <div class="math-equation">F(x) = (1 + x) ln x + <span class="frac"><span>1</span><span>x</span></span> - x</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- حساب المساحة:</strong> بما أن <span class="math">f(x) &gt; 0</span> على المجال <span class="math">[1, λ]</span>:
+                <div class="math-equation">S(λ) = F(λ) - F(1) = (1 + λ) ln λ + <span class="frac"><span>1</span><span>λ</span></span> - λ</div>
+              </li>
+              <li><strong>ب- إيجاد قيمة λ:</strong>
+                <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span> تكافئ <span class="math"><span class="frac"><span>1</span><span>λ</span></span> - λ = -<span class="frac"><span>3</span><span>2</span></span></span>.
+                <br />بالضرب في <span class="math">2λ</span> نجد: <span class="math">2λ<sup>2</sup> - 3λ - 2 = 0</span>. المميز هو <span class="math">Δ = 25</span>.
+                <br />الحلان هما <span class="math">λ = 2</span> أو <span class="math">λ = -0.5</span>. وبما أن <span class="math">λ &gt; 1</span> فإن القيمة المقبولة هي <span class="math">λ = 2</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <strong>Étude des variations et branches infinies :</strong>
+            <ul>
+              <li><strong>Domaine de définition :</strong> <span class="math">D<sub>f</sub> = ]-∞, 0[ ∪ ]0, +∞[</span>.</li>
+              <li><strong>Limites :</strong>
+                <br />En <span class="math">-∞</span> : <span class="math">lim<sub>x→-∞</sub> f(x) = +∞</span> car <span class="math">lim<sub>x→-∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> et <span class="math">lim<sub>x→-∞</sub> ln|x| = +∞</span>.
+                <br />En <span class="math">0</span> : <span class="math">lim<sub>x→0</sub> f(x) = -∞</span> car <span class="math">lim<sub>x→0</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = -∞</span> et <span class="math">lim<sub>x→0</sub> ln|x| = -∞</span>.
+                <br />En <span class="math">+∞</span> : <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> car <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> et <span class="math">lim<sub>x→+∞</sub> ln|x| = +∞</span>.
+              </li>
+              <li><strong>Dérivée et signe :</strong> Pour tout <span class="math">x ≠ 0</span> :
+                <div class="math-equation">f'(x) = <span class="frac"><span>x<sup>2</sup> - x + 2</span><span>x<sup>3</sup></span></span></div>
+                Puisque le numérateur <span class="math">x<sup>2</sup> - x + 2</span> est strictement positif (le discriminant <span class="math">Δ = -7 &lt; 0</span>), le signe de la dérivée est celui de <span class="math">x<sup>3</sup></span> (c'est-à-dire celui de <span class="math">x</span>) :
+                <br />- Sur <span class="math">]-∞, 0[</span> : <span class="math">f'(x) &lt; 0</span>, donc <span class="math">f</span> est strictement décroissante.
+                <br />- Sur <span class="math">]0, +∞[</span> : <span class="math">f'(x) &gt; 0</span>, donc <span class="math">f</span> est strictement croissante.
+              </li>
+              <li><strong>Branches infinies :</strong>
+                <br />- La droite d'équation <span class="math">x = 0</span> est une asymptote verticale à la courbe.
+                <br />- Comme <span class="math">lim<sub>x→±∞</sub> <span class="frac"><span>f(x)</span><span>x</span></span> = 0</span>, la courbe admet une branche parabolique de direction l'axe des abscisses au voisinage de <span class="math">±∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Tangentes :</strong>
+            <ul>
+              <li>En <span class="math">x = 1</span> : on a <span class="math">f(1) = 0</span> et <span class="math">f'(1) = 2</span>. L'équation de la tangente <span class="math">(T<sub>1</sub>)</span> est : <span class="math">y = 2x - 2</span>.</li>
+              <li>En <span class="math">x = -1</span> : on a <span class="math">f(-1) = -2</span> et <span class="math">f'(-1) = -4</span>. L'équation de la tangente <span class="math">(T<sub>-1</sub>)</span> est : <span class="math">y = -4x - 6</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Valeurs approchées :</strong>
+                <span class="math">f(-4) ≈ 1,08</span>, <span class="math">f(-3) ≈ 0,66</span>, <span class="math">f(-2) ≈ -0,06</span>, <span class="math">f(2) ≈ 0,94</span>, <span class="math">f(3) ≈ 1,32</span>, <span class="math">f(4) ≈ 1,58</span>.
+              </li>
+              <li><strong>b- Théorème des valeurs intermédiaires :</strong> La fonction <span class="math">f</span> est continue et strictement décroissante sur <span class="math">[-3, -2]</span>. Comme <span class="math">f(-3) &gt; 0</span> et <span class="math">f(-2) &lt; 0</span>, il existe d'après le théorème des valeurs intermédiaires une unique solution réelle <span class="math">x<sub>0</sub></span> à l'équation <span class="math">f(x) = 0</span> sur cet intervalle.</li>
+              <li><strong>c- Tracé :</strong> On trace la courbe en représentant ses deux branches, les tangentes et les asymptotes.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Primitive de ln|x| :</strong> La dérivée de la fonction <span class="math">x ↦ x ln|x| - x</span> est bien <span class="math">1·ln|x| + x·(<span class="frac"><span>1</span><span>x</span></span>) - 1 = ln|x|</span>.</li>
+              <li><strong>b- Primitive de f sur ]0, +∞[ :</strong>
+                <div class="math-equation">F(x) = (1 + x) ln x + <span class="frac"><span>1</span><span>x</span></span> - x</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Calcul d'aire :</strong> Puisque <span class="math">f(x) &gt; 0</span> sur <span class="math">[1, λ]</span> :
+                <div class="math-equation">S(λ) = F(λ) - F(1) = (1 + λ) ln λ + <span class="frac"><span>1</span><span>λ</span></span> - λ</div>
+              </li>
+              <li><strong>b- Détermination de λ :</strong>
+                L'équation <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span> équivaut à <span class="math"><span class="frac"><span>1</span><span>λ</span></span> - λ = -<span class="frac"><span>3</span><span>2</span></span></span>.
+                <br />En multipliant par <span class="math">2λ</span>, on obtient : <span class="math">2λ<sup>2</sup> - 3λ - 2 = 0</span>. Le discriminant est <span class="math">Δ = 25</span>.
+                <br />Les solutions sont <span class="math">λ = 2</span> et <span class="math">λ = -0,5</span>. Comme <span class="math">λ &gt; 1</span>, la valeur retenue est <span class="math">λ = 2</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <strong>Study of variations and infinite branches:</strong>
+            <ul>
+              <li><strong>Domain of definition:</strong> <span class="math">D<sub>f</sub> = ]-∞, 0[ ∪ ]0, +∞[</span>.</li>
+              <li><strong>Limits:</strong>
+                <br />At <span class="math">-∞</span>: <span class="math">lim<sub>x→-∞</sub> f(x) = +∞</span> because <span class="math">lim<sub>x→-∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> and <span class="math">lim<sub>x→-∞</sub> ln|x| = +∞</span>.
+                <br />At <span class="math">0</span>: <span class="math">lim<sub>x→0</sub> f(x) = -∞</span> because <span class="math">lim<sub>x→0</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = -∞</span> and <span class="math">lim<sub>x→0</sub> ln|x| = -∞</span>.
+                <br />At <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> because <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>x-1</span><span>x<sup>2</sup></span></span> = 0</span> and <span class="math">lim<sub>x→+∞</sub> ln|x| = +∞</span>.
+              </li>
+              <li><strong>Derivative and its sign:</strong> For all <span class="math">x ≠ 0</span>:
+                <div class="math-equation">f'(x) = <span class="frac"><span>x<sup>2</sup> - x + 2</span><span>x<sup>3</sup></span></span></div>
+                Since the numerator <span class="math">x<sup>2</sup> - x + 2</span> is always strictly positive (discriminant <span class="math">Δ = -7 &lt; 0</span>), the sign of the derivative is the same as the sign of <span class="math">x<sup>3</sup></span> (which is the same as the sign of <span class="math">x</span>):
+                <br />- On the interval <span class="math">]-∞, 0[</span>: <span class="math">f'(x) &lt; 0</span>, so the function is strictly decreasing.
+                <br />- On the interval <span class="math">]0, +∞[</span>: <span class="math">f'(x) &gt; 0</span>, so the function is strictly increasing.
+              </li>
+              <li><strong>Infinite branches:</strong>
+                <br />- The line <span class="math">x = 0</span> is a vertical asymptote to the curve.
+                <br />- Since <span class="math">lim<sub>x→±∞</sub> <span class="frac"><span>f(x)</span><span>x</span></span> = 0</span>, the curve has a parabolic branch in the direction of the x-axis as <span class="math">x ↦ ±∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Tangent equations:</strong>
+            <ul>
+              <li>At <span class="math">x = 1</span>: we have <span class="math">f(1) = 0</span> and <span class="math">f'(1) = 2</span>, so the tangent equation <span class="math">(T<sub>1</sub>)</span> is: <span class="math">y = 2x - 2</span>.</li>
+              <li>At <span class="math">x = -1</span>: we have <span class="math">f(-1) = -2</span> and <span class="math">f'(-1) = -4</span>, so the tangent equation <span class="math">(T<sub>-1</sub>)</span> is: <span class="math">y = -4x - 6</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Approximate values:</strong>
+                <span class="math">f(-4) ≈ 1.08</span>, <span class="math">f(-3) ≈ 0.66</span>, <span class="math">f(-2) ≈ -0.06</span>, <span class="math">f(2) ≈ 0.94</span>, <span class="math">f(3) ≈ 1.32</span>, <span class="math">f(4) ≈ 1.58</span>.
+              </li>
+              <li><strong>b- Intermediate Value Theorem:</strong> The function is continuous and strictly decreasing on the interval <span class="math">[-3, -2]</span>, and we have <span class="math">f(-3) &gt; 0</span> and <span class="math">f(-2) &lt; 0</span>. Therefore, by the Intermediate Value Theorem, the equation <span class="math">f(x) = 0</span> has a unique solution <span class="math">x<sub>0</sub></span> in this interval.</li>
+              <li><strong>c- Plot:</strong> Plot the curve showing both branches, tangents, and asymptotes.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Antiderivative proof:</strong> The derivative of <span class="math">x ↦ x ln|x| - x</span> is indeed <span class="math">1·ln|x| + x·(<span class="frac"><span>1</span><span>x</span></span>) - 1 = ln|x|</span>.</li>
+              <li><strong>b- Antiderivative of f on ]0, +∞[:</strong>
+                <div class="math-equation">F(x) = (1 + x) ln x + <span class="frac"><span>1</span><span>x</span></span> - x</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Area calculation:</strong> Since <span class="math">f(x) &gt; 0</span> on the interval <span class="math">[1, λ]</span>:
+                <div class="math-equation">S(λ) = F(λ) - F(1) = (1 + λ) ln λ + <span class="frac"><span>1</span><span>λ</span></span> - λ</div>
+              </li>
+              <li><strong>b- Finding the value of λ:</strong>
+                The equation <span class="math">S(λ) = -<span class="frac"><span>3</span><span>2</span></span> + (1 + λ) ln λ</span> simplifies to <span class="math"><span class="frac"><span>1</span><span>λ</span></span> - λ = -<span class="frac"><span>3</span><span>2</span></span></span>.
+                <br />Multiplying by <span class="math">2λ</span> gives: <span class="math">2λ<sup>2</sup> - 3λ - 2 = 0</span>. The discriminant is <span class="math">Δ = 25</span>.
+                <br />The roots are <span class="math">λ = 2</span> and <span class="math">λ = -0.5</span>. Since <span class="math">λ &gt; 1</span>, the only accepted value is <span class="math">λ = 2</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية ومناقشة بيانية وحساب مساحات",
+      fr: "Problème d'approfondissement : Étude de fonction logarithme, discussion graphique et calcul d'aires",
+      en: "Deepening Problem: Logarithmic Function Study, Monotonicity and Area"
+    },
+    statementHtml: {
+      ar: `
+        <p><strong>الجزء الأول:</strong></p>
+        <p>نعتبر الدالة العددية <span class="math">g</span> المعرفة على المجال <span class="math">]0, +∞[</span> كما يلي:</p>
+        <div class="math-equation">g(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</div>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">g</span> (لا يُطلب إنشاء المنحنى الممثل للدالة <span class="math">g</span>).</li>
+          <li>استنتج أنه من أجل كل <span class="math">x ∈ ]0, +∞[</span>: <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.</li>
+        </ol>
+        <p><strong>الجزء الثاني:</strong></p>
+        <p>لتكن الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> المعرفة على <span class="math">]0, +∞[</span> كما يلي:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>ln x</span><span>x</span></span></div>
+        <p>ونسمي <span class="math">(C_f)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>أثبت أنه من أجل كل <span class="math">x ∈ ]0, +∞[</span>: <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.</li>
+              <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>أثبت أن <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = 0</span>، واستنتج أن المنحنى <span class="math">(C_f)</span> يقبل مستقيماً مقارباً مائلاً يطلب تحديد معادلته.</li>
+              <li>عين إحداثيات نقطة تقاطع <span class="math">(C_f)</span> مع هذا المستقيم المقارب.</li>
+            </ol>
+          </li>
+          <li>أثبت أن المنحنى <span class="math">(C_f)</span> يقبل نقطة انعطاف يطلب تعيين إحداثييها.</li>
+          <li>ليكن <span class="math">(Δ)</span> المماس للمنحنى <span class="math">(C_f)</span> في نقطة فاصلتها <span class="math">x<sub>0</sub></span>.
+            <br />عيّن قيمة <span class="math">x<sub>0</sub></span> إذا كان معامل توجيه المماس <span class="math">(Δ)</span> هو <span class="math"><span class="frac"><span>1</span><span>2</span></span></span>، ثم اكتب معادلة المماس <span class="math">(Δ)</span>.
+          </li>
+          <li>أثبت أن المنحنى <span class="math">(C_f)</span> يقطع حامل محور الفواصل في نقطة فاصلتها <span class="math">x<sub>1</sub></span> حيث: <span class="math"><span class="frac"><span>1</span><span>2</span></span> &lt; x<sub>1</sub> &lt; 1</span>.</li>
+          <li>أنشئ المماس <span class="math">(Δ)</span> والمنحنى <span class="math">(C_f)</span> (نأخذ وحدة القياس: <span class="math">2cm</span>).</li>
+          <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C_f)</span> والمستقيم المقارب المائل والمستقيمين اللذين معادلتاهما <span class="math">x = 1</span> و <span class="math">x = e</span>.</li>
+          <li>ناقش بيانياً، وحسب قيم الوسيط الحقيقي <span class="math">m</span>، وجود وعدد نقاط تقاطع المنحنى <span class="math">(C_f)</span> مع المستقيم ذي المعادلة: <span class="math">y = <span class="frac"><span>1</span><span>2</span></span>x + m</span>.</li>
+        </ol>
+      `,
+      fr: `
+        <p><strong>Partie I :</strong></p>
+        <p>Soit la fonction numérique <span class="math">g</span> définie sur <span class="math">]0, +∞[</span> par :</p>
+        <div class="math-equation">g(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</div>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">g</span> (la courbe représentative de <span class="math">g</span> n'est pas demandée).</li>
+          <li>En déduire que pour tout <span class="math">x ∈ ]0, +∞[</span> : <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.</li>
+        </ol>
+        <p><strong>Partie II :</strong></p>
+        <p>Soit la fonction numérique <span class="math">f</span> définie sur <span class="math">]0, +∞[</span> par :</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>ln x</span><span>x</span></span></div>
+        <p>Soit <span class="math">(C_f)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Démontrer que pour tout <span class="math">x ∈ ]0, +∞[</span> : <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.</li>
+              <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Démontrer que <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = 0</span>, et en déduire que la courbe <span class="math">(C_f)</span> admet une asymptote oblique dont on déterminera l'équation.</li>
+              <li>Déterminer les coordonnées du point d'intersection de <span class="math">(C_f)</span> avec cette asymptote.</li>
+            </ol>
+          </li>
+          <li>Montrer que la courbe <span class="math">(C_f)</span> admet un point d'inflexion dont on déterminera les coordonnées.</li>
+          <li>Soit <span class="math">(Δ)</span> la tangente à la courbe <span class="math">(C_f)</span> au point d'abscisse <span class="math">x<sub>0</sub></span>.
+            <br />Déterminer <span class="math">x<sub>0</sub></span> sachant que le coefficient directeur de <span class="math">(Δ)</span> est égal à <span class="math"><span class="frac"><span>1</span><span>2</span></span></span>, puis donner l'équation de <span class="math">(Δ)</span>.
+          </li>
+          <li>Montrer que la courbe <span class="math">(C_f)</span> coupe l'axe des abscisses en un point d'abscisse <span class="math">x<sub>1</sub></span> tel que : <span class="math"><span class="frac"><span>1</span><span>2</span></span> &lt; x<sub>1</sub> &lt; 1</span>.</li>
+          <li>Tracer la tangente <span class="math">(Δ)</span> et la courbe <span class="math">(C_f)</span> (unité graphique : <span class="math">2cm</span>).</li>
+          <li>Calculer l'aire du domaine délimité par la courbe <span class="math">(C_f)</span>, l'asymptote oblique et les droites d'équations <span class="math">x = 1</span> et <span class="math">x = e</span>.</li>
+          <li>Discuter graphiquement, selon les valeurs du paramètre réel <span class="math">m</span>, l'existence et le nombre de points d'intersection de la courbe <span class="math">(C_f)</span> avec la droite d'équation : <span class="math">y = <span class="frac"><span>1</span><span>2</span></span>x + m</span>.</li>
+        </ol>
+      `,
+      en: `
+        <p><strong>Partie I :</strong></p>
+        <p>Let the real function <span class="math">g</span> be defined on the interval <span class="math">]0, +∞[</span> by:</p>
+        <div class="math-equation">g(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</div>
+        <ol>
+          <li>Study the variations of the function <span class="math">g</span> (plotting the curve of <span class="math">g</span> is not required).</li>
+          <li>Deduce that for all <span class="math">x ∈ ]0, +∞[</span>: <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.</li>
+        </ol>
+        <p><strong>Partie II:</strong></p>
+        <p>Let the real function <span class="math">f</span> be defined on <span class="math">]0, +∞[</span> by:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>ln x</span><span>x</span></span></div>
+        <p>Let <span class="math">(C_f)</span> be its representative curve in an orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Show that for all <span class="math">x ∈ ]0, +∞[</span>: <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.</li>
+              <li>Study the variations of the function <span class="math">f</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Show that <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = 0</span>, and deduce that the curve <span class="math">(C_f)</span> admits an oblique asymptote whose equation is to be determined.</li>
+              <li>Determine the coordinates of the intersection point of <span class="math">(C_f)</span> with this asymptote.</li>
+            </ol>
+          </li>
+          <li>Show that the curve <span class="math">(C_f)</span> admits an inflection point and determine its coordinates.</li>
+          <li>Let <span class="math">(Δ)</span> be the tangent to the curve <span class="math">(C_f)</span> at the point with abscissa <span class="math">x<sub>0</sub></span>.
+            <br />Find the value of <span class="math">x<sub>0</sub></span> if the slope of the tangent <span class="math">(Δ)</span> is <span class="math"><span class="frac"><span>1</span><span>2</span></span></span>, and write down the equation of the tangent <span class="math">(Δ)</span>.
+          </li>
+          <li>Show that the curve <span class="math">(C_f)</span> intersects the x-axis at a point with abscissa <span class="math">x<sub>1</sub></span> such that: <span class="math"><span class="frac"><span>1</span><span>2</span></span> &lt; x<sub>1</sub> &lt; 1</span>.</li>
+          <li>Draw the tangent <span class="math">(Δ)</span> and the curve <span class="math">(C_f)</span> (scale: <span class="math">2cm</span>).</li>
+          <li>Calculate the area of the plane region bounded by the curve <span class="math">(C_f)</span>, the oblique asymptote, and the lines with equations <span class="math">x = 1</span> and <span class="math">x = e</span>.</li>
+          <li>Discuss graphically, according to the values of the real parameter <span class="math">m</span>, the existence and number of intersection points of the curve <span class="math">(C_f)</span> with the line of equation: <span class="math">y = <span class="frac"><span>1</span><span>2</span></span>x + m</span>.</li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <p><strong>حل الجزء الأول:</strong></p>
+        <ol>
+          <li>
+            <strong>دراسة تغيرات g:</strong>
+            <ul>
+              <li>الدالة قابلة للاشتقاق على المجال <span class="math">]0, +∞[</span> مع:
+                <div class="math-equation">g'(x) = x - <span class="frac"><span>1</span><span>x</span></span> = <span class="frac"><span>x<sup>2</sup> - 1</span><span>x</span></span></div>
+              </li>
+              <li>بما أن <span class="math">x &gt; 0</span>، فإن إشارة المشتقة <span class="math">g'(x)</span> هي إشارة <span class="math">x<sup>2</sup> - 1</span>:
+                <br />- تكون <span class="math">g'(x) &lt; 0</span> على المجال <span class="math">]0, 1[</span>، فالدالة <span class="math">g</span> متناقصة تماماً.
+                <br />- تكون <span class="math">g'(x) &gt; 0</span> على المجال <span class="math">]1, +∞[</span>، فالدالة <span class="math">g</span> متزايدة تماماً.
+                <br />- تنعدم المشتقة عند <span class="math">x = 1</span>.
+              </li>
+              <li><strong>النهايات:</strong>
+                <br />- عند <span class="math">0<sup>+</sup></span>: <span class="math">lim<sub>x→0<sup>+</sup></sub> g(x) = +∞</span> لأن <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>.
+                <br />- عند <span class="math">+∞</span>: نكتب <span class="math">g(x) = x<sup>2</sup> ( <span class="frac"><span>1</span><span>2</span></span> - <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> )</span>، وبما أن <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> = 0</span> فإن <span class="math">lim<sub>x→+∞</sub> g(x) = +∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>استنتاج أن g(x) ≥ 1/2:</strong>
+            <br />بما أن الدالة <span class="math">g</span> متناقصة تماماً على <span class="math">]0, 1]</span> ومتزايدة تماماً على <span class="math">[1, +∞[</span>، فإنها تقبل قيمة حدية صغرى مطلقة عند <span class="math">x = 1</span> وهي <span class="math">g(1) = <span class="frac"><span>1</span><span>2</span></span>(1)<sup>2</sup> - ln(1) = <span class="frac"><span>1</span><span>2</span></span></span>.
+            <br />ومن ثم، من أجل كل <span class="math">x &gt; 0</span>: <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.
+          </li>
+        </ol>
+
+        <p><strong>حل الجزء الثاني:</strong></p>
+        <ol>
+          <li>
+            <strong>أ- إثبات عبارة المشتقة:</strong>
+            <br />الدالة <span class="math">f</span> قابلة للاشتقاق على <span class="math">]0, +∞[</span>:
+            <div class="math-equation">f'(x) = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>(<span class="frac"><span>1</span><span>x</span></span>)·x - ln x · 1</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>1 - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>x<sup>2</sup> + 2 - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            ولدينا:
+            <div class="math-equation"><span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1 + <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>2 + x<sup>2</sup> - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            إذن: <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.
+            <br /><strong>ب- دراسة تغيرات f:</strong>
+            <br />بما أن <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>، فإن <span class="math">1 + g(x) ≥ <span class="frac"><span>3</span><span>2</span></span> &gt; 0</span>. وبما أن <span class="math">x<sup>2</sup> &gt; 0</span>، فإن <span class="math">f'(x) &gt; 0</span> تماماً على كامل مجال التعريف.
+            <br />إذن الدالة <span class="math">f</span> متزايدة تماماً على <span class="math">]0, +∞[</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند <span class="math">0<sup>+</sup></span>: <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> لأن <span class="math">lim<sub>x→0<sup>+</sup></sub> <span class="frac"><span>ln x</span><span>x</span></span> = -∞</span>.
+            <br />عند <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> لأن <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+          </li>
+          <li>
+            <strong>أ- المقارب المائل:</strong>
+            <br />لدينا <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+            <br />إذن المستقيم ذو المعادلة <span class="math">(D): y = <span class="frac"><span>1</span><span>2</span></span>x</span> مقارب مائل للمنحنى <span class="math">(C_f)</span> بجوار <span class="math">+∞</span>.
+            <br /><strong>ب- نقطة التقاطع:</strong>
+            <br />ندرس المعادلة <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = 0 ⇔ <span class="frac"><span>ln x</span><span>x</span></span> = 0 ⇔ ln x = 0 ⇔ x = 1</span>.
+            <br />عندئذٍ <span class="math">y = <span class="frac"><span>1</span><span>2</span></span>(1) = <span class="frac"><span>1</span><span>2</span></span></span>. إذن نقطة التقاطع هي <span class="math">I(1, <span class="frac"><span>1</span><span>2</span></span>)</span>.
+          </li>
+          <li>
+            <strong>نقطة الانعطاف:</strong>
+            <br />نشتق المشتقة الأولى لإيجاد المشتقة الثانية:
+            <div class="math-equation">f''(x) = <span class="frac"><span>2 ln x - 3</span><span>x<sup>3</sup></span></span></div>
+            تنعدم المشتقة الثانية عند <span class="math">2 ln x = 3 ⇔ x = e<sup>3/2</sup> = e√e</span>.
+            <br />تغير الإشارة: تكون سالبة قبل <span class="math">e<sup>3/2</sup></span> وموجبة بعدها.
+            <br />إذن توجد نقطة انعطاف وحيدة للمنحنى هي <span class="math">J(e√e, <span class="frac"><span>e<sup>3</sup> + 3</span><span>2e√e</span></span>)</span>.
+          </li>
+          <li>
+            <strong>حساب المماس (Δ):</strong>
+            <br />معامل التوجيه هو المشتقة: <span class="math">f'(x<sub>0</sub>) = <span class="frac"><span>1</span><span>2</span></span> ⇔ <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>1 - ln x<sub>0</sub></span><span>x<sub>0</sub><sup>2</sup></span></span> = <span class="frac"><span>1</span><span>2</span></span> ⇔ ln x<sub>0</sub> = 1 ⇔ x<sub>0</sub> = e</span>.
+            <br />نقطة التماس هي عند <span class="math">x = e</span>، ولدينا <span class="math">f(e) = <span class="frac"><span>1</span><span>2</span></span>e + <span class="frac"><span>1</span><span>e</span></span></span>.
+            <br />معادلة المماس هي: <span class="math">(Δ): y = <span class="frac"><span>1</span><span>2</span></span>(x - e) + <span class="frac"><span>1</span><span>2</span></span>e + <span class="frac"><span>1</span><span>e</span></span> = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>1</span><span>e</span></span></span>.
+          </li>
+          <li>
+            <strong>مبرهنة القيم المتوسطة:</strong>
+            <br />الدالة <span class="math">f</span> مستمرة ومتزايدة تماماً على المجال <span class="math">[<span class="frac"><span>1</span><span>2</span></span>, 1]</span>.
+            <br />ولدينا: <span class="math">f(<span class="frac"><span>1</span><span>2</span></span>) = <span class="frac"><span>1</span><span>4</span></span> - 2ln 2 ≈ -1.13 &lt; 0</span>، و <span class="math">f(1) = <span class="frac"><span>1</span><span>2</span></span> &gt; 0</span>.
+            <br />إذن حسب مبرهنة القيم المتوسطة، تقبل المعادلة <span class="math">f(x) = 0</span> حلاً وحيداً <span class="math">x<sub>1</sub></span> في هذا المجال.
+          </li>
+          <li>
+            <strong>الإنشاء:</strong> يتم رسم المحاور والمستقيم المقارب المائل <span class="math">y = 0.5x</span> والمماس <span class="math">(Δ): y = 0.5x + 0.37</span> والمنحنى المتقاطع مع المحورين.
+          </li>
+          <li>
+            <strong>حساب المساحة:</strong>
+            <br />بما أن <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = <span class="frac"><span>ln x</span><span>x</span></span> ≥ 0</span> على المجال <span class="math">[1, e]</span>:
+            <div class="math-equation">S = \int_{1}^{e} \frac{ln x}{x} dx = \left[ \frac{1}{2}(ln x)<sup>2</sup> \right]_{1}^{e} = \frac{1}{2} \text{ unit of area}</div>
+            وبما أن وحدة القياس هي <span class="math">2cm</span>، فإن وحدة المساحة هي <span class="math">2cm × 2cm = 4cm<sup>2</sup></span>.
+            <br />إذن المساحة هي: <span class="math">S = <span class="frac"><span>1</span><span>2</span></span> × 4cm<sup>2</sup> = 2cm<sup>2</sup></span>.
+          </li>
+          <li>
+            <strong>المناقشة البيانية المائلة:</strong>
+            <br />المعادلة تعبر عن تقاطع المنحنى مع مستقيمات مائلة موازية للمقارب المائل <span class="math">y = <span class="frac"><span>1</span><span>2</span></span>x</span>.
+            <br />نلاحظ أن:
+            <br />- إذا كان <span class="math">m &gt; <span class="frac"><span>1</span><span>e</span></span></span>: لا توجد حلول (المستقيم فوق المماس).
+            <br />- إذا كان <span class="math">m = <span class="frac"><span>1</span><span>e</span></span></span>: حل مضاعف وحيد هو <span class="math">x = e</span> (التماس).
+            <br />- إذا كان <span class="math">0 &lt; m &lt; <span class="frac"><span>1</span><span>e</span></span></span>: يوجد حلان متمايزان موجبان تماماً.
+            <br />- إذا كان <span class="math">m ≤ 0</span>: يوجد حل وحيد موجب تماماً.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p><strong>Solution de la Partie I :</strong></p>
+        <ol>
+          <li>
+            <strong>Variations de g :</strong>
+            <ul>
+              <li>La fonction <span class="math">g</span> est derivable sur <span class="math">]0, +∞[</span> avec :
+                <div class="math-equation">g'(x) = x - <span class="frac"><span>1</span><span>x</span></span> = <span class="frac"><span>x<sup>2</sup> - 1</span><span>x</span></span></div>
+              </li>
+              <li>Comme <span class="math">x &gt; 0</span>, le signe de <span class="math">g'(x)</span> est celui de <span class="math">x<sup>2</sup> - 1</span> :
+                <br />- <span class="math">g'(x) &lt; 0</span> sur <span class="math">]0, 1[</span>, donc <span class="math">g</span> est strictement décroissante.
+                <br />- <span class="math">g'(x) &gt; 0</span> sur <span class="math">]1, +∞[</span>, donc <span class="math">g</span> est strictement croissante.
+                <br />- La dérivée s'annule en <span class="math">x = 1</span>.
+              </li>
+              <li><strong>Limites :</strong>
+                <br />- En <span class="math">0<sup>+</sup></span> : <span class="math">lim<sub>x→0<sup>+</sup></sub> g(x) = +∞</span> car <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>.
+                <br />- En <span class="math">+∞</span> : on factorise <span class="math">g(x) = x<sup>2</sup> ( <span class="frac"><span>1</span><span>2</span></span> - <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> )</span>, d'où <span class="math">lim<sub>x→+∞</sub> g(x) = +∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Déduction g(x) ≥ 1/2 :</strong>
+            <br />La fonction <span class="math">g</span> admet un minimum absolu au point <span class="math">x = 1</span> égal à <span class="math">g(1) = <span class="frac"><span>1</span><span>2</span></span></span>.
+            <br />Ainsi, pour tout <span class="math">x &gt; 0</span> : <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.
+          </li>
+        </ol>
+
+        <p><strong>Solution de la Partie II :</strong></p>
+        <ol>
+          <li>
+            <strong>a- Expression de la dérivée :</strong>
+            <br />La fonction <span class="math">f</span> est dérivable sur <span class="math">]0, +∞[</span> :
+            <div class="math-equation">f'(x) = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>(<span class="frac"><span>1</span><span>x</span></span>)·x - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>1 - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>x<sup>2</sup> + 2 - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            Or :
+            <div class="math-equation"><span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1 + <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>2 + x<sup>2</sup> - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            Donc : <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.
+            <br /><strong>b- Variations de f :</strong>
+            <br />Puisque <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>, on a <span class="math">1 + g(x) &gt; 0</span>. Donc <span class="math">f'(x) &gt; 0</span> sur <span class="math">]0, +∞[</span>.
+            <br />La fonction <span class="math">f</span> est strictement croissante.
+            <br />- <strong>Limites :</strong>
+            <br />En <span class="math">0<sup>+</sup></span> : <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> car <span class="math">lim<sub>x→0<sup>+</sup></sub> <span class="frac"><span>ln x</span><span>x</span></span> = -∞</span>.
+            <br />En <span class="math">+∞</span> : <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> car <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+          </li>
+          <li>
+            <strong>a- Asymptote oblique :</strong>
+            <br />On a <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+            <br />La droite d'équation <span class="math">(D): y = <span class="frac"><span>1</span><span>2</span></span>x</span> est une asymptote oblique à la courbe <span class="math">(C_f)</span> en <span class="math">+∞</span>.
+            <br /><strong>b- Point d'intersection :</strong>
+            <br />L'intersection est donnée par <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = 0 ⇔ ln x = 0 ⇔ x = 1</span>, soit le point <span class="math">I(1, <span class="frac"><span>1</span><span>2</span></span>)</span>.
+          </li>
+          <li>
+            <strong>Point d'inflexion :</strong>
+            <br />La dérivée seconde est :
+            <div class="math-equation">f''(x) = <span class="frac"><span>2 ln x - 3</span><span>x<sup>3</sup></span></span></div>
+            Elle s'annule et change de signe en <span class="math">x = e<sup>3/2</sup> = e√e</span>.
+            <br />Le point d'inflexion est <span class="math">J(e√e, <span class="frac"><span>e<sup>3</sup> + 3</span><span>2e√e</span></span>)</span>.
+          </li>
+          <li>
+            <strong>Tangente (Δ) :</strong>
+            <br />On résout <span class="math">f'(x<sub>0</sub>) = <span class="frac"><span>1</span><span>2</span></span> ⇔ ln x<sub>0</sub> = 1 ⇔ x<sub>0</sub> = e</span>.
+            <br />L'équation de la tangente au point d'abscisse <span class="math">e</span> est : <span class="math">(Δ): y = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>1</span><span>e</span></span></span>.
+          </li>
+          <li>
+            <strong>Théorème des valeurs intermédiaires :</strong>
+            <br />La fonction <span class="math">f</span> est continue et strictement croissante sur <span class="math">[1/2, 1]</span>, avec <span class="math">f(1/2) ≈ -1.13 &lt; 0</span> et <span class="math">f(1) = 0.5 &gt; 0</span>.
+            <br />D'après le théorème des valeurs intermédiaires, l'équation <span class="math">f(x) = 0</span> admet une unique solution <span class="math">x<sub>1</sub> ∈ ]1/2, 1[</span>.
+          </li>
+          <li>
+            <strong>Tracé :</strong> On trace la courbe <span class="math">(C_f)</span>, l'asymptote oblique et la tangente <span class="math">(Δ)</span>.
+          </li>
+          <li>
+            <strong>Calcul d'aire :</strong>
+            <br />Comme <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = <span class="frac"><span>ln x</span><span>x</span></span> ≥ 0</span> sur <span class="math">[1, e]</span> :
+            <div class="math-equation">S = \int_{1}^{e} \frac{ln x}{x} dx = \frac{1}{2} \text{ u.a.}</div>
+            L'unité d'aire est <span class="math">2cm × 2cm = 4cm<sup>2</sup></span>. Donc <span class="math">S = 2cm<sup>2</sup></span>.
+          </li>
+          <li>
+            <strong>Discussion graphique :</strong>
+            <br />- Si <span class="math">m &gt; 1/e</span> : aucune intersection.
+            <br />- Si <span class="math">m = 1/e</span> : un point d'intersection unique (tangence).
+            <br />- Si <span class="math">0 &lt; m &lt; 1/e</span> : deux points d'intersection.
+            <br />- Si <span class="math">m ≤ 0</span> : un seul point d'intersection.
+          </li>
+        </ol>
+      `,
+      en: `
+        <p><strong>Solution of Part I:</strong></p>
+        <ol>
+          <li>
+            <strong>Monotonicity of g:</strong>
+            <ul>
+              <li>The function <span class="math">g</span> is differentiable on <span class="math">]0, +∞[</span> with:
+                <div class="math-equation">g'(x) = x - <span class="frac"><span>1</span><span>x</span></span> = <span class="frac"><span>x<sup>2</sup> - 1</span><span>x</span></span></div>
+              </li>
+              <li>Since <span class="math">x &gt; 0</span>, the sign of <span class="math">g'(x)</span> is the same as the sign of <span class="math">x<sup>2</sup> - 1</span>:
+                <br />- <span class="math">g'(x) &lt; 0</span> on the interval <span class="math">]0, 1[</span>, so <span class="math">g</span> is strictly decreasing.
+                <br />- <span class="math">g'(x) &gt; 0</span> on the interval <span class="math">]1, +∞[</span>, so <span class="math">g</span> is strictly increasing.
+                <br />- The derivative vanishes at <span class="math">x = 1</span>.
+              </li>
+              <li><strong>Limits:</strong>
+                <br />- At <span class="math">0<sup>+</sup></span>: <span class="math">lim<sub>x→0<sup>+</sup></sub> g(x) = +∞</span> since <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>.
+                <br />- At <span class="math">+∞</span>: we write <span class="math">g(x) = x<sup>2</sup> ( <span class="frac"><span>1</span><span>2</span></span> - <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> )</span>, which gives <span class="math">lim<sub>x→+∞</sub> g(x) = +∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Deduction g(x) ≥ 1/2:</strong>
+            <br />Since <span class="math">g</span> is strictly decreasing on <span class="math">]0, 1]</span> and strictly increasing on <span class="math">[1, +∞[</span>, it reaches an absolute minimum at <span class="math">x = 1</span>, which is <span class="math">g(1) = <span class="frac"><span>1</span><span>2</span></span></span>.
+            <br />Thus, for all <span class="math">x &gt; 0</span>: <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>.
+          </li>
+        </ol>
+
+        <p><strong>Solution of Part II:</strong></p>
+        <ol>
+          <li>
+            <strong>a- Derivative expression:</strong>
+            <br />The function <span class="math">f</span> is differentiable on <span class="math">]0, +∞[</span>:
+            <div class="math-equation">f'(x) = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>(<span class="frac"><span>1</span><span>x</span></span>)·x - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>1 - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>x<sup>2</sup> + 2 - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            And:
+            <div class="math-equation"><span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>1 + <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - ln x</span><span>x<sup>2</sup></span></span> = <span class="frac"><span>2 + x<sup>2</sup> - 2ln x</span><span>2x<sup>2</sup></span></span></div>
+            So: <span class="math">f'(x) = <span class="frac"><span>1 + g(x)</span><span>x<sup>2</sup></span></span></span>.
+            <br /><strong>b- Variations of f:</strong>
+            <br />Since <span class="math">g(x) ≥ <span class="frac"><span>1</span><span>2</span></span></span>, we have <span class="math">1 + g(x) &gt; 0</span>. Therefore, <span class="math">f'(x) &gt; 0</span> on the entire domain.
+            <br />The function <span class="math">f</span> is strictly increasing.
+            <br />- <strong>Limits:</strong>
+            <br />At <span class="math">0<sup>+</sup></span>: <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> because <span class="math">lim<sub>x→0<sup>+</sup></sub> <span class="frac"><span>ln x</span><span>x</span></span> = -∞</span>.
+            <br />At <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> because <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+          </li>
+          <li>
+            <strong>a- Oblique asymptote:</strong>
+            <br />We have <span class="math">lim<sub>x→+∞</sub> [f(x) - <span class="frac"><span>1</span><span>2</span></span>x] = lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x</span></span> = 0</span>.
+            <br />Therefore, the line of equation <span class="math">(D): y = <span class="frac"><span>1</span><span>2</span></span>x</span> is an oblique asymptote to the curve <span class="math">(C_f)</span> at <span class="math">+∞</span>.
+            <br /><strong>b- Intersection point:</strong>
+            <br />Solving <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = 0 ⇔ ln x = 0 ⇔ x = 1</span>, which yields the point <span class="math">I(1, <span class="frac"><span>1</span><span>2</span></span>)</span>.
+          </li>
+          <li>
+            <strong>Inflection point:</strong>
+            <br />The second derivative is:
+            <div class="math-equation">f''(x) = <span class="frac"><span>2 ln x - 3</span><span>x<sup>3</sup></span></span></div>
+            It vanishes and changes sign at <span class="math">x = e<sup>3/2</sup> = e√e</span>.
+            <br />The inflection point is <span class="math">J(e√e, <span class="frac"><span>e<sup>3</sup> + 3</span><span>2e√e</span></span>)</span>.
+          </li>
+          <li>
+            <strong>Tangent (Δ):</strong>
+            <br />Solving <span class="math">f'(x<sub>0</sub>) = <span class="frac"><span>1</span><span>2</span></span> ⇔ ln x<sub>0</sub> = 1 ⇔ x<sub>0</sub> = e</span>.
+            <br />The equation of the tangent at the point with abscissa <span class="math">e</span> is: <span class="math">(Δ): y = <span class="frac"><span>1</span><span>2</span></span>x + <span class="frac"><span>1</span><span>e</span></span></span>.
+          </li>
+          <li>
+            <strong>Intermediate Value Theorem:</strong>
+            <br />The function <span class="math">f</span> is continuous and strictly increasing on <span class="math">[1/2, 1]</span>, with <span class="math">f(1/2) ≈ -1.13 &lt; 0</span> and <span class="math">f(1) = 0.5 &gt; 0</span>.
+            <br />By the Intermediate Value Theorem, the equation <span class="math">f(x) = 0</span> has a unique solution <span class="math">x<sub>1</sub> ∈ ]1/2, 1[</span>.
+          </li>
+          <li>
+            <strong>Plot:</strong> Plot the curve <span class="math">(C_f)</span>, oblique asymptote, and tangent <span class="math">(Δ)</span>.
+          </li>
+          <li>
+            <strong>Area calculation:</strong>
+            <br />Since <span class="math">f(x) - <span class="frac"><span>1</span><span>2</span></span>x = <span class="frac"><span>ln x</span><span>x</span></span> ≥ 0</span> on the interval <span class="math">[1, e]</span>:
+            <div class="math-equation">S = \int_{1}^{e} \frac{ln x}{x} dx = \frac{1}{2} \text{ area units}</div>
+            The area unit is <span class="math">2cm × 2cm = 4cm<sup>2</sup></span>. Therefore, <span class="math">S = 2cm<sup>2</sup></span>.
+          </li>
+          <li>
+            <strong>Monotonic graphical discussion:</strong>
+            <br />- If <span class="math">m &gt; 1/e</span>: no intersection.
+            <br />- If <span class="math">m = 1/e</span>: exactly one intersection point (tangency).
+            <br />- If <span class="math">0 &lt; m &lt; 1/e</span>: two intersection points.
+            <br />- If <span class="math">m ≤ 0</span>: exactly one intersection point.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية وحساب مساحات باستخدام دالة أصلية مساعدة",
+      fr: "Problème d'approfondissement : Étude de fonction logarithme, primitive et calcul d'aires",
+      en: "Deepening Problem: Logarithmic Function, Antiderivative and Area Calculation"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = -<span class="frac"><span>3</span><span>2</span></span>x + 4 ln(x + 4) - 3</div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>جد معادلة المماس للمنحنى <span class="math">(C)</span> في النقطة التي فاصلتها <span class="math">-3</span>.</li>
+              <li>احسب: <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>)</span>، <span class="math">f(-3)</span>، <span class="math">f(-2)</span>، <span class="math">f(0)</span>، <span class="math">f(2)</span>، <span class="math">f(4)</span>.</li>
+              <li>استنتج أن المنحنى <span class="math">(C)</span> يقطع حامل محور الفواصل في نقطة فاصلتها <span class="math">x<sub>0</sub></span> حيث: <span class="math">-<span class="frac"><span>7</span><span>2</span></span> &lt; x<sub>0</sub> &lt; -3</span>.</li>
+              <li>أنشئ المنحنى <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>لتكن الدالة العددية <span class="math">h</span> للمتغير الحقيقي <span class="math">x</span> حيث: <span class="math">h(x) = (x + 4) ln(x + 4) - x</span>.
+            <br />عيّن <span class="math">h'(x)</span>، ثم احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C)</span> والمستقيمات التي معادلاتها: <span class="math">y = 0</span>، <span class="math">x = -2</span> و <span class="math">x = 2</span>.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = -<span class="frac"><span>3</span><span>2</span></span>x + 4 ln(x + 4) - 3</div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Déterminer l'équation de la tangente à la courbe <span class="math">(C)</span> au point d'abscisse <span class="math">-3</span>.</li>
+              <li>Calculer les valeurs approchées de : <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>)</span>, <span class="math">f(-3)</span>, <span class="math">f(-2)</span>, <span class="math">f(0)</span>, <span class="math">f(2)</span>, <span class="math">f(4)</span>.</li>
+              <li>En déduire que la courbe <span class="math">(C)</span> coupe l'axe des abscisses en un point d'abscisse <span class="math">x<sub>0</sub></span> tel que : <span class="math">-<span class="frac"><span>7</span><span>2</span></span> &lt; x<sub>0</sub> &lt; -3</span>.</li>
+              <li>Tracer la courbe <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>Soit la fonction numérique <span class="math">h</span> de la variable réelle <span class="math">x</span> définie par : <span class="math">h(x) = (x + 4) ln(x + 4) - x</span>.
+            <br />Déterminer <span class="math">h'(x)</span>, puis calculer l'aire du domaine plan délimité par la courbe <span class="math">(C)</span> et les droites d'équations : <span class="math">y = 0</span>, <span class="math">x = -2</span> et <span class="math">x = 2</span>.
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = -<span class="frac"><span>3</span><span>2</span></span>x + 4 ln(x + 4) - 3</div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Find the equation of the tangent to the curve <span class="math">(C)</span> at the point with abscissa <span class="math">-3</span>.</li>
+              <li>Calculate the values of: <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>)</span>, <span class="math">f(-3)</span>, <span class="math">f(-2)</span>, <span class="math">f(0)</span>, <span class="math">f(2)</span>, <span class="math">f(4)</span>.</li>
+              <li>Deduce that the curve <span class="math">(C)</span> intersects the x-axis at a point with abscissa <span class="math">x<sub>0</sub></span> such that: <span class="math">-<span class="frac"><span>7</span><span>2</span></span> &lt; x<sub>0</sub> &lt; -3</span>.</li>
+              <li>Draw the curve <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>Let <span class="math">h</span> be the real function defined by: <span class="math">h(x) = (x + 4) ln(x + 4) - x</span>.
+            <br />Determine <span class="math">h'(x)</span>, then calculate the area of the plane region bounded by the curve <span class="math">(C)</span> and the lines with equations: <span class="math">y = 0</span>, <span class="math">x = -2</span> and <span class="math">x = 2</span>.
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <strong>دراسة تغيرات f:</strong>
+            <ul>
+              <li><strong>مجموعة التعريف:</strong> المجال <span class="math">D<sub>f</sub> = ]-4, +∞[</span>.</li>
+              <li><strong>النهايات:</strong>
+                <br />- عند <span class="math">-4<sup>+</sup></span>: <span class="math">lim<sub>x→-4<sup>+</sup></sub> f(x) = -∞</span> لأن <span class="math">lim<sub>x→-4<sup>+</sup></sub> ln(x+4) = -∞</span>.
+                <br />- عند <span class="math">+∞</span>: نكتب <span class="math">f(x) = x [ -<span class="frac"><span>3</span><span>2</span></span> + 4<span class="frac"><span>ln(x+4)</span><span>x</span></span> ] - 3</span>. بما أن <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln(x+4)</span><span>x</span></span> = 0</span>، فإن <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>المشتقة وإشارتها:</strong> الدالة قابلة للاشتقاق على <span class="math">]-4, +∞[</span> مع:
+                <div class="math-equation">f'(x) = -<span class="frac"><span>3</span><span>2</span></span> + <span class="frac"><span>4</span><span>x + 4</span></span> = <span class="frac"><span>-3(x + 4) + 8</span><span>2(x + 4)</span></span> = <span class="frac"><span>-3x - 4</span><span>2(x + 4)</span></span></div>
+                بما أن المقام <span class="math">2(x+4) &gt; 0</span>، فإن إشارة المشتقة هي إشارة البسط <span class="math">-3x - 4</span>:
+                <br />- تنعدم المشتقة عند <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span>.
+                <br />- تكون <span class="math">f'(x) &gt; 0</span> على المجال <span class="math">]-4, -<span class="frac"><span>4</span><span>3</span></span>[</span>، فالدالة متزايدة تماماً.
+                <br />- تكون <span class="math">f'(x) &lt; 0</span> على المجال <span class="math">]-<span class="frac"><span>4</span><span>3</span></span>, +∞[</span>، فالدالة متناقصة تماماً.
+              </li>
+              <li><strong>القيمة الحدية العظمى:</strong> تبلغ الدالة ذروتها عند <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span> وقيمتها:
+                <div class="math-equation">f(-<span class="frac"><span>4</span><span>3</span></span>) = 4 ln(<span class="frac"><span>8</span><span>3</span></span>) - 1 ≈ 2.92</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- معادلة المماس (T) عند x = -3:</strong>
+                <br />لدينا <span class="math">f(-3) = -<span class="frac"><span>3</span><span>2</span></span>(-3) + 4ln(1) - 3 = <span class="frac"><span>3</span><span>2</span></span></span>.
+                <br />والمشتقة <span class="math">f'(-3) = <span class="frac"><span>-3(-3) - 4</span><span>2(1)</span></span> = <span class="frac"><span>5</span><span>2</span></span></span>.
+                <br />معادلة المماس هي: <span class="math">(T): y = <span class="frac"><span>5</span><span>2</span></span>(x + 3) + <span class="frac"><span>3</span><span>2</span></span> = <span class="frac"><span>5</span><span>2</span></span>x + 9</span>.
+              </li>
+              <li><strong>ب- القيم المقربة:</strong>
+                <br /><span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) = <span class="frac"><span>9</span><span>4</span></span> - 4ln 2 ≈ -0.52</span>، <span class="math">f(-3) = 1.5</span>، <span class="math">f(-2) = 4ln 2 ≈ 2.77</span>، <span class="math">f(0) = 8ln 2 - 3 ≈ 2.54</span>، <span class="math">f(2) = 4ln 6 - 6 ≈ 1.17</span>، <span class="math">f(4) = 12ln 2 - 9 ≈ -0.68</span>.
+              </li>
+              <li><strong>ج- مبرهنة القيم المتوسطة:</strong>
+                <br />الدالة مستمرة ورتيبة تماماً (متزايدة) على المجال <span class="math">[-<span class="frac"><span>7</span><span>2</span></span>, -3]</span> ولدينا <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) &lt; 0</span> و <span class="math">f(-3) &gt; 0</span>. إذن حسب مبرهنة القيم المتوسطة يقطع المنحنى محور الفواصل في نقطة فاصلتها <span class="math">x<sub>0</sub></span> حيث <span class="math">-<span class="frac"><span>7</span><span>2</span></span> &lt; x<sub>0</sub> &lt; -3</span>.
+              </li>
+              <li><strong>د- الإنشاء:</strong> نرسم المقارب العمودي <span class="math">x = -4</span>، الذروة <span class="math">M(-1.33, 2.92)</span>، المماس والتقاطعات مع المحاور.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>أ- حساب مشتقة h(x):</strong>
+            <div class="math-equation">h'(x) = 1·ln(x + 4) + (x + 4)·<span class="frac"><span>1</span><span>x + 4</span></span> - 1 = ln(x + 4)</div>
+            إذن <span class="math">h'(x) = ln(x + 4)</span> هي دالة أصلية لـ <span class="math">x ↦ ln(x + 4)</span>.
+            <br /><strong>ب- حساب مساحة الحيز:</strong>
+            <br />بما أن <span class="math">f(x) &gt; 0</span> على المجال <span class="math">[-2, 2]</span>، فإن المساحة تعطى بـ:
+            <div class="math-equation">S = \int_{-2}^{2} f(x) dx = \int_{-2}^{2} [ -<span class="frac"><span>3</span><span>2</span></span>x + 4 ln(x + 4) - 3 ] dx</div>
+            الدالة الأصلية لـ <span class="math">f</span> هي:
+            <div class="math-equation">F(x) = -<span class="frac"><span>3</span><span>4</span></span>x<sup>2</sup> + 4 h(x) - 3x = -<span class="frac"><span>3</span><span>4</span></span>x<sup>2</sup> + 4(x + 4) ln(x + 4) - 7x</div>
+            نعوض بحدود التكامل:
+            <br />- <span class="math">F(2) = -3 + 24ln 6 - 14 = 24ln 6 - 17</span>
+            <br />- <span class="math">F(-2) = -3 + 8ln 2 + 14 = 8ln 2 + 11</span>
+            <br />إذن:
+            <div class="math-equation">S = F(2) - F(-2) = 24ln 6 - 8ln 2 - 28 = 16ln 2 + 24ln 3 - 28 ≈ 9.47 \text{ u.a.}</div>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <strong>Étude des variations de f :</strong>
+            <ul>
+              <li><strong>Domaine de définition :</strong> <span class="math">D<sub>f</sub> = ]-4, +∞[</span>.</li>
+              <li><strong>Limites :</strong>
+                <br />- En <span class="math">-4<sup>+</sup></span> : <span class="math">lim<sub>x→-4<sup>+</sup></sub> f(x) = -∞</span> car <span class="math">lim<sub>x→-4<sup>+</sup></sub> ln(x+4) = -∞</span>.
+                <br />- En <span class="math">+∞</span> : on factorise <span class="math">f(x) = x [ -<span class="frac"><span>3</span><span>2</span></span> + 4<span class="frac"><span>ln(x+4)</span><span>x</span></span> ] - 3</span>. Comme <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln(x+4)</span><span>x</span></span> = 0</span>, on a <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>Dérivée et signe :</strong> La fonction est dérivable sur <span class="math">]-4, +∞[</span> avec :
+                <div class="math-equation">f'(x) = -<span class="frac"><span>3</span><span>2</span></span> + <span class="frac"><span>4</span><span>x + 4</span></span> = <span class="frac"><span>-3x - 4</span><span>2(x + 4)</span></span></div>
+                Puisque <span class="math">2(x+4) &gt; 0</span>, le signe de la dérivée est celui du numérateur <span class="math">-3x - 4</span> :
+                <br />- La dérivée s'annule en <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span>.
+                <br />- <span class="math">f'(x) &gt; 0</span> sur <span class="math">]-4, -<span class="frac"><span>4</span><span>3</span></span>[</span>, donc la fonction est strictement croissante.
+                <br />- <span class="math">f'(x) &lt; 0</span> sur <span class="math">]-<span class="frac"><span>4</span><span>3</span></span>, +∞[</span>, donc la fonction est strictement décroissante.
+              </li>
+              <li><strong>Maximum :</strong> Le maximum de la fonction est atteint en <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span> de valeur <span class="math">f(-<span class="frac"><span>4</span><span>3</span></span>) = 4 ln(<span class="frac"><span>8</span><span>3</span></span>) - 1 ≈ 2,92</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Équation de la tangente (T) en x = -3 :</strong>
+                <br />On a <span class="math">f(-3) = <span class="frac"><span>3</span><span>2</span></span></span> et <span class="math">f'(-3) = <span class="frac"><span>5</span><span>2</span></span></span>.
+                <br />L'équation est : <span class="math">(T): y = <span class="frac"><span>5</span><span>2</span></span>x + 9</span>.
+              </li>
+              <li><strong>b- Valeurs approchées :</strong>
+                <br /><span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) ≈ -0,52</span>, <span class="math">f(-3) = 1,5</span>, <span class="math">f(-2) ≈ 2,77</span>, <span class="math">f(0) ≈ 2,54</span>, <span class="math">f(2) ≈ 1,17</span>, <span class="math">f(4) ≈ -0,68</span>.
+              </li>
+              <li><strong>c- Théorème des valeurs intermédiaires :</strong>
+                <br />La fonction est continue et strictement croissante sur <span class="math">[-<span class="frac"><span>7</span><span>2</span></span>, -3]</span>. Comme <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) &lt; 0</span> et <span class="math">f(-3) &gt; 0</span>, il existe d'après le TVI un unique réel <span class="math">x<sub>0</sub> ∈ ]-<span class="frac"><span>7</span><span>2</span></span>, -3[</span> tel que <span class="math">f(x<sub>0</sub>) = 0</span>.
+              </li>
+              <li><strong>d- Tracé :</strong> On trace l'asymptote verticale <span class="math">x = -4</span>, le sommet <span class="math">M(-1,33, 2,92)</span>, la tangente et les intersections.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>a- Dérivée de h :</strong>
+            <div class="math-equation">h'(x) = 1·ln(x + 4) + (x + 4)·<span class="frac"><span>1</span><span>x + 4</span></span> - 1 = ln(x + 4)</div>
+            La fonction <span class="math">h</span> est donc une primitive de <span class="math">x ↦ ln(x + 4)</span>.
+            <br /><strong>b- Calcul de l'aire :</strong>
+            <br />Comme <span class="math">f(x) &gt; 0</span> sur le domaine <span class="math">[-2, 2]</span> :
+            <div class="math-equation">S = \int_{-2}^{2} f(x) dx = \left[ -<span class="frac"><span>3</span><span>4</span></span>x<sup>2</sup> + 4(x + 4) ln(x + 4) - 7x \right]_{-2}^{2}</div>
+            En évaluant les bornes, on obtient :
+            <br />- <span class="math">F(2) = 24ln 6 - 17</span>
+            <br />- <span class="math">F(-2) = 8ln 2 + 11</span>
+            <br />D'où :
+            <div class="math-equation">S = F(2) - F(-2) = 16ln 2 + 24ln 3 - 28 ≈ 9,47 \text{ u.a.}</div>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <strong>Variations of f:</strong>
+            <ul>
+              <li><strong>Domain of definition:</strong> <span class="math">D<sub>f</sub> = ]-4, +∞[</span>.</li>
+              <li><strong>Limits:</strong>
+                <br />- As <span class="math">x→-4<sup>+</sup></span>: <span class="math">lim<sub>x→-4<sup>+</sup></sub> f(x) = -∞</span> because <span class="math">lim<sub>x→-4<sup>+</sup></sub> ln(x+4) = -∞</span>.
+                <br />- As <span class="math">x→+∞</span>: we write <span class="math">f(x) = x [ -<span class="frac"><span>3</span><span>2</span></span> + 4<span class="frac"><span>ln(x+4)</span><span>x</span></span> ] - 3</span>. Since <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln(x+4)</span><span>x</span></span> = 0</span>, we have <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>Derivative and its sign:</strong> The function is differentiable on <span class="math">]-4, +∞[</span> with:
+                <div class="math-equation">f'(x) = -<span class="frac"><span>3</span><span>2</span></span> + <span class="frac"><span>4</span><span>x + 4</span></span> = <span class="frac"><span>-3x - 4</span><span>2(x + 4)</span></span></div>
+                Since <span class="math">2(x+4) &gt; 0</span>, the sign of the derivative is the same as the sign of the numerator <span class="math">-3x - 4</span>:
+                <br />- The derivative vanishes at <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span>.
+                <br />- <span class="math">f'(x) &gt; 0</span> on the interval <span class="math">]-4, -<span class="frac"><span>4</span><span>3</span></span>[</span>, so the function is strictly increasing.
+                <br />- <span class="math">f'(x) &lt; 0</span> on the interval <span class="math">]-<span class="frac"><span>4</span><span>3</span></span>, +∞[</span>, so the function is strictly decreasing.
+              </li>
+              <li><strong>Maximum:</strong> The function reaches its maximum at <span class="math">x = -<span class="frac"><span>4</span><span>3</span></span></span> with value <span class="math">f(-<span class="frac"><span>4</span><span>3</span></span>) = 4 ln(<span class="frac"><span>8</span><span>3</span></span>) - 1 ≈ 2.92</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Equation of the tangent (T) at x = -3:</strong>
+                <br />We have <span class="math">f(-3) = <span class="frac"><span>3</span><span>2</span></span></span> and <span class="math">f'(-3) = <span class="frac"><span>5</span><span>2</span></span></span>.
+                <br />The tangent equation is: <span class="math">(T): y = <span class="frac"><span>5</span><span>2</span></span>x + 9</span>.
+              </li>
+              <li><strong>b- Approximate values:</strong>
+                <br /><span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) ≈ -0.52</span>, <span class="math">f(-3) = 1.5</span>, <span class="math">f(-2) ≈ 2.77</span>, <span class="math">f(0) ≈ 2.54</span>, <span class="math">f(2) ≈ 1.17</span>, <span class="math">f(4) ≈ -0.68</span>.
+              </li>
+              <li><strong>c- Intermediate Value Theorem:</strong>
+                <br />The function is continuous and strictly increasing on <span class="math">[-<span class="frac"><span>7</span><span>2</span></span>, -3]</span>. Since <span class="math">f(-<span class="frac"><span>7</span><span>2</span></span>) &lt; 0</span> and <span class="math">f(-3) &gt; 0</span>, there exists by the IVT a unique real solution <span class="math">x<sub>0</sub> ∈ ]-<span class="frac"><span>7</span><span>2</span></span>, -3[</span> such that <span class="math">f(x<sub>0</sub>) = 0</span>.
+              </li>
+              <li><strong>d- Plot:</strong> Plot the vertical asymptote <span class="math">x = -4</span>, local maximum <span class="math">M(-1.33, 2.92)</span>, tangent line, and axes intersections.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>a- Derivative of h:</strong>
+            <div class="math-equation">h'(x) = 1·ln(x + 4) + (x + 4)·<span class="frac"><span>1</span><span>x + 4</span></span> - 1 = ln(x + 4)</div>
+            Thus <span class="math">h(x)</span> is an antiderivative of <span class="math">x ↦ ln(x + 4)</span>.
+            <br /><strong>b- Area calculation:</strong>
+            <br />Since <span class="math">f(x) &gt; 0</span> on the interval <span class="math">[-2, 2]</span>:
+            <div class="math-equation">S = \int_{-2}^{2} f(x) dx = \left[ -<span class="frac"><span>3</span><span>4</span></span>x<sup>2</sup> + 4(x + 4) ln(x + 4) - 7x \right]_{-2}^{2}</div>
+            Evaluating at the boundaries gives:
+            <br />- <span class="math">F(2) = 24ln 6 - 17</span>
+            <br />- <span class="math">F(-2) = 8ln 2 + 11</span>
+            <br />Thus:
+            <div class="math-equation">S = F(2) - F(-2) = 16ln 2 + 24ln 3 - 28 ≈ 9.47 \text{ u.a.}</div>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة أسية، مناقشة بيانية جبرية وحساب مساحات",
+      fr: "Problème d'approfondissement : Étude de fonction exponentielle, discussion algébrique et calcul d'aires",
+      en: "Deepening Problem: Exponential Function Study, Algebraic Discussion and Area"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>6e<sup>x</sup></span><span>-1 + e<sup>2x</sup></span></span></div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>أثبت أن <span class="math">f</span> دالة فردية، وادرس تغيراتها.</li>
+              <li>جد معادلة المماس للمنحنى <span class="math">(C)</span> عند النقطة التي فاصلتها <span class="math"><span class="frac"><span>1</span><span>2</span></span> ln 3</span>.</li>
+              <li>أنشئ المنحنى <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>ناقش جبرياً حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد نقط تقاطع المنحنى <span class="math">(C)</span> مع المستقيم الذي معادلته <span class="math">y = m</span>.</li>
+              <li>أعطِ بدلالة <span class="math">m</span> إحداثيات هذه النقطة عند وجودها.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>جد العددين الحقيقيين <span class="math">α</span> و <span class="math">β</span> بحيث:
+                <div class="math-equation">f(x) = <span class="frac"><span>α e<sup>x</sup></span><span>-1 + e<sup>x</sup></span></span> + <span class="frac"><span>β e<sup>x</sup></span><span>1 + e<sup>x</sup></span></span></div>
+              </li>
+              <li>استخدم هذه النتيجة لإيجاد دالة أصلية للدالة <span class="math">f</span> على المجال <span class="math">]0, +∞[</span>.</li>
+              <li>احسب بدلالة العدد الحقيقي <span class="math">λ</span> (حيث <span class="math">λ &gt; ln 2</span>) المساحة <span class="math">S(λ)</span> للحيز المستوي المحدد بالمنحنى <span class="math">(C)</span> ومحور الفواصل والمستقيمين اللذين معادلتاهما <span class="math">x = ln 2</span> و <span class="math">x = λ</span>.</li>
+              <li>احسب: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>6e<sup>x</sup></span><span>-1 + e<sup>2x</sup></span></span></div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Démontrer que <span class="math">f</span> est une fonction impaire, et étudier ses variations.</li>
+              <li>Déterminer l'équation de la tangente à la courbe <span class="math">(C)</span> au point d'abscisse <span class="math"><span class="frac"><span>1</span><span>2</span></span> ln 3</span>.</li>
+              <li>Tracer la courbe <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Discuter algébriquement, selon les valeurs du paramètre réel <span class="math">m</span>, le nombre de points d'intersection de la courbe <span class="math">(C)</span> avec la droite d'équation <span class="math">y = m</span>.</li>
+              <li>Donner, en fonction de <span class="math">m</span>, les coordonnées de ce point lorsqu'il existe.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Déterminer les réels <span class="math">α</span> et <span class="math">β</span> tels que :
+                <div class="math-equation">f(x) = <span class="frac"><span>α e<sup>x</sup></span><span>-1 + e<sup>x</sup></span></span> + <span class="frac"><span>β e<sup>x</sup></span><span>1 + e<sup>x</sup></span></span></div>
+              </li>
+              <li>Utiliser ce résultat pour trouver une primitive de la fonction <span class="math">f</span> sur l'intervalle <span class="math">]0, +∞[</span>.</li>
+              <li>Calculer, en fonction du réel <span class="math">λ</span> (avec <span class="math">λ &gt; ln 2</span>), l'aire <span class="math">S(λ)</span> du domaine délimité par la courbe <span class="math">(C)</span>, l'axe des abscisses et les droites d'équations <span class="math">x = ln 2</span> et <span class="math">x = λ</span>.</li>
+              <li>Calculer : <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>6e<sup>x</sup></span><span>-1 + e<sup>2x</sup></span></span></div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Prove that <span class="math">f</span> is an odd function, and study its variations.</li>
+              <li>Find the equation of the tangent to the curve <span class="math">(C)</span> at the point with abscissa <span class="math"><span class="frac"><span>1</span><span>2</span></span> ln 3</span>.</li>
+              <li>Draw the curve <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Discuss algebraically, according to the values of the real parameter <span class="math">m</span>, the number of intersection points of the curve <span class="math">(C)</span> with the line of equation <span class="math">y = m</span>.</li>
+              <li>Give, in terms of <span class="math">m</span>, the coordinates of this point when it exists.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Find the two real numbers <span class="math">α</span> and <span class="math">β</span> such that:
+                <div class="math-equation">f(x) = <span class="frac"><span>α e<sup>x</sup></span><span>-1 + e<sup>x</sup></span></span> + <span class="frac"><span>β e<sup>x</sup></span><span>1 + e<sup>x</sup></span></span></div>
+              </li>
+              <li>Use this result to find an antiderivative of the function <span class="math">f</span> on the interval <span class="math">]0, +∞[</span>.</li>
+              <li>Calculate, in terms of the real number <span class="math">λ</span> (where <span class="math">λ &gt; ln 2</span>), the area <span class="math">S(λ)</span> of the plane region bounded by the curve <span class="math">(C)</span>, the x-axis, and the lines with equations <span class="math">x = ln 2</span> and <span class="math">x = λ</span>.</li>
+              <li>Calculate: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- إثبات أن f فردية ودراسة تغيراتها:</strong>
+                <br />- مجموعة التعريف هي <span class="math">R<sup>*</sup></span> (لأن المقام ينعدم عند <span class="math">x=0</span>). وهي متناظرة بالنسبة إلى الصفر.
+                <br />- من أجل كل <span class="math">x ∈ R<sup>*</sup></span>:
+                <div class="math-equation">f(-x) = <span class="frac"><span>6e<sup>-x</sup></span><span>e<sup>-2x</sup> - 1</span></span> = <span class="frac"><span>6/e<sup>x</sup></span><span>(1 - e<sup>2x</sup>)/e<sup>2x</sup></span></span> = <span class="frac"><span>6e<sup>x</sup></span><span>-(e<sup>2x</sup> - 1)</span></span> = -f(x)</div>
+                إذن <span class="math">f</span> دالة فردية والمنحنى متناظر بالنسبة إلى المبدأ <span class="math">O</span>.
+                <br />- <strong>النهايات:</strong>
+                <br />عند <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = lim<sub>x→+∞</sub> <span class="frac"><span>6e<sup>x</sup></span><span>e<sup>2x</sup></span></span> = 0</span>. المستقيم <span class="math">y = 0</span> مقارب أفقي.
+                <br />عند <span class="math">0<sup>+</sup></span>: بما أن <span class="math">x &gt; 0</span> فإن <span class="math">e<sup>2x</sup> - 1 &gt; 0</span>، ومنه <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. المستقيم <span class="math">x = 0</span> مقارب عمودي.
+                <br />- <strong>المشتقة:</strong>
+                <div class="math-equation">f'(x) = -6 <span class="frac"><span>e<sup>x</sup>(e<sup>2x</sup> + 1)</span><span>(e<sup>2x</sup> - 1)<sup>2</sup></span></span></div>
+                بما أن البسط والمقام موجبان تماماً، فإن <span class="math">f'(x) &lt; 0</span> تماماً على مجال التعريف.
+                <br />إذن الدالة متناقصة تماماً على <span class="math">]-∞, 0[</span> ومتناقصة تماماً على <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>ب- مماس المنحنى عند x<sub>0</sub> = 0.5 ln 3:</strong>
+                <br />لدينا <span class="math">e<sup>x<sub>0</sub></sup> = √3</span> و <span class="math">e<sup>2x<sub>0</sub></sup> = 3</span>.
+                <br />نعوض في الدالة والمشتقة:
+                <br /><span class="math">f(x<sub>0</sub>) = <span class="frac"><span>6√3</span><span>3 - 1</span></span> = 3√3</span>.
+                <br /><span class="math">f'(x<sub>0</sub>) = -6 <span class="frac"><span>√3(3 + 1)</span><span>(3 - 1)<sup>2</sup></span></span> = -6√3</span>.
+                <br />معادلة المماس هي:
+                <div class="math-equation">y = -6√3 ( x - <span class="frac"><span>1</span><span>2</span></span> ln 3 ) + 3√3 = -6√3 x + 3√3(1 + ln 3)</div>
+              </li>
+              <li><strong>ج- الإنشاء:</strong> نرسم المقاربين <span class="math">x = 0</span> و <span class="math">y = 0</span>، والمماس، ثم المنحنى بفرعيه المتناظرين.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- المناقشة الجبرية لـ f(x) = m:</strong>
+                <br />بوضع <span class="math">t = e<sup>x</sup></span> (حيث <span class="math">t &gt; 0</span> و <span class="math">t ≠ 1</span>):
+                <div class="math-equation">m t<sup>2</sup> - 6t - m = 0</div>
+                - إذا كان <span class="math">m = 0</span>: تصبح المعادلة <span class="math">-6t = 0 ⇔ t = 0</span> (مستحيل لأن <span class="math">t &gt; 0</span>)، فلا توجد حلول.
+                <br />- إذا كان <span class="math">m ≠ 0</span>: المميز هو <span class="math">Δ = 36 + 4m<sup>2</sup> &gt; 0</span>. المعادلة تقبل جذرين متمايزين جداؤهما <span class="math">t<sub>1</sub>t<sub>2</sub> = -1 &lt; 0</span> (أحدهما موجب والآخر سالب).
+                <br />بما أن <span class="math">t = e<sup>x</sup> &gt; 0</span>، فإننا نقبل الحل الموجب فقط:
+                <br />- إذا كان <span class="math">m &gt; 0</span>: الحل المقبول هو <span class="math">t = <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span></span>.
+                <br />- إذا كان <span class="math">m &lt; 0</span>: الحل المقبول هو <span class="math">t = <span class="frac"><span>3 - \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span> = <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span></span>.
+                <br />بالتالي، من أجل كل <span class="math">m ≠ 0</span> يوجد حل وحيد (نقطة تقاطع وحيدة).
+              </li>
+              <li><strong>ب- إحداثيات نقطة التقاطع بدلالة m:</strong>
+                <br />- من أجل <span class="math">m &gt; 0</span>: النقطة هي <span class="math">P( ln( <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span> ), m )</span>.
+                <br />- من أجل <span class="math">m &lt; 0</span>: النقطة هي <span class="math">P( ln( <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span> ), m )</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- إيجاد α و β:</strong>
+                <br />بتوحيد المقامات ومقارنة البسطين نجد:
+                <div class="math-equation">(α + β) e<sup>x</sup> + (α - β) = 6</div>
+                ومنها: <span class="math">α + β = 0</span> و <span class="math">α - β = 6</span>.
+                <br />بالجمع نجد: <span class="math">2α = 6 ⇔ α = 3</span>، ومنه <span class="math">β = -3</span>.
+                <br />إذن: <span class="math">f(x) = <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> - 1</span></span> - <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> + 1</span></span></span>.
+              </li>
+              <li><strong>ب- دالة أصلية لـ f على المجال ]0, +∞[:</strong>
+                <br />بما أن المشتقة للبسطين هي مشتقة المقامين، فإن:
+                <div class="math-equation">F(x) = 3 ln(e<sup>x</sup> - 1) - 3 ln(e<sup>x</sup> + 1) = 3 ln\left(\frac{e<sup>x</sup> - 1}{e<sup>x</sup> + 1}\right)</div>
+              </li>
+              <li><strong>ج- حساب المساحة S(λ):</strong>
+                <br />بما أن الدالة موجبة على المجال <span class="math">[ln 2, λ]</span>:
+                <div class="math-equation">S(λ) = [ F(x) ]<sub>ln 2</sub><sup>λ</sup> = F(λ) - F(ln 2)</div>
+                ولدينا <span class="math">F(ln 2) = 3 ln(1/3) = -3 ln 3</span>.
+                <br />إذن:
+                <div class="math-equation">S(λ) = 3 ln\left(\frac{e<sup>λ</sup> - 1}{e<sup>λ</sup> + 1}\right) + 3 ln 3 = 3 ln\left(\frac{3(e<sup>λ</sup> - 1)}{e<sup>λ</sup> + 1}\right) \text{ u.a.}</div>
+              </li>
+              <li><strong>د- نهاية المساحة:</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 3 ln(3) \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Parité de f et étude de ses variations :</strong>
+                <br />- L'ensemble de définition est <span class="math">R<sup>*</sup></span> (puisque le dénominateur s'annule en <span class="math">x=0</span>), qui est symétrique par rapport à zéro.
+                <br />- Pour tout <span class="math">x ∈ R<sup>*</sup></span> :
+                <div class="math-equation">f(-x) = <span class="frac"><span>6e<sup>-x</sup></span><span>e<sup>-2x</sup> - 1</span></span> = <span class="frac"><span>6/e<sup>x</sup></span><span>(1 - e<sup>2x</sup>)/e<sup>2x</sup></span></span> = <span class="frac"><span>6e<sup>x</sup></span><span>-(e<sup>2x</sup> - 1)</span></span> = -f(x)</div>
+                Ainsi, la fonction <span class="math">f</span> est impaire et la courbe est symétrique par rapport à l'origine <span class="math">O</span>.
+                <br />- <strong>Limites :</strong>
+                <br />En <span class="math">+∞</span> : <span class="math">lim<sub>x→+∞</sub> f(x) = lim<sub>x→+∞</sub> <span class="frac"><span>6e<sup>x</sup></span><span>e<sup>2x</sup></span></span> = 0</span>. L'axe des abscisses est une asymptote horizontale.
+                <br />En <span class="math">0<sup>+</sup></span> : comme <span class="math">x &gt; 0</span>, <span class="math">e<sup>2x</sup> - 1 &gt; 0</span>, donc <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. La droite <span class="math">x = 0</span> est une asymptote verticale.
+                <br />- <strong>Dérivée :</strong>
+                <div class="math-equation">f'(x) = -6 <span class="frac"><span>e<sup>x</sup>(e<sup>2x</sup> + 1)</span><span>(e<sup>2x</sup> - 1)<sup>2</sup></span></span></div>
+                Comme le numérateur et le dénominateur sont strictement positifs, on a <span class="math">f'(x) &lt; 0</span> pour tout <span class="math">x ∈ R<sup>*</sup></span>.
+                <br />La fonction est donc strictement décroissante sur <span class="math">]-∞, 0[</span> et strictement décroissante sur <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>b- Tangente à la courbe au point x<sub>0</sub> = 0,5 ln 3 :</strong>
+                <br />On a <span class="math">e<sup>x<sub>0</sub></sup> = √3</span> et <span class="math">e<sup>2x<sub>0</sub></sup> = 3</span>.
+                <br />En substituant dans la fonction et la dérivée :
+                <br /><span class="math">f(x<sub>0</sub>) = 3√3</span>.
+                <br /><span class="math">f'(x<sub>0</sub>) = -6√3</span>.
+                <br />L'équation de la tangente est :
+                <div class="math-equation">y = -6√3 ( x - <span class="frac"><span>1</span><span>2</span></span> ln 3 ) + 3√3 = -6√3 x + 3√3(1 + ln 3)</div>
+              </li>
+              <li><strong>c- Tracé :</strong> On trace les asymptotes et la tangente, puis les deux branches symétriques.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Discussion algébrique de f(x) = m :</strong>
+                <br />En posant <span class="math">t = e<sup>x</sup></span> (avec <span class="math">t &gt; 0</span> et <span class="math">t ≠ 1</span>) :
+                <div class="math-equation">m t<sup>2</sup> - 6t - m = 0</div>
+                - Si <span class="math">m = 0</span> : l'équation devient <span class="math">-6t = 0 ⇔ t = 0</span> (impossible car <span class="math">t &gt; 0</span>). Pas de solution.
+                <br />- Si <span class="math">m ≠ 0</span> : le discriminant <span class="math">Δ = 36 + 4m<sup>2</sup> &gt; 0</span>. L'équation possède deux racines réelles distinctes dont le produit est <span class="math">t<sub>1</sub>t<sub>2</sub> = -1 &lt; 0</span> (une seule racine est positive).
+                <br />Comme <span class="math">t = e<sup>x</sup> &gt; 0</span>, on n'accepte que la racine positive :
+                <br />- Si <span class="math">m &gt; 0</span> : la solution est <span class="math">t = <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span></span>.
+                <br />- Si <span class="math">m &lt; 0</span> : la solution est <span class="math">t = <span class="frac"><span>3 - \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span> = <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span></span>.
+                <br />Pour tout <span class="math">m ≠ 0</span>, il y a donc un unique point d'intersection.
+              </li>
+              <li><strong>b- Coordonnées du point d'intersection en fonction de m :</strong>
+                <br />- Pour <span class="math">m &gt; 0</span> : <span class="math">P( ln( <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span> ), m )</span>.
+                <br />- Pour <span class="math">m &lt; 0</span> : <span class="math">P( ln( <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span> ), m )</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Réels α et β :</strong>
+                <br />En mettant au même dénominateur et en identifiant les numérateurs, on a :
+                <div class="math-equation">(α + β) e<sup>x</sup> + (α - β) = 6</div>
+                D'où <span class="math">α + β = 0</span> et <span class="math">α - β = 6</span>.
+                <br />On trouve <span class="math">α = 3</span> et <span class="math">β = -3</span>.
+                <br />Ainsi : <span class="math">f(x) = <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> - 1</span></span> - <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> + 1</span></span></span>.
+              </li>
+              <li><strong>b- Primitive de f sur ]0, +∞[ :</strong>
+                <div class="math-equation">F(x) = 3 ln(e<sup>x</sup> - 1) - 3 ln(e<sup>x</sup> + 1) = 3 ln\left(\frac{e<sup>x</sup> - 1}{e<sup>x</sup> + 1}\right)</div>
+              </li>
+              <li><strong>c- Aire S(λ) :</strong>
+                <br />Comme la fonction est positive sur <span class="math">[ln 2, λ]</span> :
+                <div class="math-equation">S(λ) = [ F(x) ]<sub>ln 2</sub><sup>λ</sup> = F(λ) - F(ln 2)</div>
+                Avec <span class="math">F(ln 2) = -3 ln 3</span>, on obtient :
+                <div class="math-equation">S(λ) = 3 ln\left(\frac{3(e<sup>λ</sup> - 1)}{e<sup>λ</sup> + 1}\right) \text{ u.a.}</div>
+              </li>
+              <li><strong>d- Limite de l'aire :</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 3 ln(3) \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Parity of f and variations study:</strong>
+                <br />- The domain is <span class="math">R<sup>*</sup></span> (denominator vanishes at <span class="math">x=0</span>), which is symmetric with respect to zero.
+                <br />- For all <span class="math">x ∈ R<sup>*</sup></span>:
+                <div class="math-equation">f(-x) = <span class="frac"><span>6e<sup>-x</sup></span><span>e<sup>-2x</sup> - 1</span></span> = <span class="frac"><span>6/e<sup>x</sup></span><span>(1 - e<sup>2x</sup>)/e<sup>2x</sup></span></span> = <span class="frac"><span>6e<sup>x</sup></span><span>-(e<sup>2x</sup> - 1)</span></span> = -f(x)</div>
+                Therefore, <span class="math">f</span> is odd and the curve is symmetric with respect to the origin <span class="math">O</span>.
+                <br />- <strong>Limits:</strong>
+                <br />At <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = lim<sub>x→+∞</sub> <span class="frac"><span>6e<sup>x</sup></span><span>e<sup>2x</sup></span></span> = 0</span>. The x-axis is a horizontal asymptote.
+                <br />At <span class="math">0<sup>+</sup></span>: since <span class="math">x &gt; 0</span>, we have <span class="math">e<sup>2x</sup> - 1 &gt; 0</span>, so <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. The line <span class="math">x = 0</span> is a vertical asymptote.
+                <br />- <strong>Derivative:</strong>
+                <div class="math-equation">f'(x) = -6 <span class="frac"><span>e<sup>x</sup>(e<sup>2x</sup> + 1)</span><span>(e<sup>2x</sup> - 1)<sup>2</sup></span></span></div>
+                Since both numerator and denominator are positive, <span class="math">f'(x) &lt; 0</span> for all <span class="math">x ∈ R<sup>*</sup></span>.
+                <br />So the function is strictly decreasing on <span class="math">]-∞, 0[</span> and strictly decreasing on <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>b- Tangent equation at x<sub>0</sub> = 0.5 ln 3:</strong>
+                <br />We have <span class="math">e<sup>x<sub>0</sub></sup> = √3</span> and <span class="math">e<sup>2x<sub>0</sub></sup> = 3</span>.
+                <br />Substituting in the function and derivative yields:
+                <br /><span class="math">f(x<sub>0</sub>) = 3√3</span>.
+                <br /><span class="math">f'(x<sub>0</sub>) = -6√3</span>.
+                <br />The tangent equation is:
+                <div class="math-equation">y = -6√3 ( x - <span class="frac"><span>1</span><span>2</span></span> ln 3 ) + 3√3 = -6√3 x + 3√3(1 + ln 3)</div>
+              </li>
+              <li><strong>c- Plot:</strong> Plot asymptotes, tangent line, and two symmetric branches.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Algebraic discussion of f(x) = m:</strong>
+                <br />Letting <span class="math">t = e<sup>x</sup></span> (with <span class="math">t &gt; 0</span> and <span class="math">t ≠ 1</span>):
+                <div class="math-equation">m t<sup>2</sup> - 6t - m = 0</div>
+                - If <span class="math">m = 0</span>: the equation has no positive solution. No intersection.
+                <br />- If <span class="math">m ≠ 0</span>: the discriminant <span class="math">Δ = 36 + 4m<sup>2</sup> &gt; 0</span>. The product of roots is <span class="math">t<sub>1</sub>t<sub>2</sub> = -1 &lt; 0</span>.
+                <br />Only the positive root is accepted:
+                <br />- If <span class="math">m &gt; 0</span>: <span class="math">t = <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span></span>.
+                <br />- If <span class="math">m &lt; 0</span>: <span class="math">t = <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span></span>.
+                <br />For all <span class="math">m ≠ 0</span>, there is exactly one intersection point.
+              </li>
+              <li><strong>b- Coordinates of the point in terms of m:</strong>
+                <br />- For <span class="math">m &gt; 0</span>: <span class="math">P( ln( <span class="frac"><span>3 + \sqrt{9 + m<sup>2</sup>}</span><span>m</span></span> ), m )</span>.
+                <br />- For <span class="math">m &lt; 0</span>: <span class="math">P( ln( <span class="frac"><span>\sqrt{9 + m<sup>2</sup>} - 3</span><span>|m|</span></span> ), m )</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Finding α and β:</strong>
+                <br />Combining and comparing numerators yields:
+                <div class="math-equation">(α + β) e<sup>x</sup> + (α - β) = 6</div>
+                So <span class="math">α = 3</span> and <span class="math">β = -3</span>.
+                <br />Thus: <span class="math">f(x) = <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> - 1</span></span> - <span class="frac"><span>3e<sup>x</sup></span><span>e<sup>x</sup> + 1</span></span></span>.
+              </li>
+              <li><strong>b- Antiderivative of f on ]0, +∞[:</strong>
+                <div class="math-equation">F(x) = 3 ln(e<sup>x</sup> - 1) - 3 ln(e<sup>x</sup> + 1) = 3 ln\left(\frac{e<sup>x</sup> - 1}{e<sup>x</sup> + 1}\right)</div>
+              </li>
+              <li><strong>c- Area S(λ):</strong>
+                <br />Since the function is positive on the interval <span class="math">[ln 2, λ]</span>:
+                <div class="math-equation">S(λ) = [ F(x) ]<sub>ln 2</sub><sup>λ</sup> = F(λ) - F(ln 2)</div>
+                With <span class="math">F(ln 2) = -3 ln 3</span>, we obtain:
+                <div class="math-equation">S(λ) = 3 ln\left(\frac{3(e<sup>λ</sup> - 1)}{e<sup>λ</sup> + 1}\right) \text{ u.a.}</div>
+              </li>
+              <li><strong>d- Limit of the area:</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 3 ln(3) \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة كسرية ولوغارتمية مرافقة وحساب مساحات بالتجزئة",
+      fr: "Problème d'approfondissement : Étude de fonctions liées, primitive par parties et aires",
+      en: "Deepening Problem: Associated Rational and Logarithmic Functions, Area by Parts"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة على المجال <span class="math">]0, +∞[</span> كما يلي:</p>
+        <div class="math-equation">f(x) = 1 + <span class="frac"><span>3</span><span>4x<sup>2</sup></span></span> - <span class="frac"><span>3 ln x</span><span>2x<sup>2</sup></span></span></div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل للدالة <span class="math">f</span> في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهائية للمنحنى <span class="math">(C)</span>.</li>
+              <li>احسب <span class="math">f(\\sqrt{e})</span> وعين نقط تقاطع <span class="math">(C)</span> مع مستقيماته المقاربة، وأنشئ <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>أثبت أنه من أجل كل <span class="math">x</span> من <span class="math">D<sub>f</sub></span>، <span class="math">f(x) &gt; 0</span>.</li>
+          <li>ناقش بيانياً، حسب قيم الوسيط الحقيقي <span class="math">m</span>، وجود وعدد حلول المعادلة:
+            <div class="math-equation">4(m - 1)x<sup>2</sup> - 3 + 6 ln x = 0</div>
+          </li>
+          <li>باستعمال طريقة التكامل بالتجزئة، عين دالة أصلية للدالة <span class="math">x ↦ <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span></span>.</li>
+          <li>ليكن <span class="math">λ</span> عدداً حقيقياً حيث <span class="math">λ ≥ \\sqrt{e}</span>.
+            <ol type="a">
+              <li>احسب <span class="math">S(λ)</span> مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C)</span> والمستقيمات التي معادلاتها: <span class="math">y = 1</span>، <span class="math">x = \\sqrt{e}</span> و <span class="math">x = λ</span>.</li>
+              <li>احسب: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>لتكن الدالة العددية <span class="math">h</span> للمتغير الحقيقي <span class="math">x</span>، حيث:
+            <div class="math-equation">h(x) = x + <span class="frac"><span>3</span><span>4x</span></span> + <span class="frac"><span>3 ln x</span><span>2x</span></span></div>
+            <ol type="a">
+              <li>ادرس تغيرات الدالة <span class="math">h</span> (يمكن استعمال نتيجة السؤال 2).</li>
+              <li>اكتب معادلة المماس للمنحنى <span class="math">(Γ)</span> الممثل للدالة <span class="math">h</span> في النقطة التي فاصلتها 1.</li>
+              <li>بيّن أن المنحنى <span class="math">(Γ)</span> يقبل نقطة انعطاف يطلب تعيين إحداثييها.</li>
+              <li>احسب <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) × h(1)</span> وتحقق أن المعادلة <span class="math">h(x) = 0</span> تقبل حلاً محصوراً بين <span class="frac"><span>1</span><span>2</span></span> و 1.</li>
+              <li>ادرس الفروع اللانهائية للمنحنى <span class="math">(Γ)</span>، ثم ارسم <span class="math">(Γ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+        <p>يعطى: <span class="math">\\sqrt{e} ≈ 1.6</span>، <span class="math">e ≈ 2.7</span>.</p>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie sur <span class="math">]0, +∞[</span> par :</p>
+        <div class="math-equation">f(x) = 1 + <span class="frac"><span>3</span><span>4x<sup>2</sup></span></span> - <span class="frac"><span>3 ln x</span><span>2x<sup>2</sup></span></span></div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère représentatif <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Étudier les variations de la fonction <span class="math">f</span> et les branches infinies de la courbe <span class="math">(C)</span>.</li>
+              <li>Calculer <span class="math">f(\\sqrt{e})</span>, déterminer les points d'intersection de <span class="math">(C)</span> avec ses asymptotes, puis tracer <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>Démontrer que pour tout <span class="math">x</span> de <span class="math">D<sub>f</sub></span>, <span class="math">f(x) &gt; 0</span>.</li>
+          <li>Discuter graphiquement, selon les valeurs du paramètre réel <span class="math">m</span>, le nombre de solutions de l'équation :
+            <div class="math-equation">4(m - 1)x<sup>2</sup> - 3 + 6 ln x = 0</div>
+          </li>
+          <li>En utilisant une intégration par parties, déterminer une primitive de la fonction <span class="math">x ↦ <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span></span>.</li>
+          <li>Soit <span class="math">λ</span> un réel tel que <span class="math">λ ≥ \\sqrt{e}</span>.
+            <ol type="a">
+              <li>Calculer l'aire <span class="math">S(λ)</span> du domaine plan délimité par la courbe <span class="math">(C)</span> et les droites d'équations : <span class="math">y = 1</span>, <span class="math">x = \\sqrt{e}</span> et <span class="math">x = λ</span>.</li>
+              <li>Calculer : <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>Soit la fonction numérique <span class="math">h</span> de la variable réelle <span class="math">x</span> définie par :
+            <div class="math-equation">h(x) = x + <span class="frac"><span>3</span><span>4x</span></span> + <span class="frac"><span>3 ln x</span><span>2x</span></span></div>
+            <ol type="a">
+              <li>Étudier les variations de la fonction <span class="math">h</span> (on pourra utiliser le résultat de la question 2).</li>
+              <li>Déterminer l'équation de la tangente à la courbe <span class="math">(Γ)</span> représentative de la fonction <span class="math">h</span> au point d'abscisse 1.</li>
+              <li>Montrer que la courbe <span class="math">(Γ)</span> admet un point d'inflexion dont on déterminera les coordonnées.</li>
+              <li>Calculer <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) × h(1)</span> et vérifier que l'équation <span class="math">h(x) = 0</span> admet une solution dans l'intervalle <span class="frac"><span>1</span><span>2</span></span> et 1.</li>
+              <li>Étudier les branches infinies de la courbe <span class="math">(Γ)</span>, puis tracer <span class="math">(Γ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+        <p>On donne : <span class="math">\\sqrt{e} ≈ 1,6</span>, <span class="math">e ≈ 2,7</span>.</p>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined on the interval <span class="math">]0, +∞[</span> by:</p>
+        <div class="math-equation">f(x) = 1 + <span class="frac"><span>3</span><span>4x<sup>2</sup></span></span> - <span class="frac"><span>3 ln x</span><span>2x<sup>2</sup></span></span></div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C)</span>.</li>
+              <li>Calculate <span class="math">f(\\sqrt{e})</span>, determine the intersection points of <span class="math">(C)</span> with its asymptotes, and draw <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>Prove that for all <span class="math">x</span> in <span class="math">D<sub>f</sub></span>, <span class="math">f(x) &gt; 0</span>.</li>
+          <li>Discuss graphically, according to the values of the real parameter <span class="math">m</span>, the existence and number of solutions of the equation:
+            <div class="math-equation">4(m - 1)x<sup>2</sup> - 3 + 6 ln x = 0</div>
+          </li>
+          <li>Using integration by parts, determine an antiderivative of the function <span class="math">x ↦ <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span></span>.</li>
+          <li>Let <span class="math">λ</span> be a real number such that <span class="math">λ ≥ \\sqrt{e}</span>.
+            <ol type="a">
+              <li>Calculate the area <span class="math">S(λ)</span> of the plane region bounded by the curve <span class="math">(C)</span> and the lines with equations: <span class="math">y = 1</span>, <span class="math">x = \\sqrt{e}</span> and <span class="math">x = λ</span>.</li>
+              <li>Calculate: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>Let the real function <span class="math">h</span> be defined on <span class="math">]0, +∞[</span> by:
+            <div class="math-equation">h(x) = x + <span class="frac"><span>3</span><span>4x</span></span> + <span class="frac"><span>3 ln x</span><span>2x</span></span></div>
+            <ol type="a">
+              <li>Study the variations of the function <span class="math">h</span> (you may use the result of question 2).</li>
+              <li>Write down the equation of the tangent to the curve <span class="math">(Γ)</span> representing the function <span class="math">h</span> at the point with abscissa 1.</li>
+              <li>Show that the curve <span class="math">(Γ)</span> admits an inflection point and find its coordinates.</li>
+              <li>Calculate <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) × h(1)</span> and verify that the equation <span class="math">h(x) = 0</span> admits a solution in the interval <span class="frac"><span>1</span><span>2</span></span> and 1.</li>
+              <li>Study the infinite branches of the curve <span class="math">(Γ)</span>, then draw <span class="math">(Γ)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+        <p>Given: <span class="math">\\sqrt{e} ≈ 1.6</span>, <span class="math">e ≈ 2.7</span>.</p>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- دراسة التغيرات والفروع اللانهائية:</strong>
+                <br />- <strong>النهايات:</strong>
+                <br />عند <span class="math">0<sup>+</sup></span>: لدينا <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>، ومنه <span class="math">lim<sub>x→0<sup>+</sup></sub> (3 - 6ln x) = +∞</span>. إذن <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. المستقيم <span class="math">x = 0</span> مقارب عمودي.
+                <br />عند <span class="math">+∞</span>: بما أن <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> = 0</span>، فإن <span class="math">lim<sub>x→+∞</sub> f(x) = 1</span>. المستقيم <span class="math">y = 1</span> مقارب أفقي بجوار <span class="math">+∞</span>.
+                <br />- <strong>المشتقة:</strong>
+                <div class="math-equation">f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></div>
+                بما أن المقام <span class="math">x<sup>3</sup> &gt; 0</span>، فإن إشارة المشتقة هي إشارة <span class="math">ln x - 1</span>:
+                <br />- تنعدم المشتقة عند <span class="math">x = e</span>.
+                <br />- متناقصة تماماً على المجال <span class="math">]0, e]</span> لأن <span class="math">f'(x) &lt; 0</span>.
+                <br />- متزايدة تماماً على المجال <span class="math">[e, +∞[</span> لأن <span class="math">f'(x) &gt; 0</span>.
+                <br />- القيمة الحدية الصغرى المطلقة هي <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span> ≈ 0.90</span>.
+              </li>
+              <li><strong>ب- الحساب والتقاطعات والإنشاء:</strong>
+                <br />- <span class="math">f(\\sqrt{e}) = 1 + <span class="frac"><span>3 - 6(1/2)</span><span>4e</span></span> = 1</span>.
+                <br />- التقاطع مع المقارب الأفقي <span class="math">y=1</span>:
+                <br /><span class="math">f(x) = 1 ⇔ 3 - 6ln x = 0 ⇔ x = \\sqrt{e}</span>. إذن نقطة التقاطع هي <span class="math">A(\\sqrt{e}, 1)</span>.
+                <br />- الإنشاء: يتم رسم المقاربات والمنحنى المتقاطع عند <span class="math">A</span> مع انخفاضه للذروة الدنيا عند <span class="math">e</span> ثم اقترابه من المقارب <span class="math">y=1</span> من الأسفل.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>إثبات أن f(x) &gt; 0:</strong>
+            <br />بما أن القيمة الحدية الصغرى المطلقة للدالة هي <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span></span> وبما أن <span class="math">4e<sup>2</sup> ≈ 29.56 &gt; 3</span> فإن <span class="math">f(e) &gt; 0</span>.
+            <br />بالتالي، من أجل كل <span class="math">x &gt; 0</span>: <span class="math">f(x) ≥ f(e) &gt; 0</span>.
+          </li>
+          <li>
+            <strong>المناقشة البيانية:</strong>
+            <br />المعادلة تكافئ: <span class="math">4(m - 1)x<sup>2</sup> = 3 - 6 ln x ⇔ m - 1 = <span class="frac"><span>3 - 6 ln x</span><span>4x<sup>2</sup></span></span> ⇔ m = f(x)</span>.
+            <br />ندرس تقاطع المنحنى مع المستقيم الأفقي <span class="math">y = m</span>:
+            <br />- إذا كان <span class="math">m &lt; f(e)</span> (أي <span class="math">m &lt; 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span></span>): لا توجد حلول.
+            <br />- إذا كان <span class="math">m = f(e)</span>: يوجد حل وحيد هو <span class="math">x = e</span>.
+            <br />- إذا كان <span class="math">f(e) &lt; m &lt; 1</span>: يوجد حلان متمايزان.
+            <br />- إذا كان <span class="math">m ≥ 1</span>: يوجد حل وحيد موجب تماماً.
+          </li>
+          <li>
+            <strong>التكامل بالتجزئة:</strong>
+            <br />نضع <span class="math">u(x) = ln x ⇔ u'(x) = <span class="frac"><span>1</span><span>x</span></span></span> و <span class="math">v'(x) = <span class="frac"><span>1</span><span>x<sup>2</sup></span></span> ⇔ v(x) = -<span class="frac"><span>1</span><span>x</span></span></span>.
+            <br />باستخدام قاعدة التكامل بالتجزئة:
+            <div class="math-equation">\\int \\frac{ln x}{x^2} dx = -\\frac{ln x}{x} - \\int \\left(-\\frac{1}{x^2}\\right) dx = -\\frac{ln x + 1}{x} + C</div>
+            إذن دالة أصلية هي <span class="math">K(x) = -\\span class="frac"><span>ln x + 1</span><span>x</span></span></span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- حساب المساحة S(λ):</strong>
+                <br />بما أن المنحنى تحت المستقيم <span class="math">y = 1</span> على المجال <span class="math">[\\sqrt{e}, λ]</span>:
+                <div class="math-equation">S(λ) = \\int_{\\sqrt{e}}^{λ} (1 - f(x)) dx = \\int_{\\sqrt{e}}^{λ} \\left( -\\frac{3}{4x^2} + \\frac{3 ln x}{2x^2} \\right) dx</div>
+                دالة أصلية لـ <span class="math">1 - f(x)</span> هي:
+                <div class="math-equation">G(x) = \\frac{3}{4x} + \\frac{3}{2} K(x) = -\\frac{3 + 6ln x}{4x}</div>
+                وبالتعويض نجد:
+                <div class="math-equation">S(λ) = G(λ) - G(\\sqrt{e}) = \\frac{3}{2\\sqrt{e}} - \\frac{3 + 6ln λ}{4λ} \\text{ u.a.}</div>
+              </li>
+              <li><strong>ب- النهاية:</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \\frac{3}{2\\sqrt{e}} \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- تغيرات h:</strong>
+                <br />نشتق الدالة <span class="math">h(x)</span> فنجد:
+                <div class="math-equation">h'(x) = 1 + \\frac{3 - 6ln x}{4x^2} = f(x)</div>
+                وبما أنه من السؤال 2 لدينا <span class="math">f(x) &gt; 0</span>، فإن <span class="math">h'(x) &gt; 0</span> تماماً.
+                <br />إذن الدالة <span class="math">h</span> متزايدة تماماً على المجال <span class="math">]0, +∞[</span>.
+                <br />- النهايات: عند <span class="math">0<sup>+</sup></span> النهاية هي <span class="math">-∞</span>، وعند <span class="math">+∞</span> النهاية هي <span class="math">+∞</span>.
+              </li>
+              <li><strong>ب- مماس المنحنى (Γ) عند x = 1:</strong>
+                <br />لدينا <span class="math">h(1) = <span class="frac"><span>7</span><span>4</span></span></span> و <span class="math">h'(1) = f(1) = <span class="frac"><span>7</span><span>4</span></span></span>.
+                <br />معادلة المماس هي: <span class="math">(T): y = <span class="frac"><span>7</span><span>4</span></span>x</span>.
+              </li>
+              <li><strong>ج- نقطة الانعطاف لـ (Γ):</strong>
+                <br />المشتقة الثانية هي <span class="math">h''(x) = f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></span>.
+                <br />تنعدم المشتقة الثانية وتغير إشارتها عند <span class="math">x = e</span>.
+                <br />إذن نقطة الانعطاف هي <span class="math">B(e, e + <span class="frac"><span>9</span><span>4e</span></span>)</span>.
+              </li>
+              <li><strong>د- مبرهنة القيم المتوسطة:</strong>
+                <br />لدينا <span class="math">h(1) = 1.75 &gt; 0</span> و <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) = 2 - 3ln 2 ≈ -0.08 &lt; 0</span>.
+                <br />بما أن جداءهما سالب والدالة مستمرة ومتزايدة تماماً على المجال، فإن المعادلة <span class="math">h(x) = 0</span> تقبل حلاً وحيداً محصوراً بين <span class="math">1/2</span> و 1.
+              </li>
+              <li><strong>هـ- الفروع اللانهائية والإنشاء لـ (Γ):</strong>
+                <br />لدينا <span class="math">x = 0</span> مقارب عمودي بجوار <span class="math">0<sup>+</sup></span>.
+                <br />وعند <span class="math">+∞</span>: <span class="math">lim [h(x) - x] = lim <span class="frac"><span>3 + 6ln x</span><span>4x</span></span> = 0</span>.
+                <br />إذن المستقيم ذو المعادلة <span class="math">y = x</span> مقارب مائل للمنحنى <span class="math">(Γ)</span> بجوار <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Variations de f et branches infinies :</strong>
+                <br />- <strong>Limites :</strong>
+                <br />En <span class="math">0<sup>+</sup></span> : on a <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>, donc <span class="math">lim<sub>x→0<sup>+</sup></sub> (3 - 6ln x) = +∞</span>. D'où <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. La droite d'équation <span class="math">x = 0</span> est une asymptote verticale.
+                <br />En <span class="math">+∞</span> : comme <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> = 0</span>, on a <span class="math">lim<sub>x→+∞</sub> f(x) = 1</span>. La droite d'équation <span class="math">y = 1</span> est une asymptote horizontale.
+                <br />- <strong>Dérivée :</strong>
+                <div class="math-equation">f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></div>
+                Comme <span class="math">x<sup>3</sup> &gt; 0</span>, le signe de la dérivée est celui de <span class="math">ln x - 1</span> :
+                <br />- La dérivée s'annule en <span class="math">x = e</span>.
+                <br />- <span class="math">f</span> est strictement décroissante sur <span class="math">]0, e]</span> car <span class="math">f'(x) &lt; 0</span>.
+                <br />- <span class="math">f</span> est strictement croissante sur <span class="math">[e, +∞[</span> car <span class="math">f'(x) &gt; 0</span>.
+                <br />- Le minimum absolu est <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span> ≈ 0,90</span>.
+              </li>
+              <li><strong>b- Calculs, intersections et tracé :</strong>
+                <br />- <span class="math">f(\\sqrt{e}) = 1 + <span class="frac"><span>3 - 6(1/2)</span><span>4e</span></span> = 1</span>.
+                <br />- Intersection avec l'asymptote horizontale <span class="math">y=1</span> :
+                <br /><span class="math">f(x) = 1 ⇔ 3 - 6ln x = 0 ⇔ x = \\sqrt{e}</span>, soit le point <span class="math">A(\\sqrt{e}, 1)</span>.
+                <br />- Tracé : On dessine les asymptotes et la courbe passant par <span class="math">A</span>, atteignant le minimum à <span class="math">e</span> puis s'approchant de <span class="math">y=1</span> par le bas.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Démonstration f(x) &gt; 0 :</strong>
+            <br />Le minimum de la fonction est <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span></span>. Comme <span class="math">4e<sup>2</sup> ≈ 29.56 &gt; 3</span>, on a <span class="math">f(e) &gt; 0</span>.
+            <br />Par conséquent, pour tout <span class="math">x &gt; 0</span> : <span class="math">f(x) ≥ f(e) &gt; 0</span>.
+          </li>
+          <li>
+            <strong>Discussion graphique :</strong>
+            <br />L'équation équivaut à : <span class="math">4(m - 1)x<sup>2</sup> = 3 - 6 ln x ⇔ m - 1 = <span class="frac"><span>3 - 6 ln x</span><span>4x<sup>2</sup></span></span> ⇔ m = f(x)</span>.
+            <br />- Si <span class="math">m &lt; f(e) : aucune solution.</span>
+            <br />- Si <span class="math">m = f(e) : une solution unique (<span class="math">x = e</span>).</span>
+            <br />- Si <span class="math">f(e) &lt; m &lt; 1 : deux solutions distinctes.</span>
+            <br />- Si <span class="math">m ≥ 1 : une solution unique.</span>
+          </li>
+          <li>
+            <strong>Intégration par parties :</strong>
+            <br />En posant <span class="math">u(x) = ln x ⇔ u'(x) = <span class="frac"><span>1</span><span>x</span></span></span> et <span class="math">v'(x) = <span class="frac"><span>1</span><span>x<sup>2</sup></span></span> ⇔ v(x) = -<span class="frac"><span>1</span><span>x</span></span></span> :
+            <div class="math-equation">\\int \\frac{ln x}{x^2} dx = -\\frac{ln x}{x} - \\int \\left(-\\frac{1}{x^2}\\right) dx = -\\frac{ln x + 1}{x} + C</div>
+            Une primitive est donc <span class="math">K(x) = -\\frac{ln x + 1}{x}</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Aire S(λ) :</strong>
+                <br />Puisque la courbe est sous la droite <span class="math">y = 1</span> sur <span class="math">[\\sqrt{e}, λ]</span> :
+                <div class="math-equation">S(λ) = \\int_{\\sqrt{e}}^{λ} (1 - f(x)) dx = \\int_{\\sqrt{e}}^{λ} \\left( -\\frac{3}{4x^2} + \\frac{3 ln x}{2x^2} \\right) dx</div>
+                Une primitive de <span class="math">1 - f(x)</span> est :
+                <div class="math-equation">G(x) = \\frac{3}{4x} + \\frac{3}{2} K(x) = -\\frac{3 + 6ln x}{4x}</div>
+                Par substitution :
+                <div class="math-equation">S(λ) = G(λ) - G(\\sqrt{e}) = \\frac{3}{2\\sqrt{e}} - \\frac{3 + 6ln λ}{4λ} \\text{ u.a.}</div>
+              </li>
+              <li><strong>b- Limite :</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \\frac{3}{2\\sqrt{e}} \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations de h :</strong>
+                <br />La dérivée de la fonction <span class="math">h(x)</span> est :
+                <div class="math-equation">h'(x) = 1 + \\frac{3 - 6ln x}{4x^2} = f(x)</div>
+                D'après la question 2, on a <span class="math">f(x) &gt; 0</span>, donc <span class="math">h'(x) &gt; 0</span> pour tout <span class="math">x &gt; 0</span>.
+                <br />La fonction <span class="math">h</span> est strictement croissante sur <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>b- Tangente à (Γ) en x = 1 :</strong>
+                <br />On a <span class="math">h(1) = <span class="frac"><span>7</span><span>4</span></span></span> et <span class="math">h'(1) = f(1) = <span class="frac"><span>7</span><span>4</span></span></span>.
+                <br />L'équation est : <span class="math">(T): y = <span class="frac"><span>7</span><span>4</span></span>x</span>.
+              </li>
+              <li><strong>c- Point d'inflexion :</strong>
+                <br />La dérivée seconde est <span class="math">h''(x) = f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></span>.
+                <br />Elle s'annule et change de signe en <span class="math">x = e</span>.
+                <br />Le point d'inflexion est <span class="math">B(e, e + <span class="frac"><span>9</span><span>4e</span></span>)</span>.
+              </li>
+              <li><strong>d- Théorème des valeurs intermédiaires :</strong>
+                <br />On a <span class="math">h(1) = 1.75 &gt; 0</span> et <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) = 2 - 3ln 2 ≈ -0.08 &lt; 0</span>.
+                <br />Comme le produit est négatif et la fonction est continue et strictement croissante, l'équation <span class="math">h(x) = 0</span> admet une solution unique dans <span class="math">]1/2, 1[</span>.
+              </li>
+              <li><strong>e- Branches infinies et tracé de (Γ) :</strong>
+                <br />La droite d'équation <span class="math">x = 0</span> est une asymptote verticale.
+                <br />Comme <span class="math">lim [h(x) - x] = lim <span class="frac"><span>3 + 6ln x</span><span>4x</span></span> = 0</span> à l'infini, la droite <span class="math">y = x</span> est une asymptote oblique à <span class="math">(Γ)</span> en <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p>On donne : <span class="math">\\sqrt{e} ≈ 1,6</span>, <span class="math">e ≈ 2,7</span>.</p>
+      `,
+      en: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Variations of f and infinite branches:</strong>
+                <br />- <strong>Limits:</strong>
+                <br />At <span class="math">0<sup>+</sup></span>: we have <span class="math">lim<sub>x→0<sup>+</sup></sub> ln x = -∞</span>, so <span class="math">lim<sub>x→0<sup>+</sup></sub> (3 - 6ln x) = +∞</span>. Hence <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span>. The line <span class="math">x = 0</span> is a vertical asymptote.
+                <br />At <span class="math">+∞</span>: since <span class="math">lim<sub>x→+∞</sub> <span class="frac"><span>ln x</span><span>x<sup>2</sup></span></span> = 0</span>, we have <span class="math">lim<sub>x→+∞</sub> f(x) = 1</span>. The line <span class="math">y = 1</span> is a horizontal asymptote.
+                <br />- <strong>Derivative:</strong>
+                <div class="math-equation">f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></div>
+                Since <span class="math">x<sup>3</sup> &gt; 0</span>, the sign of the derivative is the same as the sign of <span class="math">ln x - 1</span>:
+                <br />- The derivative vanishes at <span class="math">x = e</span>.
+                <br />- <span class="math">f</span> is strictly decreasing on <span class="math">]0, e]</span> since <span class="math">f'(x) &lt; 0</span>.
+                <br />- <span class="math">f</span> is strictly increasing on <span class="math">[e, +∞[</span> since <span class="math">f'(x) &gt; 0</span>.
+                <br />- The absolute minimum is <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span> ≈ 0.90</span>.
+              </li>
+              <li><strong>b- Calculations, intersections and plotting:</strong>
+                <br />- <span class="math">f(\\sqrt{e}) = 1 + <span class="frac"><span>3 - 6(1/2)</span><span>4e</span></span> = 1</span>.
+                <br />- Intersection with horizontal asymptote <span class="math">y=1</span>:
+                <br /><span class="math">f(x) = 1 ⇔ 3 - 6ln x = 0 ⇔ x = \\sqrt{e}</span>, which yields the point <span class="math">A(\\sqrt{e}, 1)</span>.
+                <br />- Plot: Plot the asymptotes and the curve passing through <span class="math">A</span>, reaching its minimum at <span class="math">e</span> and approaching <span class="math">y=1</span> from below.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Proof that f(x) &gt; 0:</strong>
+            <br />The minimum of the function is <span class="math">f(e) = 1 - <span class="frac"><span>3</span><span>4e<sup>2</sup></span></span></span>. Since <span class="math">4e^2 ≈ 29.56 &gt; 3</span>, we have <span class="math">f(e) &gt; 0</span>.
+            <br />Therefore, for all <span class="math">x &gt; 0</span>: <span class="math">f(x) ≥ f(e) &gt; 0</span>.
+          </li>
+          <li>
+            <strong>Graphical discussion:</strong>
+            <br />The equation simplifies to: <span class="math">4(m - 1)x<sup>2</sup> = 3 - 6 ln x ⇔ m - 1 = <span class="frac"><span>3 - 6 ln x</span><span>4x<sup>2</sup></span></span> ⇔ m = f(x)</span>.
+            <br />- If <span class="math">m &lt; f(e)</span>: no solution.
+            <br />- If <span class="math">m = f(e)</span>: exactly one solution (<span class="math">x = e</span>).
+            <br />- If <span class="math">f(e) &lt; m &lt; 1</span>: exactly two distinct solutions.
+            <br />- If <span class="math">m ≥ 1</span>: exactly one solution.
+          </li>
+          <li>
+            <strong>Integration by parts:</strong>
+            <br />Letting <span class="math">u(x) = ln x ⇔ u'(x) = <span class="frac"><span>1</span><span>x</span></span></span> and <span class="math">v'(x) = <span class="frac"><span>1</span><span>x<sup>2</sup></span></span> ⇔ v(x) = -<span class="frac"><span>1</span><span>x</span></span></span>:
+            <div class="math-equation">\\int \\frac{ln x}{x^2} dx = -\\frac{ln x}{x} - \\int \\left(-\\frac{1}{x^2}\\right) dx = -\\frac{ln x + 1}{x} + C</div>
+            An antiderivative is therefore <span class="math">K(x) = -\\frac{ln x + 1}{x}</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Area S(λ):</strong>
+                <br />Since the curve is below the line <span class="math">y = 1</span> on the interval <span class="math">[\\sqrt{e}, λ]</span>:
+                <div class="math-equation">S(λ) = \\int_{\\sqrt{e}}^{λ} (1 - f(x)) dx = \\int_{\\sqrt{e}}^{λ} \\left( -\\frac{3}{4x^2} + \\frac{3 ln x}{2x^2} \\right) dx</div>
+                An antiderivative of <span class="math">1 - f(x)</span> is:
+                <div class="math-equation">G(x) = \\frac{3}{4x} + \\frac{3}{2} K(x) = -\\frac{3 + 6ln x}{4x}</div>
+                Substituting values gives:
+                <div class="math-equation">S(λ) = G(λ) - G(\\sqrt{e}) = \\frac{3}{2\\sqrt{e}} - \\frac{3 + 6ln λ}{4λ} \\text{ u.a.}</div>
+              </li>
+              <li><strong>b- Limit:</strong>
+                <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \\frac{3}{2\\sqrt{e}} \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations of h:</strong>
+                <br />The derivative of the function <span class="math">h(x)</span> is:
+                <div class="math-equation">h'(x) = 1 + \\frac{3 - 6ln x}{4x^2} = f(x)</div>
+                From question 2, we have <span class="math">f(x) &gt; 0</span>, so <span class="math">h'(x) &gt; 0</span> for all <span class="math">x &gt; 0</span>.
+                <br />The function <span class="math">h</span> is strictly increasing on <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>b- Tangent to (Γ) at x = 1:</strong>
+                <br />We have <span class="math">h(1) = <span class="frac"><span>7</span><span>4</span></span></span> and <span class="math">h'(1) = f(1) = <span class="frac"><span>7</span><span>4</span></span></span>.
+                <br />The equation is: <span class="math">(T): y = <span class="frac"><span>7</span><span>4</span></span>x</span>.
+              </li>
+              <li><strong>c- Inflection point:</strong>
+                <br />The second derivative is <span class="math">h''(x) = f'(x) = <span class="frac"><span>3(ln x - 1)</span><span>x<sup>3</sup></span></span></span>.
+                <br />It vanishes and changes sign at <span class="math">x = e</span>.
+                <br />The inflection point is <span class="math">B(e, e + <span class="frac"><span>9</span><span>4e</span></span>)</span>.
+              </li>
+              <li><strong>d- Intermediate Value Theorem:</strong>
+                <br />We have <span class="math">h(1) = 1.75 &gt; 0</span> and <span class="math">h(<span class="frac"><span>1</span><span>2</span></span>) = 2 - 3ln 2 ≈ -0.08 &lt; 0</span>.
+                <br />Since the product is negative and the function is continuous and strictly increasing, the equation <span class="math">h(x) = 0</span> has a unique solution in <span class="math">]1/2, 1[</span>.
+              </li>
+              <li><strong>e- Infinite branches and drawing of (Γ):</strong>
+                <br />The line <span class="math">x = 0</span> is a vertical asymptote.
+                <br />Since <span class="math">lim [h(x) - x] = lim <span class="frac"><span>3 + 6ln x</span><span>4x</span></span> = 0</span> at infinity, the line <span class="math">y = x</span> is an oblique asymptote to <span class="math">(Γ)</span> at <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p>Given: <span class="math">\\sqrt{e} ≈ 1.6</span>, <span class="math">e ≈ 2.7</span>.</p>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية بتربيع، مماس مشترك ودراسة دالة مجزأة مرافقة",
+      fr: "Problème d'approfondissement : Fonction logarithme avec carré, tangente commune et fonction définie par morceaux",
+      en: "Deepening Problem: Logarithmic Function with Square, Common Tangent and Piecewise Function"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = -x<sup>2</sup> + x + 2 + ln(x + 1)<sup>2</sup></div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>جد مجموعة تعريف الدالة <span class="math">f</span> واحسب نهاياتها عند حدود هذه المجموعة.</li>
+              <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهائية للمنحنى <span class="math">(C)</span>.</li>
+              <li>هل توجد مماسات لـ <span class="math">(C)</span> معامل توجيهها 3؟ يطلب إيجاد معادلات لها إن وجدت.</li>
+              <li>بيّن أن <span class="math">(C)</span> يقطع حامل محور الفواصل في نقطة فاصلتها <span class="math">x<sub>0</sub></span> تحقق: <span class="math"><span class="frac"><span>5</span><span>2</span></span> &lt; x<sub>0</sub> &lt; <span class="frac"><span>11</span><span>4</span></span></span>.</li>
+              <li>أنشئ المماسات ذات معامل التوجيه 3، ثم أنشئ المنحنى <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>باستخدام التكامل بالتجزئة، جد دالة أصلية على المجال <span class="math">]-1, +∞[</span> للدالة: <span class="math">x ↦ ln(x + 1)</span>.</li>
+              <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C)</span> والمستقيمات التي معادلاتها: <span class="math">y = 0</span>، <span class="math">x = 0</span> و <span class="math">x = 2</span>.</li>
+            </ol>
+          </li>
+          <li>لتكن الدالة العددية <span class="math">h</span> للمتغير الحقيقي <span class="math">x</span> معرفة كما يلي:
+            <div class="math-equation">
+              h(x) = -x<sup>2</sup> + x + 2 + 2ln(x + 1) \quad ; \quad x &gt; -1
+              <br />
+              h(x) = x<sup>2</sup> - x - 2 - 2ln(-x - 1) \quad ; \quad x &lt; -1
+            </div>
+            <ol type="a">
+              <li>باستعمال نتائج دراسة الدالة <span class="math">f</span>، استنتج جدول تغيرات الدالة <span class="math">h</span>.</li>
+              <li>ارسم المنحنى <span class="math">(Γ)</span> الممثل للدالة <span class="math">h</span> في المعلم <span class="math">(O; \\vec{i}, \\vec{j})</span>.</li>
+              <li>ليكن <span class="math">(Δ<sub>m</sub>)</span> المستقيم الذي معادلته <span class="math">y = m</span>، حيث <span class="math">m</span> وسيط حقيقي. ادرس حسب قيم <span class="math">m</span> عدد نقط تقاطع المنحنى <span class="math">(Γ)</span> والمستقيم <span class="math">(Δ<sub>m</sub>)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = -x<sup>2</sup> + x + 2 + ln(x + 1)<sup>2</sup></div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Déterminer l'ensemble de définition de la fonction <span class="math">f</span> et calculer ses limites aux bornes de cet ensemble.</li>
+              <li>Étudier les variations de la fonction <span class="math">f</span> et les branches infinies de la courbe <span class="math">(C)</span>.</li>
+              <li>Existe-t-il des tangentes à la courbe <span class="math">(C)</span> de coefficient directeur 3 ? Si oui, déterminer leurs équations.</li>
+              <li>Démontrer que la courbe <span class="math">(C)</span> coupe l'axe des abscisses en un point d'abscisse <span class="math">x<sub>0</sub></span> tel que : <span class="math"><span class="frac"><span>5</span><span>2</span></span> &lt; x<sub>0</sub> &lt; <span class="frac"><span>11</span><span>4</span></span></span>.</li>
+              <li>Tracer les tangentes de coefficient directeur 3, puis tracer la courbe <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>En utilisant une intégration par parties, déterminer une primitive sur l'intervalle <span class="math">]-1, +∞[</span> de la fonction : <span class="math">x ↦ ln(x + 1)</span>.</li>
+              <li>Calculer l'aire du domaine plan délimité par la courbe <span class="math">(C)</span> et les droites d'équations : <span class="math">y = 0</span>, <span class="math">x = 0</span> et <span class="math">x = 2</span>.</li>
+            </ol>
+          </li>
+          <li>Soit la fonction numérique <span class="math">h</span> de la variable réelle <span class="math">x</span> définie par :
+            <div class="math-equation">
+              h(x) = -x<sup>2</sup> + x + 2 + 2ln(x + 1) \quad ; \quad x &gt; -1
+              <br />
+              h(x) = x<sup>2</sup> - x - 2 - 2ln(-x - 1) \quad ; \quad x &lt; -1
+            </div>
+            <ol type="a">
+              <li>En utilisant les résultats de l'étude de <span class="math">f</span>, en déduire le tableau de variations de la fonction <span class="math">h</span>.</li>
+              <li>Tracer la courbe <span class="math">(Γ)</span> représentant la fonction <span class="math">h</span> dans le repère <span class="math">(O; \\vec{i}, \\vec{j})</span>.</li>
+              <li>Soit <span class="math">(Δ<sub>m</sub>)</span> la droite d'équation <span class="math">y = m</span>, où <span class="math">m</span> est un paramètre réel. Discuter selon les valeurs de <span class="math">m</span> le nombre de points d'intersection de la courbe <span class="math">(Γ)</span> et de la droite <span class="math">(Δ<sub>m</sub>)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = -x<sup>2</sup> + x + 2 + ln(x + 1)<sup>2</sup></div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Find the domain of definition of the function <span class="math">f</span> and calculate its limits at the boundaries of this domain.</li>
+              <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C)</span>.</li>
+              <li>Do there exist tangents to the curve <span class="math">(C)</span> with slope 3? Find their equations if they exist.</li>
+              <li>Show that the curve <span class="math">(C)</span> intersects the x-axis at a point with abscissa <span class="math">x<sub>0</sub></span> such that: <span class="math"><span class="frac"><span>5</span><span>2</span></span> &lt; x<sub>0</sub> &lt; <span class="frac"><span>11</span><span>4</span></span></span>.</li>
+              <li>Draw the tangents with slope 3, then draw the curve <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Using integration by parts, find an antiderivative on the interval <span class="math">]-1, +∞[</span> of the function: <span class="math">x ↦ ln(x + 1)</span>.</li>
+              <li>Calculate the area of the plane region bounded by the curve <span class="math">(C)</span> and the lines with equations: <span class="math">y = 0</span>, <span class="math">x = 0</span> and <span class="math">x = 2</span>.</li>
+            </ol>
+          </li>
+          <li>Let the real function <span class="math">h</span> be defined by:
+            <div class="math-equation">
+              h(x) = -x<sup>2</sup> + x + 2 + 2ln(x + 1) \quad ; \quad x &gt; -1
+              <br />
+              h(x) = x<sup>2</sup> - x - 2 - 2ln(-x - 1) \quad ; \quad x &lt; -1
+            </div>
+            <ol type="a">
+              <li>Using the results of the study of <span class="math">f</span>, deduce the table of variations of the function <span class="math">h</span>.</li>
+              <li>Draw the curve <span class="math">(Γ)</span> representing the function <span class="math">h</span> in the coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</li>
+              <li>Let <span class="math">(Δ<sub>m</sub>)</span> be the line with equation <span class="math">y = m</span>, where <span class="math">m</span> is a real parameter. Discuss, according to the values of <span class="math">m</span>, the number of intersection points of the curve <span class="math">(Γ)</span> and the line <span class="math">(Δ<sub>m</sub>)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- مجموعة التعريف والنهايات:</strong>
+                <br />- تكون الدالة معرفة إذا كان <span class="math">(x+1)<sup>2</sup> &gt; 0</span> أي <span class="math">x ≠ -1</span>. إذن <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+                <br />- <strong>النهايات:</strong>
+                <br />عند <span class="math">-1</span>: بما أن <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>، فإن <span class="math">lim<sub>x→-1</sub> f(x) = -∞</span>. المستقيم <span class="math">x = -1</span> مقارب عمودي.
+                <br />عند <span class="math">±∞</span>: بكتابة <span class="math">f(x) = -x<sup>2</sup>[1 - 1/x - 2/x<sup>2</sup> - ln(x+1)<sup>2</sup>/x<sup>2</sup>]</span>، نجد <span class="math">lim<sub>x→±∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>ب- تغيرات f والفروع اللانهائية:</strong>
+                <br />- المشتقة: من أجل كل <span class="math">x ≠ -1</span>:
+                <div class="math-equation">f'(x) = -2x + 1 + \frac{2}{x + 1} = \frac{-2x<sup>2</sup> - x + 3}{x + 1}</div>
+                بسط المشتقة ينعدم عند <span class="math">x = 1</span> و <span class="math">x = -1.5</span>.
+                <br />- <strong>الإشارة والتغيرات:</strong>
+                <br />على المجال <span class="math">]-∞, -1.5]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">[-1.5, -1[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+                <br />على المجال <span class="math">]-1, 1]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">[1, +∞[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+                <br />- القيم الحدية: تبلغ قيمة عظمى محلية أولى عند <span class="math">-1.5</span> قيمتها <span class="math">f(-1.5) = -1.75 - 2ln 2 ≈ -3.14</span>، وعظمى محلية ثانية عند <span class="math">1</span> قيمتها <span class="math">f(1) = 2 + 2ln 2 ≈ 3.39</span>.
+                <br />- الفروع اللانهائية: تقبل منحنيات الدالة فرعاً مكافئاً في اتجاه محور التراتيب بجوار <span class="math">±∞</span>.
+              </li>
+              <li><strong>ج- وجود مماسات معامل توجيهها 3:</strong>
+                <br />نحل المعادلة <span class="math">f'(x) = 3 ⇔ -2x<sup>2</sup> - x + 3 = 3x + 3 ⇔ -2x(x + 2) = 0</span>.
+                <br />إذن توجد نقطتان تقبلان مماساً بمعامل توجيه 3 وهما <span class="math">x = 0</span> و <span class="math">x = -2</span>.
+                <br />- عند <span class="math">x = 0</span>: الترتيب هو <span class="math">f(0) = 2</span>، فالمعادلة هي <span class="math">(T<sub>1</sub>): y = 3x + 2</span>.
+                <br />- عند <span class="math">x = -2</span>: الترتيب هو <span class="math">f(-2) = -4</span>، فالمعادلة هي <span class="math">(T<sub>2</sub>): y = 3x + 2</span>.
+                <br />نلاحظ أن المماسين ينطبقان في مستقيم واحد مشترك هو <span class="math">y = 3x + 2</span>.
+              </li>
+              <li><strong>د- مبرهنة القيم المتوسطة:</strong>
+                <br />الدالة مستمرة ورتيبة تماماً (متناقصة) على المجال <span class="math">[2.5, 2.75]</span>.
+                <br />لدينا <span class="math">f(2.5) = -1.75 + 2ln(3.5) ≈ 0.76 &gt; 0</span> و <span class="math">f(2.75) = -2.81 + 2ln(3.75) ≈ -0.17 &lt; 0</span>.
+                <br />بما أن جداءهما سالب، فإنه حسب مبرهنة القيم المتوسطة توجد فاصلة وحيدة <span class="math">x<sub>0</sub></span> تحقق المطلوب.
+              </li>
+              <li><strong>هـ- الإنشاء:</strong> نرسم المقارب العمودي <span class="math">x = -1</span>، المستقيم المماس المشترك <span class="math">y = 3x + 2</span>، ونقاط التقاطع والقيم الحدية، ثم فرعي المنحنى.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- دالة أصلية لـ ln(x+1) بالتجزئة:</strong>
+                <br />نضع <span class="math">u(x) = ln(x+1) ⇔ u'(x) = <span class="frac"><span>1</span><span>x+1</span></span></span> و <span class="math">v'(x) = 1 ⇔ v(x) = x + 1</span>.
+                <br />باستخدام التكامل بالتجزئة:
+                <div class="math-equation">\\int ln(x+1) dx = (x+1)ln(x+1) - x</div>
+              </li>
+              <li><strong>ب- حساب المساحة:</strong>
+                <br />الدالة موجبة تماماً على المجال <span class="math">[0, 2]</span> لأن <span class="math">2 &lt; x<sub>0</sub></span>.
+                <div class="math-equation">S = \\int_{0}^{2} f(x) dx = \\left[ -\\frac{x^3}{3} + \\frac{x^2}{2} + 2(x+1)ln(x+1) \\right]_{0}^{2} = 6ln 3 - \\frac{2}{3} ≈ 5.92 \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- تغيرات h:</strong>
+                <br />نلاحظ أنه:
+                <br />- من أجل <span class="math">x &gt; -1</span>: لدينا <span class="math">h(x) = f(x)</span>.
+                <br />- من أجل <span class="math">x &lt; -1</span>: لدينا <span class="math">h(x) = -f(x)</span>.
+                <br />بالتالي، جدول تغيرات <span class="math">h</span> يكون عكس اتجاه تغيرات <span class="math">f</span> على اليسار ومطابقاً له على اليمين:
+                <br />- على <span class="math">]-∞, -1.5]</span>: متناقصة تماماً من <span class="math">+∞</span> إلى <span class="math">h(-1.5) = -f(-1.5) ≈ 3.14</span>.
+                <br />- على <span class="math">[-1.5, -1[</span>: متزايدة تماماً إلى <span class="math">+∞</span>.
+                <br />- على <span class="math">]-1, 1]</span>: متزايدة تماماً من <span class="math">-∞</span> إلى <span class="math">h(1) = f(1) ≈ 3.39</span>.
+                <br />- على <span class="math">[1, +∞[</span>: متناقصة تماماً إلى <span class="math">-∞</span>.
+              </li>
+              <li><strong>ب- رسم المنحنى (Γ):</strong> نرسم النصف الأيمن منطبقاً على <span class="math">(C)</span>، والنصف الأيسر نظير <span class="math">(C)</span> بالنسبة لمحور الفواصل.</li>
+              <li><strong>ج- المناقشة البيانية لتقاطع (Γ) مع y = m:</strong>
+                <br />- إذا كان <span class="math">m &lt; 1.75 + 2ln 2</span> (أي <span class="math">m &lt; 3.14</span>): يقطع في **نقطتين** (على الفرع الأيمن فقط).
+                <br />- إذا كان <span class="math">m = 1.75 + 2ln 2</span>: يقطع في **3 نقاط** (نقطة حدية صغرى على اليسار ونقطتين على اليمين).
+                <br />- إذا كان <span class="math">1.75 + 2ln 2 &lt; m &lt; 2 + 2ln 2</span>: يقطع في **4 نقاط** (نقطتين على اليسار ونقطتين على اليمين).
+                <br />- إذا كان <span class="math">m = 2 + 2ln 2</span> (أي <span class="math">m ≈ 3.39</span>): يقطع في **3 نقاط** (نقطتين على اليسار ونقطة حدية عظمى على اليمين).
+                <br />- إذا كان <span class="math">m &gt; 2 + 2ln 2</span>: يقطع في **نقطتين** (على الفرع الأيسر فقط).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Ensemble de définition et limites :</strong>
+                <br />- La fonction est définie pour <span class="math">(x+1)<sup>2</sup> &gt; 0</span>, soit <span class="math">x ≠ -1</span>. Ainsi, <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+                <br />- <strong>Limites :</strong>
+                <br />En <span class="math">-1</span> : comme <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>, on a <span class="math">lim<sub>x→-1</sub> f(x) = -∞</span>. La droite <span class="math">x = -1</span> est une asymptote verticale.
+                <br />En <span class="math">±∞</span> : on factorise par le terme prédominant pour obtenir <span class="math">lim<sub>x→±∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>b- Variations de f et branches infinies :</strong>
+                <br />- Dérivée : pour tout <span class="math">x ≠ -1</span> :
+                <div class="math-equation">f'(x) = -2x + 1 + \frac{2}{x + 1} = \frac{-2x<sup>2</sup> - x + 3}{x + 1}</div>
+                Le numérateur s'annule en <span class="math">x = 1</span> et <span class="math">x = -1,5</span>.
+                <br />- <strong>Signe et variations :</strong>
+                <br />Sur <span class="math">]-∞, -1,5]</span> : dérivée positive, la fonction est strictement croissante.
+                <br />Sur <span class="math">[-1,5, -1[</span> : dérivée négative, la fonction est strictement décroissante.
+                <br />Sur <span class="math">]-1, 1]</span> : dérivée positive, la fonction est strictement croissante.
+                <br />Sur <span class="math">[1, +∞[</span> : dérivée négative, la fonction est strictement décroissante.
+                <br />- Extremums : maximum local en <span class="math">-1,5</span> de valeur <span class="math">f(-1,5) ≈ -3,14</span> ; maximum local en <span class="math">1</span> de valeur <span class="math">f(1) ≈ 3,39</span>.
+                <br />- Branches infinies : La courbe admet une branche parabolique de direction <span class="math">(Oy)</span> aux infinis.
+              </li>
+              <li><strong>c- Tangentes de coefficient directeur 3 :</strong>
+                <br />On résout <span class="math">f'(x) = 3 ⇔ -2x(x + 2) = 0</span>. On obtient deux points : <span class="math">x = 0</span> et <span class="math">x = -2</span>.
+                <br />- En <span class="math">x = 0</span> : <span class="math">f(0) = 2</span>, donc la tangente est <span class="math">(T<sub>1</sub>): y = 3x + 2</span>.
+                <br />- En <span class="math">x = -2</span> : <span class="math">f(-2) = -4</span>, donc la tangente est <span class="math">(T<sub>2</sub>): y = 3x + 2</span>.
+                <br />Les deux tangentes sont confondues en une droite unique commune : <span class="math">y = 3x + 2</span>.
+              </li>
+              <li><strong>d- Théorème des valeurs intermédiaires :</strong>
+                <br />La fonction est continue et strictement décroissante sur <span class="math">[2,5, 2,75]</span>. Comme <span class="math">f(2,5) ≈ 0,76 &gt; 0</span> et <span class="math">f(2,75) ≈ -0,17 &lt; 0</span>, il existe d'après le TVI un unique réel <span class="math">x<sub>0</sub> ∈ ]2,5, 2,75[</span> tel que <span class="math">f(x<sub>0</sub>) = 0</span>.
+              </li>
+              <li><strong>e- Tracé :</strong> On trace l'asymptote verticale, la tangente commune, les extremums et la courbe.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Primitive de ln(x+1) par parties :</strong>
+                <br />En posant <span class="math">u(x) = ln(x+1)</span> et <span class="math">v'(x) = 1</span>, on obtient :
+                <div class="math-equation">\\int ln(x+1) dx = (x+1)ln(x+1) - x</div>
+              </li>
+              <li><strong>b- Aire du domaine plan :</strong>
+                <br />Comme la fonction est positive sur <span class="math">[0, 2]</span> :
+                <div class="math-equation">S = \\int_{0}^{2} f(x) dx = \\left[ -\\frac{x^3}{3} + \\frac{x^2}{2} + 2(x+1)ln(x+1) \\right]_{0}^{2} = 6ln 3 - \\frac{2}{3} ≈ 5,92 \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations de h :</strong>
+                <br />On remarque que :
+                <br />- Pour <span class="math">x &gt; -1</span> : <span class="math">h(x) = f(x)</span>.
+                <br />- Pour <span class="math">x &lt; -1</span> : <span class="math">h(x) = -f(x)</span>.
+                <br />Le sens de variation de <span class="math">h</span> est donc :
+                <br />- Sur <span class="math">]-∞, -1,5]</span> : strictement décroissante de <span class="math">+∞</span> à <span class="math">h(-1,5) ≈ 3,14</span>.
+                <br />- Sur <span class="math">[-1,5, -1[</span> : strictement croissante vers <span class="math">+∞</span>.
+                <br />- Sur <span class="math">]-1, 1]</span> : strictement croissante de <span class="math">-∞</span> à <span class="math">h(1) ≈ 3,39</span>.
+                <br />- Sur <span class="math">[1, +∞[</span> : strictement décroissante vers <span class="math">-∞</span>.
+              </li>
+              <li><strong>b- Courbe (Γ) :</strong> La partie droite coïncide avec <span class="math">(C)</span>, la partie gauche est la symétrique de <span class="math">(C)</span> par rapport à l'axe des abscisses.</li>
+              <li><strong>c- Discussion selon les valeurs de m :</strong>
+                <br />- Si <span class="math">m &lt; 1,75 + 2ln 2</span> : **2 intersections** (sur la branche droite).
+                <br />- Si <span class="math">m = 1,75 + 2ln 2</span> : **3 intersections**.
+                <br />- Si <span class="math">1,75 + 2ln 2 &lt; m &lt; 2 + 2ln 2</span> : **4 intersections**.
+                <br />- Si <span class="math">m = 2 + 2ln 2</span> : **3 intersections**.
+                <br />- Si <span class="math">m &gt; 2 + 2ln 2</span> : **2 intersections** (sur la branche gauche).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = -x<sup>2</sup> + x + 2 + ln(x + 1)<sup>2</sup></div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Find the domain of definition of the function <span class="math">f</span> and calculate its limits at the boundaries of this domain.</li>
+              <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C)</span>.</li>
+              <li>Do there exist tangents to the curve <span class="math">(C)</span> with slope 3? Find their equations if they exist.</li>
+              <li>Show that the curve <span class="math">(C)</span> intersects the x-axis at a point with abscissa <span class="math">x<sub>0</sub></span> such that: <span class="math"><span class="frac"><span>5</span><span>2</span></span> &lt; x<sub>0</sub> &lt; <span class="frac"><span>11</span><span>4</span></span></span>.</li>
+              <li>Draw the tangents with slope 3, then draw the curve <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Using integration by parts, find an antiderivative on the interval <span class="math">]-1, +∞[</span> of the function: <span class="math">x ↦ ln(x + 1)</span>.</li>
+              <li>Calculate the area of the plane region bounded by the curve <span class="math">(C)</span> and the lines with equations: <span class="math">y = 0</span>, <span class="math">x = 0</span> and <span class="math">x = 2</span>.</li>
+            </ol>
+          </li>
+          <li>Let the real function <span class="math">h</span> be defined by:
+            <div class="math-equation">
+              h(x) = -x<sup>2</sup> + x + 2 + 2ln(x + 1) \quad ; \quad x &gt; -1
+              <br />
+              h(x) = x<sup>2</sup> - x - 2 - 2ln(-x - 1) \quad ; \quad x &lt; -1
+            </div>
+            <ol type="a">
+              <li>Using the results of the study of <span class="math">f</span>, deduce the table of variations of the function <span class="math">h</span>.</li>
+              <li>Draw the curve <span class="math">(Γ)</span> representing the function <span class="math">h</span> in the coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</li>
+              <li>Let <span class="math">(Δ<sub>m</sub>)</span> be the line with equation <span class="math">y = m</span>, where <span class="math">m</span> is a real parameter. Discuss, according to the values of <span class="math">m</span>, the number of intersection points of the curve <span class="math">(Γ)</span> and the line <span class="math">(Δ<sub>m</sub>)</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- مجموعة التعريف والنهايات:</strong>
+                <br />- تكون الدالة معرفة إذا كان <span class="math">(x+1)<sup>2</sup> &gt; 0</span> أي <span class="math">x ≠ -1</span>. إذن <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+                <br />- <strong>النهايات:</strong>
+                <br />عند <span class="math">-1</span>: بما أن <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>، فإن <span class="math">lim<sub>x→-1</sub> f(x) = -∞</span>. المستقيم <span class="math">x = -1</span> مقارب عمودي.
+                <br />عند <span class="math">±∞</span>: بكتابة <span class="math">f(x) = -x<sup>2</sup>[1 - 1/x - 2/x<sup>2</sup> - ln(x+1)<sup>2</sup>/x<sup>2</sup>]</span>، نجد <span class="math">lim<sub>x→±∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>ب- تغيرات f والفروع اللانهائية:</strong>
+                <br />- المشتقة: من أجل كل <span class="math">x ≠ -1</span>:
+                <div class="math-equation">f'(x) = -2x + 1 + \frac{2}{x + 1} = \frac{-2x<sup>2</sup> - x + 3}{x + 1}</div>
+                بسط المشتقة ينعدم عند <span class="math">x = 1</span> و <span class="math">x = -1.5</span>.
+                <br />- <strong>الإشارة والتغيرات:</strong>
+                <br />على المجال <span class="math">]-∞, -1.5]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">[-1.5, -1[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+                <br />على المجال <span class="math">]-1, 1]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">[1, +∞[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+                <br />- القيم الحدية: تبلغ قيمة عظمى محلية أولى عند <span class="math">-1.5</span> قيمتها <span class="math">f(-1.5) = -1.75 - 2ln 2 ≈ -3.14</span>، وعظمى محلية ثانية عند <span class="math">1</span> قيمتها <span class="math">f(1) = 2 + 2ln 2 ≈ 3.39</span>.
+                <br />- الفروع اللانهائية: تقبل منحنيات الدالة فرعاً مكافئاً في اتجاه محور التراتيب بجوار <span class="math">±∞</span>.
+              </li>
+              <li><strong>ج- وجود مماسات معامل توجيهها 3:</strong>
+                <br />نحل المعادلة <span class="math">f'(x) = 3 ⇔ -2x<sup>2</sup> - x + 3 = 3x + 3 ⇔ -2x(x + 2) = 0</span>.
+                <br />إذن توجد نقطتان تقبلان مماساً بمعامل توجيه 3 وهما <span class="math">x = 0</span> و <span class="math">x = -2</span>.
+                <br />- عند <span class="math">x = 0</span>: الترتيب هو <span class="math">f(0) = 2</span>، فالمعادلة هي <span class="math">(T<sub>1</sub>): y = 3x + 2</span>.
+                <br />- عند <span class="math">x = -2</span>: الترتيب هو <span class="math">f(-2) = -4</span>، فالمعادلة هي <span class="math">(T<sub>2</sub>): y = 3x + 2</span>.
+                <br />نلاحظ أن المماسين ينطبقان في مستقيم واحد مشترك هو <span class="math">y = 3x + 2</span>.
+              </li>
+              <li><strong>د- مبرهنة القيم المتوسطة:</strong>
+                <br />الدالة مستمرة ورتيبة تماماً (متناقصة) على المجال <span class="math">[2.5, 2.75]</span>.
+                <br />لدينا <span class="math">f(2.5) = -1.75 + 2ln(3.5) ≈ 0.76 &gt; 0</span> و <span class="math">f(2.75) = -2.81 + 2ln(3.75) ≈ -0.17 &lt; 0</span>.
+                <br />بما أن جداءهما سالب، فإنه حسب مبرهنة القيم المتوسطة توجد فاصلة وحيدة <span class="math">x<sub>0</sub></span> تحقق المطلوب.
+              </li>
+              <li><strong>هـ- الإنشاء:</strong> نرسم المقارب العمودي <span class="math">x = -1</span>، المستقيم المماس المشترك <span class="math">y = 3x + 2</span>، ونقاط التقاطع والقيم الحدية، ثم فرعي المنحنى.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- دالة أصلية لـ ln(x+1) بالتجزئة:</strong>
+                <br />نضع <span class="math">u(x) = ln(x+1) ⇔ u'(x) = <span class="frac"><span>1</span><span>x+1</span></span></span> و <span class="math">v'(x) = 1 ⇔ v(x) = x + 1</span>.
+                <br />باستخدام التكامل بالتجزئة:
+                <div class="math-equation">\\int ln(x+1) dx = (x+1)ln(x+1) - x</div>
+              </li>
+              <li><strong>ب- حساب المساحة:</strong>
+                <br />الدالة موجبة تماماً على المجال <span class="math">[0, 2]</span> لأن <span class="math">2 &lt; x<sub>0</sub></span>.
+                <div class="math-equation">S = \\int_{0}^{2} f(x) dx = \\left[ -\\frac{x^3}{3} + \\frac{x^2}{2} + 2(x+1)ln(x+1) \\right]_{0}^{2} = 6ln 3 - \\frac{2}{3} ≈ 5.92 \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- تغيرات h:</strong>
+                <br />نلاحظ أنه:
+                <br />- من أجل <span class="math">x &gt; -1</span>: لدينا <span class="math">h(x) = f(x)</span>.
+                <br />- من أجل <span class="math">x &lt; -1</span>: لدينا <span class="math">h(x) = -f(x)</span>.
+                <br />بالتالي، جدول تغيرات <span class="math">h</span> يكون عكس اتجاه تغيرات <span class="math">f</span> على اليسار ومطابقاً له على اليمين:
+                <br />- على <span class="math">]-∞, -1.5]</span>: متناقصة تماماً من <span class="math">+∞</span> إلى <span class="math">h(-1.5) = -f(-1.5) ≈ 3.14</span>.
+                <br />- على <span class="math">[-1.5, -1[</span>: متزايدة تماماً إلى <span class="math">+∞</span>.
+                <br />- على <span class="math">]-1, 1]</span>: متزايدة تماماً من <span class="math">-∞</span> إلى <span class="math">h(1) = f(1) ≈ 3.39</span>.
+                <br />- على <span class="math">[1, +∞[</span>: متناقصة تماماً إلى <span class="math">-∞</span>.
+              </li>
+              <li><strong>ب- رسم المنحنى (Γ):</strong> نرسم النصف الأيمن منطبقاً على <span class="math">(C)</span>، والنصف الأيسر نظير <span class="math">(C)</span> بالنسبة لمحور الفواصل.</li>
+              <li><strong>ج- المناقشة البيانية لتقاطع (Γ) مع y = m:</strong>
+                <br />- إذا كان <span class="math">m &lt; 1.75 + 2ln 2</span> (أي <span class="math">m &lt; 3.14</span>): يقطع في **نقطتين** (على الفرع الأيمن فقط).
+                <br />- إذا كان <span class="math">m = 1.75 + 2ln 2</span>: يقطع في **3 نقاط** (نقطة حدية صغرى على اليسار ونقطتين على اليمين).
+                <br />- إذا كان <span class="math">1.75 + 2ln 2 &lt; m &lt; 2 + 2ln 2</span>: يقطع في **4 نقاط** (نقطتين على اليسار ونقطتين على اليمين).
+                <br />- إذا كان <span class="math">m = 2 + 2ln 2</span> (أي <span class="math">m ≈ 3.39</span>): يقطع في **3 نقاط** (نقطتين على اليسار ونقطة حدية عظمى على اليمين).
+                <br />- إذا كان <span class="math">m &gt; 2 + 2ln 2</span>: يقطع في **نقطتين** (على الفرع الأيسر فقط).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Ensemble de définition et limites :</strong>
+                <br />- La fonction est définie pour <span class="math">(x+1)<sup>2</sup> &gt; 0</span>, soit <span class="math">x ≠ -1</span>. Ainsi, <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+                <br />- <strong>Limites :</strong>
+                <br />En <span class="math">-1</span> : comme <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>, on a <span class="math">lim<sub>x→-1</sub> f(x) = -∞</span>. La droite <span class="math">x = -1</span> est une asymptote verticale.
+                <br />En <span class="math">±∞</span> : on factorise par le terme prédominant pour obtenir <span class="math">lim<sub>x→±∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>b- Variations de f et branches infinies :</strong>
+                <br />- Dérivée : pour tout <span class="math">x ≠ -1</span> :
+                <div class="math-equation">f'(x) = -2x + 1 + \frac{2}{x + 1} = \frac{-2x<sup>2</sup> - x + 3}{x + 1}</div>
+                Le numérateur s'annule en <span class="math">x = 1</span> et <span class="math">x = -1,5</span>.
+                <br />- <strong>Signe et variations :</strong>
+                <br />Sur <span class="math">]-∞, -1,5]</span> : dérivée positive, la fonction est strictement croissante.
+                <br />Sur <span class="math">[-1,5, -1[</span> : dérivée négative, la fonction est strictement décroissante.
+                <br />Sur <span class="math">]-1, 1]</span> : dérivée positive, la fonction est strictement croissante.
+                <br />Sur <span class="math">[1, +∞[</span> : dérivée négative, la fonction est strictement décroissante.
+                <br />- Extremums : maximum local en <span class="math">-1,5</span> de valeur <span class="math">f(-1,5) ≈ -3,14</span> ; maximum local en <span class="math">1</span> de valeur <span class="math">f(1) ≈ 3,39</span>.
+                <br />- Branches infinies : La courbe admet une branche parabolique de direction <span class="math">(Oy)</span> aux infinis.
+              </li>
+              <li><strong>c- Tangentes de coefficient directeur 3 :</strong>
+                <br />On résout <span class="math">f'(x) = 3 ⇔ -2x(x + 2) = 0</span>. On obtient deux points : <span class="math">x = 0</span> et <span class="math">x = -2</span>.
+                <br />- En <span class="math">x = 0</span> : <span class="math">f(0) = 2</span>, donc la tangente est <span class="math">(T<sub>1</sub>): y = 3x + 2</span>.
+                <br />- En <span class="math">x = -2</span> : <span class="math">f(-2) = -4</span>, donc la tangente est <span class="math">(T<sub>2</sub>): y = 3x + 2</span>.
+                <br />Les deux tangentes sont confondues en une droite unique commune : <span class="math">y = 3x + 2</span>.
+              </li>
+              <li><strong>d- Théorème des valeurs intermédiaires :</strong>
+                <br />La fonction est continue et strictement décroissante sur <span class="math">[2,5, 2,75]</span>. Comme <span class="math">f(2,5) ≈ 0,76 &gt; 0</span> et <span class="math">f(2,75) ≈ -0,17 &lt; 0</span>, il existe d'après le TVI un unique réel <span class="math">x<sub>0</sub> ∈ ]2,5, 2,75[</span> tel que <span class="math">f(x<sub>0</sub>) = 0</span>.
+              </li>
+              <li><strong>e- Tracé :</strong> On trace l'asymptote verticale, la tangente commune, les extremums et la courbe.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Primitive de ln(x+1) par parties :</strong>
+                <br />En posant <span class="math">u(x) = ln(x+1)</span> et <span class="math">v'(x) = 1</span>, on obtient :
+                <div class="math-equation">\\int ln(x+1) dx = (x+1)ln(x+1) - x</div>
+              </li>
+              <li><strong>b- Aire du domaine plan :</strong>
+                <br />Comme la fonction est positive sur <span class="math">[0, 2]</span> :
+                <div class="math-equation">S = \\int_{0}^{2} f(x) dx = \\left[ -\\frac{x^3}{3} + \\frac{x^2}{2} + 2(x+1)ln(x+1) \\right]_{0}^{2} = 6ln 3 - \\frac{2}{3} ≈ 5,92 \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations de h :</strong>
+                <br />On remarque que :
+                <br />- Pour <span class="math">x &gt; -1</span> : <span class="math">h(x) = f(x)</span>.
+                <br />- Pour <span class="math">x &lt; -1</span> : <span class="math">h(x) = -f(x)</span>.
+                <br />Le sens de variation de <span class="math">h</span> est donc :
+                <br />- Sur <span class="math">]-∞, -1,5]</span> : strictement décroissante de <span class="math">+∞</span> à <span class="math">h(-1,5) ≈ 3,14</span>.
+                <br />- Sur <span class="math">[-1,5, -1[</span> : strictement croissante vers <span class="math">+∞</span>.
+                <br />- Sur <span class="math">]-1, 1]</span> : strictement croissante de <span class="math">-∞</span> à <span class="math">h(1) ≈ 3,39</span>.
+                <br />- Sur <span class="math">[1, +∞[</span> : strictement décroissante vers <span class="math">-∞</span>.
+              </li>
+              <li><strong>b- Courbe (Γ) :</strong> La partie droite coïncide avec <span class="math">(C)</span>, la partie gauche est la symétrique de <span class="math">(C)</span> par rapport à l'axe des abscisses.</li>
+              <li><strong>c- Discussion selon les valeurs de m :</strong>
+                <br />- Si <span class="math">m &lt; 1,75 + 2ln 2</span> : **2 intersections** (sur la branche droite).
+                <br />- Si <span class="math">m = 1,75 + 2ln 2</span> : **3 intersections**.
+                <br />- Si <span class="math">1,75 + 2ln 2 &lt; m &lt; 2 + 2ln 2</span> : **4 intersections**.
+                <br />- Si <span class="math">m = 2 + 2ln 2</span> : **3 intersections**.
+                <br />- Si <span class="math">m &gt; 2 + 2ln 2</span> : **2 intersections** (sur la branche gauche).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Domain and limits:</strong>
+                <br />- The function is defined for <span class="math">(x+1)<sup>2</sup> &gt; 0</span>, which means <span class="math">x ≠ -1</span>. Thus, <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+                <br />- <strong>Limits:</strong>
+                <br />At <span class="math">-1</span>: since <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>, we have <span class="math">lim<sub>x→-1</sub> f(x) = -∞</span>. The line <span class="math">x = -1</span> is a vertical asymptote.
+                <br />At <span class="math">±∞</span>: factoring out the leading term yields <span class="math">lim<sub>x→±∞</sub> f(x) = -∞</span>.
+              </li>
+              <li><strong>b- Variations of f and infinite branches:</strong>
+                <br />- Derivative: for all <span class="math">x ≠ -1</span>:
+                <div class="math-equation">f'(x) = -2x + 1 + \frac{2}{x + 1} = \frac{-2x<sup>2</sup> - x + 3}{x + 1}</div>
+                The numerator vanishes at <span class="math">x = 1</span> and <span class="math">x = -1.5</span>.
+                <br />- <strong>Sign and variations:</strong>
+                <br />On <span class="math">]-∞, -1.5]</span>: positive derivative, so the function is strictly increasing.
+                <br />On <span class="math">[-1.5, -1[</span>: negative derivative, so the function is strictly decreasing.
+                <br />On <span class="math">]-1, 1]</span>: positive derivative, so the function is strictly increasing.
+                <br />On <span class="math">[1, +∞[</span>: negative derivative, so the function is strictly decreasing.
+                <br />- Extremums: local maximum at <span class="math">-1.5</span> of value <span class="math">f(-1.5) ≈ -3.14</span>; local maximum at <span class="math">1</span> of value <span class="math">f(1) ≈ 3.39</span>.
+                <br />- Infinite branches: The curve has a parabolic branch in the direction of the y-axis at infinity.
+              </li>
+              <li><strong>c- Tangents with slope 3:</strong>
+                <br />Solving <span class="math">f'(x) = 3 ⇔ -2x(x + 2) = 0</span> yields two points: <span class="math">x = 0</span> and <span class="math">x = -2</span>.
+                <br />- At <span class="math">x = 0</span>: <span class="math">f(0) = 2</span>, yielding tangent equation <span class="math">(T<sub>1</sub>): y = 3x + 2</span>.
+                <br />- At <span class="math">x = -2</span>: <span class="math">f(-2) = -4</span>, yielding tangent equation <span class="math">(T<sub>2</sub>): y = 3x + 2</span>.
+                <br />Both tangents coincide into a single common line: <span class="math">y = 3x + 2</span>.
+              </li>
+              <li><strong>d- Intermediate Value Theorem:</strong>
+                <br />The function is continuous and strictly decreasing on <span class="math">[2.5, 2.75]</span>. Since <span class="math">f(2.5) ≈ 0.76 &gt; 0</span> and <span class="math">f(2.75) ≈ -0.17 &lt; 0</span>, by the IVT there is a unique real root <span class="math">x<sub>0</sub> ∈ ]2.5, 2.75[</span> such that <span class="math">f(x<sub>0</sub>) = 0</span>.
+              </li>
+              <li><strong>e- Plot:</strong> Plot the vertical asymptote, the common tangent line, the local maximums, and the curve.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Antiderivative of ln(x+1) by parts:</strong>
+                <br />Letting <span class="math">u(x) = ln(x+1)</span> and <span class="math">v'(x) = 1</span> gives:
+                <div class="math-equation">\\int ln(x+1) dx = (x+1)ln(x+1) - x</div>
+              </li>
+              <li><strong>b- Area of the region:</strong>
+                <br />Since the function is positive on the interval <span class="math">[0, 2]</span>:
+                <div class="math-equation">S = \\int_{0}^{2} f(x) dx = \\left[ -\\frac{x^3}{3} + \\frac{x^2}{2} + 2(x+1)ln(x+1) \\right]_{0}^{2} = 6ln 3 - \\frac{2}{3} ≈ 5.92 \\text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations of h:</strong>
+                <br />Note that:
+                <br />- For <span class="math">x &gt; -1</span>: <span class="math">h(x) = f(x)</span>.
+                <br />- For <span class="math">x &lt; -1</span>: <span class="math">h(x) = -f(x)</span>.
+                <br />The variation table of <span class="math">h</span> is:
+                <br />- On <span class="math">]-∞, -1.5]</span>: strictly decreasing from <span class="math">+∞</span> to <span class="math">h(-1.5) ≈ 3.14</span>.
+                <br />- On <span class="math">[-1.5, -1[</span>: strictly increasing to <span class="math">+∞</span>.
+                <br />- On <span class="math">]-1, 1]</span>: strictly increasing from <span class="math">-∞</span> to <span class="math">h(1) ≈ 3.39</span>.
+                <br />- On <span class="math">[1, +∞[</span>: strictly decreasing to <span class="math">-∞</span>.
+              </li>
+              <li><strong>b- Curve (Γ):</strong> The right half coincides with <span class="math">(C)</span>, and the left half is symmetric to <span class="math">(C)</span> with respect to the x-axis.</li>
+              <li><strong>c- Discussion of intersection with y = m:</strong>
+                <br />- If <span class="math">m &lt; 1.75 + 2ln 2</span>: **2 intersections** (on the right branch).
+                <br />- If <span class="math">m = 1.75 + 2ln 2</span>: **3 intersections**.
+                <br />- If <span class="math">1.75 + 2ln 2 &lt; m &lt; 2 + 2ln 2</span>: **4 intersections**.
+                <br />- If <span class="math">m = 2 + 2ln 2</span>: **3 intersections**.
+                <br />- If <span class="math">m &gt; 2 + 2ln 2</span>: **2 intersections** (on the left branch).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية بتربيع، مماس ونقاط تماس مائلة ومناقشة بيانية مائلة",
+      fr: "Problème d'approfondissement : Étude de fonction logarithme avec carré, tangentes et discussion inclinée",
+      en: "Deepening Problem: Logarithmic Function with Square, Tangents and Oblique Discussion"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup></div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>عين مجموعة تعريف الدالة <span class="math">f</span>، واحسب نهاياتها عند حدود هذه المجموعة.</li>
+          <li>
+            <ol type="a">
+              <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+              <li>استنتج في <span class="math">R</span> حلول المعادلة: <span class="math"><span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup> = 0</span>. علل إجابتك.</li>
+              <li>أعطِ حصراً بعددين طبيعيين متتاليين للحل غير المعدوم للمعادلة.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>ادرس الفروع اللانهائية للمنحنى <span class="math">(C)</span>.</li>
+              <li>اكتب معادلة المماس للمنحنى <span class="math">(C)</span> في النقطة ذات الفاصلة 0.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>ادرس وجود وعدد المماسات للمنحنى <span class="math">(C)</span> التي معامل توجيهها <span class="math">α</span>.</li>
+              <li>عين إحداثيات النقاط التي يقبل عندها <span class="math">(C)</span> مماسات معامل توجيهها <span class="math">-4</span>.</li>
+            </ol>
+          </li>
+          <li>أنشئ المنحنى <span class="math">(C)</span>.</li>
+          <li>
+            <ol type="a">
+              <li>تحقق أن الدالة <span class="math">x ↦ (x + 1)ln(x + 1) - x</span> هي دالة أصلية للدالة <span class="math">x ↦ ln(x + 1)</span> على المجال <span class="math">]-1, +∞[</span>.</li>
+              <li>احسب المساحة <span class="math">S(λ)</span> للحيز المستوي المحدد بالمنحنى <span class="math">(C)</span> والمستقيمات التي معادلاتها: <span class="math">y = 0</span>، <span class="math">x = 0</span> و <span class="math">x = λ</span>، مع <span class="math">-1 &lt; λ &lt; 0</span>.</li>
+              <li>احسب: <span class="math">lim<sub>λ→-1<sup>+</sup></sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>لتكن <span class="math">(Δ<sub>m</sub>)</span> المستقيم الذي معادلته <span class="math">y = -4x + m</span>، حيث <span class="math">m</span> وسيط حقيقي. ادرس حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد نقط تقاطع المنحنى <span class="math">(C)</span> مع المستقيم <span class="math">(Δ<sub>m</sub>)</span>.</li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup></div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Déterminer l'ensemble de définition de la fonction <span class="math">f</span>, et calculer ses limites aux bornes de cet ensemble.</li>
+          <li>
+            <ol type="a">
+              <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+              <li>En déduire dans <span class="math">R</span> les solutions de l'équation : <span class="math"><span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup> = 0</span>. Justifier la réponse.</li>
+              <li>Donner un encadrement par deux entiers consécutifs de la solution non nulle de l'équation.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Étudier les branches infinies de la courbe <span class="math">(C)</span>.</li>
+              <li>Déterminer l'équation de la tangente à la courbe <span class="math">(C)</span> au point d'abscisse 0.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Étudier l'existence et le nombre de tangentes à la courbe <span class="math">(C)</span> de coefficient directeur <span class="math">α</span>.</li>
+              <li>Déterminer les coordonnées des points où la courbe <span class="math">(C)</span> admet des tangentes de coefficient directeur <span class="math">-4</span>.</li>
+            </ol>
+          </li>
+          <li>Tracer la courbe <span class="math">(C)</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Vérifier que la fonction <span class="math">x ↦ (x + 1)ln(x + 1) - x</span> est une primitive de la fonction <span class="math">x ↦ ln(x + 1)</span> sur l'intervalle <span class="math">]-1, +∞[</span>.</li>
+              <li>Calculer l'aire <span class="math">S(λ)</span> du domaine délimité par la courbe <span class="math">(C)</span>, l'axe des abscisses et les droites d'équations : <span class="math">x = 0</span> et <span class="math">x = λ</span>, avec <span class="math">-1 &lt; λ &lt; 0</span>.</li>
+              <li>Calculer : <span class="math">lim<sub>λ→-1<sup>+</sup></sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>Soit <span class="math">(Δ<sub>m</sub>)</span> la droite d'équation <span class="math">y = -4x + m</span>, où <span class="math">m</span> est un paramètre réel. Discuter selon les valeurs de <span class="math">m</span> le nombre de points d'intersection de la courbe <span class="math">(C)</span> avec la droite <span class="math">(Δ<sub>m</sub>)</span>.</li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = <span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup></div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Find the domain of definition of the function <span class="math">f</span>, and calculate its limits at the boundaries of this domain.</li>
+          <li>
+            <ol type="a">
+              <li>Study the variations of the function <span class="math">f</span>.</li>
+              <li>Deduce in <span class="math">R</span> the solutions of the equation: <span class="math"><span class="frac"><span>1</span><span>2</span></span>x<sup>2</sup> - x - 4ln(x + 1)<sup>2</sup> = 0</span>. Justify your answer.</li>
+              <li>Find an interval bounding the non-zero solution with two consecutive integers.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Study the infinite branches of the curve <span class="math">(C)</span>.</li>
+              <li>Write down the equation of the tangent to the curve <span class="math">(C)</span> at the point with abscissa 0.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Study the existence and number of tangents to the curve <span class="math">(C)</span> with slope <span class="math">α</span>.</li>
+              <li>Find the coordinates of the points at which the curve <span class="math">(C)</span> accepts tangents with slope <span class="math">-4</span>.</li>
+            </ol>
+          </li>
+          <li>Draw the curve <span class="math">(C)</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Verify that the function <span class="math">x ↦ (x + 1)ln(x + 1) - x</span> is an antiderivative of the function <span class="math">x ↦ ln(x + 1)</span> on the interval <span class="math">]-1, +∞[</span>.</li>
+              <li>Calculate the area <span class="math">S(λ)</span> of the plane region bounded by the curve <span class="math">(C)</span> and the lines with equations: <span class="math">x = 0</span> and <span class="math">x = λ</span>, where <span class="math">-1 &lt; λ &lt; 0</span>.</li>
+              <li>Calculate: <span class="math">lim<sub>λ→-1<sup>+</sup></sub> S(λ)</span>.</li>
+            </ol>
+          </li>
+          <li>Let <span class="math">(Δ<sub>m</sub>)</span> be the line with equation <span class="math">y = -4x + m</span>, where <span class="math">m</span> is a real parameter. Discuss, according to the values of the real parameter <span class="math">m</span>, the number of intersection points of the curve <span class="math">(C)</span> with the line <span class="math">(Δ<sub>m</sub>)</span>.</li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <strong>مجموعة التعريف والنهايات:</strong>
+            <br />- الدالة معرفة إذا كان <span class="math">(x+1)<sup>2</sup> &gt; 0</span> أي <span class="math">x ≠ -1</span>. إذن <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند <span class="math">-1</span>: بما أن <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>، فإن <span class="math">lim<sub>x→-1</sub> f(x) = +∞</span>.
+            <br />عند <span class="math">±∞</span>: الحد المسيطر هو <span class="math">x<sup>2</sup></span>، ومنه <span class="math">lim<sub>x→±∞</sub> f(x) = +∞</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- تغيرات الدالة f:</strong>
+                <br />- المشتقة: من أجل كل <span class="math">x ≠ -1</span>:
+                <div class="math-equation">f'(x) = x - 1 - \frac{8}{x + 1} = \frac{x<sup>2</sup> - 9}{x + 1} = \frac{(x-3)(x+3)}{x + 1}</div>
+                تنعدم المشتقة عند <span class="math">x = 3</span> و <span class="math">x = -3</span>.
+                <br />- <strong>اتجاه التغيرات:</strong>
+                <br />على المجال <span class="math">]-∞, -3]</span>: <span class="math">f'(x) &lt; 0</span>، فالدالة متناقصة تماماً.
+                <br />على المجال <span class="math">[-3, -1[</span>: <span class="math">f'(x) &gt; 0</span>، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">]-1, 3]</span>: <span class="math">f'(x) &lt; 0</span>، فالدالة متناقصة تماماً.
+                <br />على المجال <span class="math">[3, +∞[</span>: <span class="math">f'(x) &gt; 0</span>، فالدالة متزايدة تماماً.
+                <br />- القيم الحدية: قيمة صغرى محلية أولى عند <span class="math">-3</span> وقيمتها <span class="math">f(-3) = 7.5 - 8ln 2 ≈ 1.95</span>، وقيمة صغرى محلية ثانية عند <span class="math">3</span> وقيمتها <span class="math">f(3) = 1.5 - 16ln 2 ≈ -9.59</span>.
+              </li>
+              <li><strong>ب- حلول المعادلة f(x) = 0:</strong>
+                <br />- على المجال <span class="math">]-∞, -1[</span>: القيمة الصغرى للدالة هي <span class="math">f(-3) ≈ 1.95 &gt; 0</span>، إذن لا يوجد حلول على هذا المجال.
+                <br />- على المجال <span class="math">]-1, 3]</span>: الدالة مستمرة ومتناقصة تماماً وتتغير من <span class="math">+∞</span> إلى <span class="math">f(3) &lt; 0</span>. بما أن <span class="math">f(0) = 0</span>، فإن الحل الوحيد على هذا المجال هو <span class="math">x = 0</span>.
+                <br />- على المجال <span class="math">[3, +∞[</span>: الدالة مستمرة ومتزايدة تماماً وتتغير من <span class="math">f(3) &lt; 0</span> إلى <span class="math">+∞</span>، إذن تقطع محور الفواصل في نقطة وحيدة فاصلتها <span class="math">x<sub>0</sub> &gt; 3</span>.
+                <br />بالتالي، المعادلة تقبل حلين هما <span class="math">0</span> و <span class="math">x<sub>0</sub></span>.
+              </li>
+              <li><strong>ج- حصر الحل غير المعدوم x<sub>0</sub>:</strong>
+                <br />لدينا <span class="math">f(6) = 12 - 8ln 7 ≈ -3.57 &lt; 0</span> و <span class="math">f(7) = 17.5 - 8ln 8 ≈ 0.86 &gt; 0</span>.
+                <br />بما أن الدالة مستمرة ومتزايدة تماماً، فإنه حسب مبرهنة القيم المتوسطة: <span class="math">6 &lt; x<sub>0</sub> &lt; 7</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- الفروع اللانهائية:</strong>
+                <br />بما أن <span class="math">lim<sub>x→±∞</sub> \frac{f(x)}{x} = ±∞</span>، فإن المنحنى يقبل فرعاً مكافئاً باتجاه محور التراتيب بجوار <span class="math">±∞</span>.
+              </li>
+              <li><strong>ب- معادلة المماس عند الفاصلة 0:</strong>
+                <br />لدينا <span class="math">f(0) = 0</span> و <span class="math">f'(0) = -9</span>.
+                <br />المعادلة هي: <span class="math">(T): y = -9x</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- المماسات ذات معامل التوجيه α:</strong>
+                <br />نحل المعادلة <span class="math">f'(x) = α ⇔ \frac{x<sup>2</sup> - 9}{x + 1} = α ⇔ x<sup>2</sup> - α x - (9 + α) = 0</span>.
+                <br />المميز للمعادلة هو: <span class="math">Δ = α<sup>2</sup> + 4α + 36 = (α + 2)<sup>2</sup> + 32 &gt; 0</span>.
+                <br />بما أن المميز موجب تماماً دائماً، والجذور لا يمكن أن تساوي <span class="math">-1</span>، فإن المعادلة تقبل حلين متمايزين دائماً.
+                <br />إذن، من أجل أي قيمة لـ <span class="math">α</span>، يوجد **مماسان** للمنحنى معامل توجيههما <span class="math">α</span>.
+              </li>
+              <li><strong>ب- إحداثيات نقاط التماس لمعامل التوجيه -4:</strong>
+                <br />بوضع <span class="math">α = -4</span>، نجد المعادلة: <span class="math">x<sup>2</sup> + 4x - 5 = 0 ⇔ (x - 1)(x + 5) = 0</span>.
+                <br />إذن الفواصل هي <span class="math">x = 1</span> و <span class="math">x = -5</span>.
+                <br />- عند <span class="math">x = 1</span>: الترتيب هو <span class="math">f(1) = -0.5 - 8ln 2</span>. النقطة هي <span class="math">M<sub>1</sub>(1, -0.5 - 8ln 2)</span>.
+                <br />- عند <span class="math">x = -5</span>: الترتيب هو <span class="math">f(-5) = 17.5 - 16ln 2</span>. النقطة هي <span class="math">M<sub>2</sub>(-5, 17.5 - 16ln 2)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>الإنشاء:</strong> نرسم المقارب العمودي <span class="math">x = -1</span>، القيم الحدية الصغرى <span class="math">(-3, 1.95)</span> و <span class="math">(3, -9.59)</span>، المماس <span class="math">y = -9x</span>، ونقاط التقاطعات مع المحاور ثم المنحنى.
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- التحقق من الدالة الأصلية لـ ln(x+1):</strong>
+                <br />باشتقاق <span class="math">J(x) = (x+1)ln(x+1) - x</span> نجد: <span class="math">J'(x) = ln(x+1) + (x+1)\frac{1}{x+1} - 1 = ln(x+1)</span>. وهي محققة.
+              </li>
+              <li><strong>ب- حساب المساحة S(λ):</strong>
+                <br />من أجل <span class="math">x ∈ [λ, 0]</span> (حيث <span class="math">-1 &lt; λ &lt; 0</span>)، لدينا <span class="math">f(x) ≥ 0</span>.
+                <div class="math-equation">S(λ) = \int_{λ}^{0} f(x) dx = \left[ \frac{x<sup>3</sup>}{6} - \frac{x<sup>2</sup>}{2} - 8((x+1)ln(x+1) - x) \right]_{λ}^{0}</div>
+                <div class="math-equation">S(λ) = -\frac{λ<sup>3</sup>}{6} + \frac{λ<sup>2</sup>}{2} + 8(λ+1)ln(λ+1) - 8λ \text{ u.a.}</div>
+              </li>
+              <li><strong>ج- حساب النهاية عند -1:</strong>
+                <br />بما أن <span class="math">lim<sub>λ→-1<sup>+</sup></sub> (λ+1)ln(λ+1) = 0</span>، فإن:
+                <div class="math-equation">lim<sub>λ→-1<sup>+</sup></sub> S(λ) = \frac{1}{6} + \frac{1}{2} + 8 = \frac{26}{3} \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>المناقشة البيانية لتقاطع المنحنى مع y = -4x + m:</strong>
+            <br />نقاط التقاطع تحقق المعادلة: <span class="math">f(x) = -4x + m ⇔ \frac{1}{2}x<sup>2</sup> + 3x - 4ln(x + 1)<sup>2</sup> = m</span>.
+            <br />لتكن الدالة المساعدة <span class="math">g(x) = \frac{1}{2}x<sup>2</sup> + 3x - 4ln(x + 1)<sup>2</sup></span>.
+            <br />مشتقة الدالة المساعدة هي: <span class="math">g'(x) = x + 3 - \frac{8}{x+1} = \frac{(x+5)(x-1)}{x+1}</span>.
+            <br />- قيم صغرى محلية للدالة المساعدة:
+            <br />عند <span class="math">x = -5</span>: قيمتها <span class="math">g(-5) = -2.5 - 16ln 2 ≈ -13.59</span>.
+            <br />عند <span class="math">x = 1</span>: قيمتها <span class="math">g(1) = 3.5 - 8ln 2 ≈ -2.05</span>.
+            <br />- المناقشة:
+            <br />- إذا كان <span class="math">m &lt; -2.5 - 16ln 2</span>: **لا توجد نقاط تقاطع**.
+            <br />- إذا كان <span class="math">m = -2.5 - 16ln 2</span>: **نقطة تقاطع وحيدة**.
+            <br />- إذا كان <span class="math">-2.5 - 16ln 2 &lt; m &lt; 3.5 - 8ln 2</span>: **نقطتا تقاطع**.
+            <br />- إذا كان <span class="math">m = 3.5 - 8ln 2</span>: **3 نقاط تقاطع**.
+            <br />- إذا كان <span class="math">m &gt; 3.5 - 8ln 2</span>: **4 نقاط تقاطع**.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <strong>Ensemble de définition et limites :</strong>
+            <br />- La fonction est définie pour <span class="math">(x+1)<sup>2</sup> &gt; 0</span>, soit <span class="math">x ≠ -1</span>. Ainsi, <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+            <br />- <strong>Limites :</strong>
+            <br />En <span class="math">-1</span> : comme <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>, on a <span class="math">lim<sub>x→-1</sub> f(x) = +∞</span>.
+            <br />En <span class="math">±∞</span> : le terme prédominant <span class="math">x<sup>2</sup></span> l'emporte, donc <span class="math">lim<sub>x→±∞</sub> f(x) = +∞</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations de la fonction f :</strong>
+                <br />- Dérivée : pour tout <span class="math">x ≠ -1</span> :
+                <div class="math-equation">f'(x) = x - 1 - \frac{8}{x + 1} = \frac{x<sup>2</sup> - 9}{x + 1} = \frac{(x-3)(x+3)}{x + 1}</div>
+                La dérivée s'annule en <span class="math">x = 3</span> et <span class="math">x = -3</span>.
+                <br />- <strong>Sens de variations :</strong>
+                <br />Sur <span class="math">]-∞, -3]</span> : <span class="math">f'(x) &lt; 0</span>, la fonction est strictement décroissante.
+                <br />Sur <span class="math">[-3, -1[</span> : <span class="math">f'(x) &gt; 0</span>, la fonction est strictement croissante.
+                <br />Sur <span class="math">]-1, 3]</span> : <span class="math">f'(x) &lt; 0</span>, la fonction est strictement décroissante.
+                <br />Sur <span class="math">[3, +∞[</span> : <span class="math">f'(x) &gt; 0</span>, la fonction est strictement croissante.
+                <br />- Minimums : minimum local en <span class="math">-3</span> de valeur <span class="math">f(-3) ≈ 1,95</span> ; minimum local en <span class="math">3</span> de valeur <span class="math">f(3) ≈ -9,59</span>.
+              </li>
+              <li><strong>b- Solutions de f(x) = 0 :</strong>
+                <br />- Sur <span class="math">]-∞, -1[</span> : le minimum est <span class="math">f(-3) &gt; 0</span>, il n'y a donc pas de solution.
+                <br />- Sur <span class="math">]-1, 3]</span> : la fonction est strictement décroissante de <span class="math">+∞</span> à <span class="math">f(3) &lt; 0</span>. Comme <span class="math">f(0) = 0</span>, la solution unique est <span class="math">x = 0</span>.
+                <br />- Sur <span class="math">[3, +∞[</span> : la fonction est strictement croissante de <span class="math">f(3) &lt; 0</span> à <span class="math">+∞</span>, d'où une unique solution <span class="math">x<sub>0</sub> &gt; 3</span>.
+                <br />L'équation admet donc deux solutions : <span class="math">0</span> et <span class="math">x<sub>0</sub></span>.
+              </li>
+              <li><strong>c- Encadrement de la solution non nulle x<sub>0</sub> :</strong>
+                <br />On calcule <span class="math">f(6) ≈ -3,57 &lt; 0</span> et <span class="math">f(7) ≈ 0,86 &gt; 0</span>.
+                <br />Par le TVI, on a <span class="math">6 &lt; x<sub>0</sub> &lt; 7</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Branches infinies :</strong>
+                <br />Comme <span class="math">lim<sub>x→±∞</sub> \frac{f(x)}{x} = ±∞</span>, la courbe admet une branche parabolique de direction <span class="math">(Oy)</span> aux infinis.
+              </li>
+              <li><strong>b- Tangente en 0 :</strong>
+                <br />On a <span class="math">f(0) = 0</span> et <span class="math">f'(0) = -9</span>, d'où <span class="math">(T): y = -9x</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Tangentes de coefficient directeur α :</strong>
+                <br />L'équation <span class="math">f'(x) = α</span> équivaut à <span class="math">x<sup>2</sup> - α x - (9 + α) = 0</span>.
+                <br />Le discriminant est <span class="math">Δ = α<sup>2</sup> + 4α + 36 = (α + 2)<sup>2</sup> + 32 &gt; 0</span>.
+                <br />Comme <span class="math">Δ &gt; 0</span> pour tout réel, il y a toujours **deux** tangentes de coefficient directeur <span class="math">α</span>.
+              </li>
+              <li><strong>b- Points de tangence de coefficient directeur -4 :</strong>
+                <br />Pour <span class="math">α = -4</span>, on résout <span class="math">x<sup>2</sup> + 4x - 5 = 0</span>, ce qui donne <span class="math">x = 1</span> et <span class="math">x = -5</span>.
+                <br />- En <span class="math">x = 1</span> : <span class="math">M<sub>1</sub>(1, -0,5 - 8ln 2)</span>.
+                <br />- En <span class="math">x = -5</span> : <span class="math">M<sub>2</sub>(-5, 17,5 - 16ln 2)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Tracé :</strong> On place les asymptotes, les minimums, la tangente et la courbe.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Vérification de la primitive :</strong>
+                <br />La dérivée de <span class="math">J(x) = (x+1)ln(x+1) - x</span> donne bien <span class="math">ln(x+1)</span>.
+              </li>
+              <li><strong>b- Calcul de S(λ) :</strong>
+                <br />Pour <span class="math">x ∈ [λ, 0]</span> (avec <span class="math">-1 &lt; λ &lt; 0</span>), on a <span class="math">f(x) ≥ 0</span>.
+                <div class="math-equation">S(λ) = \int_{λ}^{0} f(x) dx = -\frac{λ<sup>3</sup>}{6} + \frac{λ<sup>2</sup>}{2} + 8(λ+1)ln(λ+1) - 8λ \text{ u.a.}</div>
+              </li>
+              <li><strong>c- Limite de S(λ) en -1 :</strong>
+                <br />Comme la limite de <span class="math">(λ+1)ln(λ+1)</span> est nulle en <span class="math">-1</span> :
+                <div class="math-equation">lim<sub>λ→-1<sup>+</sup></sub> S(λ) = \frac{26}{3} \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Discussion du nombre d'intersections avec y = -4x + m :</strong>
+            <br />Les intersections correspondent aux solutions de <span class="math">g(x) = m</span> avec <span class="math">g(x) = \frac{1}{2}x<sup>2</sup> + 3x - 4ln(x + 1)<sup>2</sup></span>.
+            <br />Les minimums locaux de la fonction <span class="math">g</span> sont atteints en <span class="math">-5</span> et <span class="math">1</span> :
+            <br />- <span class="math">g(-5) = -2,5 - 16ln 2 ≈ -13,59</span>.
+            <br />- <span class="math">g(1) = 3,5 - 8ln 2 ≈ -2,05</span>.
+            <br />- Si <span class="math">m &lt; g(-5)</span> : **aucune intersection**.
+            <br />- Si <span class="math">m = g(-5)</span> : **une seule intersection**.
+            <br />- Si <span class="math">g(-5) &lt; m &lt; g(1)</span> : **deux intersections**.
+            <br />- Si <span class="math">m = g(1)</span> : **trois intersections**.
+            <br />- Si <span class="math">m &gt; g(1)</span> : **quatre intersections**.
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <strong>Domain and limits:</strong>
+            <br />- The function is defined for <span class="math">(x+1)<sup>2</sup> &gt; 0</span>, meaning <span class="math">x ≠ -1</span>. Thus, <span class="math">D<sub>f</sub> = ]-∞, -1[ ∪ ]-1, +∞[</span>.
+            <br />- <strong>Limits:</strong>
+            <br />At <span class="math">-1</span>: since <span class="math">lim<sub>x→-1</sub> ln(x+1)<sup>2</sup> = -∞</span>, we have <span class="math">lim<sub>x→-1</sub> f(x) = +∞</span>.
+            <br />At <span class="math">±∞</span>: the dominant term <span class="math">x<sup>2</sup></span> governs, so <span class="math">lim<sub>x→±∞</sub> f(x) = +∞</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Variations of f:</strong>
+                <br />- Derivative: for all <span class="math">x ≠ -1</span>:
+                <div class="math-equation">f'(x) = x - 1 - \frac{8}{x + 1} = \frac{x<sup>2</sup> - 9}{x + 1} = \frac{(x-3)(x+3)}{x + 1}</div>
+                The derivative vanishes at <span class="math">x = 3</span> and <span class="math">x = -3</span>.
+                <br />- <strong>Monotonicity:</strong>
+                <br />On <span class="math">]-∞, -3]</span>: <span class="math">f'(x) &lt; 0</span>, so the function is strictly decreasing.
+                <br />On <span class="math">[-3, -1[</span>: <span class="math">f'(x) &gt; 0</span>, so the function is strictly increasing.
+                <br />On <span class="math">]-1, 3]</span>: <span class="math">f'(x) &lt; 0</span>, so the function is strictly decreasing.
+                <br />On <span class="math">[3, +∞[</span>: <span class="math">f'(x) &gt; 0</span>, so the function is strictly increasing.
+                <br />- Extremums: local minimum at <span class="math">-3</span> of value <span class="math">f(-3) ≈ 1.95</span>; local minimum at <span class="math">3</span> of value <span class="math">f(3) ≈ -9.59</span>.
+              </li>
+              <li><strong>b- Solutions of f(x) = 0:</strong>
+                <br />- On <span class="math">]-∞, -1[</span>: the minimum value is <span class="math">f(-3) &gt; 0</span>, so there are no solutions.
+                <br />- On <span class="math">]-1, 3]</span>: the function is strictly decreasing from <span class="math">+∞</span> to <span class="math">f(3) &lt; 0</span>. Since <span class="math">f(0) = 0</span>, the unique solution is <span class="math">x = 0</span>.
+                <br />- On <span class="math">[3, +∞[</span>: the function is strictly increasing from <span class="math">f(3) &lt; 0</span> to <span class="math">+∞</span>, so there is a unique solution <span class="math">x<sub>0</sub> &gt; 3</span>.
+                <br />The equation has two solutions: <span class="math">0</span> and <span class="math">x<sub>0</sub></span>.
+              </li>
+              <li><strong>c- Bounding the non-zero solution x<sub>0</sub>:</strong>
+                <br />We calculate <span class="math">f(6) ≈ -3.57 &lt; 0</span> and <span class="math">f(7) ≈ 0.86 &gt; 0</span>.
+                <br />By the IVT, we have <span class="math">6 &lt; x<sub>0</sub> &lt; 7</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Infinite branches:</strong>
+                <br />Since <span class="math">lim<sub>x→±∞</sub> \frac{f(x)}{x} = ±∞</span>, the curve has a parabolic branch in the direction of the y-axis at infinity.
+              </li>
+              <li><strong>b- Tangent at 0:</strong>
+                <br />Since <span class="math">f(0) = 0</span> and <span class="math">f'(0) = -9</span>, the equation is <span class="math">(T): y = -9x</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Tangents with slope α:</strong>
+                <br />Solving <span class="math">f'(x) = α</span> gives <span class="math">x<sup>2</sup> - α x - (9 + α) = 0</span>.
+                <br />The discriminant is <span class="math">Δ = α<sup>2</sup> + 4α + 36 = (α + 2)<sup>2</sup> + 32 &gt; 0</span>.
+                <br />Since <span class="math">Δ &gt; 0</span>, there are always **two** tangents to the curve with slope <span class="math">α</span>.
+              </li>
+              <li><strong>b- Points of tangency with slope -4:</strong>
+                <br />For <span class="math">α = -4</span>, solving <span class="math">x<sup>2</sup> + 4x - 5 = 0</span> yields <span class="math">x = 1</span> and <span class="math">x = -5</span>.
+                <br />- At <span class="math">x = 1</span>: <span class="math">M<sub>1</sub>(1, -0.5 - 8ln 2)</span>.
+                <br />- At <span class="math">x = -5</span>: <span class="math">M<sub>2</sub>(-5, 17.5 - 16ln 2)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Plot:</strong> Plot the asymptotes, local minimums, tangent line, and the curve.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Antiderivative verification:</strong>
+                <br />Differentiating <span class="math">J(x) = (x+1)ln(x+1) - x</span> yields <span class="math">ln(x+1)</span>.
+              </li>
+              <li><strong>b- Area S(λ):</strong>
+                <br />For <span class="math">x ∈ [λ, 0]</span> (with <span class="math">-1 &lt; λ &lt; 0</span>), we have <span class="math">f(x) ≥ 0</span>.
+                <div class="math-equation">S(λ) = \int_{λ}^{0} f(x) dx = -\frac{λ<sup>3</sup>}{6} + \frac{λ<sup>2</sup>}{2} + 8(λ+1)ln(λ+1) - 8λ \text{ u.a.}</div>
+              </li>
+              <li><strong>c- Limit of S(λ) as λ→-1<sup>+</sup>:</strong>
+                <br />Since the limit of <span class="math">(λ+1)ln(λ+1)</span> is zero at <span class="math">-1</span>:
+                <div class="math-equation">lim<sub>λ→-1<sup>+</sup></sub> S(λ) = \frac{26}{3} \text{ u.a.}</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Discussion of intersections with y = -4x + m:</strong>
+            <br />Intersections correspond to solutions of <span class="math">g(x) = m</span> where <span class="math">g(x) = \frac{1}{2}x<sup>2</sup> + 3x - 4ln(x + 1)<sup>2</sup></span>.
+            <br />The local minimums of the function <span class="math">g</span> are reached at <span class="math">-5</span> and <span class="math">1</span>:
+            <br />- <span class="math">g(-5) = -2.5 - 16ln 2 ≈ -13.59</span>.
+            <br />- <span class="math">g(1) = 3.5 - 8ln 2 ≈ -2.05</span>.
+            <br />- If <span class="math">m &lt; g(-5)</span>: **no intersection**.
+            <br />- If <span class="math">m = g(-5)</span>: **exactly one intersection**.
+            <br />- If <span class="math">g(-5) &lt; m &lt; g(1)</span>: **two intersections**.
+            <br />- If <span class="math">m = g(1)</span>: **three intersections**.
+            <br />- If <span class="math">m &gt; g(1)</span>: **four intersections**.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغاريتمية بأساس 3، دالة عكسية، تشابه مباشر ودراسة دالة أسية مرافقة",
+      fr: "Problème d'approfondissement : Fonction logarithme de base 3, fonction réciproque, similitude directe et fonction exponentielle",
+      en: "Deepening Problem: Base-3 Logarithmic Function, Inverse Function, Direct Similitude and Exponential Function"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = x + 1 + log<sub>3</sub> x</div>
+        <p>وليكن <span class="math">(C)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>. (وحدة الطول هي <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>ادرس الفروع اللانهائية للمنحنى <span class="math">(C)</span>، وحدد وضعيته بالنسبة للمستقيم <span class="math">(Δ)</span> ذي المعادلة <span class="math">y = x</span>.</li>
+              <li>أنشئ المنحنى <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>بيّن أن الدالة <span class="math">f</span> تقبل دالة عكسية <span class="math">f<sup>-1</sup></span>.</li>
+              <li>حدد اتجاه تغير <span class="math">f<sup>-1</sup></span>.</li>
+              <li>نسمي <span class="math">(C')</span> المنحنى الممثل للدالة <span class="math">f<sup>-1</sup></span>. بيّن أن <span class="math">(C)</span> و <span class="math">(C')</span> يتقاطعان في نقطة <span class="math">A</span> من <span class="math">(Δ)</span>، عين إحداثييها، ثم أنشئ المنحنى <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>نعتبر التحويل النقطي <span class="math">T</span> للمستوي في نفسه والذي يرفق بكل نقطة <span class="math">M</span> لاحقتها <span class="math">z</span> النقطة <span class="math">M'</span> لاحقتها <span class="math">z'</span> بحيث:</p>
+        <div class="math-equation">z' = (1 + i)z + 1 - i</div>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>حدد طبيعة التحويل <span class="math">T</span>.</li>
+              <li>حدد العناصر المميزة للتحويل <span class="math">T</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>احسب <span class="math">x, y</span> إحداثيي النقطة <span class="math">M</span> بدلالة <span class="math">x', y'</span> إحداثيي النقطة <span class="math">M'</span>.</li>
+              <li>نسمي <span class="math">(Γ)</span> صورة المنحنى <span class="math">(C)</span> وفق التحويل <span class="math">T</span>. بيّن أن معادلته هي: <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <p>نضع، من أجل كل عدد حقيقي <span class="math">x</span>:</p>
+        <div class="math-equation">h(x) = 2 × 3<sup>-x</sup> - x</div>
+        <ol>
+          <li>بيّن أنه من أجل كل عدد حقيقي <span class="math">x</span>: <span class="math">h(x) + x &gt; 0</span>.</li>
+          <li>احسب المساحة <span class="math">S(λ)</span> للحيز المستوي المعرّف بـ:
+            <div class="math-equation">
+              \begin{cases} 0 \le x &lt; λ \\ -x \le y \le h(x) \end{cases}
+            </div>
+            ثم احسب: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = x + 1 + log<sub>3</sub> x</div>
+        <p>Soit <span class="math">(C)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span> (unité graphique : <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Étudier les branches infinies de <span class="math">(C)</span> et déterminer sa position relative par rapport à la droite <span class="math">(Δ)</span> d'équation <span class="math">y = x</span>.</li>
+              <li>Tracer la courbe <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Montrer que la fonction <span class="math">f</span> admet une fonction réciproque <span class="math">f<sup>-1</sup></span>.</li>
+              <li>Déterminer le sens de variations de <span class="math">f<sup>-1</sup></span>.</li>
+              <li>Soit <span class="math">(C')</span> la courbe représentative de la fonction <span class="math">f<sup>-1</sup></span>. Montrer que <span class="math">(C)</span> et <span class="math">(C')</span> se coupent en un point <span class="math">A</span> appartenant à la droite <span class="math">(Δ)</span>, déterminer ses coordonnées et tracer <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <p>Soit <span class="math">T</span> la transformation géométrique du plan qui à tout point <span class="math">M</span> d'affixe <span class="math">z</span> associe le point <span class="math">M'</span> d'affixe <span class="math">z'</span> tel que :</p>
+        <div class="math-equation">z' = (1 + i)z + 1 - i</div>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Déterminer la nature de la transformation <span class="math">T</span>.</li>
+              <li>Déterminer les éléments caractéristiques de la transformation <span class="math">T</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Exprimer <span class="math">x, y</span> (les coordonnées de <span class="math">M</span>) en fonction de <span class="math">x', y'</span> (les coordonnées de <span class="math">M'</span>).</li>
+              <li>Soit <span class="math">(Γ)</span> l'image de la courbe <span class="math">(C)</span> par la transformation <span class="math">T</span>. Démontrer que son équation est : <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <p>On pose, pour tout réel <span class="math">x</span> :</p>
+        <div class="math-equation">h(x) = 2 × 3<sup>-x</sup> - x</div>
+        <ol>
+          <li>Montrer que pour tout réel <span class="math">x</span> : <span class="math">h(x) + x &gt; 0</span>.</li>
+          <li>Calculer l'aire <span class="math">S(λ)</span> du domaine plan défini par :
+            <div class="math-equation">
+              \begin{cases} 0 \le x &lt; λ \\ -x \le y \le h(x) \end{cases}
+            </div>
+            Puis calculer : <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = x + 1 + log<sub>3</sub> x</div>
+        <p>Let <span class="math">(C)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span> (unit: <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Study the infinite branches of <span class="math">(C)</span> and determine its position relative to the line <span class="math">(Δ)</span> with equation <span class="math">y = x</span>.</li>
+              <li>Draw the curve <span class="math">(C)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Show that the function <span class="math">f</span> accepts an inverse function <span class="math">f<sup>-1</sup></span>.</li>
+              <li>Determine the monotonicity of <span class="math">f<sup>-1</sup></span>.</li>
+              <li>Let <span class="math">(C')</span> be the representative curve of the function <span class="math">f<sup>-1</sup></span>. Show that <span class="math">(C)</span> and <span class="math">(C')</span> intersect at a point <span class="math">A</span> on <span class="math">(Δ)</span>, determine its coordinates, and draw the curve <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Consider the geometric transformation <span class="math">T</span> of the plane which associates to each point <span class="math">M</span> with affix <span class="math">z</span> the point <span class="math">M'</span> with affix <span class="math">z'</span> such that:</p>
+        <div class="math-equation">z' = (1 + i)z + 1 - i</div>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Determine the nature of the transformation <span class="math">T</span>.</li>
+              <li>Determine the characteristic elements of the transformation <span class="math">T</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Express the coordinates <span class="math">x, y</span> of the point <span class="math">M</span> in terms of <span class="math">x', y'</span> of the point <span class="math">M'</span>.</li>
+              <li>Let <span class="math">(Γ)</span> be the image of the curve <span class="math">(C)</span> under the transformation <span class="math">T</span>. Show that its equation is: <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <p>We define, for each real number <span class="math">x</span>:</p>
+        <div class="math-equation">h(x) = 2 × 3<sup>-x</sup> - x</div>
+        <ol>
+          <li>Show that for all real <span class="math">x</span>: <span class="math">h(x) + x &gt; 0</span>.</li>
+          <li>Calculate the area <span class="math">S(λ)</span> of the plane region defined by:
+            <div class="math-equation">
+              \begin{cases} 0 \le x &lt; λ \\ -x \le y \le h(x) \end{cases>
+            </div>
+            Then compute: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>تغيرات الدالة f:</strong>
+            <br />- مجموعة التعريف: الدالة معرفة على المجال <span class="math">D<sub>f</sub> = ]0, +∞[</span>.
+            <br />- النهايات:
+            <br /><span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> (لأن <span class="math">lim<sub>x→0<sup>+</sup></sub> log<sub>3</sub> x = -∞</span>). إذن المستقيم <span class="math">x = 0</span> مقارب عمودي.
+            <br /><span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span>.
+            <br />- المشتقة: من أجل كل <span class="math">x &gt; 0</span>:
+            <div class="math-equation">f'(x) = 1 + \frac{1}{x \ln 3} &gt; 0</div>
+            بما أن المشتقة موجبة تماماً على المجال <span class="math">]0, +∞[</span>، فإن الدالة <span class="math">f</span> متزايدة تماماً على هذا المجال.
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- الفروع اللانهائية والوضعية النسبية لـ (C) مع (Δ):</strong>
+                <br />- الفرع اللانهائي: لدينا <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 1</span>، و <span class="math">lim<sub>x→+∞</sub> (f(x) - x) = +∞</span>.
+                <br />إذن يقبل المنحنى فرعاً مكافئاً باتجاه المستقيم <span class="math">y = x</span>.
+                <br />- الوضعية النسبية: ندرس إشارة الفرق <span class="math">f(x) - x = 1 + log<sub>3</sub> x</span>.
+                <br /><span class="math">f(x) - x = 0 ⇔ log<sub>3</sub> x = -1 ⇔ x = 3<sup>-1</sup> = \frac{1}{3}</span>.
+                <br />إذن:
+                <br />- على المجال <span class="math">]0, \frac{1}{3}[</span>: <span class="math">f(x) - x &lt; 0</span>، فالمنحنى <span class="math">(C)</span> يقع تحت المستقيم <span class="math">(Δ)</span>.
+                <br />- عند النقطة ذات الفاصلة <span class="math">\frac{1}{3}</span>: يتقاطعان.
+                <br />- على المجال <span class="math">]\frac{1}{3}, +∞[</span>: <span class="math">f(x) - x &gt; 0</span>، فالمنحنى <span class="math">(C)</span> يقع فوق المستقيم <span class="math">(Δ)</span>.
+              </li>
+              <li><strong>ب- إنشاء المنحنى (C):</strong> نرسم المستقيم <span class="math">y = x</span>، والمقارب العمودي <span class="math">x = 0</span>، ونقطة التقاطع <span class="math">A(\frac{1}{3}, \frac{1}{3})</span>، ونقطة التقاطع مع محور الفواصل <span class="math">f(x)=0</span> (التي تقع بين 0.3 و 0.4)، ثم نرسم المنحنى.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- وجود دالة عكسية:</strong>
+                <br />بما أن الدالة <span class="math">f</span> مستمرة ومتزايدة تماماً على المجال <span class="math">]0, +∞[</span>، فإنها تقيم تقابلاً من <span class="math">]0, +∞[</span> نحو <span class="math">R</span>. بالتالي فإنها تقبل دالة عكسية <span class="math">f<sup>-1</sup></span> معرفة على <span class="math">R</span> ومداها <span class="math">]0, +∞[</span>.
+              </li>
+              <li><strong>ب- اتجاه تغير f<sup>-1</sup>:</strong>
+                <br />بما أن <span class="math">f</span> متزايدة تماماً، فإن الدالة العكسية <span class="math">f<sup>-1</sup></span> تكون كذلك متزايدة تماماً على <span class="math">R</span>.
+              </li>
+              <li><strong>ج- تقاطع (C) و (C') والإنشاء:</strong>
+                <br />بما أن <span class="math">(C')</span> هو نظير المنحنى <span class="math">(C)</span> بالنسبة للمستقيم ذي المعادلة <span class="math">y = x</span>، فإن أي نقطة تقاطع للمنحنيين تقع بالضرورة على المنصف الأول <span class="math">(Δ)</span>.
+                <br />نحل المعادلة: <span class="math">f(x) = x ⇔ 1 + log<sub>3</sub> x = 0 ⇔ x = \frac{1}{3}</span>.
+                <br />إذن يتقاطعان في نقطة وحيدة هي <span class="math">A(\frac{1}{3}, \frac{1}{3})</span>.
+                <br />الإنشاء: نرسم <span class="math">(C')</span> متناظراً مع <span class="math">(C)</span> بالنسبة للمستقيم <span class="math">y = x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- طبيعة التحويل T:</strong>
+                <br />التحويل من الشكل <span class="math">z' = az + b</span> حيث <span class="math">a = 1 + i</span> و <span class="math">b = 1 - i</span>.
+                <br />بما أن <span class="math">a ∈ C</span> و <span class="math">|a| = \sqrt{2} ≠ 1</span>، فإن <span class="math">T</span> هو **تشابه مباشر**.
+              </li>
+              <li><strong>ب- العناصر المميزة للتشابه T:</strong>
+                <br />- النسبة: <span class="math">k = |a| = \sqrt{2}</span>.
+                <br />- الزاوية: <span class="math">θ = arg(a) = \frac{\pi}{4}</span>.
+                <br />- المركز <span class="math">Ω</span> ذو اللاحقة <span class="math">ω</span>:
+                <div class="math-equation">ω = \frac{b}{1 - a} = 1 + i</div>
+                إذن مركز التشابه هو النقطة <span class="math">Ω(1, 1)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- كتابة x و y بدلالة x' و y':</strong>
+                <br />لدينا <span class="math">z' = (1 + i)z + 1 - i ⇔ x' + iy' = (x - y + 1) + i(x + y - 1)</span>.
+                <br />بالمطابقة بين الجزأين الحقيقي والخيالي:
+                <br />1) <span class="math">x' = x - y + 1</span>
+                <br />2) <span class="math">y' = x + y - 1</span>
+                <br />بجمع المعادلتين نجد: <span class="math">x = \frac{x' + y'}{2}</span>.
+                <br />بطرح الأولى من الثانية نجد: <span class="math">y = \frac{y' - x' + 2}{2}</span>.
+              </li>
+              <li><strong>ب- معادلة صورة المنحنى (Γ):</strong>
+                <br />نعوض عبارة <span class="math">x</span> و <span class="math">y</span> في معادلة المنحنى <span class="math">(C)</span>:
+                <br /><span class="math">y = x + 1 + log<sub>3</sub> x</span>
+                <div class="math-equation">\frac{y' - x' + 2}{2} = \frac{x' + y'}{2} + 1 + log<sub>3</sub>\left(\frac{x' + y'}{2}\right)</div>
+                نضرب الطرفين في 2:
+                <br /><span class="math">y' - x' + 2 = x' + y' + 2 + 2log<sub>3</sub>\left(\frac{x' + y'}{2}\right) ⇔ -x' = log<sub>3</sub>\left(\frac{x' + y'}{2}\right)</span>
+                <br />ندخل الدالة الأسية ذات الأساس 3:
+                <br /><span class="math">3<sup>-x'</sup> = \frac{x' + y'}{2} ⇔ y' = 2 × 3<sup>-x'</sup> - x'</span>.
+                <br />بالتالي، معادلة المنحنى <span class="math">(Γ)</span> هي: <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <ol>
+          <li>
+            <strong>إثبات أن h(x) + x &gt; 0:</strong>
+            <br />لدينا <span class="math">h(x) + x = 2 × 3<sup>-x</sup></span>.
+            <br />بما أن الدالة الأسية موجبة تماماً دائماً على <span class="math">R</span> (<span class="math">3<sup>-x</sup> &gt; 0</span>)، فإن <span class="math">2 × 3<sup>-x</sup> &gt; 0</span>.
+            <br />إذن <span class="math">h(x) + x &gt; 0</span> لكل عدد حقيقي <span class="math">x</span>.
+          </li>
+          <li>
+            <strong>حساب المساحة S(λ) والنهاية:</strong>
+            <br />- بما أن <span class="math">h(x) + x &gt; 0</span>، فإن المنحنى <span class="math">(Γ)</span> يقع تماماً فوق المستقيم ذي المعادلة <span class="math">y = -x</span>.
+            <br />إذن ارتفاع الحيز عند كل فاصلة هو <span class="math">h(x) - (-x) = 2 × 3<sup>-x</sup></span>.
+            <br />المساحة تعطى بالتكامل:
+            <div class="math-equation">S(λ) = \int_{0}^{λ} 2 × 3^{-x} dx = 2 \left[ -\frac{3^{-x}}{\ln 3} \right]_{0}^{λ} = \frac{2}{\ln 3}(1 - 3^{-λ}) \text{ u.a.}</div>
+            بما أن وحدة الطول هي <span class="math">2 \text{ cm}</span>، فإن وحدة المساحة هي <span class="math">1 \text{ u.a.} = 2 \text{ cm} × 2 \text{ cm} = 4 \text{ cm}<sup>2</sup></span>.
+            <br />إذن: <span class="math">S(λ) = \frac{8}{\ln 3}(1 - 3^{-λ}) \text{ cm}<sup>2</sup></span>.
+            <br />- <strong>النهاية عند +∞:</strong>
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \frac{2}{\ln 3} \text{ u.a.} = \frac{8}{\ln 3} \text{ cm}<sup>2</sup></div>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>Variations de f :</strong>
+            <br />- Domaine : <span class="math">D<sub>f</sub> = ]0, +∞[</span>.
+            <br />- Limites :
+            <br /><span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> car <span class="math">lim<sub>x→0<sup>+</sup></sub> log<sub>3</sub> x = -∞</span> (asymptote verticale <span class="math">x = 0</span>).
+            <br /><span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span>.
+            <br />- Dérivée : pour tout <span class="math">x &gt; 0</span> :
+            <div class="math-equation">f'(x) = 1 + \frac{1}{x \ln 3} &gt; 0</div>
+            La dérivée étant strictement positive sur <span class="math">]0, +∞[</span>, la fonction <span class="math">f</span> est strictement croissante.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Branches infinies et position relative de (C) par rapport à (Δ) :</strong>
+                <br />- Branche : on a <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 1</span> et <span class="math">lim<sub>x→+∞</sub> (f(x) - x) = +∞</span>. La courbe admet une branche parabolique de direction la droite <span class="math">y = x</span>.
+                <br />- Position : on étudie le signe de <span class="math">f(x) - x = 1 + log<sub>3</sub> x</span>.
+                <br /><span class="math">f(x) - x = 0 ⇔ x = 1/3</span>.
+                <br />- Sur <span class="math">]0, 1/3[</span> : <span class="math">(C)</span> est en dessous de <span class="math">(Δ)</span>.
+                <br />- En <span class="math">x = 1/3</span> : elles se coupent.
+                <br />- Sur <span class="math">]1/3, +∞[</span> : <span class="math">(C)</span> est au-dessus de <span class="math">(Δ)</span>.
+              </li>
+              <li><strong>b- Tracé :</strong> On trace la droite, la courbe et l'asymptote.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Fonction réciproque :</strong>
+                <br />La fonction <span class="math">f</span> est continue et strictement croissante sur <span class="math">]0, +∞[</span>, elle réalise une bijection de <span class="math">]0, +∞[</span> sur <span class="math">R</span>, d'où <span class="math">f<sup>-1</sup></span> existe.
+              </li>
+              <li><strong>b- Variations de f<sup>-1</sup> :</strong>
+                <br />Comme <span class="math">f</span>, la fonction réciproque <span class="math">f<sup>-1</sup></span> est strictement croissante sur <span class="math">R</span>.
+              </li>
+              <li><strong>c- Point d'intersection A et tracé :</strong>
+                <br />Les courbes se coupent sur <span class="math">y = x</span>. L'équation <span class="math">f(x) = x</span> donne <span class="math">x = 1/3</span>, d'où le point <span class="math">A(1/3, 1/3)</span>.
+                <br />Le tracé de <span class="math">(C')</span> s'obtient par symétrie par rapport à la droite <span class="math">y = x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Nature de la transformation T :</strong>
+                <br />L'écriture complexe est de la forme <span class="math">z' = az + b</span> avec <span class="math">a = 1 + i</span>. Comme <span class="math">a ≠ 1</span>, <span class="math">T</span> est une **similitude directe**.
+              </li>
+              <li><strong>b- Éléments caractéristiques de T :</strong>
+                <br />- Rapport : <span class="math">k = \sqrt{2}</span>.
+                <br />- Angle : <span class="math">θ = \frac{\pi}{4}</span>.
+                <br />- Centre <span class="math">Ω</span> d'affixe <span class="math">ω = 1+i</span>. Donc <span class="math">Ω(1, 1)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Coordonnées x, y en fonction de x', y' :</strong>
+                <br />On a <span class="math">x' = x - y + 1</span> et <span class="math">y' = x + y - 1</span>.
+                <br />En additionnant : <span class="math">x = \frac{x' + y'}{2}</span>.
+                <br />En soustrayant : <span class="math">y = \frac{y' - x' + 2}{2}</span>.
+              </li>
+              <li><strong>b- Équation de la courbe image (Γ) :</strong>
+                <br />En injectant ces expressions dans <span class="math">y = x + 1 + log<sub>3</sub> x</span>, on obtient après simplification :
+                <br /><span class="math">y' = 2 × 3<sup>-x'</sup> - x'</span>, soit <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <ol>
+          <li>
+            <strong>Vérification de h(x) + x &gt; 0 :</strong>
+            <br />On a <span class="math">h(x) + x = 2 × 3<sup>-x</sup></span>. La fonction exponentielle étant strictement positive, on a bien <span class="math">h(x) + x &gt; 0</span>.
+          </li>
+          <li>
+            <strong>Aire du domaine plan S(λ) :</strong>
+            <br />Comme <span class="math">h(x) - (-x) = 2 × 3<sup>-x</sup> &gt; 0</span> :
+            <div class="math-equation">S(λ) = \int_{0}^{λ} 2 × 3^{-x} dx = \frac{2}{\ln 3}(1 - 3^{-λ}) \text{ u.a.}</div>
+            Comme l'unité est <span class="math">2 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 4 \text{ cm}<sup>2</sup></span>.
+            <br />On a donc <span class="math">S(λ) = \frac{8}{\ln 3}(1 - 3^{-λ}) \text{ cm}<sup>2</sup></span>.
+            <br />- <strong>Limite en +∞ :</strong>
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \frac{2}{\ln 3} \text{ u.a.} = \frac{8}{\ln 3} \text{ cm}<sup>2</sup></div>
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>Variations of f:</strong>
+            <br />- Domain: <span class="math">D<sub>f</sub> = ]0, +∞[</span>.
+            <br />- Limits:
+            <br /><span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> because <span class="math">lim<sub>x→0<sup>+</sup></sub> log<sub>3</sub> x = -∞</span> (vertical asymptote <span class="math">x = 0</span>).
+            <br /><span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span>.
+            <br />- Derivative: for all <span class="math">x &gt; 0</span>:
+            <div class="math-equation">f'(x) = 1 + \frac{1}{x \ln 3} &gt; 0</div>
+            Since the derivative is strictly positive, the function <span class="math">f</span> is strictly increasing on <span class="math">]0, +∞[</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Infinite branches and relative position:</strong>
+                <br />- Branch: we have <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 1</span> and <span class="math">lim<sub>x→+∞</sub> (f(x) - x) = +∞</span>. The curve has a parabolic branch of direction the line <span class="math">y = x</span>.
+                <br />- Position: study the sign of <span class="math">f(x) - x = 1 + log<sub>3</sub> x</span>.
+                <br /><span class="math">f(x) - x = 0 ⇔ x = 1/3</span>.
+                <br />- On <span class="math">]0, 1/3[</span>: <span class="math">(C)</span> is below <span class="math">(Δ)</span>.
+                <br />- At <span class="math">x = 1/3</span>: they intersect.
+                <br />- On <span class="math">]1/3, +∞[</span>: <span class="math">(C)</span> is above <span class="math">(Δ)</span>.
+              </li>
+              <li><strong>b- Plot:</strong> Plot the line, vertical asymptote, and the curve.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Inverse function:</strong>
+                <br />Since <span class="math">f</span> is continuous and strictly increasing, it realizes a bijection from <span class="math">]0, +∞[</span> to <span class="math">R</span>, hence <span class="math">f<sup>-1</sup></span> exists.
+              </li>
+              <li><strong>b- Monotonicity of f<sup>-1</sup>:</strong>
+                <br />Like <span class="math">f</span>, the inverse function <span class="math">f<sup>-1</sup></span> is strictly increasing on <span class="math">R</span>.
+              </li>
+              <li><strong>c- Point of intersection A and plot:</strong>
+                <br />The curves intersect on the line <span class="math">y = x</span>. The equation <span class="math">f(x) = x</span> gives <span class="math">x = 1/3</span>, yielding intersection point <span class="math">A(1/3, 1/3)</span>.
+                <br />The plot of <span class="math">(C')</span> is the reflection of <span class="math">(C)</span> across the line <span class="math">y = x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Nature of T:</strong>
+                <br />The complex form is <span class="math">z' = az + b</span> with <span class="math">a = 1 + i</span>. Since <span class="math">a ≠ 1</span>, <span class="math">T</span> is a **direct similitude**.
+              </li>
+              <li><strong>b- Characteristic elements:</strong>
+                <br />- Ratio: <span class="math">k = \sqrt{2}</span>.
+                <br />- Angle: <span class="math">θ = \frac{\pi}{4}</span>.
+                <br />- Center <span class="math">Ω</span> with affix <span class="math">ω = 1+i</span>. Thus <span class="math">Ω(1, 1)</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Express x, y in terms of x', y':</strong>
+                <br />From <span class="math">x' + iy' = (x - y + 1) + i(x + y - 1)</span>, we have <span class="math">x' = x - y + 1</span> and <span class="math">y' = x + y - 1</span>.
+                <br />Adding them gives: <span class="math">x = \frac{x' + y'}{2}</span>.
+                <br />Subtracting them gives: <span class="math">y = \frac{y' - x' + 2}{2}</span>.
+              </li>
+              <li><strong>b- Equation of the image curve (Γ):</strong>
+                <br />Substituting these into <span class="math">y = x + 1 + log<sub>3</sub> x</span>, we simplify to obtain:
+                <br /><span class="math">y' = 2 × 3<sup>-x'</sup> - x'</span>, yielding <span class="math">y = 2 × 3<sup>-x</sup> - x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <ol>
+          <li>
+            <strong>Show that h(x) + x &gt; 0:</strong>
+            <br />We have <span class="math">h(x) + x = 2 × 3<sup>-x</sup></span>. Since the exponential function is strictly positive, <span class="math">h(x) + x &gt; 0</span>.
+          </li>
+          <li>
+            <strong>Area S(λ):</strong>
+            <br />Since <span class="math">h(x) - (-x) = 2 × 3<sup>-x</sup> &gt; 0</span>:
+            <div class="math-equation">S(λ) = \int_{0}^{λ} 2 × 3^{-x} dx = \frac{2}{\ln 3}(1 - 3^{-λ}) \text{ u.a.}</div>
+            Since the length unit is <span class="math">2 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 4 \text{ cm}<sup>2</sup></span>.
+            <br />Thus, <span class="math">S(λ) = \frac{8}{\ln 3}(1 - 3^{-λ}) \text{ cm}<sup>2</sup></span>.
+            <br />- <strong>Limit as λ→+∞:</strong>
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = \frac{2}{\ln 3} \text{ u.a.} = \frac{8}{\ln 3} \text{ cm}<sup>2</sup></div>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة أسية، نقطة انعطاف، تناظر ودراسة عائلة دوال وسيطية",
+      fr: "Problème d'approfondissement : Étude d'une fonction exponentielle, point d'inflexion, symétrie et famille paramétrique",
+      en: "Deepening Problem: Study of an Exponential Function, Inflection Point, Symmetry and Parametric Family"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>نعتبر الدالة العددية <span class="math">f</span> المعرفة كما يلي:</p>
+        <div class="math-equation">f(x) = 4xe<sup>-2x</sup></div>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> المنحنى الممثل لها في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهائية للمنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>بيّن أن <span class="math">(C<sub>f</sub>)</span> يقبل نقطة انعطاف يطلب تعيين إحداثييها.</li>
+          <li>أنشئ المنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>ليكن <span class="math">(Γ)</span> المنحنى الذي معادلته: <span class="math">y = -4xe<sup>2x</sup></span>. بيّن أنه يوجد تحويل نقطي يحوّل <span class="math">(C<sub>f</sub>)</span> إلى <span class="math">(Γ)</span>، ثم ارسم <span class="math">(Γ)</span>.</li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>لتكن الدالة العددية <span class="math">F</span> للمتغير الحقيقي <span class="math">x</span>، حيث: <span class="math">F(x) = (ax + b)e<sup>-2x</sup></span>.</p>
+        <ol>
+          <li>عين العددين <span class="math">a, b</span> بحيث يكون من أجل كل عدد حقيقي <span class="math">x</span>: <span class="math">F'(x) = f(x)</span>.</li>
+          <li>ليكن <span class="math">λ</span> عدداً حقيقياً موجباً. احسب العدد <span class="math">S(λ) = \int_{0}^{λ} f(x) dx</span> واحسب: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <p>من أجل كل عدد حقيقي <span class="math">m</span>، نعتبر الدالة العددية <span class="math">φ<sub>m</sub></span> للمتغير الحقيقي <span class="math">x</span> المعرفة كما يلي:</p>
+        <div class="math-equation">φ<sub>m</sub>(x) = me<sup>2x</sup> - 4x<sup>2</sup></div>
+        <ol>
+          <li>بيّن أنه من أجل كل عدد حقيقي <span class="math">x</span> فإن: <span class="math">φ'<sub>m</sub>(x) = 2(m - f(x))e<sup>2x</sup></span>.</li>
+          <li>ناقش بيانياً حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد القيم الحدية للدالة <span class="math">φ<sub>m</sub></span>.</li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <p>Soit la fonction numérique <span class="math">f</span> définie par :</p>
+        <div class="math-equation">f(x) = 4xe<sup>-2x</sup></div>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span> et les branches infinies de la courbe <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Démontrer que la courbe <span class="math">(C<sub>f</sub>)</span> admet un point d'inflexion dont on déterminera les coordonnées.</li>
+          <li>Tracer la courbe <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Soit <span class="math">(Γ)</span> la courbe d'équation : <span class="math">y = -4xe<sup>2x</sup></span>. Démontrer qu'il existe une transformation géométrique transformant <span class="math">(C<sub>f</sub>)</span> en <span class="math">(Γ)</span>, puis tracer <span class="math">(Γ)</span>.</li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <p>Soit la fonction numérique <span class="math">F</span> de la variable réelle <span class="math">x</span> définie par : <span class="math">F(x) = (ax + b)e<sup>-2x</sup></span>.</p>
+        <ol>
+          <li>Déterminer les réels <span class="math">a, b</span> tels que pour tout réel <span class="math">x</span> : <span class="math">F'(x) = f(x)</span>.</li>
+          <li>Soit <span class="math">λ</span> un réel strictement positif. Calculer l'intégrale <span class="math">S(λ) = \int_{0}^{λ} f(x) dx</span>, puis calculer : <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <p>Pour tout réel <span class="math">m</span>, on considère la fonction numérique <span class="math">φ<sub>m</sub></span> définie par :</p>
+        <div class="math-equation">φ<sub>m</sub>(x) = me<sup>2x</sup> - 4x<sup>2</sup></div>
+        <ol>
+          <li>Démontrer que pour tout réel <span class="math">x</span> : <span class="math">φ'<sub>m</sub>(x) = 2(m - f(x))e<sup>2x</sup></span>.</li>
+          <li>Discuter graphiquement selon les valeurs de <span class="math">m</span> le nombre d'extremums de la fonction <span class="math">φ<sub>m</sub></span>.</li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = 4xe<sup>-2x</sup></div>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has an inflection point and find its coordinates.</li>
+          <li>Draw the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Let <span class="math">(Γ)</span> be the curve with equation: <span class="math">y = -4xe<sup>2x</sup></span>. Show that there exists a geometric transformation transforming <span class="math">(C<sub>f</sub>)</span> to <span class="math">(Γ)</span>, and draw <span class="math">(Γ)</span>.</li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Let the real function <span class="math">F</span> be defined by: <span class="math">F(x) = (ax + b)e<sup>-2x</sup></span>.</p>
+        <ol>
+          <li>Find the values of <span class="math">a, b</span> such that for all real <span class="math">x</span>: <span class="math">F'(x) = f(x)</span>.</li>
+          <li>Let <span class="math">λ</span> be a positive real number. Compute the integral <span class="math">S(λ) = \int_{0}^{λ} f(x) dx</span>, and compute: <span class="math">lim<sub>λ→+∞</sub> S(λ)</span>.</li>
+        </ol>
+
+        <h3>Part III</h3>
+        <p>For each real number <span class="math">m</span>, consider the real function <span class="math">φ<sub>m</sub></span> defined by:</p>
+        <div class="math-equation">φ<sub>m</sub>(x) = me<sup>2x</sup> - 4x<sup>2</sup></div>
+        <ol>
+          <li>Show that for all real <span class="math">x</span>: <span class="math">φ'<sub>m</sub>(x) = 2(m - f(x))e<sup>2x</sup></span>.</li>
+          <li>Discuss graphically, according to the values of the parameter <span class="math">m</span>, the number of extremums of the function <span class="math">φ<sub>m</sub></span>.</li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>تغيرات الدالة f والفروع اللانهائية:</strong>
+            <br />- مجموعة التعريف: <span class="math">D<sub>f</sub> = R</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند <span class="math">-∞</span>: <span class="math">lim<sub>x→-∞</sub> 4xe<sup>-2x</sup> = -∞</span>.
+            <br />عند <span class="math">+∞</span>: نكتب <span class="math">f(x) = \frac{4x}{e<sup>2x</sup>}</span>، ومنه <span class="math">lim<sub>x→+∞</sub> f(x) = 0</span>. المستقيم <span class="math">y = 0</span> مقارب أفقي عند <span class="math">+∞</span>.
+            <br />- <strong>المشتقة:</strong>
+            <div class="math-equation">f'(x) = 4(1 - 2x)e<sup>-2x</sup></div>
+            تنعدم المشتقة عند <span class="math">x = \frac{1}{2}</span>.
+            <br />- <strong>اتجاه التغيرات:</strong>
+            <br />على المجال <span class="math">]-∞, \frac{1}{2}]</span>: متزايدة تماماً.
+            <br />على المجال <span class="math">[\frac{1}{2}, +∞[</span>: متناقصة تماماً.
+            <br />- القيمة الحدية: قيمة عظمى عند <span class="math">\frac{1}{2}</span> قيمتها <span class="math">f(\frac{1}{2}) = 2e<sup>-1</sup> ≈ 0.74</span>.
+            <br />- <strong>الفروع اللانهائية:</strong> عند <span class="math">-∞</span>، لدينا فرع مكافئ باتجاه محور التراتيب.
+          </li>
+          <li>
+            <strong>نقطة الانعطاف:</strong>
+            <br />نشتق الدالة مرة ثانية:
+            <div class="math-equation">f''(x) = 16(x - 1)e<sup>-2x</sup></div>
+            تنعدم المشتقة الثانية عند <span class="math">x = 1</span> وتغير إشارتها.
+            <br />إذن النقطة <span class="math">I(1, 4e<sup>-2</sup>) ≈ (1, 0.54)</span> هي نقطة انعطاف للمنحنى <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>الإنشاء:</strong> نرسم المقارب الأفقي، القيمة الحدية العظمى، نقطة الانعطاف والمبدأ، ثم نرسم المنحنى.
+          </li>
+          <li>
+            <strong>التحويل النقطي T وصورة المنحنى:</strong>
+            <br />لدينا معادلة <span class="math">(C<sub>f</sub>)</span> هي <span class="math">y = f(x)</span>، ومعادلة <span class="math">(Γ)</span> هي <span class="math">y = f(-x)</span>.
+            <br />التحويل النقطي <span class="math">T</span> هو **التناظر بالنسبة لمحور التراتيب** (تناظر محوري).
+            <br />نرسم <span class="math">(Γ)</span> كنظير للمنحنى بالنسبة لمحور التراتيب.
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <strong>تعيين a و b:</strong>
+            <br />نشتق الدالة المفترضة ونطابقها مع <span class="math">f(x)</span>:
+            <div class="math-equation">F'(x) = (-2ax + a - 2b)e<sup>-2x</sup></div>
+            نطابقها مع <span class="math">4xe<sup>-2x</sup></span> نجد:
+            <br />- <span class="math">-2a = 4 ⇔ a = -2</span>.
+            <br />- <span class="math">a - 2b = 0 ⇔ b = -1</span>.
+            <br />إذن: <span class="math">F(x) = (-2x - 1)e<sup>-2x</sup></span>.
+          </li>
+          <li>
+            <strong>حساب المساحة S(λ) والنهاية:</strong>
+            <br />بما أن الدالة موجبة على المجال <span class="math">[0, λ]</span>:
+            <div class="math-equation">S(λ) = \int_{0}^{λ} f(x) dx = F(λ) - F(0) = 1 - (2λ + 1)e<sup>-2λ</sup> \text{ u.a.}</div>
+            - النهاية عند <span class="math">+∞</span>:
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 1 \text{ u.a.}</div>
+          </li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <ol>
+          <li>
+            <strong>حساب المشتقة φ'<sub>m</sub>(x):</strong>
+            <div class="math-equation">φ'<sub>m</sub>(x) = 2me<sup>2x</sup> - 8x = 2(m - f(x))e<sup>2x</sup></div>
+            وهي العبارة المطلوبة.
+          </li>
+          <li>
+            <strong>مناقشة عدد القيم الحدية للدالة φ<sub>m</sub>:</strong>
+            <br />إشارة المشتقة هي إشارة الفرق <span class="math">m - f(x)</span>.
+            <br />- <strong>إذا كان <span class="math">m ≤ 0</span>:</strong> يقطع المستقيم المنحنى في نقطة وحيدة وتغير المشتقة إشارتها من السالب للموجب. إذن يوجد **قيمة حدية وحيدة** (قيمة صغرى).
+            <br />- <strong>إذا كان <span class="math">0 &lt; m &lt; 2e<sup>-1</sup></span>:</strong> يقطع المستقيم المنحنى في نقطتين متمايزتين وتغير المشتقة إشارتها عندهما. إذن يوجد **قيمتان حديتان** (واحدة عظمى وأخرى صغرى).
+            <br />- <strong>إذا كان <span class="math">m = 2e<sup>-1</sup></span>:</strong> يمس المستقيم المنحنى عند القيمة العظمى. المشتقة تنعدم دون أن تغير إشارتها. إذن **لا توجد قيم حدية**.
+            <br />- <strong>إذا كان <span class="math">m &gt; 2e<sup>-1</sup></span>:</strong> لا يتقاطعان، وتكون المشتقة موجبة تماماً دوماً. إذن **لا توجد قيم حدية**.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>Variations de f et branches infinies :</strong>
+            <br />- Domaine : <span class="math">D<sub>f</sub> = R</span>.
+            <br />- Limites :
+            <br /><span class="math">lim<sub>x→-∞</sub> f(x) = -∞</span>.
+            <br /><span class="math">lim<sub>x→+∞</sub> f(x) = 0</span> (asymptote horizontale <span class="math">y = 0</span>).
+            <br />- Dérivée :
+            <div class="math-equation">f'(x) = 4(1 - 2x)e<sup>-2x</sup></div>
+            Elle s'annule en <span class="math">x = 0,5</span>.
+            <br />- Variations : strictement croissante sur <span class="math">]-∞, 0,5]</span> et strictement décroissante sur <span class="math">[0,5, +∞[</span>.
+            <br />- Maximum local en <span class="math">0,5</span> de valeur <span class="math">2e<sup>-1</sup> ≈ 0,74</span>.
+            <br />- Branches infinies : branche parabolique de direction la droite <span class="math">(Oy)</span> en <span class="math">-∞</span>.
+          </li>
+          <li>
+            <strong>Point d'inflexion :</strong>
+            <br />Dérivée seconde :
+            <div class="math-equation">f''(x) = 16(x - 1)e<sup>-2x</sup></div>
+            Elle s'annule en <span class="math">x = 1</span> en changeant de signe.
+            <br />Le point <span class="math">I(1, 4e<sup>-2</sup>)</span> est le point d'inflexion de <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>Tracé :</strong> On trace l'asymptote, le maximum, le point d'inflexion, l'origine et la courbe.
+          </li>
+          <li>
+            <strong>Transformation T et courbe image :</strong>
+            <br />On a <span class="math">y = f(-x)</span>. La transformation <span class="math">T</span> est la **symétrie axiale par rapport à l'axe des ordonnées**.
+            <br />On trace <span class="math">(Γ)</span> par symétrie de <span class="math">(C<sub>f</sub>)</span> par rapport à <span class="math">(Oy)</span>.
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Détermination de a et b :</strong>
+            <br />Par dérivation et identification, on obtient :
+            <br /><span class="math">a = -2</span> et <span class="math">b = -1</span>.
+            <br />D'où <span class="math">F(x) = (-2x - 1)e<sup>-2x</sup></span>.
+          </li>
+          <li>
+            <strong>Calcul de l'aire S(λ) et limite :</strong>
+            <div class="math-equation">S(λ) = \int_{0}^{λ} f(x) dx = F(λ) - F(0) = 1 - (2λ + 1)e<sup>-2λ</sup> \text{ u.a.}</div>
+            - Limite en <span class="math">+∞</span> :
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 1 \text{ u.a.}</div>
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <ol>
+          <li>
+            <strong>Calcul de φ'<sub>m</sub>(x) :</strong>
+            <div class="math-equation">φ'<sub>m</sub>(x) = 2me<sup>2x</sup> - 8x = 2(m - f(x))e<sup>2x</sup></div>
+            Ce qui est le résultat demandé.
+          </li>
+          <li>
+            <strong>Discussion du nombre d'extremums de φ<sub>m</sub> :</strong>
+            <br />Le signe de la dérivée est celui de <span class="math">m - f(x)</span>.
+            <br />- Si <span class="math">m ≤ 0</span> : **un seul extremum** (minimum local).
+            <br />- Si <span class="math">0 &lt; m &lt; 2e<sup>-1</sup></span> : **deux extremums** (un maximum et un minimum).
+            <br />- Si <span class="math">m = 2e<sup>-1</sup></span> : la dérivée s'annule sans changer de signe, donc **aucun extremum**.
+            <br />- Si <span class="math">m &gt; 2e<sup>-1</sup></span> : la dérivée ne s'annule pas, donc **aucun extremum**.
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>Variations of f and infinite branches:</strong>
+            <br />- Domain: <span class="math">D<sub>f</sub> = R</span>.
+            <br />- Limits:
+            <br /><span class="math">lim<sub>x→-∞</sub> f(x) = -∞</span>.
+            <br /><span class="math">lim<sub>x→+∞</sub> f(x) = 0</span> (horizontal asymptote <span class="math">y = 0</span>).
+            <br />- Derivative:
+            <div class="math-equation">f'(x) = 4(1 - 2x)e<sup>-2x</sup></div>
+            It vanishes at <span class="math">x = 0.5</span>.
+            <br />- Variations: strictly increasing on <span class="math">]-∞, 0.5]</span> and strictly decreasing on <span class="math">[0.5, +∞[</span>.
+            <br />- Local maximum at <span class="math">0.5</span> of value <span class="math">2e<sup>-1</sup> ≈ 0.74</span>.
+            <br />- Infinite branches: parabolic branch of direction the line <span class="math">(Oy)</span> at <span class="math">-∞</span>.
+          </li>
+          <li>
+            <strong>Inflection Point:</strong>
+            <br />Second derivative:
+            <div class="math-equation">f''(x) = 16(x - 1)e<sup>-2x</sup></div>
+            It vanishes at <span class="math">x = 1</span> and changes sign.
+            <br />The point <span class="math">I(1, 4e<sup>-2</sup>)</span> is the inflection point of the curve <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>Plot:</strong> Plot the asymptote, maximum point, inflection point, origin, and the curve.
+          </li>
+          <li>
+            <strong>Transformation T and image curve:</strong>
+            <br />We have <span class="math">y = f(-x)</span>. The transformation <span class="math">T</span> is the **axial symmetry with respect to the y-axis**.
+            <br />Plot <span class="math">(Γ)</span> by reflecting <span class="math">(C<sub>f</sub>)</span> across the y-axis.
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <strong>Finding a and b:</strong>
+            <br />By differentiating and matching, we get:
+            <br /><span class="math">a = -2</span> and <span class="math">b = -1</span>.
+            <br />Thus <span class="math">F(x) = (-2x - 1)e<sup>-2x</sup></span>.
+          </li>
+          <li>
+            <strong>Calculating the area S(λ) and limit:</strong>
+            <div class="math-equation">S(λ) = \int_{0}^{λ} f(x) dx = F(λ) - F(0) = 1 - (2λ + 1)e<sup>-2λ</sup> \text{ u.a.}</div>
+            - Limit as <span class="math">λ→+∞</span>:
+            <div class="math-equation">lim<sub>λ→+∞</sub> S(λ) = 1 \text{ u.a.}</div>
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <ol>
+          <li>
+            <strong>Derivative of φ<sub>m</sub>:</strong>
+            <div class="math-equation">φ'<sub>m</sub>(x) = 2me<sup>2x</sup> - 8x = 2(m - f(x))e<sup>2x</sup></div>
+            Which is the desired result.
+          </li>
+          <li>
+            <strong>Discussion of the number of extremums of φ<sub>m</sub>:</strong>
+            <br />The sign of the derivative is that of <span class="math">m - f(x)</span>.
+            <br />- If <span class="math">m ≤ 0</span>: **exactly one extremum** (local minimum).
+            <br />- If <span class="math">0 &lt; m &lt; 2e<sup>-1</sup></span>: **exactly two extremums** (one maximum and one minimum).
+            <br />- If <span class="math">m = 2e<sup>-1</sup></span>: the derivative vanishes without changing sign, so **no extremum**.
+            <br />- If <span class="math">m &gt; 2e<sup>-1</sup></span>: the derivative does not vanish, so **no extremum**.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة كسرية لوغارتمية، حساب مساحة بإثبات علاقة وسيطية ودراسة دالة مركبة",
+      fr: "Problème d'approfondissement : Étude d'une fonction rationnelle logarithmique, calcul d'aire et étude d'une fonction composée",
+      en: "Deepening Problem: Study of a Rational Logarithmic Function, Area Calculation with Algebraic Proof and Composite Function Study"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> والمعرفة بـ:</p>
+        <div class="math-equation">f(x) = \frac{2x}{x + 1} - \ln(x + 1)</div>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> المنحنى الممثل للدالة <span class="math">f</span> في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>. (الوحدة هي <span class="math">4 \\text{ cm}</span>).</p>
+        <ol>
+          <li>عين مجموعة تعريف الدالة <span class="math">f</span> ثم ادرس تغيرات هذه الدالة.
+            <br />- احسب قيمة تقريبية لكل من <span class="math">f(3)</span> و <span class="math">f(4)</span> إلى <span class="math">\frac{1}{10}</span> بالنقصان، واستنتج أنه يوجد عدد <span class="math">α</span> من المجال <span class="math">]3, 4[</span> بحيث <span class="math">f(α) = 0</span>.
+          </li>
+          <li>ادرس الفروع اللانهائية للمنحنى <span class="math">(C<sub>f</sub>)</span>.
+            <br />- برهن أن <span class="math">(C<sub>f</sub>)</span> يقبل نقطة انعطاف <span class="math">A</span> يطلب تعيين إحداثييها. جد معادلة المماس لـ <span class="math">(C<sub>f</sub>)</span> عند النقطة <span class="math">A</span>، ثم معادلة المماس لمنحنى الدالة <span class="math">f</span> عند النقطة التي فاصلتها معدومة.
+            <br />- أنشئ بعناية هذين المماسين والمنحنى <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>جد العددين الحقيقيين <span class="math">a, b</span> بحيث، من أجل كل عدد حقيقي <span class="math">x</span> من مجال تعريف الدالة <span class="math">f</span> يكون:
+            <div class="math-equation">\frac{2x}{x+1} = a + \frac{b}{x+1}</div>
+            - تحقق أن الدالة <span class="math">x ↦ (x + 1)\ln(x + 1) - x</span> هي دالة أصلية للدالة <span class="math">x ↦ \ln(x + 1)</span> على المجال <span class="math">]-1, +∞[</span>.
+            <br />- استنتج دالة أصلية للدالة <span class="math">f</span> على المجال <span class="math">]-1, +∞[</span>.
+            <br />- احسب المساحة <span class="math">S(α)</span> للحيز المستوي المحدد بالمنحنى <span class="math">(C<sub>f</sub>)</span>، محور الفواصل والمستقيمين اللذين معادلتاهما: <span class="math">x = 0</span> و <span class="math">x = α</span>.
+            <br />- تحقق من أن:
+            <div class="math-equation">S(α) = \frac{α(α - 3)}{α + 1}</div>
+          </li>
+          <li>لتكن <span class="math">g</span> دالة عددية للمتغير الحقيقي <span class="math">x</span> حيث: <span class="math">g(x) = e^{-x}\ln(1 + 2e^{2x})</span>.
+            <br />بيّن أن إشارة <span class="math">g'(x)</span> هي إشارة <span class="math">f(2e^{2x})</span> ثم استنتج تغيرات الدالة <span class="math">g</span> على <span class="math">R</span>.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> de la variable réelle <span class="math">x</span> définie par :</p>
+        <div class="math-equation">f(x) = \frac{2x}{x + 1} - \ln(x + 1)</div>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span> (unité graphique : <span class="math">4 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Déterminer l'ensemble de définition de la fonction <span class="math">f</span> puis étudier ses variations.
+            <br />- Calculer une valeur approchée par défaut à <span class="math">10<sup>-1</sup></span> de <span class="math">f(3)</span> et <span class="math">f(4)</span>, puis en déduire qu'il existe un réel unique <span class="math">α ∈ ]3, 4[</span> tel que <span class="math">f(α) = 0</span>.
+          </li>
+          <li>Étudier les branches infinies de la courbe <span class="math">(C<sub>f</sub>)</span>.
+            <br />- Démontrer que <span class="math">(C<sub>f</sub>)</span> admet un point d'inflexion <span class="math">A</span> dont on déterminera les coordonnées. Déterminer l'équation de la tangente à la courbe <span class="math">(C<sub>f</sub>)</span> au point <span class="math">A</span>, puis celle au point d'abscisse nulle.
+            <br />- Tracer avec soin ces deux tangentes et la courbe <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>Trouver les réels <span class="math">a, b</span> tels que pour tout <span class="math">x ∈ D<sub>f</sub></span> :
+            <div class="math-equation">\frac{2x}{x+1} = a + \frac{b}{x+1}</div>
+            - Vérifier que la fonction <span class="math">x ↦ (x + 1)\ln(x + 1) - x</span> est une primitive de <span class="math">x ↦ \ln(x + 1)</span> sur l'intervalle <span class="math">]-1, +∞[</span>.
+            <br />- En déduire une primitive de la fonction <span class="math">f</span> sur l'intervalle <span class="math">]-1, +∞[</span>.
+            <br />- Calculer l'aire <span class="math">S(α)</span> du domaine délimité par la courbe <span class="math">(C<sub>f</sub>)</span>, l'axe des abscisses et les droites d'équations : <span class="math">x = 0</span> et <span class="math">x = α</span>.
+            <br />- Démontrer que :
+            <div class="math-equation">S(α) = \frac{α(α - 3)}{α + 1}</div>
+          </li>
+          <li>Soit la fonction numérique <span class="math">g</span> définie par : <span class="math">g(x) = e^{-x}\ln(1 + 2e^{2x})</span>.
+            <br />Démontrer que le signe de <span class="math">g'(x)</span> est celui de <span class="math">f(2e^{2x})</span>, puis en déduire les variations de la fonction <span class="math">g</span> sur <span class="math">R</span>.
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = \frac{2x}{x + 1} - \ln(x + 1)</div>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span> (unit: <span class="math">4 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Find the domain of definition of the function <span class="math">f</span> and study its variations.
+            <br />- Compute an approximate value to <span class="math">10<sup>-1</sup></span> (by default) for <span class="math">f(3)</span> and <span class="math">f(4)</span>, then deduce that there exists a unique real number <span class="math">α ∈ ]3, 4[</span> such that <span class="math">f(α) = 0</span>.
+          </li>
+          <li>Study the infinite branches of the curve <span class="math">(C<sub>f</sub>)</span>.
+            <br />- Show that <span class="math">(C<sub>f</sub>)</span> has an inflection point <span class="math">A</span> and find its coordinates. Find the equation of the tangent line to <span class="math">(C<sub>f</sub>)</span> at the point <span class="math">A</span>, and then at the point with abscissa 0.
+            <br />- Carefully plot these two tangent lines and the curve <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>Find the real numbers <span class="math">a, b</span> such that for all <span class="math">x ∈ D<sub>f</sub></span>:
+            <div class="math-equation">\frac{2x}{x+1} = a + \frac{b}{x+1}</div>
+            - Verify that the function <span class="math">x ↦ (x + 1)\ln(x + 1) - x</span> is an antiderivative of the function <span class="math">x ↦ \ln(x + 1)</span> on the interval <span class="math">]-1, +∞[</span>.
+            <br />- Deduce an antiderivative of the function <span class="math">f</span> on the interval <span class="math">]-1, +∞[</span>.
+            <br />- Calculate the area <span class="math">S(α)</span> of the plane region bounded by the curve <span class="math">(C<sub>f</sub>)</span>, the x-axis, and the lines with equations: <span class="math">x = 0</span> and <span class="math">x = α</span>.
+            <br />- Verify that:
+            <div class="math-equation">S(α) = \frac{α(α - 3)}{α + 1}</div>
+          </li>
+          <li>Let the real function <span class="math">g</span> be defined by: <span class="math">g(x) = e^{-x}\ln(1 + 2e^{2x})</span>.
+            <br />Show that the sign of <span class="math">g'(x)</span> is the same as the sign of <span class="math">f(2e^{2x})</span>, then deduce the variations of the function <span class="math">g</span> on <span class="math">R</span>.
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <strong>مجموعة التعريف والتغيرات:</strong>
+            <br />- مجموعة التعريف: تكون الدالة معرفة إذا كان <span class="math">x + 1 &gt; 0</span>، أي <span class="math">D<sub>f</sub> = ]-1, +∞[</span>.
+            <br />- النهايات:
+            <br />عند <span class="math">-1<sup>+</sup></span>: بكتابة العبارة على الشكل <span class="math">f(x) = \frac{2x - (x+1)\ln(x+1)}{x+1}</span> نجد النهاية هي <span class="math">-∞</span> لأن البسط يؤول لـ <span class="math">-2</span> والمقام لـ <span class="math">0<sup>+</sup></span> (بما أن <span class="math">lim<sub>t→0<sup>+</sup></sub> t\ln t = 0</span>). إذن <span class="math">x = -1</span> مقارب عمودي.
+            <br />عند <span class="math">+∞</span>: لدينا <span class="math">lim \frac{2x}{x+1} = 2</span> و <span class="math">lim -\ln(x+1) = -∞</span>، إذن <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+            <br />- المشتقة: من أجل كل <span class="math">x &gt; -1</span>:
+            <div class="math-equation">f'(x) = \frac{2(x + 1) - 2x}{(x + 1)<sup>2</sup>} - \frac{1}{x + 1} = \frac{2 - (x + 1)}{(x + 1)<sup>2</sup>} = \frac{1 - x}{(x + 1)<sup>2</sup>}</div>
+            إشارة المشتقة هي إشارة البسط <span class="math">1 - x</span>.
+            <br />- <strong>اتجاه التغيرات:</strong>
+            <br />على المجال <span class="math">]-1, 1]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+            <br />على المجال <span class="math">[1, +∞[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+            <br />الدالة تبلغ قيمة عظمى عند <span class="math">1</span> قيمتها <span class="math">f(1) = 1 - \ln 2 ≈ 0.31</span>.
+            <br />- <strong>القيم التقريبية ومبرهنة القيم المتوسطة:</strong>
+            <br />لدينا <span class="math">f(3) = 1.5 - 2\ln 2 ≈ 0.113 ≈ 0.1</span> (بالنقصان إلى <span class="math">10<sup>-1</sup></span>).
+            <br />ولدينا <span class="math">f(4) = 1.6 - \ln 5 ≈ -0.0094 ≈ -0.1</span> (بالنقصان إلى <span class="math">10<sup>-1</sup></span>).
+            <br />بما أن الدالة مستمرة ومتناقصة تماماً على المجال <span class="math">[3, 4]</span> وتغير إشارتها من الموجب إلى السالب، فإنه حسب مبرهنة القيم المتوسطة يوجد حل وحيد <span class="math">α ∈ ]3, 4[</span> بحيث <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>الفروع اللانهائية:</strong>
+                <br />بما أن <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 0</span>، فإن المنحنى يقبل فرعاً مكافئاً باتجاه محور الفواصل عند <span class="math">+∞</span>.
+              </li>
+              <li><strong>نقطة الانعطاف والمماسات:</strong>
+                <br />نشتق المشتقة الأولى لنحصل على المشتقة الثانية:
+                <div class="math-equation">f''(x) = \frac{-1(x + 1)<sup>2</sup> - (1 - x) \cdot 2(x + 1)}{(x + 1)<sup>4</sup>} = \frac{x - 3}{(x + 1)<sup>3</sup>}</div>
+                تنعدم المشتقة الثانية عند <span class="math">x = 3</span> وتغير إشارتها (سالبة قبل 3 وموجبة بعده).
+                <br />إذن المنحنى يقبل نقطة انعطاف هي <span class="math">A(3, 1.5 - 2\ln 2)</span>.
+                <br />- المماسات:
+                <br />- المماس عند <span class="math">A</span> (الفاصلة 3): معامل التوجيه هو <span class="math">f'(3) = -\frac{1}{8}</span>.
+                <div class="math-equation">(T<sub>A</sub>): y = -\frac{1}{8}(x - 3) + 1.5 - \ln 4 = -\frac{1}{8}x + \frac{15}{8} - 2\ln 2</div>
+                - المماس عند النقطة ذات الفاصلة 0: معامل التوجيه هو <span class="math">f'(0) = 1</span>، والترتيب هو <span class="math">f(0) = 0</span>.
+                <div class="math-equation">(T<sub>0</sub>): y = x</div>
+              </li>
+              <li><strong>الإنشاء:</strong> نرسم المقارب العمودي <span class="math">x = -1</span>، المنصف الأول <span class="math">y = x</span> كمماس عند المبدأ، المماس الآخر <span class="math">(T<sub>A</sub>)</span>، القيمة العظمى ونقطة التقاطع <span class="math">(α, 0)</span>، ثم نرسم المنحنى.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>تفكيك الكسر:</strong>
+                <br />بالتطابق أو القسمة الإقليدية: <span class="math">\frac{2x}{x+1} = \frac{2(x+1) - 2}{x+1} = 2 - \frac{2}{x+1}</span>. إذن <span class="math">a = 2</span> و <span class="math">b = -2</span>.
+              </li>
+              <li><strong>التحقق من الدالة الأصلية لـ \ln(x+1):</strong>
+                <br />باشتقاق <span class="math">x ↦ (x+1)\ln(x+1) - x</span> نجد: <span class="math">1 \cdot \ln(x+1) + (x+1)\frac{1}{x+1} - 1 = \ln(x+1)</span>. وهي محققة.
+              </li>
+              <li><strong>الدالة الأصلية لـ f:</strong>
+                <br />بما أن <span class="math">f(x) = 2 - \frac{2}{x+1} - \ln(x+1)</span>، فإن دالتها الأصلية <span class="math">F</span> هي:
+                <div class="math-equation">F(x) = 2x - 2\ln(x+1) - ((x+1)\ln(x+1) - x) = 3x - (x+3)\ln(x+1)</div>
+              </li>
+              <li><strong>حساب المساحة S(α):</strong>
+                <br />بما أن الدالة موجبة على المجال <span class="math">[0, α]</span>:
+                <div class="math-equation">S(α) = \int_{0}^{α} f(x) dx = F(α) - F(0) = 3α - (α+3)\ln(α+1) \text{ u.a.}</div>
+              </li>
+              <li><strong>إثبات العلاقة المطلوبة لـ S(α):</strong>
+                <br />بما أن <span class="math">f(α) = 0</span>، فإن <span class="math">\ln(α+1) = \frac{2α}{α+1}</span>.
+                <br />نعوض هذه القيمة في عبارة المساحة:
+                <div class="math-equation">S(α) = 3α - (α+3)\left(\frac{2α}{α+1}\right) = \frac{3α(α+1) - 2α(α+3)}{α+1} = \frac{3α<sup>2</sup> + 3α - 2α<sup>2</sup> - 6α}{α+1} = \frac{α(α - 3)}{α + 1} \text{ u.a.}</div>
+                بما أن وحدة الطول هي <span class="math">4 \text{ cm}</span>، فإن وحدة المساحة هي <span class="math">1 \text{ u.a.} = 16 \text{ cm}<sup>2</sup></span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>دراسة تغيرات g(x) = e^{-x}\ln(1 + 2e^{2x}):</strong>
+            <br />نشتق الدالة المركبة باستخدام قاعدة مشتق الجداء:
+            <div class="math-equation">g'(x) = -e^{-x}\ln(1 + 2e^{2x}) + e^{-x} \frac{4e^{2x}}{1 + 2e^{2x}} = e^{-x} \left[ \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x}) \right]</div>
+            نلاحظ أن ما بداخل المعقوفتين هو بالضبط عبارة الدالة <span class="math">f(2e^{2x})</span> لأن:
+            <div class="math-equation">f(2e^{2x}) = \frac{2(2e^{2x})}{2e^{2x} + 1} - \ln(2e^{2x} + 1) = \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x})</div>
+            وبما أن <span class="math">e^{-x} &gt; 0</span> دوماً على <span class="math">R</span>، فإن إشارة المشتقة <span class="math">g'(x)</span> هي تماماً إشارة <span class="math">f(2e^{2x})</span>.
+            <br />- <strong>تغيرات g:</strong>
+            <br />بوضع <span class="math">u = 2e^{2x} &gt; 0</span>:
+            <br />- تنعدم المشتقة إذا كان <span class="math">2e^{2x} = α ⇔ x = \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>.
+            <br />- من أجل <span class="math">x &lt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>: يكون <span class="math">2e^{2x} &lt; α</span>، وبما أن <span class="math">f</span> موجبة على <span class="math">]0, α[</span> فإن المشتقة موجبة والدالة <span class="math">g</span> متزايدة تماماً.
+            <br />- من أجل <span class="math">x &gt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>: يكون <span class="math">2e^{2x} &gt; α</span>، وبما أن <span class="math">f</span> سالبة على <span class="math">]α, +∞[</span> فإن المشتقة سالبة والدالة <span class="math">g</span> متناقصة تماماً.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <strong>Ensemble de définition et variations :</strong>
+            <br />- Domaine de définition : la fonction est définie pour <span class="math">x + 1 &gt; 0</span>, soit <span class="math">D<sub>f</sub> = ]-1, +∞[</span>.
+            <br />- Limites :
+            <br />En <span class="math">-1<sup>+</sup></span> : en écrivant <span class="math">f(x) = \frac{2x - (x+1)\ln(x+1)}{x+1}</span>, la limite est <span class="math">-∞</span> car le numérateur tend vers <span class="math">-2</span> et le dénominateur vers <span class="math">0<sup>+</sup></span> (sachant que <span class="math">lim<sub>t→0<sup>+</sup></sub> t\ln t = 0</span>). Ainsi, la droite <span class="math">x = -1</span> est une asymptote verticale.
+            <br />En <span class="math">+∞</span> : comme <span class="math">lim \frac{2x}{x+1} = 2</span> et <span class="math">lim -\ln(x+1) = -∞</span>, on a <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+            <br />- Dérivée : pour tout <span class="math">x &gt; -1</span> :
+            <div class="math-equation">f'(x) = \frac{2(x + 1) - 2x}{(x + 1)<sup>2</sup>} - \frac{1}{x + 1} = \frac{2 - (x + 1)}{(x + 1)<sup>2</sup>} = \frac{1 - x}{(x + 1)<sup>2</sup>}</div>
+            Le signe de la dérivée est celui de <span class="math">1 - x</span>.
+            <br />- <strong>Sens de variations :</strong>
+            <br />Sur <span class="math">]-1, 1]</span> : la dérivée est positive, donc la fonction est strictement croissante.
+            <br />Sur <span class="math">[1, +∞[</span> : la dérivée est négative, donc la fonction est strictement décroissante.
+            <br />La fonction admet un maximum en <span class="math">1</span> de valeur <span class="math">f(1) = 1 - \ln 2 ≈ 0,31</span>.
+            <br />- <strong>Valeurs approchées et TVI :</strong>
+            <br />On trouve <span class="math">f(3) = 1,5 - 2\ln 2 ≈ 0,113 ≈ 0,1</span> (par défaut à <span class="math">10<sup>-1</sup></span>).
+            <br />Et <span class="math">f(4) = 1,6 - \ln 5 ≈ -0,0094 ≈ -0,1</span> (par défaut à <span class="math">10<sup>-1</sup></span>).
+            <br />La fonction étant continue et strictement décroissante sur <span class="math">[3, 4]</span> et changeant de signe, d'après le théorème des valeurs intermédiaires, il existe une unique solution <span class="math">α ∈ ]3, 4[</span> telle que <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>Branches infinies :</strong>
+                <br />Comme <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 0</span>, la courbe admet une branche parabolique de direction l'axe des abscisses en <span class="math">+∞</span>.
+              </li>
+              <li><strong>Point d'inflexion et tangentes :</strong>
+                <br />La dérivée seconde est :
+                <div class="math-equation">f''(x) = \frac{-1(x + 1)<sup>2</sup> - (1 - x) \cdot 2(x + 1)}{(x + 1)<sup>4</sup>} = \frac{x - 3}{(x + 1)<sup>3</sup>}</div>
+                Elle s'annule en <span class="math">x = 3</span> en changeant de signe.
+                <br />Le point d'inflexion est donc <span class="math">A(3, 1,5 - 2\ln 2)</span>.
+                <br />- Tangentes :
+                <br />- Au point <span class="math">A</span> (abscisse 3) : le coefficient directeur est <span class="math">f'(3) = -\frac{1}{8}</span>.
+                <div class="math-equation">(T<sub>A</sub>) : y = -\frac{1}{8}(x - 3) + 1,5 - \ln 4 = -\frac{1}{8}x + \frac{15}{8} - 2\ln 2</div>
+                - Au point d'abscisse nulle : le coefficient directeur est <span class="math">f'(0) = 1</span> et l'ordonnée est <span class="math">f(0) = 0</span>.
+                <div class="math-equation">(T<sub>0</sub>) : y = x</div>
+              </li>
+              <li><strong>Tracé :</strong> On trace l'asymptote verticale, les tangentes, le maximum et le point d'intersection <span class="math">(α, 0)</span>, puis on dessine la courbe.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>Décomposition de la fraction :</strong>
+                <br />On a <span class="math">\frac{2x}{x+1} = \frac{2(x+1) - 2}{x+1} = 2 - \frac{2}{x+1}</span>, d'où <span class="math">a = 2</span> et <span class="math">b = -2</span>.
+              </li>
+              <li><strong>Primitive de \ln(x+1) :</strong>
+                <br />La dérivée de <span class="math">x ↦ (x+1)\ln(x+1) - x</span> redonne bien <span class="math">\ln(x+1)</span>.
+              </li>
+              <li><strong>Primitive de f :</strong>
+                <br />Comme <span class="math">f(x) = 2 - \frac{2}{x+1} - \ln(x+1)</span>, une primitive <span class="math">F</span> est :
+                <div class="math-equation">F(x) = 2x - 2\ln(x+1) - ((x+1)\ln(x+1) - x) = 3x - (x+3)\ln(x+1)</div>
+              </li>
+              <li><strong>Aire S(α) :</strong>
+                <br />Puisque la fonction est positive sur <span class="math">[0, α]</span> :
+                <div class="math-equation">S(α) = \int_{0}^{α} f(x) dx = F(α) - F(0) = 3α - (α+3)\ln(α+1) \text{ u.a.}</div>
+              </li>
+              <li><strong>Preuve de la formule de l'aire S(α) :</strong>
+                <br />Puisque <span class="math">f(α) = 0</span>, on a <span class="math">\ln(α+1) = \frac{2α}{α+1}</span>.
+                <br />En remplaçant cette valeur dans la formule de l'aire :
+                <div class="math-equation">S(α) = 3α - (α+3)\left(\frac{2α}{α+1}\right) = \frac{3α(α+1) - 2α(α+3)}{α+1} = \frac{α(α - 3)}{α + 1} \text{ u.a.}</div>
+                Avec l'unité graphique de <span class="math">4 \text{ cm}</span>, on a <span class="math">1 \text{ u.a.} = 16 \text{ cm}<sup>2</sup></span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Étude de la fonction composée g(x) = e^{-x}\ln(1 + 2e^{2x}) :</strong>
+            <br />Par dérivation d'un produit :
+            <div class="math-equation">g'(x) = -e^{-x}\ln(1 + 2e^{2x}) + e^{-x} \frac{4e^{2x}}{1 + 2e^{2x}} = e^{-x} \left[ \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x}) \right]</div>
+            Le terme entre crochets est exactement <span class="math">f(2e^{2x})</span> car :
+            <div class="math-equation">f(2e^{2x}) = \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x})</div>
+            Puisque <span class="math">e^{-x} &gt; 0</span>, le signe de la dérivée <span class="math">g'(x)</span> est le même que celui de <span class="math">f(2e^{2x})</span>.
+            <br />- <strong>Sens de variations de g :</strong>
+            <br />Soit <span class="math">u = 2e^{2x} &gt; 0</span> :
+            <br />- La dérivée s'annule si <span class="math">2e^{2x} = α ⇔ x = \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>.
+            <br />- Pour <span class="math">x &lt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span> : <span class="math">2e^{2x} &lt; α</span>, donc <span class="math">f(2e^{2x}) &gt; 0</span>, ce qui implique que <span class="math">g</span> est strictement croissante.
+            <br />- Pour <span class="math">x &gt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span> : <span class="math">2e^{2x} &gt; α</span>, donc <span class="math">f(2e^{2x}) &lt; 0</span>, ce qui implique que <span class="math">g</span> est strictement décroissante.
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <strong>Domain and Variations:</strong>
+            <br />- Domain of definition: the function is defined for <span class="math">x + 1 &gt; 0</span>, meaning <span class="math">D<sub>f</sub> = ]-1, +∞[</span>.
+            <br />- Limits:
+            <br />At <span class="math">-1<sup>+</sup></span>: by writing <span class="math">f(x) = \frac{2x - (x+1)\ln(x+1)}{x+1}</span>, the limit is <span class="math">-∞</span> because the numerator tends to <span class="math">-2</span> and the denominator to <span class="math">0<sup>+</sup></span> (since <span class="math">lim<sub>t→0<sup>+</sup></sub> t\ln t = 0</span>). Thus, the line <span class="math">x = -1</span> is a vertical asymptote.
+            <br />At <span class="math">+∞</span>: since <span class="math">lim \frac{2x}{x+1} = 2</span> and <span class="math">lim -\ln(x+1) = -∞</span>, we have <span class="math">lim<sub>x→+∞</sub> f(x) = -∞</span>.
+            <br />- Derivative: for all <span class="math">x &gt; -1</span>:
+            <div class="math-equation">f'(x) = \frac{2(x + 1) - 2x}{(x + 1)<sup>2</sup>} - \frac{1}{x + 1} = \frac{2 - (x + 1)}{(x + 1)<sup>2</sup>} = \frac{1 - x}{(x + 1)<sup>2</sup>}</div>
+            The sign of the derivative is that of <span class="math">1 - x</span>.
+            <br />- <strong>Monotonicity:</strong>
+            <br />On <span class="math">]-1, 1]</span>: the derivative is positive, so the function is strictly increasing.
+            <br />On <span class="math">[1, +∞[</span>: the derivative is negative, so the function is strictly decreasing.
+            <br />The function has a local maximum at <span class="math">1</span> of value <span class="math">f(1) = 1 - \ln 2 ≈ 0.31</span>.
+            <br />- <strong>Approximate Values and IVT:</strong>
+            <br />We calculate <span class="math">f(3) = 1.5 - 2\ln 2 ≈ 0.113 ≈ 0.1</span> (by default to <span class="math">10<sup>-1</sup></span>).
+            <br />And <span class="math">f(4) = 1.6 - \ln 5 ≈ -0.0094 ≈ -0.1</span> (by default to <span class="math">10<sup>-1</sup></span>).
+            <br />Since the function is continuous and strictly decreasing on <span class="math">[3, 4]</span> and changes sign, by the Intermediate Value Theorem, there exists a unique solution <span class="math">α ∈ ]3, 4[</span> such that <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>Infinite branches:</strong>
+                <br />Since <span class="math">lim<sub>x→+∞</sub> \frac{f(x)}{x} = 0</span>, the curve has a parabolic branch in the direction of the x-axis at <span class="math">+∞</span>.
+              </li>
+              <li><strong>Inflection point and tangents:</strong>
+                <br />The second derivative is:
+                <div class="math-equation">f''(x) = \frac{-1(x + 1)<sup>2</sup> - (1 - x) \cdot 2(x + 1)}{(x + 1)<sup>4</sup>} = \frac{x - 3}{(x + 1)<sup>3</sup>}</div>
+                It vanishes at <span class="math">x = 3</span> and changes sign.
+                <br />Thus the inflection point is <span class="math">A(3, 1.5 - 2\ln 2)</span>.
+                <br />- Tangents:
+                <br />- At <span class="math">A</span> (abscissa 3): the slope is <span class="math">f'(3) = -\frac{1}{8}</span>.
+                <div class="math-equation">(T<sub>A</sub>) : y = -\frac{1}{8}(x - 3) + 1.5 - \ln 4 = -\frac{1}{8}x + \frac{15}{8} - 2\ln 2</div>
+                - At the origin (abscissa 0): the slope is <span class="math">f'(0) = 1</span> and the y-intercept is <span class="math">f(0) = 0</span>.
+                <div class="math-equation">(T<sub>0</sub>) : y = x</div>
+              </li>
+              <li><strong>Plot:</strong> Plot the vertical asymptote, the two tangent lines, the local maximum, and the intercept <span class="math">(α, 0)</span>, then draw the curve.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>Fraction Decomposition:</strong>
+                <br />We have <span class="math">\frac{2x}{x+1} = \frac{2(x+1) - 2}{x+1} = 2 - \frac{2}{x+1}</span>, yielding <span class="math">a = 2</span> and <span class="math">b = -2</span>.
+              </li>
+              <li><strong>Antiderivative of \ln(x+1):</strong>
+                <br />Differentiating <span class="math">x ↦ (x+1)\ln(x+1) - x</span> yields <span class="math">\ln(x+1)</span>.
+              </li>
+              <li><strong>Antiderivative of f:</strong>
+                <br />Since <span class="math">f(x) = 2 - \frac{2}{x+1} - \ln(x+1)</span>, an antiderivative <span class="math">F</span> is:
+                <div class="math-equation">F(x) = 2x - 2\ln(x+1) - ((x+1)\ln(x+1) - x) = 3x - (x+3)\ln(x+1)</div>
+              </li>
+              <li><strong>Area S(α):</strong>
+                <br />Since the function is positive on the interval <span class="math">[0, α]</span>:
+                <div class="math-equation">S(α) = \int_{0}^{α} f(x) dx = F(α) - F(0) = 3α - (α+3)\ln(α+1) \text{ u.a.}</div>
+              </li>
+              <li><strong>Proof of the area formula:</strong>
+                <br />Since <span class="math">f(α) = 0</span>, we have <span class="math">\ln(α+1) = \frac{2α}{α+1}</span>.
+                <br />Substituting this value into the area formula:
+                <div class="math-equation">S(α) = 3α - (α+3)\left(\frac{2α}{α+1}\right) = \frac{3α(α+1) - 2α(α+3)}{α+1} = \frac{α(α - 3)}{α + 1} \text{ u.a.}</div>
+                With the length unit being <span class="math">4 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 16 \text{ cm}<sup>2</sup></span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Study of the composite function g(x) = e^{-x}\ln(1 + 2e^{2x}):</strong>
+            <br />Using the product rule:
+            <div class="math-equation">g'(x) = -e^{-x}\ln(1 + 2e^{2x}) + e^{-x} \frac{4e^{2x}}{1 + 2e^{2x}} = e^{-x} \left[ \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x}) \right]</div>
+            The expression in brackets is exactly <span class="math">f(2e^{2x})</span> because:
+            <div class="math-equation">f(2e^{2x}) = \frac{4e^{2x}}{1 + 2e^{2x}} - \ln(1 + 2e^{2x})</div>
+            Since <span class="math">e^{-x} &gt; 0</span>, the sign of the derivative <span class="math">g'(x)</span> is the same as the sign of <span class="math">f(2e^{2x})</span>.
+            <br />- <strong>Monotonicity of g:</strong>
+            <br />Letting <span class="math">u = 2e^{2x} &gt; 0</span>:
+            <br />- The derivative vanishes if <span class="math">2e^{2x} = α ⇔ x = \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>.
+            <br />- For <span class="math">x &lt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>: <span class="math">2e^{2x} &lt; α</span>, so <span class="math">f(2e^{2x}) &gt; 0</span>, which implies <span class="math">g</span> is strictly increasing.
+            <br />- For <span class="math">x &gt; \frac{1}{2}\ln\left(\frac{α}{2}\right)</span>: <span class="math">2e^{2x} &gt; α</span>, so <span class="math">f(2e^{2x}) &lt; 0</span>, which implies <span class="math">g</span> is strictly decreasing.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية وأسية مطلقة، مستقيمات مقاربة مائلة، ودالة عكسية",
+      fr: "Problème d'approfondissement : Étude d'une fonction logarithmique et exponentielle avec valeur absolue, asymptotes et réciproque",
+      en: "Deepening Problem: Study of a Logarithmic Exponential Function with Absolute Value, Oblique Asymptotes and Inverse Function"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> والمعرفة بـ:</p>
+        <div class="math-equation">f(x) = x + \ln|e^x - 2|</div>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>. (الوحدة هي <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+              <li>بيّن أنه من أجل كل <span class="math">x</span> من مجموعة تعريف الدالة <span class="math">f</span> يمكن كتابة <span class="math">f(x)</span> على الشكل:
+                <div class="math-equation">f(x) = 2x + \ln|1 - 2e^{-x}|</div>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>بيّن أن المنحنى <span class="math">(C<sub>f</sub>)</span> يقبل مستقيمين مقاربين مائلين <span class="math">(Δ)</span> و <span class="math">(Δ')</span> معادلتاهما: <span class="math">y = x + \ln 2</span> و <span class="math">y = 2x</span>.</li>
+              <li>عين نقط تقاطع <span class="math">(C<sub>f</sub>)</span> مع حامل محور الفواصل.</li>
+              <li>أنشئ المنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+            </ol>
+          </li>
+          <li>لتكن <span class="math">g</span> قصر الدالة <span class="math">f</span> على المجال <span class="math">]\ln 2, +∞[</span>.
+            <ol type="a">
+              <li>بيّن أن <span class="math">g</span> تقبل دالة عكسية يطلب تعيين مجموعة تعريفها.</li>
+              <li>نرمز بـ <span class="math">(C')</span> للمنحنى الممثل للدالة <span class="math">g<sup>-1</sup></span>. عين نقطة تقاطع المنحنى <span class="math">(C')</span> مع المنحنى <span class="math">(C<sub>f</sub>)</span> وأنشئ <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> de la variable réelle <span class="math">x</span> définie par :</p>
+        <div class="math-equation">f(x) = x + \ln|e^x - 2|</div>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span> (unité graphique : <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+              <li>Démontrer que pour tout <span class="math">x ∈ D<sub>f</sub></span>, on peut écrire <span class="math">f(x)</span> sous la forme :
+                <div class="math-equation">f(x) = 2x + \ln|1 - 2e^{-x}|</div>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Montrer que la courbe <span class="math">(C<sub>f</sub>)</span> admet deux asymptotes obliques <span class="math">(Δ)</span> et <span class="math">(Δ')</span> d'équations respectives : <span class="math">y = x + \ln 2</span> et <span class="math">y = 2x</span>.</li>
+              <li>Déterminer les points d'intersection de <span class="math">(C<sub>f</sub>)</span> avec l'axe des abscisses.</li>
+              <li>Tracer la courbe <span class="math">(C<sub>f</sub>)</span>.</li>
+            </ol>
+          </li>
+          <li>Soit <span class="math">g</span> la restriction de <span class="math">f</span> sur l'intervalle <span class="math">]\ln 2, +∞[</span>.
+            <ol type="a">
+              <li>Démontrer que <span class="math">g</span> admet une fonction réciproque dont on déterminera l'ensemble de définition.</li>
+              <li>Soit <span class="math">(C')</span> la courbe représentative de la fonction <span class="math">g<sup>-1</sup></span>. Déterminer le point d'intersection de <span class="math">(C')</span> et <span class="math">(C<sub>f</sub>)</span> et tracer <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined by:</p>
+        <div class="math-equation">f(x) = x + \ln|e^x - 2|</div>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span> (unit: <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Study the variations of the function <span class="math">f</span>.</li>
+              <li>Show that for all <span class="math">x ∈ D<sub>f</sub></span>, <span class="math">f(x)</span> can be written as:
+                <div class="math-equation">f(x) = 2x + \ln|1 - 2e^{-x}|</div>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has two oblique asymptotes <span class="math">(Δ)</span> and <span class="math">(Δ')</span> with equations: <span class="math">y = x + \ln 2</span> and <span class="math">y = 2x</span>.</li>
+              <li>Find the points of intersection of the curve <span class="math">(C<sub>f</sub>)</span> with the x-axis.</li>
+              <li>Draw the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+            </ol>
+          </li>
+          <li>Let <span class="math">g</span> be the restriction of the function <span class="math">f</span> to the interval <span class="math">]\ln 2, +∞[</span>.
+            <ol type="a">
+              <li>Show that <span class="math">g</span> has an inverse function and determine its domain.</li>
+              <li>Let <span class="math">(C')</span> be the representative curve of the function <span class="math">g<sup>-1</sup></span>. Find the intersection point of <span class="math">(C')</span> with the curve <span class="math">(C<sub>f</sub>)</span> and draw <span class="math">(C')</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- دراسة تغيرات الدالة f:</strong>
+                <br />- مجموعة التعريف: تكون الدالة معرفة إذا كان <span class="math">|e^x - 2| &gt; 0</span> أي <span class="math">e^x ≠ 2 ⇔ x ≠ \ln 2</span>.
+                <br />إذن <span class="math">D<sub>f</sub> = ]-∞, \ln 2[ ∪ ]\ln 2, +∞[</span>.
+                <br />- النهايات:
+                <br />عند <span class="math">-\infty</span>: لدينا <span class="math">lim<sub>x→-\infty</sub> e^x = 0</span>، إذن <span class="math">lim<sub>x→-\infty</sub> f(x) = -\infty</span>.
+                <br />عند <span class="math">\ln 2</span>: بما أن ما بداخل اللوغاريتم يؤول إلى الصفر فإن اللوغاريتم يؤول إلى <span class="math">-∞</span>، إذن <span class="math">lim<sub>x→\ln 2</sub> f(x) = -∞</span>. المستقيم <span class="math">x = \ln 2</span> مقارب عمودي.
+                <br />عند <span class="math">+\infty</span>: لدينا <span class="math">lim<sub>x→+\infty</sub> (e^x - 2) = +\infty</span>، إذن <span class="math">lim<sub>x→+\infty</sub> f(x) = +\infty</span>.
+                <br />- المشتقة: من أجل كل <span class="math">x ≠ \ln 2</span>:
+                <div class="math-equation">f'(x) = 1 + \frac{e^x}{e^x - 2} = \frac{2e^x - 2}{e^x - 2} = \frac{2(e^x - 1)}{e^x - 2}</div>
+                تنعدم المشتقة عند <span class="math">x = 0</span>.
+                <br />- <strong>إشارة المشتقة واتجاه التغيرات:</strong>
+                <br />على المجال <span class="math">]-∞, 0]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />على المجال <span class="math">[0, \ln 2[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+                <br />على المجال <span class="math">]\ln 2, +∞[</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+                <br />- القيمة الحدية: تبلغ قيمة عظمى عند <span class="math">0</span> قيمتها <span class="math">f(0) = \ln|1-2| = 0</span>.
+              </li>
+              <li><strong>ب- كتابة f(x) على الشكل البديل:</strong>
+                <br />نعلم أن <span class="math">|e^x - 2| = |e^x(1 - 2e^{-x})| = e^x |1 - 2e^{-x}|</span>.
+                <br />إذن:
+                <div class="math-equation">f(x) = x + \ln(e^x |1 - 2e^{-x}|) = x + x + \ln|1 - 2e^{-x}| = 2x + \ln|1 - 2e^{-x}|</div>
+                وهي العلاقة المطلوبة.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- المستقيمات المقاربة المائلة:</strong>
+                <br />- بجوار <span class="math">-∞</span>: لدينا <span class="math">lim<sub>x→-\infty</sub> [f(x) - (x + \ln 2)] = lim<sub>x→-\infty</sub> [\ln|e^x - 2| - \ln 2] = \ln 1 = 0</span>.
+                <br />إذن المستقيم <span class="math">(Δ): y = x + \ln 2</span> مقارب مائل للمنحنى بجوار <span class="math">-∞</span>.
+                <br />- بجوار <span class="math">+∞</span>: نستخدم الشكل البديل: <span class="math">lim<sub>x→+\infty</sub> [f(x) - 2x] = lim<sub>x→+\infty</sub> \ln|1 - 2e^{-x}| = \ln 1 = 0</span>.
+                <br />إذن المستقيم <span class="math">(Δ'): y = 2x</span> مقارب مائل للمنحنى بجوار <span class="math">+∞</span>.
+              </li>
+              <li><strong>ب- التقاطع مع محور الفواصل f(x) = 0:</strong>
+                <br />نحل المعادلة <span class="math">x + \ln|e^x - 2| = 0 ⇔ \ln|e^x - 2| = -x ⇔ |e^x - 2| = e^{-x}</span>.
+                <br />نضع <span class="math">u = e^x &gt; 0</span> فتصبح المعادلة <span class="math">|u - 2| = \frac{1}{u}</span>:
+                <br />1) إذا كان <span class="math">u &gt; 2</span>: <span class="math">u - 2 = \frac{1}{u} ⇔ u^2 - 2u - 1 = 0</span>. الحل المقبول هو <span class="math">u = 1 + \sqrt{2}</span>، ومنه <span class="math">x = \ln(1 + \sqrt{2})</span>.
+                <br />2) إذا كان <span class="math">0 &lt; u &lt; 2</span>: <span class="math">2 - u = \frac{1}{u} ⇔ u^2 - 2u + 1 = 0 ⇔ (u - 1)^2 = 0</span>. الحل هو <span class="math">u = 1</span>، ومنه <span class="math">x = 0</span>.
+                <br />إذن نقاط التقاطع هي: <span class="math">(0, 0)</span> و <span class="math">(\ln(1+\sqrt{2}), 0)</span>.
+              </li>
+              <li><strong>ج- الإنشاء:</strong> نرسم المقاربات المائلة والعمودية، ونقطتي التقاطع والقيمة الحدية العظمى، ثم نرسم المنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- الدالة العكسية لـ g:</strong>
+                <br />بما أن <span class="math">g</span> مستمرة ومتزايدة تماماً على المجال <span class="math">]\ln 2, +∞[</span>، فإنها تقبل دالة عكسية <span class="math">g<sup>-1</sup></span> معرفة على مجال صورتها:
+                <div class="math-equation">J = ]lim<sub>x→\ln 2<sup>+</sup></sub> g(x), lim<sub>x→+∞</sub> g(x)[ = ]-∞, +∞[ = R</div>
+              </li>
+              <li><strong>ب- نقطة التقاطع والإنشاء:</strong>
+                <br />تتقاطع المنحنيات المتناظرة بالنسبة للمستقيم <span class="math">y = x</span> على هذا المستقيم بالضرورة.
+                <br />نحل المعادلة <span class="math">g(x) = x ⇔ x + \ln(e^x - 2) = x ⇔ \ln(e^x - 2) = 0 ⇔ e^x - 2 = 1 ⇔ x = \ln 3</span>.
+                <br />بما أن <span class="math">\ln 3 &gt; \ln 2</span> فإن الحل مقبول، ونقطة التقاطع هي <span class="math">I(\ln 3, \ln 3)</span>.
+                <br />نرسم المنحنى <span class="math">(C')</span> متناظراً مع المنحنى <span class="math">(C<sub>f</sub>)</span> (الفرع الأيمن) بالنسبة للمنصف الأول.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Variations de f :</strong>
+                <br />- Domaine de définition : la fonction est définie pour <span class="math">|e^x - 2| &gt; 0</span>, soit <span class="math">e^x ≠ 2 ⇔ x ≠ \ln 2</span>.
+                <br />Ainsi, <span class="math">D<sub>f</sub> = ]-∞, \ln 2[ ∪ ]\ln 2, +∞[</span>.
+                <br />- Limites :
+                <br />En <span class="math">-\infty</span> : comme <span class="math">lim<sub>x→-\infty</sub> e^x = 0</span>, on a <span class="math">lim<sub>x→-\infty</sub> f(x) = -\infty</span>.
+                <br />En <span class="math">\ln 2</span> : le terme dans le logarithme tend vers 0, donc <span class="math">lim<sub>x→\ln 2</sub> f(x) = -∞</span>. La droite <span class="math">x = \ln 2</span> est une asymptote verticale.
+                <br />En <span class="math">+\infty</span> : comme <span class="math">lim<sub>x→+\infty</sub> (e^x - 2) = +\infty</span>, on a <span class="math">lim<sub>x→+\infty</sub> f(x) = +\infty</span>.
+                <br />- Dérivée : pour tout <span class="math">x ≠ \ln 2</span> :
+                <div class="math-equation">f'(x) = 1 + \frac{e^x}{e^x - 2} = \frac{2e^x - 2}{e^x - 2} = \frac{2(e^x - 1)}{e^x - 2}</div>
+                Elle s'annule en <span class="math">x = 0</span>.
+                <br />- <strong>Signe et variations :</strong>
+                <br />Sur <span class="math">]-∞, 0]</span> : la dérivée est positive, la fonction est strictement croissante.
+                <br />Sur <span class="math">[0, \ln 2[</span> : la dérivée est négative, la fonction est strictement décroissante.
+                <br />Sur <span class="math">]\ln 2, +∞[</span> : la dérivée est positive, la fonction est strictement croissante.
+                <br />- Maximum local en <span class="math">0</span> de valeur <span class="math">f(0) = 0</span>.
+              </li>
+              <li><strong>b- Expression alternative :</strong>
+                <br />Comme <span class="math">|e^x - 2| = e^x |1 - 2e^{-x}|</span>, on a :
+                <div class="math-equation">f(x) = x + \ln(e^x |1 - 2e^{-x}|) = 2x + \ln|1 - 2e^{-x}|</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Asymptotes obliques :</strong>
+                <br />- En <span class="math">-∞</span> : <span class="math">lim<sub>x→-\infty</sub> [f(x) - (x + \ln 2)] = lim<sub>x→-\infty</sub> [\ln|e^x - 2| - \ln 2] = 0</span>.
+                <br />La droite d'équation <span class="math">(Δ): y = x + \ln 2</span> est asymptote oblique en <span class="math">-∞</span>.
+                <br />- En <span class="math">+∞</span> : <span class="math">lim<sub>x→+\infty</sub> [f(x) - 2x] = lim<sub>x→+\infty</sub> \ln|1 - 2e^{-x}| = 0</span>.
+                <br />La droite d'équation <span class="math">(Δ'): y = 2x</span> est asymptote oblique en <span class="math">+∞</span>.
+              </li>
+              <li><strong>b- Points d'intersection avec l'axe des abscisses :</strong>
+                <br />L'équation <span class="math">f(x) = 0</span> équivaut à <span class="math">|e^x - 2| = e^{-x}</span>. En posant <span class="math">u = e^x &gt; 0</span>, on résout <span class="math">|u - 2| = 1/u</span> :
+                <br />1) Si <span class="math">u &gt; 2</span> : <span class="math">u^2 - 2u - 1 = 0 ⇔ u = 1 + \sqrt{2} ⇔ x = \ln(1 + \sqrt{2})</span>.
+                <br />2) Si <span class="math">0 &lt; u &lt; 2</span> : <span class="math">u^2 - 2u + 1 = 0 ⇔ u = 1 ⇔ x = 0</span>.
+                <br />Les points d'intersection sont <span class="math">(0, 0)</span> et <span class="math">(\ln(1+\sqrt{2}), 0)</span>.
+              </li>
+              <li><strong>c- Tracé :</strong> On place les asymptotes, le maximum et les points d'intersection, puis on trace la courbe.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Fonction réciproque de g :</strong>
+                <br />La fonction <span class="math">g</span> est continue et strictement croissante sur <span class="math">]\ln 2, +∞[</span>. Elle réalise donc une bijection sur son ensemble image <span class="math">J = R</span>. Ainsi, <span class="math">g<sup>-1</sup></span> est définie sur <span class="math">R</span>.
+              </li>
+              <li><strong>b- Point d'intersection et tracé :</strong>
+                <br />On résout <span class="math">g(x) = x ⇔ x + \ln(e^x - 2) = x ⇔ e^x - 2 = 1 ⇔ x = \ln 3</span>.
+                <br />Le point d'intersection est <span class="math">I(\ln 3, \ln 3)</span>.
+                <br />On trace <span class="math">(C')</span> comme symétrique de la branche droite de <span class="math">(C<sub>f</sub>)</span> par rapport à la droite <span class="math">y = x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Variations of f:</strong>
+                <br />- Domain: the function is defined for <span class="math">|e^x - 2| &gt; 0</span>, which means <span class="math">e^x ≠ 2 ⇔ x ≠ \ln 2</span>.
+                <br />Thus, <span class="math">D<sub>f</sub> = ]-∞, \ln 2[ ∪ ]\ln 2, +∞[</span>.
+                <br />- Limits:
+                <br />At <span class="math">-\infty</span>: since <span class="math">lim<sub>x→-\infty</sub> e^x = 0</span>, we have <span class="math">lim<sub>x→-\infty</sub> f(x) = -\infty</span>.
+                <br />At <span class="math">\ln 2</span>: since the term inside the log approaches 0, we have <span class="math">lim<sub>x→\ln 2</sub> f(x) = -∞</span> (vertical asymptote <span class="math">x = \ln 2</span>).
+                <br />At <span class="math">+\infty</span>: since <span class="math">lim<sub>x→+\infty</sub> (e^x - 2) = +\infty</span>, we have <span class="math">lim<sub>x→+\infty</sub> f(x) = +\infty</span>.
+                <br />- Derivative: for all <span class="math">x ≠ \ln 2</span>:
+                <div class="math-equation">f'(x) = 1 + \frac{e^x}{e^x - 2} = \frac{2e^x - 2}{e^x - 2} = \frac{2(e^x - 1)}{e^x - 2}</div>
+                It vanishes at <span class="math">x = 0</span>.
+                <br />- <strong>Sign and variations:</strong>
+                <br />On <span class="math">]-∞, 0]</span>: the derivative is positive, so the function is strictly increasing.
+                <br />On <span class="math">[0, \ln 2[</span>: the derivative is negative, so the function is strictly decreasing.
+                <br />On <span class="math">]\ln 2, +∞[</span>: the derivative is positive, so the function is strictly increasing.
+                <br />- Local maximum at <span class="math">0</span> of value <span class="math">f(0) = 0</span>.
+              </li>
+              <li><strong>b- Alternative form:</strong>
+                <br />Since <span class="math">|e^x - 2| = e^x |1 - 2e^{-x}|</span>, we have:
+                <div class="math-equation">f(x) = x + \ln(e^x |1 - 2e^{-x}|) = 2x + \ln|1 - 2e^{-x}|</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Oblique asymptotes:</strong>
+                <br />- At <span class="math">-∞</span>: <span class="math">lim<sub>x→-\infty</sub> [f(x) - (x + \ln 2)] = lim<sub>x→-\infty</sub> [\ln|e^x - 2| - \ln 2] = 0</span>.
+                <br />The line <span class="math">(Δ): y = x + \ln 2</span> is an oblique asymptote at <span class="math">-∞</span>.
+                <br />- At <span class="math">+∞</span>: <span class="math">lim<sub>x→+\infty</sub> [f(x) - 2x] = lim<sub>x→+\infty</sub> \ln|1 - 2e^{-x}| = 0</span>.
+                <br />The line <span class="math">(Δ'): y = 2x</span> is an oblique asymptote at <span class="math">+∞</span>.
+              </li>
+              <li><strong>b- Intersection points with the x-axis:</strong>
+                <br />Solving <span class="math">f(x) = 0 ⇔ |e^x - 2| = e^{-x}</span>. Let <span class="math">u = e^x &gt; 0</span>:
+                <br />1) If <span class="math">u &gt; 2</span>: <span class="math">u^2 - 2u - 1 = 0 ⇔ u = 1 + \sqrt{2} ⇔ x = \ln(1 + \sqrt{2})</span>.
+                <br />2) If <span class="math">0 &lt; u &lt; 2</span>: <span class="math">u^2 - 2u + 1 = 0 ⇔ u = 1 ⇔ x = 0</span>.
+                <br />The intersection points are <span class="math">(0, 0)</span> and <span class="math">(\ln(1+\sqrt{2}), 0)</span>.
+              </li>
+              <li><strong>c- Plot:</strong> Plot the asymptotes, local maximum, and intersection points, then draw the curve.</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Inverse function of g:</strong>
+                <br />The function <span class="math">g</span> is continuous and strictly increasing on <span class="math">]\ln 2, +∞[</span>, so it realizes a bijection onto its range <span class="math">J = R</span>. Hence, <span class="math">g<sup>-1</sup></span> is defined on <span class="math">R</span>.
+              </li>
+              <li><strong>b- Intersection point and plot:</strong>
+                <br />Solving <span class="math">g(x) = x ⇔ x + \ln(e^x - 2) = x ⇔ e^x = 3 ⇔ x = \ln 3</span>.
+                <br />The intersection point is <span class="math">I(\ln 3, \ln 3)</span>.
+                <br />Plot <span class="math">(C')</span> as the reflection of the right branch of <span class="math">(C<sub>f</sub>)</span> across the line <span class="math">y = x</span>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية مطلقة، مناقشة دورانية وسيطية، محور تناظر، وحساب مساحة بالتجزئة",
+      fr: "Problème d'approfondissement : Étude d'une fonction logarithmique avec valeur absolue, discussion paramétrique, axe de symétrie et calcul d'aire",
+      en: "Deepening Problem: Study of an Absolute Logarithmic Function, Parametric Slope Discussion, Axis of Symmetry and Area Integration"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>لتكن <span class="math">f</span> الدالة العددية ذات المتغير الحقيقي <span class="math">x</span> حيث: <span class="math">f(x) = x + 2 - 2\ln|2x + 1|</span>.</p>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>. (الوحدة هي <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهائية للمنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>بيّن أن المنحنى <span class="math">(C<sub>f</sub>)</span> يقبل مماساً <span class="math">(Δ)</span> معامل توجيهه <span class="math">-3</span>، واكتب معادلة لـ <span class="math">(Δ)</span>.</li>
+          <li>احسب إحداثيات نقطتي تقاطع <span class="math">(C<sub>f</sub>)</span> مع المستقيم ذي المعادلة <span class="math">y = x</span>.</li>
+          <li>احسب <span class="math">f(-1)</span> و <span class="math">f(0)</span>، ثم أنشئ كلاً من <span class="math">(C<sub>f</sub>)</span> و <span class="math">(Δ)</span>.</li>
+          <li>ناقش بيانياً، حسب قيم الوسيط الحقيقي <span class="math">m</span>، وجود وإشارة حلول المعادلة: <span class="math">f(x) = -3x + m</span>.</li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>لتكن <span class="math">g</span> دالة عددية للمتغير الحقيقي <span class="math">x</span> حيث: <span class="math">g(x) = \frac{3}{2} + \left|x + \frac{1}{2}\right| - \ln(2x + 1)<sup>2</sup></span>، وليكن <span class="math">(γ)</span> تمثيلها البياني.</p>
+        <ol>
+          <li>أثبت أنه من أجل كل عدد حقيقي <span class="math">x</span> يختلف عن <span class="math">-\frac{1}{2}</span> يكون لدينا: <span class="math">-1 - x ≠ -\frac{1}{2}</span> و <span class="math">g(-1 - x) = g(x)</span>.
+            <br />استنتج أن <span class="math">(γ)</span> يقبل محور تناظر يطلب إيجاد معادلته.
+          </li>
+          <li>أثبت أن <span class="math">g(x) = f(x)</span> على مجال يطلب تعيينه.
+            <br />استنتج إنشاء <span class="math">(γ)</span> انطلاقاً من <span class="math">(C<sub>f</sub>)</span>، ثم ارسم <span class="math">(γ)</span> في نفس المعلم.
+          </li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <ol>
+          <li>باستخدام المكالمة بالتجزئة، جد الدالة الأصلية للدالة <span class="math">x ↦ \ln(2x + 1)</span> على المجال <span class="math">]-\frac{1}{2}, +∞[</span> والتي تنعدم من أجل <span class="math">x = 0</span>.</li>
+          <li>ليكن <span class="math">λ</span> عدداً حقيقياً من المجال <span class="math">]-\frac{1}{2}, \frac{3}{2}[</span>. احسب المساحة <span class="math">S(λ)</span> للحيز المستوي المحدد بالمنحنى <span class="math">(C<sub>f</sub>)</span> والمستقيمات التي معادلاتها: <span class="math">x = \frac{3}{2}</span>، <span class="math">x = λ</span> و <span class="math">y = 0</span>.
+            <br />ما هي <span class="math">lim<sub>λ→-1/2<sup>+</sup></sub> S(λ)</span>؟
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <p>Soit la fonction numérique <span class="math">f</span> de la variable réelle <span class="math">x</span> définie par : <span class="math">f(x) = x + 2 - 2\ln|2x + 1|</span>.</p>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span> (unité graphique : <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span> et les branches infinies de la courbe <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Montrer que la courbe <span class="math">(C<sub>f</sub>)</span> admet une tangente <span class="math">(Δ)</span> de coefficient directeur <span class="math">-3</span>, et en donner une équation.</li>
+          <li>Déterminer les coordonnées des points d'intersection de <span class="math">(C<sub>f</sub>)</span> avec la droite d'équation <span class="math">y = x</span>.</li>
+          <li>Calculer <span class="math">f(-1)</span> et <span class="math">f(0)</span>, puis tracer <span class="math">(C<sub>f</sub>)</span> et <span class="math">(Δ)</span>.</li>
+          <li>Discuter graphiquement selon les valeurs du réel <span class="math">m</span> l'existence et le signe des solutions de l'équation : <span class="math">f(x) = -3x + m</span>.</li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <p>Soit la fonction numérique <span class="math">g</span> définie par : <span class="math">g(x) = \frac{3}{2} + \left|x + \frac{1}{2}\right| - \ln(2x + 1)<sup>2</sup></span>, et soit <span class="math">(γ)</span> sa courbe représentative.</p>
+        <ol>
+          <li>Démontrer que pour tout réel <span class="math">x ≠ -\frac{1}{2}</span> : <span class="math">-1 - x ≠ -\frac{1}{2}</span> et <span class="math">g(-1 - x) = g(x)</span>.
+            <br />En déduire que <span class="math">(γ)</span> admet un axe de symétrie dont on déterminera l'équation.
+          </li>
+          <li>Démontrer que <span class="math">g(x) = f(x)</span> sur un intervalle à déterminer.
+            <br />En déduire la construction de <span class="math">(γ)</span> à partir de <span class="math">(C<sub>f</sub>)</span>, puis tracer <span class="math">(γ)</span> dans le même repère.
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <ol>
+          <li>À l'aide d'une intégration par parties, déterminer la primitive de la fonction <span class="math">x ↦ \ln(2x + 1)</span> sur l'intervalle <span class="math">]-\frac{1}{2}, +∞[</span> qui s'annule en <span class="math">x = 0</span>.</li>
+          <li>Soit <span class="math">λ</span> un réel appartenant à l'intervalle <span class="math">]-\frac{1}{2}, \frac{3}{2}[</span>. Calculer l'aire <span class="math">S(λ)</span> du domaine plan délimité par la courbe <span class="math">(C<sub>f</sub>)</span> et les droites d'équations : <span class="math">x = \frac{3}{2}</span>, <span class="math">x = λ</span> et <span class="math">y = 0</span>.
+            <br />Quelle est la valeur de <span class="math">lim<sub>λ→-1/2<sup>+</sup></sub> S(λ)</span> ?
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let <span class="math">f</span> be the real function defined by: <span class="math">f(x) = x + 2 - 2\ln|2x + 1|</span>.</p>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span> (unit: <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+          <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has a tangent line <span class="math">(Δ)</span> with slope <span class="math">-3</span>, and write its equation.</li>
+          <li>Find the coordinates of the intersection points of the curve <span class="math">(C<sub>f</sub>)</span> with the line with equation <span class="math">y = x</span>.</li>
+          <li>Compute <span class="math">f(-1)</span> and <span class="math">f(0)</span>, then plot both <span class="math">(C<sub>f</sub>)</span> and <span class="math">(Δ)</span>.</li>
+          <li>Discuss graphically, according to the values of the real parameter <span class="math">m</span>, the existence and signs of the solutions of the equation: <span class="math">f(x) = -3x + m</span>.</li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Let the real function <span class="math">g</span> be defined by: <span class="math">g(x) = \frac{3}{2} + \left|x + \frac{1}{2}\right| - \ln(2x + 1)<sup>2</sup></span>, and let <span class="math">(γ)</span> be its representative curve.</p>
+        <ol>
+          <li>Prove that for all real <span class="math">x ≠ -\frac{1}{2}</span>: <span class="math">-1 - x ≠ -\frac{1}{2}</span> and <span class="math">g(-1 - x) = g(x)</span>.
+            <br />Deduce that the curve <span class="math">(γ)</span> has an axis of symmetry and find its equation.
+          </li>
+          <li>Show that <span class="math">g(x) = f(x)</span> on an interval to be determined.
+            <br />Deduce the construction of <span class="math">(γ)</span> from the curve <span class="math">(C<sub>f</sub>)</span>, and draw <span class="math">(γ)</span> in the same system.
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <ol>
+          <li>Using integration by parts, find the antiderivative of the function <span class="math">x ↦ \ln(2x + 1)</span> on the interval <span class="math">]-\frac{1}{2}, +∞[</span> which is 0 at <span class="math">x = 0</span>.</li>
+          <li>Let <span class="math">λ</span> be a real number in the interval <span class="math">]-\frac{1}{2}, \frac{3}{2}[</span>. Calculate the area <span class="math">S(λ)</span> of the plane region bounded by the curve <span class="math">(C<sub>f</sub>)</span> and the lines with equations: <span class="math">x = \frac{3}{2}</span>, <span class="math">x = λ</span> and <span class="math">y = 0</span>.
+            <br />What is <span class="math">lim<sub>λ→-1/2<sup>+</sup></sub> S(λ)</span>?
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>دراسة تغيرات f والفروع اللانهائية:</strong>
+            <br />- مجموعة التعريف: تكون الدالة معرفة إذا كان <span class="math">2x + 1 ≠ 0 ⇔ x ≠ -0.5</span>.
+            <br />إذن <span class="math">D<sub>f</sub> = ]-∞, -0.5[ ∪ ]-0.5, +∞[</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند <span class="math">-0.5</span>: يؤول المطلق للصفر وبالتالي <span class="math">\ln|2x+1| → -∞</span>، إذن <span class="math">lim<sub>x→-0.5</sub> f(x) = +∞</span>. المستقيم <span class="math">x = -0.5</span> مقارب عمودي.
+            <br />عند <span class="math">-∞</span>: بما أن <span class="math">x → -∞</span> و <span class="math">-2\ln|2x+1| → -∞</span>، فإن <span class="math">lim<sub>x→-∞</sub> f(x) = -∞</span>.
+            <br />عند <span class="math">+∞</span>: بكتابة العبارة على الشكل <span class="math">f(x) = x(1 + \frac{2}{x} - \frac{2\ln(2x+1)}{x})</span> نجد النهاية هي <span class="math">+∞</span> لأن نهاية الكسر الأخير صفر.
+            <br />- <strong>المشتقة:</strong>
+            <div class="math-equation">f'(x) = 1 - 2 \cdot \frac{2}{2x+1} = \frac{2x - 3}{2x + 1}</div>
+            تنعدم المشتقة عند الفاصلة <span class="math">x = 1.5</span>.
+            <br />- <strong>إشارة المشتقة واتجاه التغيرات:</strong>
+            <br />على المجال <span class="math">]-∞, -0.5[</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+            <br />على المجال <span class="math">[-0.5, 1.5]</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+            <br />على المجال <span class="math">[1.5, +∞[</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+            <br />- القيمة الحدية الصغرى المحلية: عند <span class="math">1.5</span> قيمتها <span class="math">f(1.5) = 3.5 - 4\ln 2 ≈ 0.73</span>.
+            <br />- <strong>الفروع اللانهائية:</strong> بما أن <span class="math">lim \frac{f(x)}{x} = 1</span> و <span class="math">lim (f(x) - x) = -∞</span>، فإن المنحنى يقبل فرعاً مكافئاً باتجاه مستقيم ذي ميل 1.
+          </li>
+          <li>
+            <strong>المماس ذو معامل التوجيه -3:</strong>
+            <br />نحل <span class="math">f'(x) = -3 ⇔ \frac{2x-3}{2x+1} = -3 ⇔ 2x-3 = -6x-3 ⇔ 8x = 0 ⇔ x = 0</span>.
+            <br />إذن المماس يقبل عند النقطة ذات الفاصلة 0.
+            <br />المعادلة: <span class="math">f(0) = 2</span> و <span class="math">f'(0) = -3</span>، إذن <span class="math">(Δ): y = -3x + 2</span>.
+          </li>
+          <li>
+            <strong>تقاطع (C_f) مع y = x:</strong>
+            <br />نحل <span class="math">f(x) = x ⇔ 2 - 2\ln|2x+1| = 0 ⇔ \ln|2x+1| = 1 ⇔ |2x+1| = e</span>.
+            <br />- إما <span class="math">2x+1 = e ⇔ x = \frac{e-1}{2} ≈ 0.86</span>.
+            <br />- إما <span class="math">2x+1 = -e ⇔ x = \frac{-e-1}{2} ≈ -1.86</span>.
+            <br />إذن نقطتا التقاطع هما: <span class="math">P<sub>1</sub>(\frac{e-1}{2}, \frac{e-1}{2})</span> و <span class="math">P<sub>2</sub>(\frac{-e-1}{2}, \frac{-e-1}{2})</span>.
+          </li>
+          <li>
+            <strong>القيم والإنشاء:</strong> لدينا <span class="math">f(-1) = 1</span>، و <span class="math">f(0) = 2</span>.
+          </li>
+          <li>
+            <strong>المناقشة البيانية لـ f(x) = -3x + m:</strong>
+            <br />تتم المناقشة بواسطة مستقيمات مائلة توازي المماس <span class="math">(Δ): y = -3x+2</span>:
+            <br />بما أن المنحنى يقع فوق مماسّه على المجال <span class="math">]-0.5, 1.5[</span> لكونه محدباً:
+            <br />- <strong>إذا كان <span class="math">m &lt; 2</span>:</strong> يقطع المستقيم المنحنى في نقطتين متمايزتين؛ واحدة سالبة فاصلتها أصغر من <span class="math">-0.5</span> والأخرى موجبة فاصلتها أكبر من <span class="math">1.5</span>.
+            <br />- <strong>إذا كان <span class="math">m = 2</span>:</strong> يمس المستقيم المنحنى عند الفاصلة <span class="math">x=0</span> (حل مضاعف معدوم)، ويقطعه في نقطة سالبة فاصلتها أصغر من <span class="math">-0.5</span>.
+            <br />- <strong>إذا كان <span class="math">m &gt; 2</span>:</strong> يقطع المستقيم المنحنى في ثلاث نقاط؛ اثنتان سالبتان (واحدة أصغر من <span class="math">-0.5</span> والأخرى بين <span class="math">-0.5</span> و 0) وواحدة موجبة (فاصلتها أكبر من 0).
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <strong>محور التناظر:</strong>
+            <br />نعوض <span class="math">-1-x</span> في الدالة:
+            <br />- <span class="math">|-1-x + 0.5| = |-x - 0.5| = |x + 0.5|</span>.
+            <br />- <span class="math">(2(-1-x)+1)<sup>2</sup> = (-2x-1)<sup>2</sup> = (2x+1)<sup>2</sup></span>.
+            <br />إذن <span class="math">g(-1-x) = g(x)</span>.
+            <br />بما أن <span class="math">g(2a-x) = g(x)</span> مع <span class="math">2a = -1 ⇔ a = -0.5</span>، فإن المستقيم ذو المعادلة <span class="math">x = -0.5</span> هو محور تناظر للمنحنى <span class="math">(γ)</span>.
+          </li>
+          <li>
+            <strong>العلاقة بين g و f:</strong>
+            <br />من أجل <span class="math">x &gt; -0.5</span>:
+            <br />- لدينا <span class="math">|x + 0.5| = x + 0.5</span>.
+            <br />- لدينا <span class="math">\ln(2x+1)<sup>2</sup> = 2\ln(2x+1) = 2\ln|2x+1|</span>.
+            <br />وبالتالي: <span class="math">g(x) = 1.5 + x + 0.5 - 2\ln|2x+1| = x + 2 - 2\ln|2x+1| = f(x)</span>.
+            <br />إذن ينطبق المنحنيان على المجال <span class="math">]-0.5, +∞[</span>.
+            <br />أما على �
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>Variations de f :</strong>
+            <br />- Domaine : <span class="math">D<sub>f</sub> = ]-∞, -2[ ∪ ]0, +∞[</span>.
+            <br />- Limites :
+            <br />En <span class="math">±∞</span> : <span class="math">lim f(x) = 1</span> (asymptote horizontale <span class="math">y = 1</span>).
+            <br />En <span class="math">-2<sup>-</sup></span> : <span class="math">lim f(x) = +∞</span> (asymptote verticale <span class="math">x = -2</span>).
+            <br />En <span class="math">0<sup>+</sup></span> : <span class="math">lim f(x) = -∞</span> (asymptote verticale <span class="math">x = 0</span>).
+            <br />- Dérivée :
+            <div class="math-equation">f'(x) = \\frac{5x + 4}{x(x + 2)<sup>2</sup>}</div>
+            Le signe de <span class="math">f'(x)</span> est positif sur les deux intervalles de <span class="math">D<sub>f</sub></span>, la fonction <span class="math">f</span> est donc strictement croissante sur <span class="math">]-∞, -2[</span> et sur <span class="math">]0, +∞[</span>.
+          </li>
+          <li>
+            <strong>Tangentes A et B de pente 1 :</strong>
+            <br />On résout <span class="math">f'(x) = 1 ⇔ (x<sup>2</sup> - 1)(x + 4) = 0</span>.
+            <br />- <span class="math">x_A = 1 ∈ ]0, +∞[ ⇔ A(1, -\\ln 3)</span>.
+            <br />- <span class="math">x_B = -4 ∈ ]-∞, -2[ ⇔ B(-4, 2.5 + \\ln 2)</span>.
+          </li>
+          <li>
+            <strong>Solution unique x_0 dans ]13/4, 7/2[ :</strong>
+            <br />La fonction est continue et strictement croissante sur <span class="math">]0, +∞[</span>, et on a :
+            <br /><span class="math">f(13/4) ≈ -0,051 &lt; 0</span> et <span class="math">f(7/2) ≈ 0,0025 &gt; 0</span>.
+            <br />Le produit étant négatif, par le TVI, il existe un unique réel <span class="math">x_0 ∈ ]\\frac{13}{4}, \\frac{7}{2}[</span> tel que <span class="math">f(x_0) = 0</span>.
+          </li>
+          <li>
+            <strong>Valeurs calculées :</strong>
+            <br />- <span class="math">f(2) = 0.25 - \\ln 2 ≈ -0.44</span>.
+            <br />- <span class="math">f(-5) = 2 + \\ln(5/3) ≈ 2.51</span>.
+            <br />- <span class="math">f(-3) = 4 + \\ln 3 ≈ 5.10</span>.
+          </li>
+          <li>
+            <strong>Tracé :</strong> On dessine les asymptotes, les tangentes et les deux branches de la courbe.
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Primitive g :</strong>
+            <br />En dérivant <span class="math">g(x)</span> sur <span class="math">]0, +∞[</span> :
+            <div class="math-equation">g'(x) = 1 - \\frac{5}{x+2} + \\ln\\left(\\frac{x}{x+2}\\right) + x \\left(\\frac{1}{x} - \\frac{1}{x+2}\\right) = f(x)</div>
+            Ainsi, <span class="math">g</span> est une primitive de <span class="math">f</span>.
+          </li>
+          <li>
+            <strong>Calcul de l'aire du domaine :</strong>
+            <br />Comme <span class="math">f(x) &lt; 1</span> sur <span class="math">[4, 5]</span> :
+            <div class="math-equation">S = \\int_{4}^{5} (1 - f(x)) dx = \\left[ x - g(x) \\right]_{4}^{5} = 10\\ln 7 - 5\\ln 5 - \\ln 2 - 9\\ln 3 \\text{ u.a.}</div>
+            Comme l'unité graphique est <span class="math">2 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 4 \text{ cm}<sup>2</sup></span> :
+            <div class="math-equation">S = 4(10\\ln 7 - 5\\ln 5 - \\ln 2 - 9\\ln 3) \\text{ cm}<sup>2</sup> ≈ 3,33 \\text{ cm}<sup>2</sup></div>
+          </li>
+          <li>
+            <strong>Discussion graphique :</strong>
+            <br />L'équation se ramène (pour <span class="math">x ≠ -2</span>) à :
+            <div class="math-equation">\\ln\\left(\\frac{x}{x+2}\\right) - \\frac{3}{x+2} = m ⇔ f(x) = m + 1</div>
+            - Si <span class="math">m &lt; 0 ⇔ m + 1 &lt; 1</span> : **une unique solution positive**.
+            <br />- Si <span class="math">m = 0 ⇔ m + 1 = 1</span> : **aucune solution** (asymptote).
+            <br />- Si <span class="math">m &gt; 0 ⇔ m + 1 &gt; 1</span> : **une unique solution négative** (inférieure à -2).
+          </li>
+        </ol>ss="math">f(-1) = 1</span>, <span class="math">f(0) = 2</span>.
+          </li>
+          <li>
+            <strong>Discussion graphique de f(x) = -3x + m :</strong>
+            <br />Parallèlement à la tangente <span class="math">(Δ): y = -3x+2</span> :
+            <br />- Si <span class="math">m &lt; 2</span> : **deux solutions** (une négative et une positive).
+            <br />- Si <span class="math">m = 2</span> : **deux solutions** ($x=0$ double, et une négative).
+            <br />- Si <span class="math">m &gt; 2</span> : **trois solutions** (deux négatives et une positive).
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Axe de symétrie :</strong>
+            <br />On vérifie que <span class="math">g(-1-x) = g(x)</span>.
+            <br />La droite d'équation <span class="math">x = -0,5</span> est un axe de symétrie pour la courbe <span class="math">(γ)</span>.
+          </li>
+          <li>
+            <strong>Relation entre g et f :</strong>
+            <br />Pour <span class="math">x &gt; -0,5</span>, on a <span class="math">g(x) = f(x)</span>.
+            <br />Les courbes se confondent sur <span class="math">]-0,5, +∞[</span>. On complète <span class="math">(γ)</span> par symétrie par rapport à la droite <span class="math">x = -0,5</span>.
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <ol>
+          <li>
+            <strong>Primitive de \ln(2x+1) :</strong>
+            <br />Par intégration par parties, la primitive s'annulant en 0 est :
+            <div class="math-equation">H(x) = (x+0,5)\ln(2x+1) - x</div>
+          </li>
+          <li>
+            <strong>Calcul de l'aire S(λ) :</strong>
+            <br />La fonction est positive sur le domaine d'intégration :
+            <div class="math-equation">F(x) = \frac{1}{2}x<sup>2</sup> + 4x - (2x+1)\ln(2x+1)</div>
+            <div class="math-equation">S(λ) = F(1,5) - F(λ) = \left(\frac{57}{8} - 8\ln 2\right) - F(λ) \text{ u.a.}</div>
+            - Limite quand <span class="math">λ→-0,5<sup>+</sup></span> :
+            <div class="math-equation">lim<sub>λ→-0,5<sup>+</sup></sub> S(λ) = 9 - 8\ln 2 \text{ u.a.} = 36 - 32\ln 2 \text{ cm}<sup>2</sup></div>
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>Variations of f and infinite branches:</strong>
+            <br />- Domain: <span class="math">x ≠ -0.5</span>, meaning <span class="math">D<sub>f</sub> = ]-∞, -0.5[ ∪ ]-0.5, +∞[</span>.
+            <br />- Limits:
+            <br />At <span class="math">-0.5</span>: <span class="math">lim<sub>x→-0.5</sub> f(x) = +∞</span> (vertical asymptote).
+            <br />At <span class="math">-∞</span>: <span class="math">lim<sub>x→-∞</sub> f(x) = -∞</span>.
+            <br />At <span class="math">+\infty</span>: <span class="math">lim<sub>x→+∞</sub> f(x) = +∞</span> (parabolic branch of direction $y=x$).
+            <br />- Derivative:
+            <div class="math-equation">f'(x) = \frac{2x - 3}{2x + 1}</div>
+            It vanishes at <span class="math">x = 1.5</span>.
+            <br />- Monotonicity: strictly increasing on <span class="math">]-∞, -0.5[</span>, decreasing on <span class="math">[-0.5, 1.5]</span>, and increasing on <span class="math">[1.5, +∞[</span>.
+            <br />- Local minimum at <span class="math">1.5</span> of value <span class="math">3.5 - 4\ln 2 ≈ 0.73</span>.
+          </li>
+          <li>
+            <strong>Tangent with slope -3:</strong>
+            <br />Solving <span class="math">f'(x) = -3 ⇔ x = 0</span>.
+            <br />Equation: <span class="math">(Δ): y = -3x + 2</span>.
+          </li>
+          <li>
+            <strong>Intersection of (C_f) with y = x:</strong>
+            <br />Solving <span class="math">|2x+1| = e ⇔ x = \frac{e-1}{2}</span> or <span class="math">x = \frac{-e-1}{2}</span>.
+            <br />Points: <span class="math">P<sub>1</sub>(\frac{e-1}{2}, \frac{e-1}{2})</span> and <span class="math">P<sub>2</sub>(\frac{-e-1}{2}, \frac{-e-1}{2})</span>.
+          </li>
+          <li>
+            <strong>Values:</strong> <span class="math">f(-1) = 1</span>, <span class="math">f(0) = 2</span>.
+          </li>
+          <li>
+            <strong>Graphical discussion of f(x) = -3x + m:</strong>
+            <br />Parallel to the tangent line <span class="math">(Δ): y = -3x+2</span>:
+            <br />- If <span class="math">m &lt; 2</span>: **two solutions** (one negative, one positive).
+            <br />- If <span class="math">m = 2</span>: **two solutions** ($x=0$ double, and one negative).
+            <br />- If <span class="math">m &gt; 2</span>: **three solutions** (two negative, one positive).
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <strong>Axis of symmetry:</strong>
+            <br />We verify that <span class="math">g(-1-x) = g(x)</span>.
+            <br />The line with equation <span class="math">x = -0.5</span> is an axis of symmetry for the curve <span class="math">(γ)</span>.
+          </li>
+          <li>
+            <strong>Relationship between g and f:</strong>
+            <br />For <span class="math">x &gt; -0.5</span>, we have <span class="math">g(x) = f(x)</span>.
+            <br />The curves coincide on <span class="math">]-0.5, +∞[</span>. We draw <span class="math">(γ)</span> by reflecting this branch across the line <span class="math">x = -0.5</span>.
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <ol>
+          <li>
+            <strong>Antiderivative of \ln(2x+1):</strong>
+            <br />Using integration by parts, the antiderivative vanishing at 0 is:
+            <div class="math-equation">H(x) = (x+0.5)\ln(2x+1) - x</div>
+          </li>
+          <li>
+            <strong>Calculating the area S(λ):</strong>
+            <br />The function is positive on the integration domain:
+            <div class="math-equation">F(x) = \frac{1}{2}x<sup>2</sup> + 4x - (2x+1)\ln(2x+1)</div>
+            <div class="math-equation">S(λ) = F(1.5) - F(λ) = \left(\frac{57}{8} - 8\ln 2\right) - F(λ) \text{ u.a.}</div>
+            - Limit as <span class="math">λ→-0.5<sup>+</sup></span>:
+            <div class="math-equation">lim<sub>λ→-0.5<sup>+</sup></sub> S(λ) = 9 - 8\ln 2 \text{ u.a.} = 36 - 32\ln 2 \text{ cm}<sup>2</sup></div>
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية كسرية، مركز تناظر، عائلة مماسات مشتركة، زوجية دالة وحساب مساحة",
+      fr: "Problème d'approfondissement : Étude d'une fonction logarithmique rationnelle, centre de symétrie, tangentes communes, parité et calcul d'aire",
+      en: "Deepening Problem: Study of a Rational Logarithmic Function, Center of Symmetry, Common Tangent Lines, Parity and Area Integration"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>نعتبر الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> المعرفة كما يلي: <span class="math">f(x) = 1 - \frac{\ln x^2}{x}</span>.</p>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>ادرس تغيرات الدالة <span class="math">f</span> والفروع اللانهائية للمنحنى <span class="math">(C<sub>f</sub>)</span>.</li>
+              <li>أثبت أن المنحنى <span class="math">(C<sub>f</sub>)</span> يقطع المستقيم <span class="math">(Δ)</span> الذي معادلته <span class="math">y = 1</span> في نقطتين يطلب تعيين إحداثياتهما.</li>
+            </ol>
+          </li>
+          <li>احسب <span class="math">f(x) + f(-x)</span>، ماذا تستنتج؟</li>
+          <li>بيّن أن المعادلة <span class="math">f(x) = 0</span> تقبل حلاً وحيداً <span class="math">α</span> من المجال <span class="math">]-1, -\frac{1}{2}[</span>.</li>
+          <li>أثبت أن <span class="math">(C<sub>f</sub>)</span> يقبل مماساً <span class="math">(T)</span> يشمل <span class="math">A(0; 1)</span> ويمس <span class="math">(C<sub>f</sub>)</span> في نقطتين يطلب تعيين إحداثياتهما. اكتب معادلة لـ <span class="math">(T)</span>.</li>
+          <li>أنشئ كلاً من <span class="math">(C<sub>f</sub>)</span> و <span class="math">(T)</span>.</li>
+          <li>ناقش حسب قيم الوسيط الحقيقي <span class="math">m</span> عدد حلول المعادلة: <span class="math">f(x) = mx + 1</span>.</li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>نعتبر الدالة العددية <span class="math">g</span> ذات المتغير الحقيقي <span class="math">x</span> المعرفة كما يلي: <span class="math">g(x) = 1 + \frac{\ln x^2}{|x|}</span>، وليكن <span class="math">(γ)</span> تمثيلها البياني في المستوي السابق.</p>
+        <ol>
+          <li>بيّن أن <span class="math">g</span> زوجية.</li>
+          <li>بدون دراسة تغيرات الدالة <span class="math">g</span>، ارسم <span class="math">(γ)</span> مع تعليل ذلك.</li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <p>احسب <span class="math">S(α)</span> مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C<sub>f</sub>)</span> والمستقيمات التي معادلاتها: <span class="math">x = -1</span>، <span class="math">x = α</span> و <span class="math">y = 1</span>.</p>
+        <ol>
+          <li>بيّن أن: <span class="math">S(α) = \frac{α^2}{4} \\text{ cm}<sup>2</sup></span>.</li>
+          <li>أعط حصراً للعدد <span class="math">S(α)</span>.</li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let the real function <span class="math">f</span> be defined by: <span class="math">f(x) = 1 - \frac{\ln x^2}{x}</span>.</p>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Study the variations of the function <span class="math">f</span> and the infinite branches of the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+              <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> intersects the line <span class="math">(Δ)</span> with equation <span class="math">y = 1</span> at two points and find their coordinates.</li>
+            </ol>
+          </li>
+          <li>Compute <span class="math">f(x) + f(-x)</span>. What can you deduce?</li>
+          <li>Show that the equation <span class="math">f(x) = 0</span> has a unique solution <span class="math">α ∈ ]-1, -\frac{1}{2}[</span>.</li>
+          <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has a tangent line <span class="math">(T)</span> passing through <span class="math">A(0; 1)</span> and tangent to <span class="math">(C<sub>f</sub>)</span> at two points. Write the equation of <span class="math">(T)</span>.</li>
+          <li>Plot both <span class="math">(C<sub>f</sub>)</span> and <span class="math">(T)</span>.</li>
+          <li>Discuss according to the values of the real parameter <span class="math">m</span> the number of solutions of the equation: <span class="math">f(x) = mx + 1</span>.</li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Let the real function <span class="math">g</span> be defined by: <span class="math">g(x) = 1 + \frac{\ln x^2}{|x|}</span>, and let <span class="math">(γ)</span> be its representative curve.</p>
+        <ol>
+          <li>Show that the function <span class="math">g</span> is even.</li>
+          <li>Without studying the variations of <span class="math">g</span>, draw the curve <span class="math">(γ)</span> with justification.</li>
+        </ol>
+
+        <h3>Part III</h3>
+        <p>Calculate the area <span class="math">S(α)</span> of the plane region bounded by the curve <span class="math">(C<sub>f</sub>)</span>, the line <span class="math">y = 1</span> and the lines with equations: <span class="math">x = -1</span> and <span class="math">x = α</span>.</p>
+        <ol>
+          <li>Show that: <span class="math">S(α) = \frac{α^2}{4} \\text{ cm}<sup>2</sup></span>.</li>
+          <li>Give bounds for the number <span class="math">S(α)</span>.</li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>أ- دراسة تغيرات f والفروع اللانهائية:</strong>
+            <br />- مجموعة التعريف: <span class="math">D<sub>f</sub> = R<sup>*</sup> = ]-∞, 0[ ∪ ]0, +∞[</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند 0: بما أن <span class="math">lim<sub>x→0</sub> \ln x^2 = -∞</span>:
+            <br />- عند <span class="math">0<sup>+</sup></span>: النهاية هي <span class="math">+∞</span>.
+            <br />- عند <span class="math">0<sup>-</sup></span>: النهاية هي <span class="math">-∞</span>.
+            <br />إذن المستقيم <span class="math">x = 0</span> مقارب عمودي.
+            <br />عند <span class="math">±∞</span>: بمقارنة التزايد، لدينا <span class="math">lim<sub>x→±∞</sub> \frac{\ln x^2}{x} = 0</span>، إذن <span class="math">lim<sub>x→±∞</sub> f(x) = 1</span>. المستقيم <span class="math">y = 1</span> مقارب أفقي بجوار الطرفين.
+            <br />- <strong>المشتقة:</strong> من أجل كل <span class="math">x ≠ 0</span>:
+            <div class="math-equation">f'(x) = \frac{\ln x^2 - 2}{x^2}</div>
+            تنعدم المشتقة إذا كان <span class="math">x^2 = e^2 ⇔ x = e</span> أو <span class="math">x = -e</span>.
+            <br />- <strong>إشارة المشتقة واتجاه التغيرات:</strong>
+            <br />على المجالين <span class="math">]-∞, -e]</span> و <span class="math">[e, +∞[</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+            <br />على المجالين <span class="math">[-e, 0[</span> و <span class="math">]0, e]</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+            <br />- القيم الحدية:
+            <br />قيمة عظمى محلية عند <span class="math">-e</span> قيمتها <span class="math">f(-e) = 1 + \frac{2}{e} ≈ 1.74</span>.
+            <br />قيمة صغرى محلية عند <span class="math">e</span> قيمتها <span class="math">f(e) = 1 - \frac{2}{e} ≈ 0.26</span>.
+            <br />- <strong>ب- التقاطع مع y = 1:</strong>
+            <br />نحل <span class="math">f(x) = 1 ⇔ \frac{\ln x^2}{x} = 0 ⇔ x^2 = 1 ⇔ x = 1</span> أو <span class="math">x = -1</span>.
+            <br />نقطتا التقاطع هما <span class="math">(1, 1)</span> و <span class="math">(-1, 1)</span>.
+          </li>
+          <li>
+            <strong>حساب f(x) + f(-x) والاستنتاج:</strong>
+            <br /><span class="math">f(x) + f(-x) = (1 - \frac{\ln x^2}{x}) + (1 - \frac{\ln(-x)^2}{-x}) = 2</span>.
+            <br />بما أن <span class="math">\frac{f(x) + f(-x)}{2} = 1</span>، فإن النقطة <span class="math">I(0, 1)</span> هي مركز تناظر للمنحنى <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>إثبات الحل الوحيد α في ]-1, -0.5[:</strong>
+            <br />الدالة مستمرة ومتناقصة تماماً على المجال <span class="math">[-1, -0.5]</span> (لأن هذا المجال محتوى في <span class="math">[-e, 0[</span>).
+            <br />لدينا <span class="math">f(-1) = 1 &gt; 0</span> و <span class="math">f(-0.5) = 1 - 4\ln 2 ≈ -1.77 &lt; 0</span>.
+            <br />بما أن <span class="math">f(-1) \cdot f(-0.5) &lt; 0</span>، فإنه حسب مبرهنة القيم المتوسطة توجد قيمة وحيدة <span class="math">α ∈ ]-1, -0.5[</span> تحقق <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <strong>المماس (T) الذي يشمل A(0, 1):</strong>
+            <br />معادلة المماس عند الفاصلة <span class="math">x_0</span> هي: <span class="math">y = f'(x_0)(x - x_0) + f(x_0)</span>.
+            <br />بما أنه يشمل <span class="math">A(0, 1)</span> فإن:
+            <div class="math-equation">1 = f'(x_0)(0 - x_0) + f(x_0) ⇔ 1 = -\frac{\ln x_0^2 - 2}{x_0} + 1 - \frac{\ln x_0^2}{x_0} ⇔ \frac{2 - 2\ln x_0^2}{x_0} = 0</div>
+            وهذا يعني <span class="math">\ln x_0^2 = 1 ⇔ x_0^2 = e ⇔ x_0 = \sqrt{e}</span> أو <span class="math">x_0 = -\sqrt{e}</span>.
+            <br />إذن يمس المماس المنحنى في نقطتين إحداثياتهما: <span class="math">(\sqrt{e}, 1 - \frac{1}{\sqrt{e}})</span> و <span class="math">(-\sqrt{e}, 1 + \frac{1}{\sqrt{e}})</span>.
+            <br />معادلته عند <span class="math">\sqrt{e}</span> هي: <span class="math">(T): y = -\frac{1}{e}x + 1</span>.
+          </li>
+          <li>
+            <strong>الإنشاء:</strong> نرسم المقاربات، مركز التناظر، المماس المشترك والمنحنى.
+          </li>
+          <li>
+            <strong>المناقشة البيانية لـ f(x) = mx + 1:</strong>
+            <br />المعادلة تمثل تقاطع المنحنى مع المستقيمات الدوارة التي تشمل مركز التناظر <span class="math">I(0, 1)</span>:
+            <br />- <strong>إذا كان <span class="math">m &gt; 0</span> أو <span class="math">m = 0</span>:</strong> يوجد **حلان متمايزان** (واحد موجب وآخر سالب).
+            <br />- <strong>إذا كان <span class="math">-\frac{1}{e} &lt; m &lt; 0</span>:</strong> يوجد **ستة حلول متمايزة** (ثلاثة سالبة وثلاثة موجبة).
+            <br />- <strong>إذا كان <span class="math">m = -\frac{1}{e}</span>:</strong> يوجد **أربعة حلول متمايزة** (منها حلان مضاعفان يمثلان نقطتي التماس).
+            <br />- <strong>إذا كان <span class="math">m &lt; -\frac{1}{e}</span>:</strong> يوجد **حلان متمايزان** (واحد موجب وآخر سالب).
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <strong>g زوجية:</strong>
+            <br />مجال التعريف متناظر بالنسبة للصفر، ولدينا <span class="math">g(-x) = 1 + \frac{\ln(-x)^2}{|-x|} = 1 + \frac{\ln x^2}{|x|} = g(x)</span>.
+          </li>
+          <li>
+            <strong>رسم (γ) انطلاقاً من (C_f):</strong>
+            <br />من أجل <span class="math">x &gt; 0</span>: <span class="math">g(x) = 1 + \frac{\ln x^2}{x} = 2 - f(x)</span>.
+            <br />إذن المنحنى <span class="math">(γ)</span> هو نظير المنحنى <span class="math">(C<sub>f</sub>)</span> بالنسبة للمستقيم الأفقي <span class="math">y = 1</span>.
+            <br />من أجل <span class="math">x &lt; 0</span>: نكمل رسم <span class="math">(γ)</span> بالتناظر بالنسبة لمحور التراتيب كون الدالة زوجية.
+          </li>
+        </ol>
+
+        <h3>الجزء الثالث (III)</h3>
+        <ol>
+          <li>
+            <strong>إثبات المساحة S(α):</strong>
+            <br />بما أن <span class="math">f(x) ≤ 1</span> على المجال <span class="math">[-1, α]</span>:
+            <div class="math-equation">S(α) = \int_{-1}^{α} (1 - f(x)) dx = \int_{-1}^{α} \frac{\ln x^2}{x} dx = \int_{-1}^{α} \frac{2\ln(-x)}{x} dx = \left[ (\ln(-x))<sup>2</sup> \right]_{-1}^{α} = (\ln(-α))<sup>2</sup> \text{ u.a.}</div>
+            بما أن <span class="math">f(α) = 0</span> فإن <span class="math">\ln(-α) = \frac{α}{2}</span>.
+            <br />وبالتعويض نجد: <span class="math">S(α) = \left(\frac{α}{2}\right)<sup>2</sup> = \frac{α<sup>2</sup>}{4} \text{ cm}<sup>2</sup></span> (باعتبار وحدة المساحة هي <span class="math">1 \text{ cm}<sup>2</sup></span>).
+          </li>
+          <li>
+            <strong>حصر S(α):</strong>
+            <br />لدينا <span class="math">-1 &lt; α &lt; -0.5 ⇔ 0.25 &lt; α<sup>2</sup> &lt; 1 ⇔ 0.0625 &lt; S(α) &lt; 0.25</span>.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>a- Variations de f et branches infinies :</strong>
+            <br />- Domaine : <span class="math">D<sub>f</sub> = R<sup>*</sup></span>.
+            <br />- Limites :
+            <br />En 0 : <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span> et <span class="math">lim<sub>x→0<sup>-</sup></sub> f(x) = -∞</span> (asymptote verticale <span class="math">x = 0</span>).
+            <br />En <span class="math">±∞</span> : par croissances comparées, <span class="math">lim<sub>x→±∞</sub> \frac{\ln x^2}{x} = 0</span>, donc <span class="math">lim<sub>x→±∞</sub> f(x) = 1</span> (asymptote horizontale <span class="math">y = 1</span>).
+            <br />- Dérivée :
+            <div class="math-equation">f'(x) = \frac{\ln x^2 - 2}{x^2}</div>
+            Elle s'annule en <span class="math">x = e</span> et <span class="math">x = -e</span>.
+            <br />- Variations : croissante sur <span class="math">]-∞, -e]</span> et <span class="math">[e, +∞[</span>, décroissante sur <span class="math">[-e, 0[</span> et <span class="math">]0, e]</span>.
+            <br />- Extremums : maximum local en <span class="math">-e</span> de valeur <span class="math">1 + \frac{2}{e} ≈ 1,74</span> ; minimum local en <span class="math">e</span> de valeur <span class="math">1 - \frac{2}{e} ≈ 0,26</span>.
+            <br />- <strong>b- Intersection avec y = 1 :</strong>
+            <br />On résout <span class="math">f(x) = 1 ⇔ \ln x^2 = 0 ⇔ x = 1</span> ou <span class="math">x = -1</span>.
+            <br />Points : <span class="math">(1, 1)</span> et <span class="math">(-1, 1)</span>.
+          </li>
+          <li>
+            <strong>Calcul de f(x) + f(-x) :</strong>
+            <br /><span class="math">f(x) + f(-x) = 2</span>, ainsi le point <span class="math">I(0, 1)</span> est centre de symétrie de la courbe <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>Solution unique α dans ]-1, -0.5[ :</strong>
+            <br />La fonction est continue et strictement décroissante sur <span class="math">[-1, -0,5]</span>. Comme <span class="math">f(-1) = 1 &gt; 0</span> et <span class="math">f(-0,5) = 1 - 4\ln 2 ≈ -1,77 &lt; 0</span>, le produit est négatif, donc d'après le TVI il existe une unique solution <span class="math">α ∈ ]-1, -0,5[</span> telle que <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <strong>Tangente (T) passant par A(0, 1) :</strong>
+            <br />On cherche <span class="math">x_0</span> tel que la tangente en <span class="math">x_0</span> passe par <span class="math">A(0, 1)</span> :
+            <div class="math-equation">1 = f'(x_0)(0 - x_0) + f(x_0) ⇔ \ln x_0^2 = 1 ⇔ x_0 = \sqrt{e} \text{ ou } x_0 = -\sqrt{e}</div>
+            L'équation de la tangente commune est <span class="math">(T): y = -\frac{1}{e}x + 1</span>.
+          </li>
+          <li>
+            <strong>Tracé :</strong> On place les asymptotes, le centre de symétrie, le maximum, le minimum et la tangente, puis on trace la courbe.
+          </li>
+          <li>
+            <strong>Discussion graphique de f(x) = mx + 1 :</strong>
+            <br />Intersection avec les droites rotatives passant par <span class="math">I(0,1)</span> :
+            <br />- Si <span class="math">m ≥ 0</span> : **deux solutions** distinctes.
+            <br />- Si <span class="math">-\frac{1}{e} &lt; m &lt; 0</span> : **six solutions** distinctes.
+            <br />- Si <span class="math">m = -\frac{1}{e}</span> : **quatre solutions** (dont deux double-tangences).
+            <br />- Si <span class="math">m &lt; -\frac{1}{e}</span> : **deux solutions** distinctes.
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Parité de g :</strong>
+            <br /><span class="math">g(-x) = 1 + \frac{\ln(-x)^2}{|-x|} = g(x)</span>, donc <span class="math">g</span> est paire.
+          </li>
+          <li>
+            <strong>Tracé de (γ) :</strong>
+            <br />Pour <span class="math">x &gt; 0</span>, <span class="math">g(x) = 2 - f(x)</span>, la courbe est le symétrique de <span class="math">(C<sub>f</sub>)</span> par rapport à la droite <span class="math">y = 1</span>.
+            <br />Pour <span class="math">x &lt; 0</span>, on complète par symétrie axiale par rapport à l'axe des ordonnées.
+          </li>
+        </ol>
+
+        <h3>Partie III</h3>
+        <ol>
+          <li>
+            <strong>Preuve de la formule de l'aire S(α) :</strong>
+            <div class="math-equation">S(α) = \int_{-1}^{α} (1 - f(x)) dx = \int_{-1}^{α} \frac{2\ln(-x)}{x} dx = \left[ (\ln(-x))<sup>2</sup> \right]_{-1}^{α} = (\ln(-α))<sup>2</sup> \text{ u.a.}</div>
+            Comme <span class="math">f(α) = 0</span>, on a <span class="math">\ln(-α) = \frac{α}{2}</span>.
+            <br />En remplaçant, on obtient : <span class="math">S(α) = \frac{α<sup>2</sup>}{4} \text{ cm}<sup>2</sup></span>.
+          </li>
+          <li>
+            <strong>Encadrement de S(α) :</strong>
+            <br />Comme <span class="math">-1 &lt; α &lt; -0,5</span>, on a <span class="math">0,0625 &lt; S(α) &lt; 0,25</span>.
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>a- Variations of f and infinite branches:</strong>
+            <br />- Domain: <span class="math">D<sub>f</sub> = R<sup>*</sup></span>.
+            <br />- Limits:
+            <br />At 0: <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = +∞</span> and <span class="math">lim<sub>x→0<sup>-</sup></sub> f(x) = -∞</span> (vertical asymptote <span class="math">x = 0</span>).
+            <br />At <span class="math">±∞</span>: by growth comparison, <span class="math">lim<sub>x→±∞</sub> \frac{\ln x^2}{x} = 0</span>, so <span class="math">lim<sub>x→±∞</sub> f(x) = 1</span> (horizontal asymptote <span class="math">y = 1</span>).
+            <br />- Derivative:
+            <div class="math-equation">f'(x) = \frac{\ln x^2 - 2}{x^2}</div>
+            It vanishes at <span class="math">x = e</span> and <span class="math">x = -e</span>.
+            <br />- Variations: strictly increasing on <span class="math">]-∞, -e]</span> and <span class="math">[e, +∞[</span>, and strictly decreasing on <span class="math">[-e, 0[</span> and <span class="math">]0, e]</span>.
+            <br />- Extremums: local maximum at <span class="math">-e</span> of value <span class="math">1 + \frac{2}{e} ≈ 1.74</span>; local minimum at <span class="math">e</span> of value <span class="math">1 - \frac{2}{e} ≈ 0.26</span>.
+            <br />- <strong>b- Intersection with y = 1:</strong>
+            <br />Solving <span class="math">f(x) = 1 ⇔ \ln x^2 = 0 ⇔ x = 1</span> or <span class="math">x = -1</span>.
+            <br />Intersection points: <span class="math">(1, 1)</span> and <span class="math">(-1, 1)</span>.
+          </li>
+          <li>
+            <strong>Computing f(x) + f(-x):</strong>
+            <br /><span class="math">f(x) + f(-x) = 2</span>, which implies that the point <span class="math">I(0, 1)</span> is the center of symmetry of the curve <span class="math">(C<sub>f</sub>)</span>.
+          </li>
+          <li>
+            <strong>Unique solution α in ]-1, -0.5[:</strong>
+            <br />The function is continuous and strictly decreasing on <span class="math">[-1, -0.5]</span>. Since <span class="math">f(-1) = 1 &gt; 0</span> and <span class="math">f(-0.5) = 1 - 4\ln 2 ≈ -1.77 &lt; 0</span>, the product is negative. By IVT, there exists a unique solution <span class="math">α ∈ ]-1, -0.5[</span> such that <span class="math">f(α) = 0</span>.
+          </li>
+          <li>
+            <strong>Tangent (T) passing through A(0, 1):</strong>
+            <br />We look for tangent points <span class="math">x_0</span> where the tangent passes through <span class="math">A(0, 1)</span>:
+            <div class="math-equation">1 = f'(x_0)(0 - x_0) + f(x_0) ⇔ \ln x_0^2 = 1 ⇔ x_0 = \sqrt{e} \text{ or } x_0 = -\sqrt{e}</div>
+            The tangent equation is <span class="math">(T): y = -\frac{1}{e}x + 1</span>.
+          </li>
+          <li>
+            <strong>Plot:</strong> Plot the asymptotes, the center of symmetry, the maximum, the minimum, the tangent, and then the curve.
+          </li>
+          <li>
+            <strong>Graphical discussion of f(x) = mx + 1:</strong>
+            <br />Intersection with lines rotating around the center <span class="math">I(0,1)</span>:
+            <br />- If <span class="math">m ≥ 0</span>: **two distinct solutions**.
+            <br />- If <span class="math">-\frac{1}{e} &lt; m &lt; 0</span>: **six distinct solutions**.
+            <br />- If <span class="math">m = -\frac{1}{e}</span>: **four distinct solutions** (including two double tangent roots).
+            <br />- If <span class="math">m &lt; -\frac{1}{e}</span>: **two distinct solutions**.
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <strong>Parity of g:</strong>
+            <br /><span class="math">g(-x) = 1 + \frac{\ln(-x)^2}{|-x|} = g(x)</span>, so <span class="math">g</span> is even.
+          </li>
+          <li>
+            <strong>Plot of (γ):</strong>
+            <br />For <span class="math">x &gt; 0</span>, <span class="math">g(x) = 2 - f(x)</span>, so the curve is the reflection of <span class="math">(C<sub>f</sub>)</span> across the line <span class="math">y = 1</span>.
+            <br />For <span class="math">x &lt; 0</span>, complete by reflection across the y-axis (since the function is even).
+          </li>
+        </ol>
+
+        <h3>Part III</h3>
+        <ol>
+          <li>
+            <strong>Proof of the area formula S(α):</strong>
+            <div class="math-equation">S(α) = \int_{-1}^{α} (1 - f(x)) dx = \int_{-1}^{α} \frac{2\ln(-x)}{x} dx = \left[ (\ln(-x))<sup>2</sup> \right]_{-1}^{α} = (\ln(-α))<sup>2</sup> \text{ u.a.}</div>
+            Since <span class="math">f(α) = 0</span>, we have <span class="math">\ln(-α) = \frac{α}{2}</span>.
+            <br />Substituting this gives: <span class="math">S(α) = \frac{α<sup>2</sup>}{4} \text{ cm}<sup>2</sup></span>.
+          </li>
+          <li>
+            <strong>Bounds for S(α):</strong>
+            <br />Since <span class="math">-1 &lt; α &lt; -0.5</span>, we get <span class="math">0.0625 &lt; S(α) &lt; 0.25</span>.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة مساعدة، دالة أسية كسرية، وضعية نسبية، حساب تكامل ودالة عكسية",
+      fr: "Problème d'approfondissement : Étude d'une fonction auxiliaire, exponentielle rationnelle, position relative, intégration et réciproque",
+      en: "Deepening Problem: Study of an Auxiliary Function, Rational Exponential Function, Relative Position, Integration and Inverse Function"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>لتكن الدالة العددية <span class="math">g</span> للمتغير الحقيقي <span class="math">x</span> المعرفة بـ: <span class="math">g(x) = (3 - 2x)e^x + 2</span>.</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">g</span>.</li>
+          <li>بيّن أن المعادلة <span class="math">g(x) = 0</span> تقبل حلاً وحيداً <span class="math">α</span> حيث <span class="math">1.68 &lt; α &lt; 1.69</span>.</li>
+          <li>استنتج إشارة الدالة <span class="math">g(x)</span>.</li>
+          <li>باستعمال المكالمة بالتجزئة، جد دالة أصلية للدالة <span class="math">x ↦ (3 - 2x)e^x</span> على <span class="math">R</span>.</li>
+          <li>ليكن <span class="math">λ</span> عدداً حقيقياً أكبر تماماً من 1، جد <span class="math">λ</span> بحيث يكون:
+            <div class="math-equation">\\int_{0}^{\\ln λ} g(x)dx = λ - 1</div>
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>لتكن الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> المعرفة بـ: <span class="math">f(x) = \\frac{e^x + 4x - 1}{e^x + 1}</span>.</p>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>. (الوحدة هي <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>أثبت أنه من أجل كل عدد حقيقي <span class="math">x</span> فإن: <span class="math">f'(x) = \\frac{2g(x)}{(e^x + 1)<sup>2</sup>}</span>.</li>
+          <li>بيّن أن <span class="math">f(α) = 4α - 5</span>، ثم أعط حصراً للعدد <span class="math">f(α)</span>.</li>
+          <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>أثبت أن المنحنى <span class="math">(C<sub>f</sub>)</span> يقبل مستقيمين مقاربين، أحدهما مائل نرمز له بـ <span class="math">(Δ)</span>.</li>
+              <li>ادرس وضعية <span class="math">(C<sub>f</sub>)</span> بالنسبة لـ <span class="math">(Δ)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>اكتب معادلة المماس <span class="math">(T)</span> للمنحنى <span class="math">(C<sub>f</sub>)</span> في النقطة التي فاصلتها <span class="math">x = 0</span>.</li>
+              <li>أنشئ كلاً من <span class="math">(C<sub>f</sub>)</span> و <span class="math">(T)</span>.</li>
+            </ol>
+          </li>
+          <li>نسمي <span class="math">h</span> قصر الدالة <span class="math">f</span> على المجال <span class="math">]-∞, α]</span>. بيّن أن الدالة <span class="math">h</span> تقبل دالة عكسية <span class="math">h<sup>-1</sup></span> يطلب جدول تغيراتها.</li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <p>Soit la fonction numérique <span class="math">g</span> définie par : <span class="math">g(x) = (3 - 2x)e^x + 2</span>.</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">g</span>.</li>
+          <li>Montrer que l'équation <span class="math">g(x) = 0</span> admet une solution unique <span class="math">α</span> telle que <span class="math">1,68 &lt; α &lt; 1,69</span>.</li>
+          <li>En déduire le signe de <span class="math">g(x)</span>.</li>
+          <li>À l'aide d'une intégration par parties, déterminer une primitive de la fonction <span class="math">x ↦ (3 - 2x)e^x</span> sur <span class="math">R</span>.</li>
+          <li>Soit <span class="math">λ</span> un réel strictement supérieur à 1. Déterminer la valeur de <span class="math">λ</span> telle que :
+            <div class="math-equation">\\int_{0}^{\\ln λ} g(x)dx = λ - 1</div>
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <p>Soit la fonction numérique <span class="math">f</span> définie par : <span class="math">f(x) = \\frac{e^x + 4x - 1}{e^x + 1}</span>.</p>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span> (unité graphique : <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Démontrer que pour tout réel <span class="math">x</span> : <span class="math">f'(x) = \\frac{2g(x)}{(e^x + 1)<sup>2</sup>}</span>.</li>
+          <li>Démontrer que <span class="math">f(α) = 4α - 5</span>, puis donner un encadrement de <span class="math">f(α)</span>.</li>
+          <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Montrer que la courbe <span class="math">(C<sub>f</sub>)</span> admet deux asymptotes, dont l'une est oblique notée <span class="math">(Δ)</span>.</li>
+              <li>Étudier la position relative de <span class="math">(C<sub>f</sub>)</span> par rapport à <span class="math">(Δ)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Déterminer l'équation de la tangente <span class="math">(T)</span> à la courbe <span class="math">(C<sub>f</sub>)</span> au point d'abscisse nulle.</li>
+              <li>Tracer la courbe <span class="math">(C<sub>f</sub>)</span> et la tangente <span class="math">(T)</span>.</li>
+            </ol>
+          </li>
+          <li>Soit <span class="math">h</span> la restriction de la fonction <span class="math">f</span> à l'intervalle <span class="math">]-∞, α]</span>. Démontrer que la fonction <span class="math">h</span> admet une fonction réciproque <span class="math">h<sup>-1</sup></span> et donner son tableau de variations.</li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let the real function <span class="math">g</span> be defined by: <span class="math">g(x) = (3 - 2x)e^x + 2</span>.</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">g</span>.</li>
+          <li>Show that the equation <span class="math">g(x) = 0</span> has a unique solution <span class="math">α</span> where <span class="math">1.68 &lt; α &lt; 1.69</span>.</li>
+          <li>Deduce the sign of the function <span class="math">g(x)</span>.</li>
+          <li>Using integration by parts, find an antiderivative of the function <span class="math">x ↦ (3 - 2x)e^x</span> on <span class="math">R</span>.</li>
+          <li>Let <span class="math">λ</span> be a real number strictly greater than 1. Find the value of <span class="math">λ</span> such that:
+            <div class="math-equation">\\int_{0}^{\\ln λ} g(x)dx = λ - 1</div>
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Let the real function <span class="math">f</span> be defined by: <span class="math">f(x) = \\frac{e^x + 4x - 1}{e^x + 1}</span>.</p>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span> (unit: <span class="math">2 \\text{ cm}</span>).</p>
+        <ol>
+          <li>Show that for all real <span class="math">x</span>: <span class="math">f'(x) = \\frac{2g(x)}{(e^x + 1)<sup>2</sup>}</span>.</li>
+          <li>Show that <span class="math">f(α) = 4α - 5</span>, then give bounds for the value <span class="math">f(α)</span>.</li>
+          <li>Study the variations of the function <span class="math">f</span>.</li>
+          <li>
+            <ol type="a">
+              <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has two asymptotes, one of which is oblique denoted by <span class="math">(Δ)</span>.</li>
+              <li>Study the relative position of the curve <span class="math">(C<sub>f</sub>)</span> with respect to the line <span class="math">(Δ)</span>.</li>
+            </ol>
+          </li>
+          <li>
+            <ol type="a">
+              <li>Write the equation of the tangent line <span class="math">(T)</span> to the curve <span class="math">(C<sub>f</sub>)</span> at the point with abscissa 0.</li>
+              <li>Plot both the curve <span class="math">(C<sub>f</sub>)</span> and the tangent line <span class="math">(T)</span>.</li>
+            </ol>
+          </li>
+          <li>Let <span class="math">h</span> be the restriction of the function <span class="math">f</span> to the interval <span class="math">]-∞, α]</span>. Show that the function <span class="math">h</span> has an inverse function <span class="math">h<sup>-1</sup></span> and write its table of variations.</li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>تغيرات الدالة g:</strong>
+            <br />- مجموعة التعريف: <span class="math">D<sub>g</sub> = R</span>.
+            <br />- النهايات:
+            <br />عند <span class="math">-∞</span>: بما أن <span class="math">lim<sub>x→-∞</sub> xe^x = 0</span> و <span class="math">lim<sub>x→-∞</sub> e^x = 0</span>، فإن <span class="math">lim<sub>x→-∞</sub> g(x) = 2</span>.
+            <br />عند <span class="math">+∞</span>: لدينا <span class="math">lim<sub>x→+∞</sub> (3 - 2x)e^x = -∞</span>، إذن <span class="math">lim<sub>x→+∞</sub> g(x) = -∞</span>.
+            <br />- <strong>المشتقة:</strong>
+            <div class="math-equation">g'(x) = -2e^x + (3 - 2x)e^x = (1 - 2x)e^x</div>
+            تنعدم عند <span class="math">x = 0.5</span>.
+            <br />- اتجاه التغيرات:
+            <br />على المجال <span class="math">]-∞, 0.5]</span>: الدالة متزايدة تماماً (المشتقة موجبة).
+            <br />على المجال <span class="math">[0.5, +∞[</span>: الدالة متناقصة تماماً (المشتقة سالبة).
+            <br />- القيمة الحدية العظمى: عند <span class="math">0.5</span> قيمتها <span class="math">g(0.5) = 2\sqrt{e} + 2 ≈ 5.30</span>.
+          </li>
+          <li>
+            <strong>إثبات الحل الوحيد α في ]1.68, 1.69[:</strong>
+            <br />بما أن الدالة مستمرة ومتناقصة تماماً على المجال <span class="math">[0.5, +∞[</span>، وبما أن:
+            <br /><span class="math">g(1.68) = -0.36e<sup>1.68</sup> + 2 ≈ 0.068 &gt; 0</span>.
+            <br /><span class="math">g(1.69) = -0.38e<sup>1.69</sup> + 2 ≈ -0.059 &lt; 0</span>.
+            <br />فإن <span class="math">g(1.68) \cdot g(1.69) &lt; 0</span>. وحسب مبرهنة القيم المتوسطة، يوجد حل وحيد <span class="math">α ∈ ]1.68, 1.69[</span> يحقق <span class="math">g(α) = 0</span>.
+          </li>
+          <li>
+            <strong>إشارة الدالة g(x):</strong>
+            <br />- من أجل <span class="math">x &lt; α</span>: لدينا <span class="math">g(x) &gt; 0</span>.
+            <br />- من أجل <span class="math">x = α</span>: <span class="math">g(α) = 0</span>.
+            <br />- من أجل <span class="math">x &gt; α</span>: لدينا <span class="math">g(x) &lt; 0</span>.
+          </li>
+          <li>
+            <strong>الدالة الأصلية لـ (3-2x)e^x بالتجزئة:</strong>
+            <br />نضع <span class="math">u(x) = 3 - 2x ⇔ u'(x) = -2</span>.
+            <br />ونضع <span class="math">v'(x) = e^x ⇔ v(x) = e^x</span>.
+            <br />إذن:
+            <div class="math-equation">\int (3 - 2x)e^x dx = (3 - 2x)e^x - \int -2e^x dx = (5 - 2x)e^x + C</div>
+            الدالة الأصلية هي: <span class="math">x ↦ (5 - 2x)e^x</span>.
+          </li>
+          <li>
+            <strong>تعيين قيمة λ:</strong>
+            <br />الدالة الأصلية لـ <span class="math">g(x)</span> هي <span class="math">G(x) = (5 - 2x)e^x + 2x</span>.
+            <br />التكامل:
+            <div class="math-equation">\int_{0}^{\ln λ} g(x)dx = G(\ln λ) - G(0) = (5 - 2\ln λ)λ + 2\ln λ - 5 = 5λ - 2λ\ln λ + 2\ln λ - 5</div>
+            نساويها بـ <span class="math">λ - 1</span>:
+            <div class="math-equation">5λ - 2λ\ln λ + 2\ln λ - 5 = λ - 1 ⇔ 4λ - 2λ\ln λ + 2\ln λ - 4 = 0 ⇔ 2(λ - 1)(2 - \ln λ) = 0</div>
+            بما أن <span class="math">λ &gt; 1</span> فإن <span class="math">λ - 1 ≠ 0</span>، ومنه:
+            <div class="math-equation">2 - \ln λ = 0 ⇔ \ln λ = 2 ⇔ λ = e<sup>2</sup></div>
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <strong>إثبات عبارة المشتقة f'(x):</strong>
+            <div class="math-equation">f'(x) = \\frac{(e^x + 4)(e^x + 1) - (e^x + 4x - 1)e^x}{(e^x + 1)<sup>2</sup>} = \\frac{e<sup>2x</sup> + 5e^x + 4 - e<sup>2x</sup> - 4xe^x + e^x}{(e^x + 1)<sup>2</sup>} = \\frac{2((3 - 2x)e^x + 2)}{(e^x + 1)<sup>2</sup>} = \\frac{2g(x)}{(e^x + 1)<sup>2</sup>}</div>
+            وهو المطلوب.
+          </li>
+          <li>
+            <strong>إثبات f(α) = 4α - 5 والحصر:</strong>
+            <br />بما أن <span class="math">g(α) = 0 ⇔ (3 - 2α)e^α + 2 = 0 ⇔ e^α = \\frac{2}{2α - 3}</span>.
+            <br />نعوض في عبارة الدالة:
+            <div class="math-equation">f(α) = \\frac{\\frac{2}{2α-3} + 4α - 1}{\\frac{2}{2α-3} + 1} = \\frac{2 + (4α-1)(2α-3)}{2 + 2α - 3} = \\frac{8α<sup>2</sup> - 14α + 5}{2α - 1} = \\frac{(4α - 5)(2α - 1)}{2α - 1} = 4α - 5</div>
+            - الحصر: بما أن <span class="math">1.68 &lt; α &lt; 1.69</span> فإن:
+            <div class="math-equation">1.72 &lt; f(α) &lt; 1.76</div>
+          </li>
+          <li>
+            <strong>تغيرات الدالة f:</strong>
+            <br />بما أن المقام موجب دوماً، فإن إشارة <span class="math">f'(x)</span> هي نفس إشارة الدالة المساعدة <span class="math">g(x)</span>:
+            <br />- على المجال <span class="math">]-∞, α]</span>: المشتقة موجبة، فالدالة متزايدة تماماً.
+            <br />- على المجال <span class="math">[α, +∞[</span>: المشتقة سالبة، فالدالة متناقصة تماماً.
+            <br />- النهايات:
+            <br />عند <span class="math">-∞</span>: تؤول الدالة لـ <span class="math">lim (4x - 1) = -∞</span>.
+            <br />عند <span class="math">+∞</span>: نخرج <span class="math">e^x</span> كعامل مشترك لتؤول الدالة لـ 1. المستقيم <span class="math">y = 1</span> مقارب أفقي عند <span class="math">+∞</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>المقارب المائل (Δ):</strong>
+                <div class="math-equation">lim<sub>x→-∞</sub> [f(x) - (4x - 1)] = lim<sub>x→-∞</sub> \\frac{2(1 - 2x)e^x}{e^x + 1} = 0</div>
+                إذن المستقيم <span class="math">(Δ): y = 4x - 1</span> مقارب مائل بجوار <span class="math">-∞</span>.
+              </li>
+              <li><strong>الوضعية النسبية:</strong>
+                <br />إشارة الفرق هي إشارة البسط <span class="math">1 - 2x</span>:
+                <br />- إذا كان <span class="math">x &lt; 0.5</span>: المنحنى فوق المقارب المائل.
+                <br />- إذا كان <span class="math">x = 0.5</span>: يتقاطعان في النقطة <span class="math">(0.5, 1)</span>.
+                <br />- إذا كان <span class="math">x &gt; 0.5</span>: المنحنى تحت المقارب المائل.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>معادلة المماس (T) عند 0:</strong>
+                <br />معامل التوجيه: <span class="math">f'(0) = \\frac{2g(0)}{4} = 2.5</span>.
+                <br />المعادلة: <span class="math">(T): y = 2.5x</span>.
+              </li>
+              <li><strong>الإنشاء:</strong> نرسم المقاربات، المماس والمنحنى.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>الدالة العكسية لـ h:</strong>
+            <br />بما أن <span class="math">h</span> مستمرة ومتزايدة تماماً على المجال <span class="math">]-∞, α]</span>، فإنها تقبل دالة عكسية <span class="math">h<sup>-1</sup></span> معرفة على المجال <span class="math">]-∞, 4α - 5]</span>.
+            <br />- جدول تغيرات <span class="math">h<sup>-1</sup></span>: متزايدة تماماً من <span class="math">-∞</span> عند <span class="math">-∞</span> إلى <span class="math">α</span> عند القيمة العظمى <span class="math">4α - 5</span>.
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>Variations de g :</strong>
+            <br />- Domaine : <span class="math">D<sub>g</sub> = R</span>.
+            <br />- Limites :
+            <br />En <span class="math">-∞</span> : <span class="math">lim<sub>x→-∞</sub> g(x) = 2</span> (puisque <span class="math">lim xe^x = 0</span>).
+            <br />En <span class="math">+∞</span> : <span class="math">lim<sub>x→+∞</sub> g(x) = -∞</span>.
+            <br />- Dérivée :
+            <div class="math-equation">g'(x) = (1 - 2x)e^x</div>
+            Elle s'annule en <span class="math">x = 0,5</span>.
+            <br />- Sens de variations : strictement croissante sur <span class="math">]-∞, 0,5]</span> et strictement décroissante sur <span class="math">[0,5, +∞[</span>.
+            <br />- Maximum local en <span class="math">0,5</span> de valeur <span class="math">g(0,5) = 2\sqrt{e} + 2 ≈ 5,30</span>.
+          </li>
+          <li>
+            <strong>Solution unique α dans ]1,68, 1,69[ :</strong>
+            <br />La fonction est continue et strictement décroissante sur <span class="math">[0,5, +∞[</span>. Comme :
+            <br /><span class="math">g(1,68) ≈ 0,068 &gt; 0</span> et <span class="math">g(1,69) ≈ -0,059 &lt; 0</span>.
+            <br />Le produit est négatif, donc par le TVI il existe un réel unique <span class="math">α ∈ ]1,68, 1,69[</span> tel que <span class="math">g(α) = 0</span>.
+          </li>
+          <li>
+            <strong>Signe de g(x) :</strong>
+            <br />- Pour <span class="math">x &lt; α</span> : <span class="math">g(x) &gt; 0</span>.
+            <br />- Pour <span class="math">x = α</span> : <span class="math">g(α) = 0</span>.
+            <br />- Pour <span class="math">x &gt; α</span> : <span class="math">g(x) &lt; 0</span>.
+          </li>
+          <li>
+            <strong>Primitive de (3-2x)e^x par parties :</strong>
+            <br />En posant <span class="math">u(x) = 3-2x</span> et <span class="math">v'(x) = e^x</span>, on trouve la primitive :
+            <div class="math-equation">\int (3 - 2x)e^x dx = (5 - 2x)e^x + C</div>
+            Une primitive est <span class="math">x ↦ (5 - 2x)e^x</span>.
+          </li>
+          <li>
+            <strong>Détermination de λ :</strong>
+            <br />Une primitive de <span class="math">g(x)</span> est <span class="math">G(x) = (5 - 2x)e^x + 2x</span>.
+            <br />Le calcul de l'intégrale donne :
+            <div class="math-equation">\\int_{0}^{\\ln λ} g(x)dx = G(\\ln λ) - G(0) = 5λ - 2λ\\ln λ + 2\\ln λ - 5</div>
+            En égalisant avec <span class="math">λ - 1</span>, on obtient :
+            <div class="math-equation">2(λ - 1)(2 - \\ln λ) = 0</div>
+            Comme <span class="math">λ &gt; 1</span>, <span class="math">2 - \\ln λ = 0 ⇔ λ = e<sup>2</sup></span>.
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Dérivée f'(x) :</strong>
+            <div class="math-equation">f'(x) = \\frac{(e^x+4)(e^x+1)-(e^x+4x-1)e^x}{(e^x+1)<sup>2</sup>} = \\frac{2g(x)}{(e^x+1)<sup>2</sup>}</div>
+            Ce qui est le résultat requis.
+          </li>
+          <li>
+            <strong>Preuve de f(α) = 4α - 5 et encadrement :</strong>
+            <br />Comme <span class="math">g(α) = 0 ⇔ e^α = \\frac{2}{2α-3}</span>, en remplaçant dans $f(\alpha)$, on trouve :
+            <div class="math-equation">f(α) = \\frac{8α<sup>2</sup> - 14α + 5}{2α - 1} = \\frac{(4α-5)(2α-1)}{2α-1} = 4α - 5</div>
+            - Encadrement : Comme <span class="math">1,68 &lt; α &lt; 1,69</span>, on a :
+            <div class="math-equation">1,72 &lt; f(α) &lt; 1,76</div>
+          </li>
+          <li>
+            <strong>Variations de f :</strong>
+            <br />Le signe de la dérivée est celui de <span class="math">g(x)</span>.
+            <br />- Croissante sur <span class="math">]-∞, α]</span>.
+            <br />- Décroissante sur <span class="math">[α, +∞[</span>.
+            <br />- Limites : en <span class="math">-∞</span>, <span class="math">lim f(x) = -∞</span>. En <span class="math">+∞</span>, <span class="math">lim f(x) = 1</span> (asymptote horizontale).
+          </li>
+          <li>
+            <ul>
+              <li><strong>Asymptote oblique (Δ) :</strong>
+                <div class="math-equation">lim<sub>x→-∞</sub> [f(x) - (4x - 1)] = lim<sub>x→-∞</sub> \\frac{2(1 - 2x)e^x}{e^x + 1} = 0</div>
+                La droite <span class="math">(Δ): y = 4x - 1</span> est asymptote oblique en <span class="math">-∞</span>.
+              </li>
+              <li><strong>Position relative :</strong>
+                <br />Le signe de la différence est celui de <span class="math">1 - 2x</span>.
+                <br />- Au-dessus de <span class="math">(Δ)</span> si <span class="math">x &lt; 0,5</span>.
+                <br />- Coupe <span class="math">(Δ)</span> au point <span class="math">(0,5; 1)</span>.
+                <br />- Au-dessous de <span class="math">(Δ)</span> si <span class="math">x &gt; 0,5</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>Tangente (T) en 0 :</strong>
+                <br />Équation : <span class="math">(T): y = 2,5x</span>.
+              </li>
+              <li><strong>Tracé :</strong> On trace les asymptotes, la tangente et la courbe.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Réciproque de h :</strong>
+            <br />La fonction <span class="math">h</span> est continue et strictement croissante sur <span class="math">]-∞, α]</span>, elle admet donc une fonction réciproque <span class="math">h<sup>-1</sup></span> définie sur <span class="math">]-∞, 4α - 5]</span>.
+            <br />Son tableau de variations montre qu'elle est strictement croissante.
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>Variations of g:</strong>
+            <br />- Domain: <span class="math">D<sub>g</sub> = R</span>.
+            <br />- Limits:
+            <br />At <span class="math">-∞</span>: <span class="math">lim<sub>x→-∞</sub> g(x) = 2</span>.
+            <br />At <span class="math">+∞</span>: <span class="math">lim<sub>x→+∞</sub> g(x) = -∞</span>.
+            <br />- Derivative:
+            <div class="math-equation">g'(x) = (1 - 2x)e^x</div>
+            It vanishes at <span class="math">x = 0.5</span>.
+            <br />- Variations: strictly increasing on <span class="math">]-∞, 0.5]</span> and strictly decreasing on <span class="math">[0.5, +∞[</span>.
+            <br />- Local maximum at <span class="math">0.5</span> of value <span class="math">g(0.5) = 2\sqrt{e} + 2 ≈ 5.30</span>.
+          </li>
+          <li>
+            <strong>Unique solution α in ]1.68, 1.69[:</strong>
+            <br />The function is continuous and strictly decreasing on <span class="math">[0.5, +∞[</span>. Since:
+            <br /><span class="math">g(1.68) ≈ 0.068 &gt; 0</span> and <span class="math">g(1.69) ≈ -0.059 &lt; 0</span>.
+            <br />The product is negative, so by IVT, there exists a unique solution <span class="math">α ∈ ]1.68, 1.69[</span> such that <span class="math">g(α) = 0</span>.
+          </li>
+          <li>
+            <strong>Sign of g(x):</strong>
+            <br />- For <span class="math">x &lt; α</span>: <span class="math">g(x) &gt; 0</span>.
+            <br />- For <span class="math">x = α</span>: <span class="math">g(α) = 0</span>.
+            <br />- For <span class="math">x &gt; α</span>: <span class="math">g(x) &lt; 0</span>.
+          </li>
+          <li>
+            <strong>Antiderivative of (3-2x)e^x:</strong>
+            <br />Using integration by parts:
+            <div class="math-equation">\int (3 - 2x)e^x dx = (5 - 2x)e^x + C</div>
+            An antiderivative is <span class="math">x ↦ (5 - 2x)e^x</span>.
+          </li>
+          <li>
+            <strong>Finding the value of λ:</strong>
+            <br />An antiderivative of <span class="math">g(x)</span> is <span class="math">G(x) = (5 - 2x)e^x + 2x</span>.
+            <br />Calculating the integral:
+            <div class="math-equation">\\int_{0}^{\\ln λ} g(x)dx = 5λ - 2λ\\ln λ + 2\\ln λ - 5</div>
+            Equating this to <span class="math">λ - 1</span> yields:
+            <div class="math-equation">2(λ - 1)(2 - \\ln λ) = 0</div>
+            Since <span class="math">λ &gt; 1</span>, <span class="math">2 - \\ln λ = 0 ⇔ λ = e<sup>2</sup></span>.
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <strong>Derivative f'(x):</strong>
+            <div class="math-equation">f'(x) = \\frac{(e^x+4)(e^x+1)-(e^x+4x-1)e^x}{(e^x+1)<sup>2</sup>} = \\frac{2g(x)}{(e^x+1)<sup>2</sup>}</div>
+            Which is the required result.
+          </li>
+          <li>
+            <strong>Proof of f(α) = 4α - 5 and bounds:</strong>
+            <br />Since <span class="math">g(α) = 0 ⇔ e^α = \\frac{2}{2α-3}</span>, substituting this into $f(\alpha)$ gives:
+            <div class="math-equation">f(α) = \\frac{8α<sup>2</sup> - 14α + 5}{2α - 1} = \\frac{(4α-5)(2α-1)}{2α-1} = 4α - 5</div>
+            - Bounds: Since <span class="math">1.68 &lt; α &lt; 1.69</span>, we have:
+            <div class="math-equation">1.72 &lt; f(α) &lt; 1.76</div>
+          </li>
+          <li>
+            <strong>Variations of f:</strong>
+            <br />The sign of the derivative is the same as that of <span class="math">g(x)</span>.
+            <br />- Strictly increasing on <span class="math">]-∞, α]</span>.
+            <br />- Strictly decreasing on <span class="math">[α, +∞[</span>.
+            <br />- Limits: at <span class="math">-∞</span>, <span class="math">lim f(x) = -∞</span>. At <span class="math">+∞</span>, <span class="math">lim f(x) = 1</span> (horizontal asymptote).
+          </li>
+          <li>
+            <ul>
+              <li><strong>Oblique asymptote (Δ):</strong>
+                <div class="math-equation">lim<sub>x→-∞</sub> [f(x) - (4x - 1)] = lim<sub>x→-∞</sub> \\frac{2(1 - 2x)e^x}{e^x + 1} = 0</div>
+                The line <span class="math">(Δ): y = 4x - 1</span> is an oblique asymptote at <span class="math">-∞</span>.
+              </li>
+              <li><strong>Relative position:</strong>
+                <br />The sign of the difference is the same as that of <span class="math">1 - 2x</span>.
+                <br />- Above <span class="math">(Δ)</span> if <span class="math">x &lt; 0.5</span>.
+                <br />- Intersects <span class="math">(Δ)</span> at <span class="math">(0.5, 1)</span>.
+                <br />- Below <span class="math">(Δ)</span> if <span class="math">x &gt; 0.5</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>Tangent (T) at 0:</strong>
+                <br />Equation: <span class="math">(T): y = 2.5x</span>.
+              </li>
+              <li><strong>Plot:</strong> Plot the asymptotes, the tangent, and the curve.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Inverse function of h:</strong>
+            <br />Since <span class="math">h</span> is continuous and strictly increasing on <span class="math">]-∞, α]</span>, it has an inverse function <span class="math">h<sup>-1</sup></span> defined on <span class="math">]-∞, 4α - 5]</span>.
+            <br />Its table of variations shows that it is strictly increasing.
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "مسألة تعمق: دراسة دالة لوغارتمية كسرية، مماسات، دالة أصلية، حساب مساحة ومناقشة بيانية لبلورة معادلة",
+      fr: "Problème d'approfondissement : Étude d'une fonction logarithmique rationnelle, tangentes, primitive, calcul d'aire et discussion graphique d'une équation transformée",
+      en: "Deepening Problem: Study of a Rational Logarithmic Function, Tangent Lines, Antiderivative, Area Integration and Graphical Discussion of a Transformed Equation"
+    },
+    statementHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <p>نعتبر الدالة العددية <span class="math">f</span> للمتغير الحقيقي <span class="math">x</span> المعرفة بـ: <span class="math">f(x) = \\frac{x - 1}{x + 2} + \\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <p>وليكن <span class="math">(C<sub>f</sub>)</span> تمثيلها البياني في المستوي المنسوب إلى المعلم المتعامد والمتجانس <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>ادرس تغيرات الدالة <span class="math">f</span>.</li>
+          <li>بيّن أن المنحنى <span class="math">(C<sub>f</sub>)</span> يقبل عند نقطتين <span class="math">A</span> و <span class="math">B</span> مماسين معامل توجيه كل منهما يساوي 1، عيّن عندئذٍ إحداثيات النقطتين <span class="math">A</span> و <span class="math">B</span>.</li>
+          <li>بيّن أن المعادلة <span class="math">f(x) = 0</span> تقبل حلاً وحيداً <span class="math">x<sub>0</sub></span> حيث <span class="math">\\frac{13}{4} &lt; x<sub>0</sub> &lt; \\frac{7}{2}</span>.</li>
+          <li>احسب كلاً من <span class="math">f(2)</span>، <span class="math">f(-5)</span> و <span class="math">f(-3)</span>.</li>
+          <li>أنشئ <span class="math">(C<sub>f</sub>)</span>.</li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <p>نعتبر الدالة العددية <span class="math">g</span> للمتغير الحقيقي <span class="math">x</span> المعرفة بـ: <span class="math">g(x) = x - 5\\ln(x + 2) + x\\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <ol>
+          <li>بيّن أن الدالة <span class="math">g</span> هي دالة أصلية للدالة <span class="math">f</span> على المجال <span class="math">]0, +∞[</span>.</li>
+          <li>احسب مساحة الحيز المستوي المحدد بالمنحنى <span class="math">(C<sub>f</sub>)</span> والمستقيمات التي معادلاتها: <span class="math">x = 4</span>، <span class="math">x = 5</span> و <span class="math">y = 1</span>.</li>
+          <li>ناقش بيانياً وحسب قيم الوسيط الحقيقي <span class="math">m</span> عدد وإشارة حلول المعادلة ذات المجهول <span class="math">x</span> التالية:
+            <div class="math-equation">(x + 2)\\ln\\left(\\frac{x}{x + 2}\\right) - mx - 2m - 3 = 0</div>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <p>Soit la fonction numérique <span class="math">f</span> définie par : <span class="math">f(x) = \\frac{x - 1}{x + 2} + \\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <p>Soit <span class="math">(C<sub>f</sub>)</span> sa courbe représentative dans un repère orthonormé <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Étudier les variations de la fonction <span class="math">f</span>.</li>
+          <li>Montrer que la courbe <span class="math">(C<sub>f</sub>)</span> admet deux tangentes en des points <span class="math">A</span> et <span class="math">B</span> ayant chacune un coefficient directeur égal à 1, puis déterminer les coordonnées de ces deux points.</li>
+          <li>Démontrer que l'équation <span class="math">f(x) = 0</span> admet une solution unique <span class="math">x<sub>0</sub></span> telle que <span class="math">\\frac{13}{4} &lt; x<sub>0</sub> &lt; \\frac{7}{2}</span>.</li>
+          <li>Calculer les valeurs <span class="math">f(2)</span>, <span class="math">f(-5)</span> et <span class="math">f(-3)</span>.</li>
+          <li>Tracer la courbe <span class="math">(C<sub>f</sub>)</span>.</li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <p>Soit la fonction numérique <span class="math">g</span> définie par : <span class="math">g(x) = x - 5\\ln(x + 2) + x\\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <ol>
+          <li>Démontrer que la fonction <span class="math">g</span> est une primitive de <span class="math">f</span> sur l'intervalle <span class="math">]0, +∞[</span>.</li>
+          <li>Calculer l'aire du domaine délimité par la courbe <span class="math">(C<sub>f</sub>)</span>, la droite <span class="math">y = 1</span> et les droites d'équations : <span class="math">x = 4</span> et <span class="math">x = 5</span>.</li>
+          <li>Discuter graphiquement, selon les valeurs du paramètre réel <span class="math">m</span>, le nombre et le signe des solutions de l'équation suivante :
+            <div class="math-equation">(x + 2)\\ln\\left(\\frac{x}{x + 2}\\right) - mx - 2m - 3 = 0</div>
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <p>Let the real function <span class="math">f</span> be defined by: <span class="math">f(x) = \\frac{x - 1}{x + 2} + \\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <p>Let <span class="math">(C<sub>f</sub>)</span> be its representative curve in the orthonormal coordinate system <span class="math">(O; \\vec{i}, \\vec{j})</span>.</p>
+        <ol>
+          <li>Study the variations of the function <span class="math">f</span>.</li>
+          <li>Show that the curve <span class="math">(C<sub>f</sub>)</span> has two tangents at points <span class="math">A</span> and <span class="math">B</span> each having a slope equal to 1, and find the coordinates of <span class="math">A</span> and <span class="math">B</span>.</li>
+          <li>Show that the equation <span class="math">f(x) = 0</span> has a unique solution <span class="math">x<sub>0</sub></span> where <span class="math">\\frac{13}{4} &lt; x<sub>0</sub> &lt; \\frac{7}{2}</span>.</li>
+          <li>Compute <span class="math">f(2)</span>, <span class="math">f(-5)</span>, and <span class="math">f(-3)</span>.</li>
+          <li>Plot the curve <span class="math">(C<sub>f</sub>)</span>.</li>
+        </ol>
+
+        <h3>Part II</h3>
+        <p>Let the real function <span class="math">g</span> be defined by: <span class="math">g(x) = x - 5\\ln(x + 2) + x\\ln\\left(\\frac{x}{x + 2}\\right)</span>.</p>
+        <ol>
+          <li>Show that the function <span class="math">g</span> is an antiderivative of the function <span class="math">f</span> on the interval <span class="math">]0, +∞[</span>.</li>
+          <li>Calculate the area of the region bounded by the curve <span class="math">(C<sub>f</sub>)</span>, the line <span class="math">y = 1</span>, and the lines with equations: <span class="math">x = 4</span> and <span class="math">x = 5</span>.</li>
+          <li>Discuss graphically, according to the values of the real parameter <span class="math">m</span>, the number and sign of solutions of the following equation:
+            <div class="math-equation">(x + 2)\\ln\\left(\\frac{x}{x + 2}\\right) - mx - 2m - 3 = 0</div>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <h3>الجزء الأول (I)</h3>
+        <ol>
+          <li>
+            <strong>دراسة تغيرات الدالة f:</strong>
+            <br />- مجموعة التعريف: تكون الدالة معرفة إذا كان <span class="math">\\frac{x}{x + 2} &gt; 0</span> و <span class="math">x ≠ -2</span>.
+            <br />إذن: <span class="math">D<sub>f</sub> = ]-∞, -2[ ∪ ]0, +∞[</span>.
+            <br />- <strong>النهايات:</strong>
+            <br />عند <span class="math">±∞</span>: لدينا <span class="math">lim \\frac{x-1}{x+2} = 1</span> و <span class="math">lim \\ln(\\frac{x}{x+2}) = \\ln(1) = 0</span>، إذن <span class="math">lim<sub>x→±∞</sub> f(x) = 1</span>. المستقيم <span class="math">y = 1</span> مقارب أفقي بجوار الطرفين.
+            <br />عند <span class="math">-2<sup>-</sup></span>: لدينا <span class="math">lim \\frac{x-1}{x+2} = +∞</span> و <span class="math">lim \\ln(\\frac{x}{x+2}) = +∞</span>، إذن <span class="math">lim<sub>x→-2<sup>-</sup></sub> f(x) = +∞</span> (المستقيم <span class="math">x = -2</span> مقارب عمودي).
+            <br />عند <span class="math">0<sup>+</sup></span>: لدينا <span class="math">lim \\frac{x-1}{x+2} = -0.5</span> و <span class="math">lim \\ln(\\frac{x}{x+2}) = -∞</span>، إذن <span class="math">lim<sub>x→0<sup>+</sup></sub> f(x) = -∞</span> (المستقيم <span class="math">x = 0</span> مقارب عمودي).
+            <br />- <strong>المشتقة:</strong> من أجل كل <span class="math">x ∈ D<sub>f</sub></span>:
+            <div class="math-equation">f'(x) = \\frac{5x + 4}{x(x + 2)<sup>2</sup>}</div>
+            إشارة المشتقة من إشارة <span class="math">\\frac{5x + 4}{x}</span>:
+            <br />- على المجال <span class="math">]-∞, -2[</span>: البسط سالباً تماماً والمقام سالباً تماماً، إذن المشتقة موجبة والدالة متزايدة تماماً.
+            <br />- على المجال <span class="math">]0, +∞[</span>: البسط والمقام موجبان تماماً، إذن المشتقة موجبة والدالة متزايدة تماماً.
+          </li>
+          <li>
+            <strong>تعيين نقطتي التماس A و B ذواتي معامل التوجيه 1:</strong>
+            <br />نحل المعادلة <span class="math">f'(x) = 1</span>:
+            <div class="math-equation">\\frac{5x + 4}{x(x + 2)<sup>2</sup>} = 1 ⇔ x<sup>3</sup> + 4x<sup>2</sup> - x - 4 = 0 ⇔ (x<sup>2</sup> - 1)(x + 4) = 0</div>
+            الحلول المقبولة في مجموعة التعريف هي:
+            <br />- <span class="math">x_A = 1 ∈ ]0, +∞[ ⇔ f(1) = -\\ln 3</span>. إذن: <span class="math">A(1, -\\ln 3)</span>.
+            <br />- <span class="math">x_B = -4 ∈ ]-∞, -2[ ⇔ f(-4) = 2.5 + \\ln 2</span>. إذن: <span class="math">B(-4, 2.5 + \\ln 2)</span>.
+            <br />(بينما الحل <span class="math">x = -1</span> مرفوض لأنه لا ينتمي لمجموعة التعريف).
+          </li>
+          <li>
+            <strong>إثبات الحل الوحيد x_0 في ]13/4, 7/2[:</strong>
+            <br />على المجال <span class="math">]0, +∞[</span>، الدالة مستمرة ومتزايدة تماماً من <span class="math">-∞</span> إلى 1. وبما أن:
+            <br /><span class="math">f(13/4) = \\frac{3}{7} + \\ln(13/21) ≈ -0.051 &lt; 0</span>.
+            <br /><span class="math">f(7/2) = \\frac{5}{11} + \\ln(7/11) ≈ 0.0025 &gt; 0</span>.
+            <br />فإن <span class="math">f(13/4) \\cdot f(7/2) &lt; 0</span>. وحسب مبرهنة القيم المتوسطة، يوجد حل وحيد <span class="math">x_0 ∈ ]\\frac{13}{4}, \\frac{7}{2}[</span> يحقق <span class="math">f(x_0) = 0</span>.
+          </li>
+          <li>
+            <strong>حساب القيم المطلوبة:</strong>
+            <br />- <span class="math">f(2) = 0.25 - \\ln 2 ≈ -0.44</span>.
+            <br />- <span class="math">f(-5) = 2 + \\ln(1.67) ≈ 2.51</span>.
+            <br />- <span class="math">f(-3) = 4 + \\ln 3 ≈ 5.10</span>.
+          </li>
+          <li>
+            <strong>الإنشاء:</strong> نرسم المقاربات الأفقي والمقاربين العموديين، المماسين والمنحنى بالفرعين المستقلين.
+          </li>
+        </ol>
+
+        <h3>الجزء الثاني (II)</h3>
+        <ol>
+          <li>
+            <strong>إثبات أن g دالة أصلية لـ f:</strong>
+            <br />نشتق الدالة <span class="math">g(x)</span> على المجال <span class="math">]0, +∞[</span>:
+            <div class="math-equation">g'(x) = 1 - \\frac{5}{x+2} + \\ln\\left(\\frac{x}{x+2}\\right) + x \\left(\\frac{1}{x} - \\frac{1}{x+2}\\right) = 2 - \\frac{x+5}{x+2} + \\ln\\left(\\frac{x}{x+2}\\right) = \\frac{x-1}{x+2} + \\ln\\left(\\frac{x}{x+2}\\right) = f(x)</div>
+            إذن <span class="math">g</span> هي دالة أصلية لـ <span class="math">f</span>.
+          </li>
+          <li>
+            <strong>حساب مساحة الحيز المستوي:</strong>
+            <br />بما أن <span class="math">f(x) &lt; 1</span> على المجال <span class="math">[4, 5]</span>، فإن المساحة تعطى بـ:
+            <div class="math-equation">S = \\int_{4}^{5} (1 - f(x)) dx = \\left[ x - g(x) \\right]_{4}^{5} = \\left[ 5\\ln(x+2) - x\\ln\\left(\\frac{x}{x+2}\\right) \\right]_{4}^{5}</div>
+            <div class="math-equation">S = 10\\ln 7 - 5\\ln 5 - \\ln 2 - 9\\ln 3 \\text{ u.a.}</div>
+            بما أن وحدة الطول هي <span class="math">2 \\text{ cm}</span>، فإن وحدة المساحة هي <span class="math">1 \\text{ u.a.} = 4 \\text{ cm}<sup>2</sup></span>:
+            <div class="math-equation">S = 4(10\\ln 7 - 5\\ln 5 - \\ln 2 - 9\\ln 3) \\text{ cm}<sup>2</sup> ≈ 3.33 \\text{ cm}<sup>2</sup></div>
+          </li>
+          <li>
+            <strong>المناقشة البيانية لـ (x+2)\\ln(\\frac{x}{x+2}) - mx - 2m - 3 = 0:</strong>
+            <br />بقسمة طرفي المعادلة على <span class="math">x+2</span> (حيث <span class="math">x  ≠ -2</span>):
+            <div class="math-equation">\\ln\\left(\\frac{x}{x+2}\\right) - \\frac{3}{x+2} - m = 0 ⇔ \\ln\\left(\\frac{x}{x+2}\\right) - \\frac{3}{x+2} = m</div>
+            بما أن <span class="math">f(x) - 1 = \\ln\\left(\\frac{x}{x+2}\\right) - \\frac{3}{x+2}</span>، فإن المعادلة تكافئ تماماً:
+            <div class="math-equation">f(x) = m + 1</div>
+            وهي تمثل تقاطع المنحنى <span class="math">(C<sub>f</sub>)</span> مع مستقيم أفقي معادلته <span class="math">y = m + 1</span>:
+            <br />- <strong>إذا كان <span class="math">m &lt; 0 ⇔ m + 1 &lt; 1</span>:</strong> يوجد **حل وحيد موجب** (يقع في الفرع الأيمن).
+            <br />- <strong>إذا كان <span class="math">m = 0 ⇔ m + 1 = 1</span>:</strong> **لا يوجد حل** (لأن المستقيم هو المقارب الأفقي).
+            <br />- <strong>إذا كان <span class="math">m &gt; 0 ⇔ m + 1 &gt; 1</span>:</strong> يوجد **حل وحيد سالب** (يقع في الفرع الأيسر ويكون أصغر من -2).
+          </li>
+        </ol>
+      `,
+      fr: `
+        <h3>Partie I</h3>
+        <ol>
+          <li>
+            <strong>Variations de f :</strong>
+            <br />- Domaine : <span class="math">D<sub>f</sub> = ]-∞, -2[ ∪ ]0, +∞[</span>.
+            <br />- Limites :
+            <br />En <span class="math">±∞</span> : <span class="math">lim f(x) = 1</span> (asymptote horizontale <span class="math">y = 1</span>).
+            <br />En <span class="math">-2<sup>-</sup></span> : <span class="math">lim f(x) = +∞</span> (asymptote verticale <span class="math">x = -2</span>).
+            <br />En <span class="math">0<sup>+</sup></span> : <span class="math">lim f(x) = -∞</span> (asymptote verticale <span class="math">x = 0</span>).
+            <br />- Dérivée :
+            <div class="math-equation">f'(x) = \frac{5x + 4}{x(x + 2)<sup>2</sup>}</div>
+            Le signe de <span class="math">f'(x)</span> est positif sur les deux intervalles de <span class="math">D<sub>f</sub></span>, la fonction <span class="math">f</span> est donc strictement croissante sur <span class="math">]-∞, -2[</span> et sur <span class="math">]0, +∞[</span>.
+          </li>
+          <li>
+            <strong>Tangentes A et B de pente 1 :</strong>
+            <br />On résout <span class="math">f'(x) = 1 ⇔ (x<sup>2</sup> - 1)(x + 4) = 0</span>.
+            <br />- <span class="math">x_A = 1 ∈ ]0, +∞[ ⇔ A(1, -\ln 3)</span>.
+            <br />- <span class="math">x_B = -4 ∈ ]-∞, -2[ ⇔ B(-4, 2.5 + \ln 2)</span>.
+          </li>
+          <li>
+            <strong>Solution unique x_0 dans ]13/4, 7/2[ :</strong>
+            <br />La fonction est continue et strictement croissante sur <span class="math">]0, +∞[</span>, et on a :
+            <br /><span class="math">f(13/4) ≈ -0,051 &lt; 0</span> et <span class="math">f(7/2) ≈ 0,0025 &gt; 0</span>.
+            <br />Le produit étant négatif, par le TVI, il existe un unique réel <span class="math">x_0 ∈ ]\frac{13}{4}, \frac{7}{2}[</span> tel que <span class="math">f(x_0) = 0</span>.
+          </li>
+          <li>
+            <strong>Valeurs calculées :</strong>
+            <br />- <span class="math">f(2) = 0.25 - \ln 2 ≈ -0.44</span>.
+            <br />- <span class="math">f(-5) = 2 + \ln(5/3) ≈ 2.51</span>.
+            <br />- <span class="math">f(-3) = 4 + \ln 3 ≈ 5.10</span>.
+          </li>
+          <li>
+            <strong>Tracé :</strong> On dessine les asymptotes, les tangentes et les deux branches de la courbe.
+          </li>
+        </ol>
+
+        <h3>Partie II</h3>
+        <ol>
+          <li>
+            <strong>Primitive g :</strong>
+            <br />En dérivant <span class="math">g(x)</span> sur <span class="math">]0, +∞[</span> :
+            <div class="math-equation">g'(x) = 1 - \frac{5}{x+2} + \ln\left(\frac{x}{x+2}\right) + x \left(\frac{1}{x} - \frac{1}{x+2}\right) = f(x)</div>
+            Ainsi, <span class="math">g</span> est une primitive de <span class="math">f</span>.
+          </li>
+          <li>
+            <strong>Calcul de l'aire du domaine :</strong>
+            <br />Comme <span class="math">f(x) &lt; 1</span> sur <span class="math">[4, 5]</span> :
+            <div class="math-equation">S = \int_{4}^{5} (1 - f(x)) dx = \left[ x - g(x) \right]_{4}^{5} = 10\ln 7 - 5\ln 5 - \ln 2 - 9\ln 3 \text{ u.a.}</div>
+            Comme l'unité graphique est <span class="math">2 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 4 \text{ cm}<sup>2</sup></span> :
+            <div class="math-equation">S = 4(10\ln 7 - 5\ln 5 - \ln 2 - 9\ln 3) \text{ cm}<sup>2</sup> ≈ 3,33 \text{ cm}<sup>2</sup></div>
+          </li>
+          <li>
+            <strong>Discussion graphique :</strong>
+            <br />L'équation se ramène (pour <span class="math">x ≠ -2</span>) à :
+            <div class="math-equation">\ln\left(\frac{x}{x+2}\right) - \frac{3}{x+2} = m ⇔ f(x) = m + 1</div>
+            - Si <span class="math">m &lt; 0 ⇔ m + 1 &lt; 1</span> : **une unique solution positive**.
+            <br />- Si <span class="math">m = 0 ⇔ m + 1 = 1</span> : **aucune solution** (asymptote).
+            <br />- Si <span class="math">m &gt; 0 ⇔ m + 1 &gt; 1</span> : **une unique solution négative** (inférieure à -2).
+          </li>
+        </ol>
+      `,
+      en: `
+        <h3>Part I</h3>
+        <ol>
+          <li>
+            <strong>Variations of f:</strong>
+            <br />- Domain: <span class="math">D<sub>f</sub> = ]-∞, -2[ ∪ ]0, +∞[</span>.
+            <br />- Limits:
+            <br />At <span class="math">±∞</span>: <span class="math">lim f(x) = 1</span> (horizontal asymptote <span class="math">y = 1</span>).
+            <br />At <span class="math">-2<sup>-</sup></span>: <span class="math">lim f(x) = +∞</span> (vertical asymptote <span class="math">x = -2</span>).
+            <br />At <span class="math">0<sup>+</sup></span>: <span class="math">lim f(x) = -∞</span> (vertical asymptote <span class="math">x = 0</span>).
+            <br />- Derivative:
+            <div class="math-equation">f'(x) = \frac{5x + 4}{x(x + 2)<sup>2</sup>}</div>
+            The derivative is positive on both intervals of <span class="math">D<sub>f</sub></span>, so the function <span class="math">f</span> is strictly increasing on <span class="math">]-∞, -2[</span> and on <span class="math">]0, +∞[</span>.
+          </li>
+          <li>
+            <strong>Tangents A and B of slope 1:</strong>
+            <br />Solving <span class="math">f'(x) = 1 ⇔ (x<sup>2</sup> - 1)(x + 4) = 0</span>.
+            <br />- <span class="math">x_A = 1 ∈ ]0, +∞[ ⇔ A(1, -\ln 3)</span>.
+            <br />- <span class="math">x_B = -4 ∈ ]-∞, -2[ ⇔ B(-4, 2.5 + \ln 2)</span>.
+          </li>
+          <li>
+            <strong>Unique solution x_0 in ]13/4, 7/2[:</strong>
+            <br />The function is continuous and strictly increasing on <span class="math">]0, +∞[</span>, and we have:
+            <br /><span class="math">f(13/4) ≈ -0.051 &lt; 0</span> and <span class="math">f(7/2) ≈ 0.0025 &gt; 0</span>.
+            <br />The product is negative, so by IVT, there exists a unique solution <span class="math">x_0 ∈ ]\frac{13}{4}, \frac{7}{2}[</span> such that <span class="math">f(x_0) = 0</span>.
+          </li>
+          <li>
+            <strong>Computed values:</strong>
+            <br />- <span class="math">f(2) = 0.25 - \ln 2 ≈ -0.44</span>.
+            <br />- <span class="math">f(-5) = 2 + \ln(5/3) ≈ 2.51</span>.
+            <br />- <span class="math">f(-3) = 4 + \ln 3 ≈ 5.10</span>.
+          </li>
+          <li>
+            <strong>Plot:</strong> Plot the asymptotes, the tangents, and the two branches of the curve.
+          </li>
+        </ol>
+
+        <h3>Part II</h3>
+        <ol>
+          <li>
+            <strong>Antiderivative g:</strong>
+            <br />Differentiating <span class="math">g(x)</span> on <span class="math">]0, +∞[</span>:
+            <div class="math-equation">g'(x) = 1 - \frac{5}{x+2} + \ln\left(\frac{x}{x+2}\right) + x \left(\frac{1}{x} - \frac{1}{x+2}\right) = f(x)</div>
+            Thus, <span class="math">g</span> is an antiderivative of <span class="math">f</span>.
+          </li>
+          <li>
+            <strong>Calculating the area of the region:</strong>
+            <br />Since <span class="math">f(x) &lt; 1</span> on <span class="math">[4, 5]</span>:
+            <div class="math-equation">S = \int_{4}^{5} (1 - f(x)) dx = \left[ x - g(x) \right]_{4}^{5} = 10\ln 7 - 5\ln 5 - \ln 2 - 9\ln 3 \text{ u.a.}</div>
+            Since the graphical unit is <span class="math">2 \text{ cm}</span>, <span class="math">1 \text{ u.a.} = 4 \text{ cm}<sup>2</sup></span>:
+            <div class="math-equation">S = 4(10\ln 7 - 5\ln 5 - \ln 2 - 9\ln 3) \text{ cm}<sup>2</sup> ≈ 3.33 \text{ cm}<sup>2</sup></div>
+          </li>
+          <li>
+            <strong>Graphical discussion:</strong>
+            <br />For <span class="math">x ≠ -2</span>, the equation simplifies to:
+            <div class="math-equation">\ln\left(\frac{x}{x+2}\right) - \frac{3}{x+2} = m ⇔ f(x) = m + 1</div>
+            - If <span class="math">m &lt; 0 ⇔ m + 1 &lt; 1</span>: **one unique positive solution**.
+            <br />- If <span class="math">m = 0 ⇔ m + 1 = 1</span>: **no solution** (horizontal asymptote).
+            <br />- If <span class="math">m &gt; 0 ⇔ m + 1 &gt; 1</span>: **one unique negative solution** (less than -2).
+          </li>
+        </ol>
+      `
+    }
+  },
+  {
+    title: {
+      ar: "تمرين: دراسة دالة لوغاريتمية وتكاملاتها المعتلة",
+      fr: "Problème d'approfondissement : Étude d'une fonction logarithmique et ses intégrales impropres",
+      en: "Deepening Problem: Study of a Logarithmic Function and its Improper Integrals"
+    },
+    statementHtml: {
+      ar: `
+        <p>نعتبر الدالة <span class="math">f</span> المعرفة على المجال <span class="math">]1, +∞[</span> بالعبارة: <span class="math">f(x) = \frac{1}{4x(\ln x)<sup>2</sup>}</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>عين نهايات الدالة <span class="math">f</span> عند أطراف مجال تعريفها.</li>
+              <li>استنتج المستقيمات المقاربة للمنحنى <span class="math">C<sub>f</sub></span> في معلم متعامد ومتجانس.</li>
+            </ol>
+          </li>
+          <li>ادرس اتجاه تغير الدالة <span class="math">f</span> على المجال <span class="math">]1, +∞[</span>.</li>
+          <li>شكل جدول تغيرات الدالة <span class="math">f</span> ثم أنشئ المنحنى <span class="math">C<sub>f</sub></span> (نأخذ الوحدة البيانية <span class="math">5 \text{ سم}</span>).</li>
+          <li>
+            <ol type="a">
+              <li>احسب مشتقة الدالة <span class="math">g</span> المعرفة على المجال <span class="math">]1, +∞[</span> بـ: <span class="math">g(x) = \frac{1}{\ln x}</span>.</li>
+              <li>استنتج الدوال الأصلية للدالة <span class="math">f</span> على المجال <span class="math">]1, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>نعتبر التكامل المعتل <span class="math">I(a) = \int_{a}^{e} f(x) \, dx</span> حيث <span class="math">1 &lt; a &lt; e</span>.
+            <ol type="a">
+              <li>احسب قيمة <span class="math">I(a)</span> بدلالة <span class="math">a</span>.</li>
+              <li>ادرس تقارب التكامل <span class="math">lim<sub>a → 1<sup>+</sup></sub> I(a)</span>، ثم فسّر النتيجة المحصل عليها هندسياً فيما يتعلق بالمساحة المحصورة بين المنحنى <span class="math">C<sub>f</sub></span> ومحور الفواصل على المجال <span class="math">]1, e]</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <p>Soit la fonction numérique <span class="math">f</span> définie sur l'intervalle <span class="math">]1, +∞[</span> par : <span class="math">f(x) = \frac{1}{4x(\ln x)<sup>2</sup>}</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Déterminer les limites de la fonction <span class="math">f</span> aux bornes de son intervalle de définition.</li>
+              <li>En déduire les asymptotes à la courbe représentative <span class="math">C<sub>f</sub></span> de <span class="math">f</span> dans un repère orthonormal.</li>
+            </ol>
+          </li>
+          <li>Étudier les variations de la fonction <span class="math">f</span> sur l'intervalle <span class="math">]1, +∞[</span>.</li>
+          <li>Donner le tableau des variations de la fonction <span class="math">f</span> et tracer la courbe <span class="math">C<sub>f</sub></span> (unité graphique : <span class="math">5 \text{ cm}</span>).</li>
+          <li>
+            <ol type="a">
+              <li>Calculer la dérivée de la fonction <span class="math">g</span> définie sur <span class="math">]1, +∞[</span> par : <span class="math">g(x) = \frac{1}{\ln x}</span>.</li>
+              <li>En déduire l'ensemble des primitives de la fonction <span class="math">f</span> sur l'intervalle <span class="math">]1, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>Soit l'intégrale impropre <span class="math">I(a) = \int_{a}^{e} f(x) \, dx</span> où <span class="math">1 &lt; a &lt; e</span>.
+            <ol type="a">
+              <li>Calculer la valeur de <span class="math">I(a)</span> en fonction de <span class="math">a</span>.</li>
+              <li>Étudier la convergence de l'intégrale <span class="math">lim<sub>a → 1<sup>+</sup></sub> I(a)</span>, puis interpréter géométriquement le résultat concernant l'aire délimitée par la courbe <span class="math">C<sub>f</sub></span> et l'axe des abscisses sur l'intervalle <span class="math">]1, e]</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `,
+      en: `
+        <p>Let the real function <span class="math">f</span> be defined on the interval <span class="math">]1, +∞[</span> by: <span class="math">f(x) = \frac{1}{4x(\ln x)<sup>2</sup>}</span>.</p>
+        <ol>
+          <li>
+            <ol type="a">
+              <li>Determine the limits of the function <span class="math">f</span> at the boundaries of its domain of definition.</li>
+              <li>Deduce the asymptotes to the representative curve <span class="math">C<sub>f</sub></span> of <span class="math">f</span> in an orthonormal coordinate system.</li>
+            </ol>
+          </li>
+          <li>Study the variations of the function <span class="math">f</span> on the interval <span class="math">]1, +∞[</span>.</li>
+          <li>Give the table of variations of <span class="math">f</span> and plot the curve <span class="math">C<sub>f</sub></span> (take graphic unit to be <span class="math">5 \text{ cm}</span>).</li>
+          <li>
+            <ol type="a">
+              <li>Calculate the derivative of the function <span class="math">g</span> defined on <span class="math">]1, +∞[</span> by: <span class="math">g(x) = \frac{1}{\ln x}</span>.</li>
+              <li>Deduce the set of antiderivatives of <span class="math">f</span> on the interval <span class="math">]1, +∞[</span>.</li>
+            </ol>
+          </li>
+          <li>Consider the improper integral <span class="math">I(a) = \int_{a}^{e} f(x) \, dx</span> where <span class="math">1 &lt; a &lt; e</span>.
+            <ol type="a">
+              <li>Calculate the value of <span class="math">I(a)</span> in terms of <span class="math">a</span>.</li>
+              <li>Study the convergence of the integral <span class="math">lim<sub>a → 1<sup>+</sup></sub> I(a)</span>, then geometrically interpret this result with respect to the area bounded by the curve <span class="math">C<sub>f</sub></span> and the x-axis on the interval <span class="math">]1, e]</span>.</li>
+            </ol>
+          </li>
+        </ol>
+      `
+    },
+    solutionHtml: {
+      ar: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>أ- حساب النهايات:</strong>
+                <br />- عند <span class="math">1<sup>+</sup></span>: بما أن <span class="math">lim<sub>x→1<sup>+</sup></sub> \ln x = 0<sup>+</sup></span> فإن <span class="math">lim<sub>x→1<sup>+</sup></sub> 4x(\ln x)<sup>2</sup> = 0<sup>+</sup></span>، ومنه:
+                <div class="math-equation">lim<sub>x→1<sup>+</sup></sub> f(x) = +∞</div>
+                - عند <span class="math">+∞</span>: بما أن <span class="math">lim<sub>x→+∞</sub> x = +∞</span> و <span class="math">lim<sub>x→+∞</sub> \ln x = +∞</span> فإن <span class="math">lim<sub>x→+∞</sub> 4x(\ln x)<sup>2</sup> = +∞</span>، ومنه:
+                <div class="math-equation">lim<sub>x→+∞</sub> f(x) = 0</div>
+              </li>
+              <li><strong>ب- المستقيمات المقاربة:</strong>
+                <br />- المستقيم ذو المعادلة <span class="math">x = 1</span> هو مقارب عمودي للمنحنى <span class="math">C<sub>f</sub></span>.
+                <br />- المستقيم ذو المعادلة <span class="math">y = 0</span> (محور الفواصل) هو مقارب أفقي للمنحنى <span class="math">C<sub>f</sub></span> بجوار <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>دراسة اتجاه تغير الدالة f:</strong>
+            <br />الدالة <span class="math">f</span> قابلة للاشتقاق على المجال <span class="math">]1, +∞[</span>. نضع <span class="math">u(x) = 4x(\ln x)<sup>2</sup></span>، مشتقتها هي:
+            <div class="math-equation">u'(x) = 4(\ln x)<sup>2</sup> + 4x \cdot 2\ln x \cdot \frac{1}{x} = 4\ln x (\ln x + 2)</div>
+            مشتقة الدالة <span class="math">f</span> تعطى بـ:
+            <div class="math-equation">f'(x) = -\frac{u'(x)}{u(x)<sup>2</sup>} = -\frac{4\ln x (\ln x + 2)}{16x<sup>2</sup>(\ln x)<sup>4</sup>} = -\frac{\ln x + 2}{4x<sup>2</sup>(\ln x)<sup>3</sup>}</div>
+            من أجل كل <span class="math">x ∈ ]1, +∞[</span>، لدينا <span class="math">\ln x &gt; 0</span>، إذن المقام موجب تماماً والبسط <span class="math">\ln x + 2 &gt; 0</span>، وبوجود الإشارة السالبة تكون المشتقة سالبة تماماً:
+            <div class="math-equation">f'(x) &lt; 0</div>
+            وبالتالي الدالة <span class="math">f</span> متناقصة تماماً على المجال <span class="math">]1, +∞[</span>.
+          </li>
+          <li>
+            <strong>جدول التغيرات والإنشاء:</strong>
+            <br />- جدول التغيرات: تتناقص الدالة من <span class="math">+∞</span> إلى <span class="math">0</span>.
+            <br />- المنحنى يتقارب مع المستقيم <span class="math">x = 1</span> عمودياً ومحور الفواصل أفقياً. ويمر مثلاً بالنقطة <span class="math">(e, \frac{1}{4e}) ≈ (2.72, 0.09)</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- حساب مشتقة الدالة g:</strong>
+                <div class="math-equation">g'(x) = -\frac{(\ln x)'}{(\ln x)<sup>2</sup>} = -\frac{1/x}{(\ln x)<sup>2</sup>} = -\frac{1}{x(\ln x)<sup>2</sup>}</div>
+              </li>
+              <li><strong>ب- استنتاج الدوال الأصلية لـ f:</strong>
+                <br />نلاحظ أن: <span class="math">f(x) = \frac{1}{4x(\ln x)<sup>2</sup>} = -\frac{1}{4} \cdot \left( -\frac{1}{x(\ln x)<sup>2</sup>} \right) = -\frac{1}{4} g'(x)</span>.
+                <br />إذن مجموعة الدوال الأصلية للدالة <span class="math">f</span> على المجال <span class="math">]1, +∞[</span> هي:
+                <div class="math-equation">F(x) = -\frac{1}{4\ln x} + C \quad (C ∈ R)</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>أ- حساب قيمة التكامل I(a):</strong>
+                <div class="math-equation">I(a) = \int_{a}^{e} f(x) dx = \left[ -\frac{1}{4\ln x} \right]_{a}^{e} = -\frac{1}{4\ln e} - \left( -\frac{1}{4\ln a} \right) = -\frac{1}{4} + \frac{1}{4\ln a} = \frac{1 - \ln a}{4\ln a}</div>
+              </li>
+              <li><strong>ب- دراسة تقارب التكامل والتفسير الهندسي:</strong>
+                <br />- النهاية عندما تؤول <span class="math">a</span> إلى <span class="math">1<sup>+</sup></span>:
+                <br />بما أن <span class="math">lim<sub>a → 1<sup>+</sup></sub> \ln a = 0<sup>+</sup></span> فإن <span class="math">lim<sub>a → 1<sup>+</sup></sub> \frac{1}{4\ln a} = +∞</span>.
+                <br />إذن:
+                <div class="math-equation">lim<sub>a → 1<sup>+</sup></sub> I(a) = +∞</div>
+                وبالتالي فإن التكامل المعتل متباعد (Diverges).
+                <br />- <strong>التفسير الهندسي:</strong> بما أن الدالة موجبة تماماً على المجال <span class="math">]1, e]</span>، فإن المساحة المحصورة بين المنحنى <span class="math">C<sub>f</sub></span> ومحور الفواصل والمستقيمين <span class="math">x = a</span> و <span class="math">x = e</span> تؤول إلى اللانهاية عندما يقترب <span class="math">a</span> من المقارب العمودي <span class="math">x = 1</span>. أي أن المساحة المحصورة على المجال <span class="math">]1, e]</span> غير منتهية (Infinite Area).
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      fr: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Limites aux bornes :</strong>
+                <br />- En <span class="math">1<sup>+</sup></span> : comme <span class="math">lim<sub>x→1<sup>+</sup></sub> \ln x = 0<sup>+</sup></span>, on a <span class="math">lim<sub>x→1<sup>+</sup></sub> 4x(\ln x)<sup>2</sup> = 0<sup>+</sup></span>, donc :
+                <div class="math-equation">lim<sub>x→1<sup>+</sup></sub> f(x) = +∞</div>
+                - En <span class="math">+∞</span> : comme <span class="math">lim<sub>x→+∞</sub> 4x(\ln x)<sup>2</sup> = +∞</span>, on a :
+                <div class="math-equation">lim<sub>x→+∞</sub> f(x) = 0</div>
+              </li>
+              <li><strong>b- Asymptotes :</strong>
+                <br />- La droite d'équation <span class="math">x = 1</span> est une asymptote verticale à <span class="math">C<sub>f</sub></span>.
+                <br />- La droite d'équation <span class="math">y = 0</span> (l'axe des abscisses) est une asymptote horizontale à <span class="math">C<sub>f</sub></span> en <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Variations de f :</strong>
+            <br />La fonction <span class="math">f</span> est dérivable sur <span class="math">]1, +∞[</span>. Soit <span class="math">u(x) = 4x(\ln x)<sup>2</sup></span>. Sa dérivée est :
+            <div class="math-equation">u'(x) = 4\ln x (\ln x + 2)</div>
+            La dérivée de <span class="math">f</span> est :
+            <div class="math-equation">f'(x) = -\frac{u'(x)}{u(x)<sup>2</sup>} = -\frac{\ln x + 2}{4x<sup>2</sup>(\ln x)<sup>3</sup>}</div>
+            Pour tout <span class="math">x ∈ ]1, +∞[</span>, <span class="math">\ln x &gt; 0</span>, le dénominateur est strictement positif et le numérateur <span class="math">\ln x + 2 &gt; 0</span>, donc :
+            <div class="math-equation">f'(x) &lt; 0</div>
+            La fonction <span class="math">f</span> est strictement décroissante sur <span class="math">]1, +∞[</span>.
+          </li>
+          <li>
+            <strong>Tableau de variations et tracé :</strong>
+            <br />- Tableau de variations : la fonction décroît de <span class="math">+∞</span> à <span class="math">0</span>.
+            <br />- La courbe <span class="math">C<sub>f</sub></span> admet les asymptotes <span class="math">x = 1</span> et <span class="math">y = 0</span>, et passe par le point <span class="math">(e, \frac{1}{4e}) ≈ (2,72; 0,09)</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Dérivée de g :</strong>
+                <div class="math-equation">g'(x) = -\frac{1}{x(\ln x)<sup>2</sup>}</div>
+              </li>
+              <li><strong>b- Ensemble des primitives de f :</strong>
+                <br />On remarque que : <span class="math">f(x) = -\frac{1}{4} g'(x)</span>.
+                <br />Ainsi, les primitives de <span class="math">f</span> sur <span class="math">]1, +∞[</span> sont de la forme :
+                <div class="math-equation">F(x) = -\frac{1}{4\ln x} + C \quad (C ∈ R)</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Calcul de l'intégrale I(a) :</strong>
+                <div class="math-equation">I(a) = \int_{a}^{e} f(x) dx = \left[ -\frac{1}{4\ln x} \right]_{a}^{e} = -\frac{1}{4} + \frac{1}{4\ln a} = \frac{1 - \ln a}{4\ln a}</div>
+              </li>
+              <li><strong>b- Étude de convergence et interprétation géométrique :</strong>
+                <br />- Comme <span class="math">lim<sub>a → 1<sup>+</sup></sub> \ln a = 0<sup>+</sup></span>, on a <span class="math">lim<sub>a → 1<sup>+</sup></sub> \frac{1}{4\ln a} = +∞</span>, d'où :
+                <div class="math-equation">lim<sub>a → 1<sup>+</sup></sub> I(a) = +∞</div>
+                L'intégrale impropre est donc divergente.
+                <br />- <strong>Interprétation géométrique :</strong> Puisque la fonction f est strictement positive sur l'intervalle <span class="math">]1, e]</span>, l'aire de la région délimitée par la courbe <span class="math">C<sub>f</sub></span>, l'axe des abscisses et les droites x = a et x = e devient infinie lorsque a tend vers 1. Ainsi, l'aire sous la courbe sur l'intervalle semi-ouvert <span class="math">]1, e]</span> est infinie.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `,
+      en: `
+        <ol>
+          <li>
+            <ul>
+              <li><strong>a- Limits at the boundaries:</strong>
+                <br />- At <span class="math">1<sup>+</sup></span>: since <span class="math">lim<sub>x→1<sup>+</sup></sub> \ln x = 0<sup>+</sup></span>, we have <span class="math">lim<sub>x→1<sup>+</sup></sub> 4x(\ln x)<sup>2</sup> = 0<sup>+</sup></span>, so:
+                <div class="math-equation">lim<sub>x→1<sup>+</sup></sub> f(x) = +∞</div>
+                - At <span class="math">+∞</span>: since <span class="math">lim<sub>x→+∞</sub> x = +∞</span> and <span class="math">lim<sub>x→+∞</sub> \ln x = +∞</span>, we obtain:
+                <div class="math-equation">lim<sub>x→+∞</sub> f(x) = 0</div>
+              </li>
+              <li><strong>b- Asymptotes:</strong>
+                <br />- The line with equation <span class="math">x = 1</span> is a vertical asymptote to <span class="math">C<sub>f</sub></span>.
+                <br />- The line with equation <span class="math">y = 0</span> (the x-axis) is a horizontal asymptote to <span class="math">C<sub>f</sub></span> at <span class="math">+∞</span>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Variations of f:</strong>
+            <br />The function <span class="math">f</span> is differentiable on <span class="math">]1, +∞[</span>. Let <span class="math">u(x) = 4x(\ln x)<sup>2</sup></span>. Its derivative is:
+            <div class="math-equation">u'(x) = 4\ln x (\ln x + 2)</div>
+            The derivative of <span class="math">f</span> is given by:
+            <div class="math-equation">f'(x) = -\frac{u'(x)}{u(x)<sup>2</sup>} = -\frac{\ln x + 2}{4x<sup>2</sup>(\ln x)<sup>3</sup>}</div>
+            For all <span class="math">x ∈ ]1, +∞[</span>, <span class="math">\ln x &gt; 0</span>, the denominator is strictly positive and the numerator <span class="math">\ln x + 2 &gt; 0</span>, so:
+            <div class="math-equation">f'(x) &lt; 0</div>
+            Therefore, the function <span class="math">f</span> is strictly decreasing on <span class="math">]1, +∞[</span>.
+          </li>
+          <li>
+            <strong>Table of variations and plot:</strong>
+            <br />- Table of variations: the function decreases from <span class="math">+∞</span> to <span class="math">0</span>.
+            <br />- The curve <span class="math">C<sub>f</sub></span> approaches the asymptotes <span class="math">x = 1</span> and <span class="math">y = 0</span> and passes through <span class="math">(e, \frac{1}{4e}) ≈ (2.72, 0.09)</span>.
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Derivative of g:</strong>
+                <div class="math-equation">g'(x) = -\frac{1}{x(\ln x)<sup>2</sup>}</div>
+              </li>
+              <li><strong>b- Set of antiderivatives of f:</strong>
+                <br />We notice that: <span class="math">f(x) = -\frac{1}{4} g'(x)</span>.
+                <br />Thus, the antiderivatives of <span class="math">f</span> on <span class="math">]1, +∞[</span> are:
+                <div class="math-equation">F(x) = -\frac{1}{4\ln x} + C \quad (C ∈ R)</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><strong>a- Computing the integral I(a):</strong>
+                <div class="math-equation">I(a) = \int_{a}^{e} f(x) dx = \left[ -\frac{1}{4\ln x} \right]_{a}^{e} = -\frac{1}{4} + \frac{1}{4\ln a} = \frac{1 - \ln a}{4\ln a}</div>
+              </li>
+              <li><strong>b- Convergence study and geometric interpretation:</strong>
+                <br />- Since <span class="math">lim<sub>a → 1<sup>+</sup></sub> \ln a = 0<sup>+</sup></span>, we have <span class="math">lim<sub>a → 1<sup>+</sup></sub> \frac{1}{4\ln a} = +∞</span>, thus:
+                <div class="math-equation">lim<sub>a → 1<sup>+</sup></sub> I(a) = +∞</div>
+                The improper integral is divergent.
+                <br />- <strong>Geometric interpretation:</strong> Since f is strictly positive on the interval <span class="math">]1, e]</span>, the area of the region bounded by the curve <span class="math">C<sub>f</sub></span>, the x-axis, and the vertical lines x = a and x = e approaches infinity as a tends to 1. Thus, the total area under the curve on the interval <span class="math">]1, e]</span> is infinite.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      `
+    }
+  }
+];
+
+function renderDeepExerciseItem(exercise, index) {
+  const key = `deep-exercise-${index}`;
+  const isOpen = state.openSolutions[key];
+  const lang = state?.language || "ar";
+  const title = exercise.title[lang] || exercise.title.ar;
+  const statementHtml = exercise.statementHtml[lang] || exercise.statementHtml.ar;
+  const solutionHtml = exercise.solutionHtml[lang] || exercise.solutionHtml.ar;
+  return `
+    <article class="declic-exercise-item">
+      <header class="declic-exercise-head">
+        <span>${t("ui.deepExercise")} ${index + 1}</span>
+        <h3>${title}</h3>
+      </header>
+      <div class="exercise-statement declic-exercise-statement">${statementHtml}</div>
+      <button class="solution-toggle declic-solution-toggle" type="button" data-solution-key="${key}">
+        ${isOpen ? t("ui.hideSolution") : t("ui.showSolution")}
+      </button>
+      <section class="solution-panel declic-solution-panel ${isOpen ? "active" : ""}" data-solution-panel="${key}">
+        ${solutionHtml}
+      </section>
+    </article>
+  `;
+}
+
 function renderDeclicExerciseItem(exercise, index) {
   const key = `declic-exercise-${index}`;
   const isOpen = state.openSolutions[key];
@@ -5030,7 +10525,10 @@ function renderExercises() {
   }
 
   if (deepGrid) {
-    deepGrid.innerHTML = renderExerciseDoorPlaceholder(t("ui.deepLabel"), t("ui.deepPlaceholderTitle"), t("ui.deepPlaceholderDesc"));
+    deepGrid.innerHTML = deepExercises.length
+      ? deepExercises.map((exercise, index) => renderDeepExerciseItem(exercise, index)).join("")
+      : renderExerciseDoorPlaceholder(t("ui.deepLabel"), t("ui.deepPlaceholderTitle"), t("ui.deepPlaceholderDesc"));
+    enhanceMathTypography(deepGrid);
   }
 
   if (declicGrid) {
@@ -9533,7 +15031,7 @@ function normalizeMathSource(text) {
     .replace(/\\times/g, "×")
     .replace(/\\left/g, "")
     .replace(/\\right/g, "")
-    .replace(/->/g, "→")
+    .replace(/->/g, "→").replace(/\\vec\s*\{\s*([A-Za-z])\s*\}/g, "$1\u20d7").replace(/\\vec\s*([A-Za-z])/g, "$1\u20d7")
     .replace(/-\s*∞/g, "−∞");
 }
 
@@ -9837,7 +15335,7 @@ function bindEvents() {
     if (solutionToggle) {
       const key = solutionToggle.dataset.solutionKey;
       state.openSolutions[key] = !state.openSolutions[key];
-      if (solutionToggle.closest("#schoolExerciseGrid") || solutionToggle.closest("#declicExerciseGrid") || solutionToggle.closest("#exerciseGrid")) {
+      if (solutionToggle.closest("#schoolExerciseGrid") || solutionToggle.closest("#declicExerciseGrid") || solutionToggle.closest("#deepExerciseGrid") || solutionToggle.closest("#exerciseGrid")) {
         renderExercises();
       } else if (solutionToggle.closest("#solvedList")) {
         renderSolved();
@@ -9939,9 +15437,10 @@ function initSplash() {
 function syncBacFrameLanguage(language = state?.language || getSavedLanguage()) {
   const frame = document.getElementById("bacFrame");
   if (!frame) return;
-  const url = new URL("bac-exercises.html?embed=1&v=22", window.location.href);
+  const url = new URL(frame.dataset.src || "bac-exercises.html?embed=1&v=23", window.location.href);
   url.searchParams.set("lang", language);
   const nextSrc = `${url.pathname.split("/").pop()}?${url.searchParams.toString()}`;
+  frame.dataset.src = nextSrc;
   if (frame.getAttribute("src") !== nextSrc) frame.setAttribute("src", nextSrc);
 }
 
@@ -9955,7 +15454,7 @@ function initIframeResizer() {
     if (event.data?.type !== "ayla-iframe-height") return;
     const height = Math.ceil(Number(event.data.height));
     if (!Number.isFinite(height) || height < 320) return;
-    const nextHeight = `${Math.min(Math.max(height, 620), 1800)}px`;
+    const nextHeight = `${Math.max(height + 24, 620)}px`;
     frame.style.height = nextHeight;
     frame.parentElement?.style.setProperty("height", nextHeight);
   });
@@ -9972,6 +15471,7 @@ function renderAll() {
   renderProgress();
   updateHome();
   applyUiTranslations();
+  applyLanguageVisibility();
   enhanceMathTypography();
 }
 
@@ -10031,3 +15531,6 @@ initIframeResizer();
 
 
 
+
+window.__aylaAppReady = true;
+window.setLanguage = setLanguage;

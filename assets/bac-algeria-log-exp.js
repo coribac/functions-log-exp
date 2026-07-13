@@ -193,6 +193,193 @@ window.bacAlgeriaExams = [
       `
     }
   },
+
+  {
+    id: "tunisia-2019-math-normal",
+    title: {
+      ar: "بكالوريا أجنبي - تونس 2019 - رياضيات الدورة العادية",
+      fr: "Baccalauréat Tunisie 2019 - Mathématiques - Session normale",
+      en: "Tunisia 2019 baccalaureate - Mathematics - Normal session"
+    },
+    branch: "math",
+    year: "2019",
+    date: "2019",
+    source: "user-image",
+    file: "",
+    tags: ["foreign", "tunisia", "normal", "math", "inverse-function", "integration", "sequences", "ln"],
+    summary: {
+      ar: "موضوع تونس 2019 رياضيات الدورة العادية: دالة f(x)=sqrt(1-e^(-x))، الدالة العكسية، مساحة بين منحنيين، ومتتالية مجموعية مرتبطة بلوغارتم.",
+      fr: "Sujet Tunisie 2019 mathématiques, session normale : fonction réciproque, intégrale, aire et suite.",
+      en: "Tunisia 2019 mathematics normal session: inverse function, integral, area and sequence."
+    },
+    statement: {
+      ar: `
+      <section class="statement-block">
+        <h3>بكالوريا تونس 2019 - رياضيات - الدورة العادية</h3>
+        <p>نعتبر الدالة <span class="math-inline">f</span> المعرفة على <span class="math-inline">[0,+&infin;[</span> بـ:</p>
+        <p><span class="math-line">f(x)=&radic;(1-e<sup>-x</sup>)</span></p>
+        <ol>
+          <li>
+            <strong>أ)</strong> بين أن <span class="math-inline">f</span> تملك دالة عكسية <span class="math-inline">g</span> معرفة على <span class="math-inline">[0,1[</span>.<br>
+            <strong>ب)</strong> بين أنه من أجل كل <span class="math-inline">x&in;[0,1[</span>: <span class="math-line">g(x)=-ln(1-x<sup>2</sup>)</span>.<br>
+            <strong>ج)</strong> بين أن المعادلة <span class="math-inline">g(x)=x</span> تقبل حلا <span class="math-inline">&alpha;</span> في <span class="math-inline">[0.7,0.8]</span>.<br>
+            <strong>د)</strong> في الملحق رسم منحنى <span class="math-inline">C</span> للدالة <span class="math-inline">f</span> والمنصف الأول <span class="math-inline">&Delta;</span> والنقطة <span class="math-inline">A(&alpha;,&alpha;)</span>. نرمز بـ <span class="math-inline">C'</span> لمنحنى <span class="math-inline">g</span>. ارسم <span class="math-inline">C'</span> في نفس المعلم.
+          </li>
+          <li>
+            لتكن <span class="math-inline">&phi;</span> المعرفة على <span class="math-inline">[0,1[</span> بـ:
+            <span class="math-line">&phi;(x)=&int;<sub>0</sub><sup>g(x)</sup>f(t)dt</span>
+            <br><strong>أ)</strong> بين أن <span class="math-inline">&phi;</span> قابلة للاشتقاق وأن <span class="math-line">&phi;'(x)=2x<sup>2</sup>/(1-x<sup>2</sup>)</span>.<br>
+            <strong>ب)</strong> عين <span class="math-inline">a,b,c</span> بحيث <span class="math-line">2x<sup>2</sup>/(1-x<sup>2</sup>)=a+b/(1+x)+c/(1-x)</span>.<br>
+            <strong>ج)</strong> استنتج <span class="math-line">&phi;(x)=-2x+ln((1+x)/(1-x))</span>.<br>
+            <strong>د)</strong> إذا كانت <span class="math-inline">A</span> مساحة الحيز بين <span class="math-inline">C</span> و <span class="math-inline">C'</span> والمستقيمين <span class="math-inline">x=0</span> و <span class="math-inline">x=&alpha;</span>، بين أن <span class="math-line">A=2(&phi;(&alpha;)-&alpha;<sup>2</sup>/2)</span>.
+          </li>
+          <li>
+            لتكن المتتالية <span class="math-inline">u_n</span> المعرفة بـ:
+            <span class="math-line">u_n=&sum;<sub>k=1</sub><sup>n</sup>1/(k3<sup>k</sup>)</span>
+            ونضع من أجل <span class="math-inline">t&in;[0,1[</span>:
+            <span class="math-line">S_n(t)=2&sum;<sub>k=1</sub><sup>n</sup>t<sup>2k-1</sup></span>
+            <br><strong>أ)</strong> بين أن <span class="math-line">&int;<sub>0</sub><sup>&radic;3/3</sup>S_n(t)dt=u_n</span>.<br>
+            <strong>ب)</strong> بين أن <span class="math-line">S_n(t)=(1-t<sup>2n</sup>)g'(t)</span>.<br>
+            <strong>ج)</strong> بين أن <span class="math-line">(1-1/3<sup>n</sup>)g'(t)≤S_n(t)≤g'(t)</span> على <span class="math-inline">[0,&radic;3/3]</span>.<br>
+            <strong>د)</strong> استنتج <span class="math-line">(1-1/3<sup>n</sup>)g(&radic;3/3)≤u_n≤g(&radic;3/3)</span>.
+          </li>
+          <li>بين أن <span class="math-inline">u_n</span> متقاربة وحدد نهايتها.</li>
+        </ol>
+      </section>
+      `,
+      fr: `
+      <section class="statement-block" dir="ltr">
+        <h3>Baccalauréat Tunisie 2019 - Mathématiques - Session normale</h3>
+        <p>On considère la fonction <span class="math-inline">f</span> définie sur <span class="math-inline">[0,+&infin;[</span> par <span class="math-line">f(x)=&radic;(1-e<sup>-x</sup>)</span>.</p>
+        <ol>
+          <li>Montrer que <span class="math-inline">f</span> possède une réciproque <span class="math-inline">g</span> définie sur <span class="math-inline">[0,1[</span>, que <span class="math-inline">g(x)=-ln(1-x<sup>2</sup>)</span>, puis traiter l'intersection <span class="math-inline">g(x)=x</span> sur <span class="math-inline">[0.7,0.8]</span>.</li>
+          <li>Pour <span class="math-inline">&phi;(x)=&int;<sub>0</sub><sup>g(x)</sup>f(t)dt</span>, établir la dérivée, la décomposition rationnelle, l'expression de <span class="math-inline">&phi;</span>, puis l'aire entre les courbes.</li>
+          <li>Étudier la suite <span class="math-inline">u_n=&sum;1/(k3<sup>k</sup>)</span> à l'aide de <span class="math-inline">S_n(t)=2&sum;t<sup>2k-1</sup></span>.</li>
+        </ol>
+      </section>
+      `,
+      en: `
+      <section class="statement-block" dir="ltr">
+        <h3>Tunisia 2019 - Mathematics - Normal session</h3>
+        <p>Inverse function, integral area and sequence problem based on <span class="math-inline">f(x)=sqrt(1-e^{-x})</span>.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا تونس 2019 - رياضيات - الدورة العادية</h3>
+        <h4>1) الدالة العكسية</h4>
+        <ol>
+          <li>الدالة <span class="math-inline">f(x)=&radic;(1-e<sup>-x</sup>)</span> متزايدة على <span class="math-inline">[0,+&infin;[</span> لأن <span class="math-inline">1-e<sup>-x</sup></span> متزايدة والجذر متزايد. كما أن <span class="math-inline">f(0)=0</span> و <span class="math-inline">lim f(x)=1</span>، لذلك تقبل عكسية <span class="math-inline">g</span> من <span class="math-inline">[0,1[</span> إلى <span class="math-inline">[0,+&infin;[</span>.</li>
+          <li>إذا <span class="math-inline">y=f(x)</span> فإن <span class="math-inline">y<sup>2</sup>=1-e<sup>-x</sup></span>، ومنه <span class="math-inline">e<sup>-x</sup>=1-y<sup>2</sup></span>، وبالتالي <span class="math-line">x=-ln(1-y<sup>2</sup>)</span>. إذن <span class="math-line">g(x)=-ln(1-x<sup>2</sup>)</span>.</li>
+          <li>نضع <span class="math-inline">H(x)=g(x)-x</span>. لدينا <span class="math-inline">H(0.7)&lt;0</span> و <span class="math-inline">H(0.8)&gt;0</span>، ومع الاستمرارية توجد قيمة <span class="math-inline">&alpha;&in;[0.7,0.8]</span> تحقق <span class="math-inline">g(&alpha;)=&alpha;</span>.</li>
+          <li>منحنى <span class="math-inline">C'</span> هو صورة منحنى <span class="math-inline">C</span> بالتماثل حول المنصف الأول <span class="math-inline">y=x</span>.</li>
+        </ol>
+        <h4>2) الدالة &phi; والمساحة</h4>
+        <ol>
+          <li>بما أن <span class="math-inline">f(g(x))=x</span> و <span class="math-inline">g'(x)=2x/(1-x<sup>2</sup>)</span>، فإن <span class="math-line">&phi;'(x)=f(g(x))g'(x)=2x<sup>2</sup>/(1-x<sup>2</sup>)</span>.</li>
+          <li><span class="math-line">2x<sup>2</sup>/(1-x<sup>2</sup>)=-2+1/(1+x)+1/(1-x)</span>، لذلك <span class="math-inline">a=-2</span> و <span class="math-inline">b=c=1</span>.</li>
+          <li>بالتكامل ومع <span class="math-inline">&phi;(0)=0</span>: <span class="math-line">&phi;(x)=-2x+ln((1+x)/(1-x))</span>.</li>
+          <li>المساحة بين منحنى الدالة ومنحنى عكسها حتى نقطة التقاطع <span class="math-inline">A(&alpha;,&alpha;)</span> هي <span class="math-line">A=2(&phi;(&alpha;)-&alpha;<sup>2</sup>/2)</span>.</li>
+        </ol>
+        <h4>3) المتتالية</h4>
+        <ol>
+          <li><span class="math-line">&int;<sub>0</sub><sup>&radic;3/3</sup>2t<sup>2k-1</sup>dt=(1/k)(1/3)<sup>k</sup></span>، وبالجمع نحصل على <span class="math-line">&int;<sub>0</sub><sup>&radic;3/3</sup>S_n(t)dt=u_n</span>.</li>
+          <li><span class="math-inline">S_n(t)=2t(1-t<sup>2n</sup>)/(1-t<sup>2</sup>)</span>، و <span class="math-inline">g'(t)=2t/(1-t<sup>2</sup>)</span>، إذن <span class="math-line">S_n(t)=(1-t<sup>2n</sup>)g'(t)</span>.</li>
+          <li>على <span class="math-inline">[0,&radic;3/3]</span> لدينا <span class="math-inline">t<sup>2n</sup>≤1/3<sup>n</sup></span>، ومنه <span class="math-line">(1-1/3<sup>n</sup>)g'(t)≤S_n(t)≤g'(t)</span>.</li>
+          <li>بالتكامل: <span class="math-line">(1-1/3<sup>n</sup>)g(&radic;3/3)≤u_n≤g(&radic;3/3)</span>.</li>
+          <li>بما أن الطرفين يتقاربان إلى <span class="math-inline">g(&radic;3/3)</span>، فإن <span class="math-inline">u_n</span> متقاربة و <span class="math-line">lim u_n=g(&radic;3/3)=-ln(1-1/3)=ln(3/2)</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
+    }
+  },
+
+  {
+    id: "tunisia-2019-math-retake",
+    title: {
+      ar: "بكالوريا أجنبي - تونس 2019 - رياضيات دورة الاستدراك",
+      fr: "Baccalauréat Tunisie 2019 - Mathématiques - Session de contrôle",
+      en: "Tunisia 2019 baccalaureate - Mathematics - Retake session"
+    },
+    branch: "math",
+    year: "2019",
+    date: "2019-retake",
+    source: "user-image",
+    file: "",
+    tags: ["foreign", "tunisia", "retake", "math", "exp", "inverse-function", "inflection", "integral", "volume"],
+    summary: {
+      ar: "موضوع تونس 2019 رياضيات دورة الاستدراك: دراسة g(x)=e^(-1/x²)، العكس، نقطتا الانعطاف، ودالة حجم تكاملي.",
+      fr: "Tunisie 2019 mathématiques, session de contrôle : étude de g(x)=e^(-1/x²), réciproque, inflexions et volume intégral.",
+      en: "Tunisia 2019 mathematics retake: study of g(x)=e^(-1/x²), inverse, inflection points and integral volume."
+    },
+    statement: {
+      ar: `
+      <section class="statement-block">
+        <h3>بكالوريا تونس 2019 - رياضيات - دورة الاستدراك</h3>
+        <p>لتكن الدالة <span class="math-inline">g</span> المعرفة على <span class="math-inline">R</span> بـ:</p>
+        <p><span class="math-line">g(x)=e<sup>-1/x<sup>2</sup></sup> إذا x&ne;0، و g(0)=0</span></p>
+        <ol>
+          <li><strong>أ)</strong> بين أن <span class="math-inline">g</span> مستمرة على <span class="math-inline">R</span>.<br><strong>ب)</strong> ادرس زوجية <span class="math-inline">g</span> وفسر ذلك بيانيا.</li>
+          <li><strong>أ)</strong> احسب <span class="math-inline">lim<sub>x&rarr;0</sub> g(x)/x</span> واستنتج قابلية الاشتقاق عند الصفر.<br><strong>ب)</strong> بين أن <span class="math-inline">g</span> قابلة للاشتقاق على <span class="math-inline">R*</span> وأن <span class="math-line">g'(x)=2g(x)/x<sup>3</sup></span>.<br><strong>ج)</strong> شكل جدول تغيرات <span class="math-inline">g</span>.<br><strong>د)</strong> بين أن <span class="math-inline">g</span> تحقق تقابلا من <span class="math-inline">[0,+&infin;[</span> إلى <span class="math-inline">[0,1[</span>.<br><strong>هـ)</strong> عين <span class="math-inline">g<sup>-1</sup>(x)</span> من أجل <span class="math-inline">x&in;[0,1[</span>.</li>
+          <li><strong>أ)</strong> بين أن المنحنى يقبل نقطتي انعطاف <span class="math-inline">A</span> و <span class="math-inline">B</span> وحددهما، حيث <span class="math-inline">A</span> ذات فاصلة موجبة.<br><strong>ب)</strong> باستعمال المنحنيين <span class="math-inline">y=e<sup>x</sup></span> و <span class="math-inline">y=x<sup>2</sup></span>، أنشئ النقطتين <span class="math-inline">A</span> و <span class="math-inline">B</span> وارسم منحنى <span class="math-inline">g</span>.</li>
+          <li>لتكن <span class="math-inline">f</span> معرفة على <span class="math-inline">[0,+&infin;[</span> بـ <span class="math-inline">f(x)=g<sup>2</sup>(x)</span>. علل أن <span class="math-inline">f</span> متزايدة.</li>
+          <li>من أجل <span class="math-inline">n≥2</span> نضع <span class="math-line">V(n)=&pi;&int;<sub>0</sub><sup>n</sup>f(t)dt</span>. فسر هندسيا <span class="math-inline">V(n)</span>، ثم بين <span class="math-inline">V(n)&rarr;+&infin;</span>، و <span class="math-inline">V(n)≤n&pi;</span>، وحدد <span class="math-inline">lim V(n)/(n+1)</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `
+      <section class="statement-block" dir="ltr">
+        <h3>Baccalauréat Tunisie 2019 - Mathématiques - Session de contrôle</h3>
+        <p>Soit <span class="math-inline">g(x)=e<sup>-1/x²</sup></span> si <span class="math-inline">x≠0</span> et <span class="math-inline">g(0)=0</span>. Étude de continuité, parité, dérivée, réciproque, points d'inflexion, puis volume <span class="math-inline">V(n)=π∫₀ⁿ f(t)dt</span> avec <span class="math-inline">f=g²</span>.</p>
+      </section>
+      `,
+      en: `
+      <section class="statement-block" dir="ltr">
+        <h3>Tunisia 2019 - Mathematics - Retake session</h3>
+        <p>Study of <span class="math-inline">g(x)=e^{-1/x²}</span>, inverse function, inflection points and integral volume.</p>
+      </section>
+      `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا تونس 2019 - رياضيات - دورة الاستدراك</h3>
+        <h4>1) الاستمرارية والزوجية</h4>
+        <ol>
+          <li>على <span class="math-inline">R*</span> الدالة أسية مركبة فهي مستمرة. وعند الصفر: عندما <span class="math-inline">x&rarr;0</span> فإن <span class="math-inline">-1/x<sup>2</sup>&rarr;-&infin;</span>، ومنه <span class="math-inline">e<sup>-1/x<sup>2</sup></sup>&rarr;0=g(0)</span>. إذن <span class="math-inline">g</span> مستمرة على <span class="math-inline">R</span>.</li>
+          <li><span class="math-inline">g(-x)=e<sup>-1/(-x)<sup>2</sup></sup>=g(x)</span> و <span class="math-inline">g(0)=0</span>، إذن <span class="math-inline">g</span> زوجية ومنحناها متماثل بالنسبة إلى محور التراتيب.</li>
+        </ol>
+        <h4>2) الاشتقاق والتغيرات والعكس</h4>
+        <ol>
+          <li><span class="math-inline">g(x)/x=e<sup>-1/x<sup>2</sup></sup>/x</span> ونهايتها عند الصفر تساوي <span class="math-inline">0</span> لأن الأسية تغلب كل قوة. إذن <span class="math-inline">g</span> قابلة للاشتقاق في الصفر و <span class="math-inline">g'(0)=0</span>.</li>
+          <li>من أجل <span class="math-inline">x&ne;0</span>: <span class="math-line">g'(x)=e<sup>-1/x<sup>2</sup></sup>·(2/x<sup>3</sup>)=2g(x)/x<sup>3</sup></span>.</li>
+          <li>بما أن <span class="math-inline">g(x)&gt;0</span> على <span class="math-inline">R*</span>، فإن إشارة <span class="math-inline">g'</span> هي إشارة <span class="math-inline">x</span>: متناقصة على <span class="math-inline">]-&infin;,0]</span> ومتزايدة على <span class="math-inline">[0,+&infin;[</span>. كما أن <span class="math-inline">lim<sub>|x|&rarr;+&infin;</sub>g(x)=1</span>.</li>
+          <li>على <span class="math-inline">[0,+&infin;[</span>، <span class="math-inline">g</span> مستمرة ومتزايدة من <span class="math-inline">0</span> إلى <span class="math-inline">1</span> غير مدركة، لذلك تحقق تقابلا من <span class="math-inline">[0,+&infin;[</span> إلى <span class="math-inline">[0,1[</span>.</li>
+          <li>إذا <span class="math-inline">y=e<sup>-1/x<sup>2</sup></sup></span> و <span class="math-inline">x≥0</span>، فإن <span class="math-inline">ln y=-1/x<sup>2</sup></span>، ومنه <span class="math-line">g<sup>-1</sup>(y)=1/&radic;(-ln y)</span> من أجل <span class="math-inline">0&lt;y&lt;1</span>، ومع <span class="math-inline">g<sup>-1</sup>(0)=0</span>.</li>
+        </ol>
+        <h4>3) الانعطاف والرسم</h4>
+        <ol>
+          <li>لـ <span class="math-inline">x&ne;0</span>: <span class="math-line">g''(x)=2g(x)(2-3x<sup>2</sup>)/x<sup>6</sup></span>. تتغير إشارة <span class="math-inline">g''</span> عند <span class="math-inline">x=±&radic;(2/3)</span>.</li>
+          <li>إذن نقطتا الانعطاف هما <span class="math-line">A(&radic;(2/3), e<sup>-3/2</sup>)</span> و <span class="math-line">B(-&radic;(2/3), e<sup>-3/2</sup>)</span>.</li>
+        </ol>
+        <h4>4) الدالة f والحجم</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=g<sup>2</sup>(x)</span>. على <span class="math-inline">[0,+&infin;[</span> لدينا <span class="math-inline">g</span> متزايدة وموجبة، إذن <span class="math-inline">f</span> متزايدة.</li>
+          <li><span class="math-inline">V(n)=&pi;&int;<sub>0</sub><sup>n</sup>f(t)dt</span> يمثل حجم المجسم الناتج عن دوران الحيز تحت منحنى <span class="math-inline">f</span> بين <span class="math-inline">0</span> و <span class="math-inline">n</span> حول محور الفواصل.</li>
+          <li>واضح أن <span class="math-inline">V(n)≥&pi;&int;<sub>1</sub><sup>n</sup>f(t)dt</span>. وبما أن <span class="math-inline">f(t)&rarr;1</span>، فإن التكامل يكبر بلا حد، ومنه <span class="math-inline">V(n)&rarr;+&infin;</span>.</li>
+          <li>لأن <span class="math-inline">0≤f(t)&lt;1</span> نحصل على <span class="math-inline">V(n)≤n&pi;</span>.</li>
+          <li>بما أن <span class="math-inline">f(t)&rarr;1</span>، فإن متوسطها التكاملي يحقق <span class="math-inline">(1/n)&int;<sub>0</sub><sup>n</sup>f(t)dt&rarr;1</span>. إذن <span class="math-line">lim V(n)/(n+1)=&pi;</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
+    }
+  },
   {
     id: "morocco-2012-science-normal",
     title: {
@@ -3927,7 +4114,27 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2023 - رياضيات - الموضوع الأول</h3>
+        <h4>النهايات والمقارب</h4>
+        <ol>
+          <li>لدينا <span class="math-inline">f(x)=x+1-3xe<sup>2x</sup></span>. عند <span class="math-inline">-&infin;</span> يكون <span class="math-inline">xe<sup>2x</sup>&rarr;0</span> ومنه <span class="math-inline">f(x)&rarr;-&infin;</span>. وعند <span class="math-inline">+&infin;</span> يغلب الحد <span class="math-inline">-3xe<sup>2x</sup></span>، إذن <span class="math-inline">f(x)&rarr;-&infin;</span>.</li>
+          <li><span class="math-inline">f(x)-(x+1)=-3xe<sup>2x</sup>&rarr;0</span> عند <span class="math-inline">-&infin;</span>، إذن <span class="math-inline">&Delta;:y=x+1</span> مقارب مائل. والمنحنى فوقه إذا <span class="math-inline">x&lt;0</span> وتحته إذا <span class="math-inline">x&gt;0</span>.</li>
+        </ol>
+        <h4>التغيرات والمماس</h4>
+        <ol>
+          <li><span class="math-inline">f'(x)=1-3(1+2x)e<sup>2x</sup>=g(-x)</span>. إذا كان <span class="math-inline">&alpha;</span> حل <span class="math-inline">g(x)=0</span>، فإن <span class="math-inline">f</span> متزايدة على <span class="math-inline">]-&infin;,-&alpha;]</span> ومتناقصة على <span class="math-inline">[-&alpha;,+&infin;[</span>، وقيمتها العظمى <span class="math-inline">f(-&alpha;)=1.2</span>.</li>
+          <li>المماس الموازي لـ <span class="math-inline">&Delta;</span> يحقق <span class="math-inline">f'(x)=1</span>، ومنه <span class="math-inline">x=-1/2</span>. بما أن <span class="math-inline">f(-1/2)=1/2+3/(2e)</span> فمعادلته <span class="math-line">T:y=x+1+3/(2e)</span>.</li>
+          <li><span class="math-inline">f(x)=x+m</span> تكافئ <span class="math-inline">1-3xe<sup>2x</sup>=m</span>. عدد الحلول يقرأ من تغيرات هذه الدالة، فنحصل على حلين بالضبط عندما <span class="math-line">1&lt;m&lt;1+3/(2e)</span>.</li>
+        </ol>
+        <h4>التكامل والمساحة</h4>
+        <ol>
+          <li><span class="math-line">∫xe<sup>2x</sup>dx=e<sup>2x</sup>(x/2-1/4)</span>، ومنه <span class="math-line">∫<sub>-&alpha;</sub><sup>0</sup>xe<sup>2x</sup>dx=-1/4+e<sup>-2&alpha;</sup>(&alpha;/2+1/4)</span>.</li>
+          <li>المساحة هي <span class="math-inline">4∫<sub>-&alpha;</sub><sup>0</sup>-3xe<sup>2x</sup>dx</span> لأن وحدة الطول <span class="math-inline">2cm</span>. وباستعمال علاقة <span class="math-inline">g(&alpha;)=0</span>: <span class="math-line">A=2(4&alpha;-1)/(2&alpha;-1) cm<sup>2</sup></span>.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -4024,7 +4231,28 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2023 - رياضيات - الموضوع الثاني</h3>
+        <h4>الدالة المساعدة ودراسة f</h4>
+        <ol>
+          <li><span class="math-inline">g(x)=(x-3)lnx+x</span>، ومنه <span class="math-line">g'(x)=lnx+2-3/x</span> و <span class="math-line">g''(x)=(x+3)/x<sup>2</sup>&gt;0</span>. إذن <span class="math-inline">g'</span> متزايدة، و <span class="math-inline">g'(x)=0</span> تقبل حلا وحيدا <span class="math-inline">&alpha;</span> حيث <span class="math-inline">1.3&lt;&alpha;&lt;1.4</span>.</li>
+          <li>بما أن القيمة الصغرى <span class="math-inline">g(&alpha;)=0.85&gt;0</span>، فإن <span class="math-inline">g(x)&gt;0</span> لكل <span class="math-inline">x&gt;0</span>.</li>
+          <li>نكتب <span class="math-inline">f(x)=(x-3/2lnx)lnx</span>. عند <span class="math-inline">0<sup>+</sup></span>: <span class="math-inline">f(x)&rarr;-&infin;</span>، وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;+&infin;</span>. كما أن <span class="math-line">f'(x)=lnx+1-3lnx/x=g(x)/x&gt;0</span>، إذن <span class="math-inline">f</span> متزايدة تماما.</li>
+        </ol>
+        <h4>المماسان والمناقشة</h4>
+        <ol>
+          <li><span class="math-inline">f'(x)=1</span> تكافئ <span class="math-inline">(x-3)lnx=0</span>، ومنه <span class="math-inline">x=1</span> أو <span class="math-inline">x=3</span>.</li>
+          <li>عند <span class="math-inline">x=1</span>: <span class="math-line">T:y=x-1</span>. وعند <span class="math-inline">x=3</span>: <span class="math-line">T':y=x-3+3ln3-3/2(ln3)<sup>2</sup></span>.</li>
+          <li>إذا وضعنا <span class="math-inline">q(x)=f(x)-x</span> فإن <span class="math-line">q'(x)=(x-3)lnx/x</span>. ومنه تقبل <span class="math-inline">f(x)=x+m</span> ثلاثة حلول بالضبط عندما <span class="math-line">-3+3ln3-3/2(ln3)<sup>2</sup>&lt;m&lt;-1</span>.</li>
+        </ol>
+        <h4>الأصلية والمساحة</h4>
+        <ol>
+          <li>باشتقاق <span class="math-inline">F</span> المعطاة نجد <span class="math-inline">F'(x)=xlnx-3/2(lnx)<sup>2</sup>=f(x)</span>.</li>
+          <li>المساحة بين <span class="math-inline">x=1</span> و <span class="math-inline">x=e</span> هي <span class="math-line">A=4(F(e)-F(1))</span>. وبما أن <span class="math-inline">F(e)=e<sup>2</sup>/4-3e/2</span> و <span class="math-inline">F(1)=-13/4</span>، فإن <span class="math-line">A=e<sup>2</sup>-6e+13 cm<sup>2</sup></span>.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -4111,7 +4339,29 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2022 - رياضيات - الموضوع الأول</h3>
+        <h4>النهايات والتغيرات</h4>
+        <ol>
+          <li>عند <span class="math-inline">-&infin;</span> لدينا <span class="math-inline">e<sup>x</sup>&rarr;0</span> و <span class="math-inline">f(x)~ -x</span>، إذن <span class="math-inline">f(x)&rarr;+&infin;</span>. وعند <span class="math-inline">1<sup>-</sup></span> يكون البسط <span class="math-inline">e-1&gt;0</span> والمقام <span class="math-inline">x-1&rarr;0<sup>-</sup></span>، إذن <span class="math-inline">f(x)&rarr;-&infin;</span>.</li>
+          <li>من أجل <span class="math-inline">x≤0</span>، الدالة <span class="math-inline">e<sup>x</sup>-x</span> موجبة. ومن أجل <span class="math-inline">0&lt;x&lt;1</span> لدينا أيضا <span class="math-inline">e<sup>x</sup>&gt;x</span>. إذن <span class="math-inline">e<sup>x</sup>-x&gt;0</span> على المجال كله.</li>
+          <li><span class="math-line">f'(x)=((x-2)(e<sup>x</sup>-x))/(x-1)<sup>2</sup></span>. وبما أن <span class="math-inline">x-2&lt;0</span> و <span class="math-inline">e<sup>x</sup>-x&gt;0</span>، فإن <span class="math-inline">f'(x)&lt;0</span>. إذن <span class="math-inline">f</span> متناقصة تماما من <span class="math-inline">+&infin;</span> إلى <span class="math-inline">-&infin;</span>.</li>
+        </ol>
+        <h4>المقارب والمماس</h4>
+        <ol>
+          <li><span class="math-inline">f(x)+x+1=(e<sup>x</sup>-1)/(x-1)</span>، ومنه <span class="math-inline">f(x)+x+1&rarr;0</span> عند <span class="math-inline">-&infin;</span>. إذن <span class="math-inline">&Delta;:y=-x-1</span> مقارب مائل.</li>
+          <li>إشارة <span class="math-inline">f(x)-(-x-1)</span> هي إشارة <span class="math-inline">(e<sup>x</sup>-1)/(x-1)</span>: المنحنى فوق <span class="math-inline">&Delta;</span> إذا <span class="math-inline">x&lt;0</span>، وتحته إذا <span class="math-inline">0&lt;x&lt;1</span>.</li>
+          <li><span class="math-inline">f(0)=-1</span> و <span class="math-inline">f'(0)=-2</span>، إذن معادلة المماس عند <span class="math-inline">0</span> هي <span class="math-line">T:y=-2x-1</span>.</li>
+        </ol>
+        <h4>المعادلات والرسم</h4>
+        <ol>
+          <li>بما أن <span class="math-inline">f</span> متصلة ومتناقصة من <span class="math-inline">+&infin;</span> إلى <span class="math-inline">-&infin;</span>، فإن <span class="math-inline">f(x)=0</span> تقبل حلا وحيدا <span class="math-inline">&alpha;</span>. وبالحساب: <span class="math-inline">f(-0.8)&gt;0</span> و <span class="math-inline">f(-0.7)&lt;0</span>، ومنه <span class="math-inline">-0.8&lt;&alpha;&lt;-0.7</span>.</li>
+          <li>المعادلة المعطاة تكافئ <span class="math-inline">f(x)+1=mx</span>. بيانيا: إذا <span class="math-inline">m&lt;-2</span> يوجد حلان أحدهما <span class="math-inline">0</span> والآخر موجب؛ إذا <span class="math-inline">m=-2</span> حل وحيد <span class="math-inline">0</span>؛ إذا <span class="math-inline">-2&lt;m&lt;-1</span> حلان أحدهما <span class="math-inline">0</span> والآخر سالب؛ وإذا <span class="math-inline">m≥-1</span> حل وحيد هو <span class="math-inline">0</span>.</li>
+          <li>بما أن <span class="math-inline">e<sup>x</sup>-x<sup>2</sup></span> ينعدم عند <span class="math-inline">&alpha;</span>، فإن <span class="math-line">g(x)=-f(x)</span> على <span class="math-inline">]-&infin;,&alpha;[</span> و <span class="math-line">g(x)=f(x)</span> على <span class="math-inline">[&alpha;,1[</span>. إذن <span class="math-inline">(C')</span> نحصل عليه بعكس الجزء الواقع فوق محور الفواصل إلى الأسفل، وترك الجزء الواقع تحت المحور كما هو.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -4209,7 +4459,33 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2022 - رياضيات - الموضوع الثاني</h3>
+        <h4>الدالة h وإشارة الاشتقاق</h4>
+        <ol>
+          <li><span class="math-inline">h'(x)=1+1/x&gt;0</span>، إذن <span class="math-inline">h</span> متزايدة تماما. وبما أن <span class="math-inline">h(0<sup>+</sup>)=-&infin;</span> و <span class="math-inline">h(+&infin;)=+&infin;</span>، فإن <span class="math-inline">h(x)=0</span> تقبل حلا وحيدا <span class="math-inline">&alpha;</span> حيث <span class="math-inline">0.5&lt;&alpha;&lt;0.6</span>.</li>
+          <li>إشارة <span class="math-inline">h</span>: سالبة على <span class="math-inline">]0,&alpha;[</span>، منعدمة عند <span class="math-inline">&alpha;</span>، وموجبة على <span class="math-inline">]&alpha;,+&infin;[</span>.</li>
+        </ol>
+        <h4>دراسة f</h4>
+        <ol>
+          <li>عند <span class="math-inline">0<sup>+</sup></span> الحد <span class="math-inline">(lnx)<sup>2</sup></span> يغلب، إذن <span class="math-inline">f(x)&rarr;+&infin;</span>. وعند <span class="math-inline">+&infin;</span> الحد <span class="math-inline">-x<sup>2</sup>/2</span> يغلب، إذن <span class="math-inline">f(x)&rarr;-&infin;</span>.</li>
+          <li><span class="math-line">f'(x)=((2-x)h(x))/x</span>. إذن <span class="math-inline">f</span> متناقصة على <span class="math-inline">]0,&alpha;]</span>، متزايدة على <span class="math-inline">[&alpha;,2]</span>، ثم متناقصة على <span class="math-inline">[2,+&infin;[</span>.</li>
+          <li>لأن <span class="math-inline">h(&alpha;)=0</span> فإن <span class="math-inline">ln&alpha;=-&alpha;</span>. بالتعويض: <span class="math-line">f(&alpha)=3&alpha;(&alpha;+2)/2</span>. ومن <span class="math-inline">0.5&lt;&alpha;&lt;0.6</span> نستنتج <span class="math-line">1.875&lt;f(&alpha;)&lt;2.34</span>.</li>
+        </ol>
+        <h4>الانعطاف والمماس</h4>
+        <ol>
+          <li><span class="math-inline">g'(x)=2x+1+2/x&gt;0</span>، إذن <span class="math-inline">g</span> متزايدة تماما و <span class="math-inline">g(1)=0</span>.</li>
+          <li>نجد <span class="math-line">f''(x)=-g(x)/x<sup>2</sup></span>. لذلك تتغير إشارة <span class="math-inline">f''</span> عند <span class="math-inline">x=1</span>، فتوجد نقطة انعطاف <span class="math-inline">A(1,5/2)</span>.</li>
+          <li><span class="math-inline">f'(1)=1</span>، إذن مماس المنحنى في <span class="math-inline">A</span> هو <span class="math-line">T:y=x+3/2</span>.</li>
+        </ol>
+        <h4>الدالة المركبة k</h4>
+        <ol>
+          <li><span class="math-inline">k(x)=f(e<sup>x</sup>)</span> و <span class="math-inline">e<sup>x</sup></span> متزايدة، لذلك تتبع <span class="math-inline">k</span> تغيرات <span class="math-inline">f</span>: متناقصة على <span class="math-inline">]-&infin;,ln&alpha;]</span>، متزايدة على <span class="math-inline">[ln&alpha;,ln2]</span>، ومتناقصة على <span class="math-inline">[ln2,+&infin;[</span>.</li>
+          <li><span class="math-inline">x&rarr;-&infin;</span> يعطي <span class="math-inline">e<sup>x</sup>&rarr;0<sup>+</sup></span>، إذن <span class="math-inline">k(x)&rarr;+&infin;</span>. و <span class="math-inline">x&rarr;+&infin;</span> يعطي <span class="math-inline">e<sup>x</sup>&rarr;+&infin;</span>، إذن <span class="math-inline">k(x)&rarr;-&infin;</span>.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -4309,7 +4585,33 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2021 - رياضيات - الموضوع الأول</h3>
+        <h4>الدالة المساعدة g</h4>
+        <ol>
+          <li>لدينا <span class="math-inline">g(x)=(x<sup>2</sup>-3)e<sup>x</sup>+3</span>. بالاشتقاق نحصل على <span class="math-line">g'(x)=(x<sup>2</sup>+2x-3)e<sup>x</sup>=(x+3)(x-1)e<sup>x</sup></span>. ومنه ندرس تغيرات <span class="math-inline">g</span> على <span class="math-inline">R</span>.</li>
+          <li><span class="math-inline">g(0)=0</span>. وعلى المجال الموجب تقبل <span class="math-inline">g(x)=0</span> حلا وحيدا <span class="math-inline">&alpha;</span> حيث <span class="math-inline">1.53&lt;&alpha;&lt;1.54</span>. إشارة <span class="math-inline">g</span>: موجبة على <span class="math-inline">]-&infin;,0[</span>، منعدمة عند <span class="math-inline">0</span>، سالبة على <span class="math-inline">]0,&alpha;[</span>، وموجبة على <span class="math-inline">]&alpha;,+&infin;[</span>.</li>
+        </ol>
+        <h4>دراسة f</h4>
+        <ol>
+          <li>عند <span class="math-inline">-&infin;</span> لدينا <span class="math-inline">e<sup>x</sup>&rarr;0</span>، إذن <span class="math-inline">f(x)&rarr;-&infin;</span>. وعند <span class="math-inline">+&infin;</span> يغلب الحد <span class="math-inline">x<sup>2</sup>e<sup>x</sup></span>، إذن <span class="math-inline">f(x)&rarr;+&infin;</span>.</li>
+          <li>بالاشتقاق: <span class="math-line">f'(x)=3+(x<sup>2</sup>-3)e<sup>x</sup>=g(x)</span>. لذلك <span class="math-inline">f</span> متزايدة على <span class="math-inline">]-&infin;,0]</span>، متناقصة على <span class="math-inline">[0,&alpha;]</span>، ثم متزايدة على <span class="math-inline">[&alpha;,+&infin;[</span>.</li>
+        </ol>
+        <h4>المقارب، الوضعية، والمماسات</h4>
+        <ol>
+          <li><span class="math-inline">f(x)-(3x+1)=(x<sup>2</sup>-2x-1)e<sup>x</sup>&rarr;0</span> عند <span class="math-inline">-&infin;</span>، إذن <span class="math-inline">&Delta;:y=3x+1</span> مقارب مائل.</li>
+          <li>إشارة الفرق هي إشارة <span class="math-inline">x<sup>2</sup>-2x-1</span>، أي إشارة <span class="math-inline">(x-1)<sup>2</sup>-2</span>. إذن المنحنى فوق <span class="math-inline">&Delta;</span> خارج المجال <span class="math-inline">]1-&radic;2,1+&radic;2[</span> وتحته داخله.</li>
+          <li>من جدول التغيرات وكون <span class="math-inline">f(&alpha;)&lt;0</span> و <span class="math-inline">f(x)&rarr;+&infin;</span>، تقبل <span class="math-inline">f(x)=0</span> حلا وحيدا <span class="math-inline">&beta;</span> حيث <span class="math-inline">2.03&lt;&beta;&lt;2.04</span>.</li>
+          <li>المماسان الموازيان لـ <span class="math-inline">&Delta;</span> يحققان <span class="math-inline">f'(x)=3</span>، أي <span class="math-inline">(x<sup>2</sup>-3)e<sup>x</sup>=0</span>. إذن فاصلتاهما <span class="math-inline">x=-&radic;3</span> و <span class="math-inline">x=&radic;3</span>.</li>
+        </ol>
+        <h4>الدالة المركبة h</h4>
+        <ol>
+          <li><span class="math-inline">h(x)=f(lnx)</span>. عندما <span class="math-inline">x&rarr;0<sup>+</sup></span> يكون <span class="math-inline">lnx&rarr;-&infin;</span>، إذن <span class="math-inline">h(x)&rarr;-&infin;</span>. وعندما <span class="math-inline">x&rarr;+&infin;</span> يكون <span class="math-inline">lnx&rarr;+&infin;</span>، إذن <span class="math-inline">h(x)&rarr;+&infin;</span>.</li>
+          <li>بما أن <span class="math-inline">lnx</span> متزايدة، فإن تغيرات <span class="math-inline">h</span> تتبع تغيرات <span class="math-inline">f</span>: متزايدة على <span class="math-inline">]0,1]</span>، متناقصة على <span class="math-inline">[1,e<sup>&alpha;</sup>]</span>، ثم متزايدة على <span class="math-inline">[e<sup>&alpha;</sup>,+&infin;[</span>.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -4407,7 +4709,29 @@ window.bacAlgeriaExams = [
       `
     },
     solution: {
-      ar: "",
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2021 - رياضيات - الموضوع الثاني</h3>
+        <h4>الدالة المساعدة g</h4>
+        <ol>
+          <li>من القراءة البيانية: يكون <span class="math-inline">(C)</span> فوق <span class="math-inline">(T)</span> حيث <span class="math-inline">g(x)&gt;0</span>، وتحته حيث <span class="math-inline">g(x)&lt;0</span>. وبحسب المعطى البياني يكون تغير الإشارة عند <span class="math-inline">&alpha;</span> حيث <span class="math-inline">0.78&lt;&alpha;&lt;0.79</span>.</li>
+          <li>إذن <span class="math-inline">g(x)&gt;0</span> على <span class="math-inline">]-1,&alpha;[</span>، و <span class="math-inline">g(&alpha;)=0</span>، و <span class="math-inline">g(x)&lt;0</span> على <span class="math-inline">]&alpha;,+&infin;[</span>.</li>
+        </ol>
+        <h4>دراسة f</h4>
+        <ol>
+          <li>عند <span class="math-inline">-1<sup>+</sup></span> لدينا <span class="math-inline">ln(1+x)&rarr;-&infin;</span> والمقام يقترب من <span class="math-inline">2</span>، إذن <span class="math-inline">f(x)&rarr;-&infin;</span>. وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">ln(1+x)/(1+x<sup>2</sup>)&rarr;0</span>. هندسيا: <span class="math-inline">x=-1</span> مقارب شاقولي و <span class="math-inline">y=0</span> مقارب أفقي عند <span class="math-inline">+&infin;</span>.</li>
+          <li>بالاشتقاق: <span class="math-line">f'(x)=g(x)/((x+1)(1+x<sup>2</sup>)<sup>2</sup>)</span>. والمقام موجب، لذلك تتبع إشارة <span class="math-inline">f'</span> إشارة <span class="math-inline">g</span>: <span class="math-inline">f</span> متزايدة على <span class="math-inline">]-1,&alpha;]</span> ومتناقصة على <span class="math-inline">[&alpha;,+&infin;[</span>.</li>
+          <li>من <span class="math-inline">g(&alpha;)=0</span> نحصل على <span class="math-inline">1+&alpha;<sup>2</sup>=2&alpha;(1+&alpha;)ln(1+&alpha;)</span>، ومنه <span class="math-line">f(&alpha;)=1/(2&alpha;(1+&alpha;))</span>. وباستعمال <span class="math-inline">0.78&lt;&alpha;&lt;0.79</span> نحصل تقريبا على <span class="math-inline">0.35&lt;f(&alpha;)&lt;0.37</span>.</li>
+          <li><span class="math-inline">f(0)=0</span> و <span class="math-inline">f'(0)=1</span>، إذن مماس المنحنى عند الصفر هو <span class="math-line">T:y=x</span>.</li>
+        </ol>
+        <h4>الدالة h والرسم</h4>
+        <ol>
+          <li><span class="math-inline">h(-x)=ln(1+|-x|)/(1+(-x)<sup>2</sup>)=h(x)</span>، إذن <span class="math-inline">h</span> زوجية.</li>
+          <li>عند الصفر: <span class="math-inline">h(x)=ln(1+|x|)/(1+x<sup>2</sup>)~|x|</span>. لذلك المشتقة اليمنى <span class="math-inline">1</span> والمشتقة اليسرى <span class="math-inline">-1</span>، ومن ثم لا تقبل <span class="math-inline">h</span> الاشتقاق عند الصفر، ويمثل الصفر نقطة زاوية ذات نصفي مماس <span class="math-inline">y=x</span> و <span class="math-inline">y=-x</span>.</li>
+          <li>لرسم <span class="math-inline">(C<sub>h</sub>)</span>: نحتفظ بجزء <span class="math-inline">(C<sub>f</sub>)</span> على <span class="math-inline">[0,+&infin;[</span>، ثم نأخذ صورته بالتماثل بالنسبة إلى محور التراتيب لأن <span class="math-inline">h</span> زوجية.</li>
+        </ol>
+      </section>
+      `,
       fr: `
       <h3>La solution détaillée en français n'est pas encore disponible</h3>
       <p>La solution complète sera ajoutée prochainement.</p>
@@ -8604,6 +8928,33 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2020 - رياضيات - الموضوع الثاني</h3>
+        <h4>دراسة f</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=ln(&radic;(9x<sup>2</sup>+1)+3x)</span>. عند <span class="math-inline">+&infin;</span> يكون الداخل مكافئا لـ <span class="math-inline">6x</span>، إذن <span class="math-inline">f(x)&rarr;+&infin;</span>. وعند <span class="math-inline">-&infin;</span> نستعمل <span class="math-inline">(&radic;(9x<sup>2</sup>+1)+3x)(&radic;(9x<sup>2</sup>+1)-3x)=1</span> فنحصل على <span class="math-inline">f(x)&rarr;-&infin;</span>.</li>
+          <li>بالاشتقاق والتبسيط: <span class="math-line">f'(x)=3/&radic;(9x<sup>2</sup>+1)</span>. إذن <span class="math-inline">f</span> متزايدة تماما على <span class="math-inline">R</span>.</li>
+        </ol>
+        <h4>الدالة g والوضع النسبي</h4>
+        <ol>
+          <li><span class="math-inline">g(x)=f(x)-x</span> على <span class="math-inline">[0,+&infin;[</span>. عند <span class="math-inline">+&infin;</span>: <span class="math-inline">ln(6x)-x&rarr;-&infin;</span>، إذن <span class="math-inline">g(x)&rarr;-&infin;</span>.</li>
+          <li><span class="math-line">g'(x)=(-9x<sup>2</sup>+8)/((&radic;(9x<sup>2</sup>+1))(3+&radic;(9x<sup>2</sup>+1)))</span>. إذن <span class="math-inline">g</span> متزايدة على <span class="math-inline">[0,2&radic;2/3]</span> ثم متناقصة على <span class="math-inline">[2&radic;2/3,+&infin;[</span>.</li>
+          <li><span class="math-inline">g(0)=0</span> و <span class="math-inline">g(2&radic;2/3)&asymp;0.8</span> ثم <span class="math-inline">g</span> تنزل إلى <span class="math-inline">-&infin;</span>، لذلك تقبل <span class="math-inline">g(x)=0</span> حلا وحيدا آخر <span class="math-inline">&alpha;</span> حيث <span class="math-inline">2.83&lt;&alpha;&lt;2.84</span>.</li>
+          <li>إشارة <span class="math-inline">g</span>: منعدمة عند <span class="math-inline">0</span> و <span class="math-inline">&alpha;</span>، موجبة على <span class="math-inline">]0,&alpha;[</span>، سالبة على <span class="math-inline">]&alpha;,+&infin;[</span>. إذن <span class="math-inline">(C<sub>f</sub>)</span> فوق المستقيم <span class="math-inline">y=x</span> على <span class="math-inline">]0,&alpha;[</span> وتحته بعد <span class="math-inline">&alpha;</span>.</li>
+        </ol>
+        <h4>الدالة k والفردية</h4>
+        <ol>
+          <li><span class="math-inline">k(x)=ln(6x)=lnx+ln6</span>، إذن منحناها صورة منحنى <span class="math-inline">lnx</span> بترجمة رأسية شعاعها <span class="math-inline">(0,ln6)</span>.</li>
+          <li><span class="math-inline">&radic;(9x<sup>2</sup>+1)+3x ~ 6x</span> عند <span class="math-inline">+&infin;</span>، ومنه <span class="math-line">lim[f(x)-k(x)]=0</span>. بيانيا يقترب <span class="math-inline">(C<sub>f</sub>)</span> من <span class="math-inline">(&gamma;)</span> عند <span class="math-inline">+&infin;</span>.</li>
+          <li><span class="math-inline">f(-x)=ln(&radic;(9x<sup>2</sup>+1)-3x)=-ln(&radic;(9x<sup>2</sup>+1)+3x)=-f(x)</span>، إذن <span class="math-inline">f</span> فردية. نرسم الفرع على <span class="math-inline">[0,+&infin;[</span> ثم نأخذ التناظر المركزي بالنسبة إلى الأصل.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -8744,6 +9095,34 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2019 - رياضيات - الموضوع الأول</h3>
+        <h4>الدراسة العامة</h4>
+        <ol>
+          <li>من أجل <span class="math-inline">x&gt;0</span>: <span class="math-inline">f(x)=x-x<sup>2</sup>lnx</span> و <span class="math-line">f'(x)=1-x-2xlnx</span>. حسب نتيجة السؤال الأول تكون <span class="math-inline">f'</span> موجبة على <span class="math-inline">]0,1[</span> وسالبة على <span class="math-inline">]1,+&infin;[</span>.</li>
+          <li>إذن <span class="math-inline">f</span> متزايدة على <span class="math-inline">[0,1]</span> ثم متناقصة على <span class="math-inline">[1,+&infin;[</span>، مع <span class="math-inline">f(0)=0</span> و <span class="math-inline">f(1)=1</span> و <span class="math-inline">f(x)&rarr;-&infin;</span> عند <span class="math-inline">+&infin;</span>.</li>
+          <li>عند الصفر: <span class="math-inline">(f(x)-f(0))/x=1-xlnx&rarr;1</span>، إذن نصف المماس هو <span class="math-line">&Delta;:y=x</span>.</li>
+          <li><span class="math-inline">f(x)-x=-x<sup>2</sup>lnx</span>. لذلك يكون <span class="math-inline">(C<sub>f</sub>)</span> فوق <span class="math-inline">&Delta;</span> على <span class="math-inline">]0,1[</span> وتحته على <span class="math-inline">]1,+&infin;[</span>.</li>
+        </ol>
+        <h4>المماسات والجذر</h4>
+        <ol>
+          <li>المماس الموازي لـ <span class="math-inline">&Delta;</span> يحقق <span class="math-inline">f'(x)=1</span>، أي <span class="math-inline">x(1+2lnx)=0</span>. ومنه <span class="math-inline">x=1/&radic;e</span>، ومعادلته <span class="math-line">T:y=x+1/(2e)</span>.</li>
+          <li>على <span class="math-inline">[1,+&infin;[</span> الدالة متناقصة من <span class="math-inline">1</span> إلى <span class="math-inline">-&infin;</span>، لذا تقبل <span class="math-inline">f(x)=0</span> حلا وحيدا <span class="math-inline">&alpha;</span>، وبالحساب <span class="math-inline">1.76&lt;&alpha;&lt;1.77</span>.</li>
+          <li>المستقيم الموازي لـ <span class="math-inline">&Delta;</span> والمار بـ <span class="math-inline">(&alpha;,0)</span> هو <span class="math-line">d:y=x-&alpha;</span>.</li>
+        </ol>
+        <h4>المناقشة والمساحة</h4>
+        <ol>
+          <li>المعادلة <span class="math-inline">x<sup>2</sup>lnx+m=0</span> تعني <span class="math-inline">x<sup>2</sup>lnx=-m</span> على <span class="math-inline">[0,&alpha;]</span>. للدالة <span class="math-inline">q(x)=x<sup>2</sup>lnx</span> قيمة صغرى <span class="math-inline">-1/(2e)</span> عند <span class="math-inline">1/&radic;e</span>، وتبلغ <span class="math-inline">0</span> عند <span class="math-inline">0</span> و <span class="math-inline">1</span>، وتبلغ <span class="math-inline">&alpha;</span> عند <span class="math-inline">&alpha;</span>.</li>
+          <li>إذن: لا حل إذا <span class="math-inline">m&gt;1/(2e)</span> أو <span class="math-inline">m&lt;-&alpha;</span>؛ حل وحيد إذا <span class="math-inline">m=1/(2e)</span> أو <span class="math-inline">-&alpha;≤m&lt;0</span>؛ وحلان إذا <span class="math-inline">0≤m&lt;1/(2e)</span>.</li>
+          <li>بالمكاملة بالتجزئة: <span class="math-line">A(&lambda;)=1/9+(&lambda;<sup>3</sup>/3)ln&lambda;-&lambda;<sup>3</sup>/9</span>. وعندما <span class="math-inline">&lambda;&rarr;0</span> نحصل على <span class="math-inline">A(&lambda;)&rarr;1/9</span>. وبما أن الوحدة <span class="math-inline">3cm</span> فالمساحة الهندسية الموافقة تساوي <span class="math-inline">1cm<sup>2</sup></span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -8880,6 +9259,33 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2019 - رياضيات - الموضوع الثاني</h3>
+        <h4>عائلة الدوال f<sub>k</sub></h4>
+        <ol>
+          <li>كل المنحنيات تمر من النقطتين الثابتتين <span class="math-inline">A(-1,0)</span> و <span class="math-inline">B(0,1)</span>، لأن <span class="math-inline">(x+1)<sup>2</sup></span> ينعدم عند <span class="math-inline">-1</span> و <span class="math-inline">e<sup>0</sup>=1</span> عند <span class="math-inline">0</span>.</li>
+          <li><span class="math-line">f'<sub>k</sub>(x)=(x+1)e<sup>-kx</sup>[2-k(x+1)]</span>. وبما أن <span class="math-inline">e<sup>-kx</sup>&gt;0</span>، فتغيرات <span class="math-inline">f<sub>k</sub></span> تحددها إشارة <span class="math-inline">(x+1)[2-k(x+1)]</span>.</li>
+          <li>إذا <span class="math-inline">k&gt;0</span>: النهايات هي <span class="math-inline">f<sub>k</sub>(-&infin)=+&infin</span> و <span class="math-inline">f<sub>k</sub>(+&infin)=0</span>، والقيم الحرجة عند <span class="math-inline">x=-1</span> و <span class="math-inline">x=2/k-1</span>. أما إذا <span class="math-inline">k=0</span> فهي الدالة <span class="math-inline">(x+1)<sup>2</sup></span>. وإذا <span class="math-inline">k&lt;0</span> فتنعكس النهايات: <span class="math-inline">0</span> عند <span class="math-inline">-&infin</span> و <span class="math-inline">+&infin</span> عند <span class="math-inline">+&infin</span>.</li>
+          <li><span class="math-inline">f<sub>k</sub>(x)-f<sub>k+1</sub>(x)=(x+1)<sup>2</sup>e<sup>-kx</sup>(1-e<sup>-x</sup>)</span>. إذن <span class="math-inline">C<sub>k</sub></span> تحت <span class="math-inline">C<sub>k+1</sub></span> إذا <span class="math-inline">x&lt;0</span> وفوقه إذا <span class="math-inline">x&gt;0</span>، مع التقاطع في النقطتين الثابتتين.</li>
+        </ol>
+        <h4>الحالة k=2</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=(x+1)<sup>2</sup>e<sup>-2x</sup></span> و <span class="math-line">f'(x)=-2x(x+1)e<sup>-2x</sup></span>. إذن <span class="math-inline">f</span> متناقصة على <span class="math-inline">]-&infin;,-1]</span>، متزايدة على <span class="math-inline">[-1,0]</span>، ومتناقصة على <span class="math-inline">[0,+&infin;[</span>.</li>
+          <li>لدينا <span class="math-inline">f(-1)=0</span>، <span class="math-inline">f(0)=1</span>، <span class="math-inline">f(-&infin)=+&infin</span> و <span class="math-inline">f(+&infin)=0</span>. لذلك <span class="math-inline">f(x)=1</span> تقبل حلين: <span class="math-inline">0</span> وحلا آخر <span class="math-inline">&alpha;</span> حيث <span class="math-inline">-1.28&lt;&alpha;&lt;-1.27</span>.</li>
+          <li>المعادلة ذات القيمة المطلقة تكافئ <span class="math-inline">f(x)=f(m)</span>. يكون لها حل وحيد إذا وفقط إذا <span class="math-inline">f(m)&gt;1</span> أو <span class="math-inline">f(m)=0</span>، أي <span class="math-line">m&lt;&alpha; أو m=-1</span>.</li>
+        </ol>
+        <h4>الأصلية والمساحة</h4>
+        <ol>
+          <li>إذا <span class="math-inline">g(x)=(x+1)e<sup>-2x</sup></span> فإن <span class="math-inline">g'(x)+2g(x)-e<sup>-2x</sup>=0</span>. ومنه دالة أصلية لـ <span class="math-inline">g</span> هي <span class="math-line">G(x)=-(2x+3)e<sup>-2x</sup>/4</span>.</li>
+          <li>المساحة المطلوبة هي <span class="math-inline">∫<sub>-1</sub><sup>0</sup>(x+1)<sup>2</sup>e<sup>-2x</sup>dx</span>. بالحساب نحصل على <span class="math-line">A=(e<sup>2</sup>-5)/4</span> بوحدة المساحة.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -8999,6 +9405,34 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2020 - رياضيات - الموضوع الأول</h3>
+        <h4>الإشارات والتغيرات</h4>
+        <ol>
+          <li>على <span class="math-inline">]-&infin;,0]</span>: <span class="math-inline">g(x)=-2e<sup>x</sup>&lt;0</span>. كما أن <span class="math-inline">e<sup>x</sup>+1&gt;0</span> و <span class="math-inline">x≤0</span>، لذلك <span class="math-inline">h(x)=x(e<sup>x</sup>+1)≤0</span>.</li>
+          <li><span class="math-inline">f'(x)=(x-2)e<sup>x</sup>+x=h(x)+g(x)</span>. وبما أن <span class="math-inline">h(x)+g(x)&lt;0</span>، فإن <span class="math-inline">f</span> متناقصة تماما على <span class="math-inline">]-&infin;,0]</span>.</li>
+          <li>عند <span class="math-inline">-&infin;</span> يغلب الحد <span class="math-inline">x<sup>2</sup>/2</span>، إذن <span class="math-inline">f(x)&rarr;+&infin;</span>. كما أن <span class="math-inline">f(0)=-3</span>.</li>
+        </ol>
+        <h4>الجذر والوضع النسبي</h4>
+        <ol>
+          <li>بما أن <span class="math-inline">f</span> متصلة ومتناقصة من <span class="math-inline">+&infin;</span> إلى <span class="math-inline">-3</span>، فإن <span class="math-inline">f(x)=0</span> تقبل حلا وحيدا <span class="math-inline">&alpha;</span>. وبالحساب نحصل على <span class="math-inline">-1.5&lt;&alpha;&lt;-1.4</span>.</li>
+          <li><span class="math-inline">f(x)-x<sup>2</sup>/2=(x-3)e<sup>x</sup>&rarr;0</span> عند <span class="math-inline">-&infin;</span>، لذلك يقترب <span class="math-inline">(C<sub>f</sub>)</span> من القطع المكافئ <span class="math-inline">(P)</span>.</li>
+          <li>على المجال <span class="math-inline">]-&infin;,0]</span> لدينا <span class="math-inline">x-3&lt;0</span> و <span class="math-inline">e<sup>x</sup>&gt;0</span>، إذن <span class="math-inline">f(x)-x<sup>2</sup>/2&lt;0</span>. ومنه <span class="math-inline">(C<sub>f</sub>)</span> يقع تحت <span class="math-inline">(P)</span>.</li>
+        </ol>
+        <h4>مناقشة |f(x)|=e^m</h4>
+        <ol>
+          <li>بما أن <span class="math-inline">e<sup>m</sup>&gt;0</span>، نناقش تقاطع المنحنى <span class="math-inline">y=|f(x)|</span> مع المستقيم الأفقي <span class="math-inline">y=e<sup>m</sup></span>.</li>
+          <li>على <span class="math-inline">]-&infin;,&alpha;]</span> يكون <span class="math-inline">f≥0</span> وينزل من <span class="math-inline">+&infin;</span> إلى <span class="math-inline">0</span>، فيوجد دائما حل واحد.</li>
+          <li>على <span class="math-inline">[&alpha;,0]</span> يكون <span class="math-inline">|f|=-f</span> ويصعد من <span class="math-inline">0</span> إلى <span class="math-inline">3</span>. لذلك يوجد حل ثان إذا وفقط إذا <span class="math-inline">e<sup>m</sup>≤3</span> أي <span class="math-inline">m≤ln3</span>.</li>
+          <li>النتيجة: إذا <span class="math-inline">m≤ln3</span> فللمعادلة حلان، وإذا <span class="math-inline">m&gt;ln3</span> فلها حل وحيد.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9149,6 +9583,33 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2018 - رياضيات - الموضوع الثاني</h3>
+        <h4>الدالة المساعدة</h4>
+        <ol>
+          <li>بالاشتقاق نحصل على <span class="math-line">g'(x)=((x+1)(2x<sup>2</sup>+1)/x<sup>2</sup>)e<sup>-1/x</sup></span>. كل العوامل موجبة على <span class="math-inline">]0,+&infin;[</span>، إذن <span class="math-inline">g</span> متزايدة تماما.</li>
+          <li>عند <span class="math-inline">0<sup>+</sup></span>: <span class="math-inline">g(x)&rarr;-1</span>، وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">g(x)&rarr;+&infin;</span>. إذن <span class="math-inline">g(x)=0</span> تقبل حلا وحيدا <span class="math-inline">&alpha;</span> حيث <span class="math-inline">0.9&lt;&alpha;&lt;1</span>، وتكون <span class="math-inline">g&lt;0</span> قبل <span class="math-inline">&alpha;</span> و <span class="math-inline">g&gt;0</span> بعدها.</li>
+        </ol>
+        <h4>دراسة f والمقارب</h4>
+        <ol>
+          <li>عند <span class="math-inline">0<sup>+</sup></span>: <span class="math-inline">f(x)&rarr;+&infin;</span>. وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;+&infin;</span>.</li>
+          <li><span class="math-line">f'(x)=g(x)/x<sup>2</sup></span>. إذن <span class="math-inline">f</span> متناقصة على <span class="math-inline">]0,&alpha;]</span> ومتزايدة على <span class="math-inline">[&alpha;,+&infin;[</span>، وقيمتها الصغرى <span class="math-inline">f(&alpha;)=1.73</span> تقريبا.</li>
+          <li>بوضع <span class="math-inline">t=1/x</span> نحصل على <span class="math-inline">xe<sup>-1/x</sup>-x&rarr;-1</span>. ومنه <span class="math-inline">f(x)-x&rarr;0</span>، أي <span class="math-inline">&Delta;:y=x</span> مقارب بجوار <span class="math-inline">+&infin;</span>.</li>
+        </ol>
+        <h4>الوضع النسبي والمتتالية</h4>
+        <ol>
+          <li><span class="math-inline">h(x)=1/x-1+e<sup>-1/x</sup></span>. لدينا <span class="math-inline">h(+&infin;)=0</span> و <span class="math-inline">h'(x)=(1-e<sup>-1/x</sup>)/x<sup>2</sup>&gt;0</span>، ومع <span class="math-inline">h(0<sup>+</sup>)=-&infin;</span> نستنتج <span class="math-inline">h(x)&lt;0</span>.</li>
+          <li><span class="math-inline">f(x)-x=(1+x)h(x)</span> و <span class="math-inline">1+x&gt;0</span>، إذن <span class="math-inline">(C<sub>f</sub>)</span> يقع تحت المستقيم <span class="math-inline">&Delta;</span> على <span class="math-inline">]0,+&infin;[</span>.</li>
+          <li>بالتعويض <span class="math-inline">x=1/n</span>: <span class="math-line">u<sub>n</sub>=e<sup>-n</sup></span>. إذن المتتالية هندسية أساسها <span class="math-inline">1/e</span> وحدها الأول <span class="math-inline">u<sub>1</sub>=1/e</span>.</li>
+          <li><span class="math-line">S<sub>n</sub>=e<sup>-1</sup>+e<sup>-2</sup>+...+e<sup>-n</sup>=(1-e<sup>-n</sup>)/(e-1)</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9280,6 +9741,35 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2018 - رياضيات - الموضوع اللوغارتمي</h3>
+        <h4>النهايات والتغيرات</h4>
+        <ol>
+          <li>عند <span class="math-inline">0<sup>+</sup></span>: <span class="math-inline">1/lnx&rarr;0</span> ومنه <span class="math-inline">f(x)&rarr;1=f(0)</span>، إذن <span class="math-inline">f</span> مستمرة يمينا عند الصفر.</li>
+          <li><span class="math-inline">(f(h)-f(0))/h=1-1/(hlnh)</span>، وبما أن <span class="math-inline">hlnh&rarr;0<sup>-</sup></span> فإن النهاية <span class="math-inline">+&infin;</span>. هندسيا يوجد نصف مماس رأسي عند <span class="math-inline">(0,1)</span>.</li>
+          <li>عند <span class="math-inline">1<sup>-</sup></span>: <span class="math-inline">f(x)&rarr;+&infin;</span>، وعند <span class="math-inline">1<sup>+</sup></span>: <span class="math-inline">f(x)&rarr;-&infin;</span>. وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;+&infin;</span>.</li>
+          <li><span class="math-line">f'(x)=1+1/(x(lnx)<sup>2</sup>)&gt;0</span>، إذن <span class="math-inline">f</span> متزايدة على <span class="math-inline">[0,1[</span> وعلى <span class="math-inline">]1,+&infin;[</span>.</li>
+        </ol>
+        <h4>المقارب والجذر</h4>
+        <ol>
+          <li><span class="math-inline">f(x)-(x+1)=-1/lnx&rarr;0</span> عند <span class="math-inline">+&infin;</span>، إذن المقارب المائل هو <span class="math-line">&Delta;:y=x+1</span>.</li>
+          <li>على <span class="math-inline">]1,+&infin;[</span> يكون <span class="math-inline">lnx&gt;0</span>، لذلك <span class="math-inline">f(x)&lt;x+1</span>. وعلى <span class="math-inline">]0,1[</span> يكون <span class="math-inline">f(x)&gt;x+1</span>.</li>
+          <li>على <span class="math-inline">]1,+&infin;[</span> الدالة متزايدة من <span class="math-inline">-&infin;</span> إلى <span class="math-inline">+&infin;</span>، لذلك تقطع محور الفواصل مرة وحيدة عند <span class="math-inline">&alpha;</span> حيث <span class="math-inline">1.49&lt;&alpha;&lt;1.5</span>.</li>
+          <li>معادلة المماس عند <span class="math-inline">&omega;(&alpha;,0)</span> هي <span class="math-line">y=(&alpha;+3+1/&alpha;)(x-&alpha;)</span>.</li>
+        </ol>
+        <h4>الحصر والمساحة</h4>
+        <ol>
+          <li><span class="math-inline">h(x)=1-x+xlnx</span> تحقق <span class="math-inline">h'(x)=lnx≥0</span> على <span class="math-inline">[1,+&infin;[</span> و <span class="math-inline">h(1)=0</span>، إذن <span class="math-inline">h(x)≥0</span>.</li>
+          <li>من العلاقة المعطاة نحصل على <span class="math-inline">x-1/(xlnx)&lt;f(x)&lt;x+1</span> من أجل <span class="math-inline">x&gt;1</span>.</li>
+          <li>بالتكامل بين <span class="math-inline">&alpha;</span> و <span class="math-inline">e</span> نحصل على الحصر المطلوب: <span class="math-line">1/2(e<sup>2</sup>-&alpha;<sup>2</sup>)-ln(&alpha;+1)&lt;A&lt;1/2(e-&alpha;)(e+&alpha;+2)</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9400,6 +9890,29 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل 2017 الاستثنائية - رياضيات - الموضوع الثاني</h3>
+        <h4>دراسة f</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=(x+1)<sup>2</sup>e<sup>-x</sup></span>. عند <span class="math-inline">-&infin;</span>: <span class="math-inline">f(x)&rarr;+&infin;</span>، وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;0</span>.</li>
+          <li><span class="math-line">f'(x)=(1-x<sup>2</sup>)e<sup>-x</sup></span>. إذن <span class="math-inline">f</span> متناقصة على <span class="math-inline">]-&infin;,-1]</span>، متزايدة على <span class="math-inline">[-1,1]</span>، ومتناقصة على <span class="math-inline">[1,+&infin;[</span>.</li>
+          <li><span class="math-line">f''(x)=(x<sup>2</sup>-2x-1)e<sup>-x</sup></span>. نقطتا الانعطاف فاصلتاهما <span class="math-inline">1-&radic;2</span> و <span class="math-inline">1+&radic;2</span>. كما أن <span class="math-inline">f(-2)=e<sup>2</sup></span>.</li>
+        </ol>
+        <h4>العائلة f_m</h4>
+        <ol>
+          <li><span class="math-inline">f<sub>m</sub>(x)=(x<sup>2</sup>+mx+1)e<sup>-x</sup></span>. كل المنحنيات تمر بالنقطة الثابتة <span class="math-inline">&omega;(0,1)</span>.</li>
+          <li><span class="math-line">f'<sub>m</sub>(x)=(-x<sup>2</sup>+(2-m)x+m-1)e<sup>-x</sup></span>. جذرا كثير الحدود هما <span class="math-inline">1</span> و <span class="math-inline">1-m</span>؛ لذلك توجد قيمتان حديتان متميزتان إذا <span class="math-inline">m&ne;0</span>.</li>
+          <li>إذا <span class="math-inline">x_m=1-m</span> فإن <span class="math-inline">M_m</span> تنتمي إلى المنحنى <span class="math-line">y=(x+1)e<sup>-x</sup></span>.</li>
+          <li><span class="math-inline">f_m(x)-f(x)=(m-2)xe<sup>-x</sup></span>. إذن الوضع النسبي يتبع إشارة <span class="math-inline">(m-2)x</span>.</li>
+          <li>بين <span class="math-inline">C</span> و <span class="math-inline">C_3</span>: الفرق هو <span class="math-inline">xe<sup>-x</sup></span> على <span class="math-inline">[0,&alpha;]</span>. إذن <span class="math-line">A(&alpha;)=∫<sub>0</sub><sup>&alpha;</sup>xe<sup>-x</sup>dx=1-(&alpha;+1)e<sup>-&alpha;</sup></span> و <span class="math-inline">lim A(&alpha;)=1</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9525,6 +10038,30 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل 2017 الاستثنائية - رياضيات - الموضوع الأول</h3>
+        <h4>الدالة المساعدة ودراسة f</h4>
+        <ol>
+          <li><span class="math-inline">g(x)=x+2-lnx</span> و <span class="math-inline">g'(x)=1-1/x</span>. إذن <span class="math-inline">g</span> متناقصة على <span class="math-inline">]0,1]</span> ومتزايدة على <span class="math-inline">[1,+&infin;[</span>، و <span class="math-inline">g(1)=3&gt;0</span>، لذلك <span class="math-inline">g(x)&gt;0</span>.</li>
+          <li><span class="math-line">f'(x)=-g(x<sup>2</sup>)/(2x<sup>2</sup>)&lt;0</span>. إذن <span class="math-inline">f</span> متناقصة على <span class="math-inline">]-&infin;,0[</span> وعلى <span class="math-inline">]0,+&infin;[</span>.</li>
+          <li><span class="math-inline">f(-x)+f(x)=e</span>، ومنه للمنحنى مركز تناظر <span class="math-inline">(0,e/2)</span>.</li>
+          <li>عند <span class="math-inline">0<sup>+</sup></span>: <span class="math-inline">f(x)&rarr;+&infin;</span>، وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;-&infin;</span>. وتستنتج نهايات الجهة السالبة بالتناظر.</li>
+        </ol>
+        <h4>المقارب والمماسات</h4>
+        <ol>
+          <li><span class="math-inline">f(x)-(-x/2+e/2)=-ln(x<sup>2</sup>)/(2x)</span>. إذن <span class="math-inline">&Delta;:y=-x/2+e/2</span> مقارب عند <span class="math-inline">+&infin;</span>، وتحدد إشارة الفرق وضعية المنحنى.</li>
+          <li>المماس ذو الميل <span class="math-inline">-1/2</span> يحقق <span class="math-inline">g(x<sup>2</sup>)=x<sup>2</sup></span>، أي <span class="math-inline">ln(x<sup>2</sup>)=2</span>. إذن <span class="math-inline">x=±e</span>، وتكتب معادلتا المماسين باستعمال <span class="math-inline">f(e)</span> و <span class="math-inline">f(-e)</span>.</li>
+          <li>بما أن <span class="math-inline">f</span> متناقصة على كل فرع، فهي تقطع محور الفواصل في نقطتين: <span class="math-inline">2&lt;&alpha;&lt;2.1</span> و <span class="math-inline">-0.5&lt;&beta;&lt;-0.4</span>.</li>
+          <li>المعادلة <span class="math-inline">x(e-2m)=ln(x<sup>2</sup>)</span> تكافئ <span class="math-inline">f(x)=m</span>. بيانيا يكون الحل وحيدا عندما يقطع المستقيم الأفقي منحنى أحد الفرعين فقط، أي للقيم بين نهايتي الفرعين حسب جدول التغيرات.</li>
+          <li>المساحة المطلوبة: <span class="math-line">A(&alpha;)=1/2(ln&alpha;)<sup>2</sup> cm<sup>2</sup></span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9647,6 +10184,28 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2017 - رياضيات - الموضوع الثاني</h3>
+        <h4>الدالة المساعدة</h4>
+        <ol>
+          <li><span class="math-inline">g(x)=1/x-lnx</span> و <span class="math-inline">g'(x)=-1/x<sup>2</sup>-1/x&lt;0</span>، إذن <span class="math-inline">g</span> متناقصة تماما.</li>
+          <li><span class="math-inline">g(1)&gt;0</span> و <span class="math-inline">g(x)&rarr;-&infin;</span> عند <span class="math-inline">+&infin;</span>، إذن يوجد حل وحيد <span class="math-inline">&alpha;</span> حيث <span class="math-inline">1.76&lt;&alpha;&lt;1.77</span>. الإشارة موجبة قبل <span class="math-inline">&alpha;</span> وسالبة بعدها.</li>
+        </ol>
+        <h4>دراسة f</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=(x+1)/(x-lnx)</span> و <span class="math-inline">f(0)=0</span>. عند <span class="math-inline">0<sup>+</sup></span> نجد <span class="math-inline">f(x)&rarr;0</span> و <span class="math-inline">f(x)/x&rarr;+&infin;</span>، إذن يوجد نصف مماس رأسي عند الأصل.</li>
+          <li><span class="math-line">f'(x)=g(x)/(x-lnx)<sup>2</sup></span>. ومنه <span class="math-inline">f</span> متزايدة على <span class="math-inline">]0,&alpha;]</span> ومتناقصة على <span class="math-inline">[&alpha;,+&infin;[</span>.</li>
+          <li><span class="math-inline">lim f(x)=1</span> عند <span class="math-inline">+&infin;</span>، إذن <span class="math-inline">y=1</span> مقارب أفقي.</li>
+          <li><span class="math-inline">h(x)=x-lnx&gt;0</span>. كما أن <span class="math-inline">f(x)-1=(1+lnx)/(x-lnx)</span>، فتكون الوضعية بالنسبة إلى <span class="math-inline">y=1</span> حسب إشارة <span class="math-inline">1+lnx</span>.</li>
+          <li>من أجل <span class="math-inline">x≥1</span>: <span class="math-inline">1+1/x≤f(x)≤f(&alpha;)</span>. لذلك <span class="math-inline">F(e)</span> هي مساحة تحت المنحنى من <span class="math-inline">1</span> إلى <span class="math-inline">e</span> وتحقق <span class="math-line">e≤F(e)≤(e-1)f(&alpha;)</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {
@@ -9746,6 +10305,27 @@ window.bacAlgeriaExams = [
         <p>The content will be added soon.</p>
       </section>
       `
+    },
+    solution: {
+      ar: `
+      <section class="solution-block">
+        <h3>حل بكالوريا الجزائر 2017 - رياضيات - الموضوع الأول</h3>
+        <h4>الدراسة العامة</h4>
+        <ol>
+          <li><span class="math-inline">f(x)=x<sup>2</sup>(2-x)e<sup>1-x</sup></span>. عند <span class="math-inline">-&infin;</span>: <span class="math-inline">f(x)&rarr;+&infin;</span>، وعند <span class="math-inline">+&infin;</span>: <span class="math-inline">f(x)&rarr;0</span>. إذن <span class="math-inline">y=0</span> مقارب أفقي عند <span class="math-inline">+&infin;</span>.</li>
+          <li><span class="math-line">f'(x)=x(x<sup>2</sup>-5x+4)e<sup>1-x</sup>=x(x-1)(x-4)e<sup>1-x</sup></span>. ومنه التغيرات حسب الفواصل <span class="math-inline">0,1,4</span>.</li>
+          <li><span class="math-inline">f(2)=0</span> و <span class="math-inline">f'(2)=-4/e</span>، إذن <span class="math-line">T:y=-4/e(x-2)</span>.</li>
+        </ol>
+        <h4>الوضعية والمناقشة</h4>
+        <ol>
+          <li><span class="math-inline">h(x)=x<sup>2</sup>e<sup>-x+2</sup>-4</span> تبلغ قيمتها العظمى عند <span class="math-inline">x=2</span> وتساوي <span class="math-inline">0</span>، إذن <span class="math-inline">h(x)≤0</span>. وبما أن <span class="math-inline">f(x)-T(x)=(2-x)h(x)/e</span> نحدد وضعية <span class="math-inline">C_f</span> بالنسبة إلى <span class="math-inline">T</span>.</li>
+          <li>المعادلة <span class="math-inline">f(x)=m(x-2)</span> لها دائما الحل <span class="math-inline">x=2</span>. وبالنسبة إلى المستقيمات المارة بهذه النقطة: إذا <span class="math-inline">m&lt;-4/e</span> حل وحيد، إذا <span class="math-inline">m=-4/e</span> حل وحيد مماسي، إذا <span class="math-inline">-4/e&lt;m&lt;0</span> ثلاثة حلول، وإذا <span class="math-inline">m≥0</span> حل وحيد.</li>
+          <li><span class="math-inline">g(x)=f(1/x)</span>. بما أن <span class="math-inline">1/x</span> متناقصة على <span class="math-inline">]0,+&infin;[</span>، نحصل على جدول تغيرات <span class="math-inline">g</span> من جدول <span class="math-inline">f</span> بعكس الترتيب، مع الفواصل <span class="math-inline">1/4</span> و <span class="math-inline">1</span>.</li>
+        </ol>
+      </section>
+      `,
+      fr: `<h3>La solution détaillée en français n'est pas encore disponible</h3><p>La solution complète sera ajoutée prochainement.</p>`,
+      en: `<h3>Detailed solution in English not available yet</h3><p>The complete solution will be added soon.</p>`
     }
   },
   {

@@ -1172,7 +1172,8 @@ body[data-role="teacher"] .main-nav {
 
 .bac-iframe-wrapper {
   width: 100%;
-  height: clamp(620px, calc(100vh - 150px), 900px);
+  min-height: 620px;
+  height: auto;
   border: 1px solid var(--line);
   border-radius: 20px;
   overflow: hidden;
@@ -1183,9 +1184,11 @@ body[data-role="teacher"] .main-nav {
 .bac-iframe-wrapper iframe {
   display: block;
   width: 100%;
-  height: 100%;
+  min-height: 620px;
+  height: 620px;
   border: 0;
   background: transparent;
+  overflow: hidden;
 }
 
 .progress-actions {
@@ -1388,7 +1391,6 @@ body[data-role="teacher"] .main-nav {
   }
 
   .bac-iframe-wrapper {
-    height: 78vh;
     min-height: 620px;
   }
 
@@ -3090,6 +3092,7 @@ body[data-role="teacher"] .main-nav {
 }
 
 .bac-panel[data-bac-panel="foreign"] .foreign-filter-panel {
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
   margin-bottom: 0;
   align-items: end;
   border-color: rgba(255, 255, 255, 0.1);
@@ -3102,6 +3105,7 @@ body[data-role="teacher"] .main-nav {
 
 .bac-panel[data-bac-panel="foreign"] .foreign-filter-panel .bac-filter-group {
   gap: 10px;
+  min-width: 0;
 }
 
 .bac-panel[data-bac-panel="foreign"] .foreign-filter-panel .bac-filter-group > span {
@@ -3132,6 +3136,8 @@ body[data-role="teacher"] .main-nav {
 }
 
 .bac-panel[data-bac-panel="foreign"] .foreign-year-select {
+  min-width: 0;
+  max-width: 100%;
   min-height: 42px;
   border-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
@@ -3165,6 +3171,13 @@ body[data-role="teacher"] .main-nav {
   .bac-panel[data-bac-panel="foreign"] .study-hero .primary-btn {
     min-width: 100%;
     min-height: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bac-panel[data-bac-panel="foreign"] .foreign-filter-panel {
+    grid-template-columns: 1fr;
+    align-items: stretch;
   }
 }
 

@@ -1068,8 +1068,10 @@
       }
 
       /* Embed mode: blend into parent app */
+      html.is-embedded-root,
       body.is-embedded {
         background: transparent;
+        overflow: hidden;
       }
 
       body.is-embedded .shell {
@@ -1112,6 +1114,7 @@
   <body>
     <script>
       if (new URLSearchParams(location.search).has("embed")) {
+        document.documentElement.classList.add("is-embedded-root");
         document.body.classList.add("is-embedded");
       }
     </script>
@@ -1455,6 +1458,9 @@
           ? exercises.filter((item) => branchMatches(item) && (filters.year === "all" || String(item.year) === String(filters.year)))
           : exercises;
         const availableTopics = [...new Set(scopedExercises.flatMap((item) => item.topics))];
+        if (filters.topic !== "all" && !availableTopics.includes(filters.topic)) {
+          filters.topic = "all";
+        }
 
         branchSelect.innerHTML = Object.entries(branchLabels)
           .map(([key, label]) => `<option value="${key}" ${filters.branch === key ? "selected" : ""}>${label}</option>`)
@@ -1723,7 +1729,15 @@
       function notifyHeight() {
         if (!window.parent || window.parent === window) return;
         window.requestAnimationFrame(() => {
-          const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+          const body = document.body;
+          const html = document.documentElement;
+          const height = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight
+          );
           window.parent.postMessage({ type: "ayla-iframe-height", height }, "*");
         });
       }
@@ -1743,11 +1757,19 @@
       branchSelect.addEventListener("change", (event) => {
         filters.branch = event.target.value;
         filters.year = "all";
+        filters.topic = "all";
+        filters.status = "all";
+        filters.search = "";
+        searchInput.value = "";
         render();
       });
 
       yearSelect.addEventListener("change", (event) => {
         filters.year = event.target.value;
+        filters.topic = "all";
+        filters.status = "all";
+        filters.search = "";
+        searchInput.value = "";
         render();
       });
 
@@ -1827,3 +1849,5 @@
     </script>
   </body>
 </html>
+
+
